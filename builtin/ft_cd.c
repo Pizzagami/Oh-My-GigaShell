@@ -3,24 +3,19 @@
 #include <errno.h>
 #include <string.h>
  
-#define BUFF_LEN        1024
+#define PATH_MAX        1024
  
-int          main(int argc, char *argv[])
+int		main(int argc, char *argv[])
 {
-  int        ret;
-  char       buff[BUFF_LEN];
+	int	ret;
+	char	buff[PATH_MAX];
  
-  if (argc > 1)
-    {
-      printf("Before: %s\n", getcwd(buff, BUFF_LEN -1));
-      ret = chdir(argv[1]);
-      if (ret != 0)
-        {
-          fprintf(stderr, "%s\n", strerror(errno));
-        }
-      printf("After: %s\n", getcwd(buff, BUFF_LEN -1));
-    }
-  else
-    printf("usage: %s <directory>\n", argv[0]);
-  return (0);
+	if (argc > 1)
+	{
+		printf("before: %s\n", getcwd(buff, PATH_MAX -1));
+		ret = chdir(argv[1]);
+		printf("after: %s\n", getcwd(buff, PATH_MAX -1));
+	}
+	
+	return (ret);
 }
