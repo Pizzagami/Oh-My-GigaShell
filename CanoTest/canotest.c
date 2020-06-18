@@ -3,12 +3,12 @@
 
 int	main(int argc, char **argv)
 {
-	char str[100000] = 0;
+	char str[100000] = {0};
 	int x = 0;
 	struct termios  config;	
 	int fd;
 
-	fd = open("/dev/ttyS0", O_RDWR | O_NOCTTY | O_NDELAY);
+	fd = open("/dev/ttys0", O_RDWR | O_NOCTTY | O_NDELAY);
 	if (fd == -1)
 		{
 			printf("FAILURE\n");
@@ -24,10 +24,10 @@ int	main(int argc, char **argv)
 			printf("config termios failure \n");
 			exit(0);
 		}	
-	config.c_iflag &= ~(IGNBRK | BRKINT | ICRNL | INLCR | PARMRK | INPCK | ISTRIP | IXON);
+	config.c_iflag &= ~(IUTF8 | IXON);
 	config.c_oflag = 0;
 	config.c_lflag &= ~(ECHO | ECHONL | ICANON | IEXTEN | ISIG);
-	config.c_cflag &= ~(CSIZE | PARENB);
+	config.c_cflag &= 0;
 	config.c_cflag |= CS8;
 	config.c_cc[VMIN]  = 1;
 	config.c_cc[VTIME] = 0;
