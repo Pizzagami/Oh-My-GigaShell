@@ -2,8 +2,7 @@
 #include <termios.h>
 
 int	main(int argc, char **argv)
-{
-	char str[100000] = {0};
+{;
 	int x = 0;
 	struct termios  config;	
 	int fd;
@@ -41,9 +40,13 @@ int	main(int argc, char **argv)
 		printf("error applying configuration\n");
 		exit(0);
 	}
-	
-	
-
+	char *str;
+	while(1)
+	{
+	//printf("test\n");
+	//	printf("%c\n",(char)getchar());
+		if((x = read(fd, str, 100)) > 0)
+			printf("%s\n",str);	
+	}
 	close(fd);
-//	x = read(0, str, 100000);
 }
