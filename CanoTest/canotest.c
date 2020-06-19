@@ -8,6 +8,7 @@ int	main(int argc, char **argv)
 	int fd;
 
 	fd = open("/dev/ttys0", O_RDWR | O_NOCTTY | O_NDELAY);
+	fd = 0;
 	if (fd == -1)
 		{
 			printf("FAILURE\n");
@@ -32,21 +33,22 @@ int	main(int argc, char **argv)
 	config.c_cc[VTIME] = 0;
 	if(cfsetispeed(&config, B9600) < 0 || cfsetospeed(&config, B9600) < 0)
    	{
-    	printf("com speed error\n");
+    	printf("communication speed error\n");
 		exit(0);
 	}
-	if(tcsetattr(fd, TCSAFLUSH, &config) < 0)
+	if(tcsetattr(fd, 0, &config) < 0)
 	{
 		printf("error applying configuration\n");
 		exit(0);
 	}
-	char *str;
+	char str[100];
 	while(1)
 	{
-	//printf("test\n");
-	//	printf("%c\n",(char)getchar());
-		if((x = read(fd, str, 100)) > 0)
-			printf("%s\n",str);	
+		printf("test\n\r");
+		printf("%d\n",getchar());
+//		x = read(fd, str,sizeof(str));
+//		str[x] = '\n';
+//		printf("%s",str);	
 	}
 	close(fd);
 }
