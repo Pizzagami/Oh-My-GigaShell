@@ -14,12 +14,23 @@ int		ft_strlen(char *str)
 	return (i);
 }
 
+void putstr(char *str)
+{
+	int x;
+
+	x = 0;
+	while(str && str[x])
+		x++;
+	write(1,str,x);
+}
+
 int	main(int argc, char **argv)
 {
 	int x = 0;
-	struct termios  config;	
+	struct termios  config;
+	struct termios save;	
 	int fd;
-
+	tcgetattr(0, &save);
 	fd = open("/dev/ttys0", O_RDWR | O_NOCTTY | O_NDELAY);
 	fd = 0;
 	if (fd == -1)
@@ -38,8 +49,8 @@ int	main(int argc, char **argv)
 			exit(0);
 		}	
 	config.c_iflag &= ~(IXON);
-	config.c_oflag &= ~(OPOST);
-	config.c_lflag &= (ECHO | ECHOE | ICANON | IEXTEN | ISIG);
+	config.c_oflag = 0;
+	config.c_lflag &= ~(ECHO | ECHOE | ICANON | IEXTEN | ISIG);
 	config.c_cflag &= 0;
 	config.c_cflag |= CS8;
 	config.c_cc[VMIN]  = 1;
@@ -55,33 +66,32 @@ int	main(int argc, char **argv)
 		exit(0);
 	}
 
-	char c;
+	char c = '\0';
 	char *str;
 	str = malloc(sizeof(char) * 1);
 	str[0] = '\0';
 	char *tmp;
 	int i = 0;
 	int y = 0;
+	write(1, "&>",2); 
 	while(1)
 	{
+		write(1, &c, 1);
 		int x = 0;
 //		printf("test\n\r");
 //		printf("%d\n",getchar());
-//		printf("|-1|\n\r");
 		x = read(fd, &c, 1);
-//		printf("|0|");
 		if((int)c == 3 || (int)c == 4)
 			break;
 		else if ((int)c == 10)
 		{
-			putchar('\r');
+			putstr("\r\n$>");
 			y = 1;
+			c = '\0';
 		}
-		putchar(c);
 		x = 0;
 		i = ft_strlen(str);
 		tmp = str;
-//		printf("|1|");
 		str = malloc(sizeof(char) * (i + 3));
 		while(x < i)
 		{
@@ -98,5 +108,6 @@ int	main(int argc, char **argv)
 	}
 	printf("\r\n%s\n",str);
 	free(str);
+	tcsetattr(0, TCSADRAIN, &save);
 	close(fd);
 }
