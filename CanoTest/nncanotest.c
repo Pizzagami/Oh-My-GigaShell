@@ -24,6 +24,15 @@ void putstr(char *str)
 	write(1,str,x);
 }
 
+void strend(char *str, char c)
+{
+	int i;
+
+	i = 0;
+	while(str && str[i])
+		i++;
+	str[i - 1] = c;
+}
 int	main(int argc, char **argv)
 {
 	int x = 0;
@@ -85,9 +94,14 @@ int	main(int argc, char **argv)
 			break;
 		else if ((int)c == 10)
 		{
-			putstr("\r\n$>");
+			putstr("\r\n&>");
 			y = 1;
+		}
+		else if((int)c == 127)
+		{
+			putstr("\b \b");
 			c = '\0';
+			strend(str,'\0');
 		}
 		x = 0;
 		i = ft_strlen(str);
@@ -102,11 +116,13 @@ int	main(int argc, char **argv)
 		str[i] = c;
 		str[i + 1] = (y == 1)? '\r': '\0';
 	   	str[i + 2] = '\0';
+		c = (y == 1)? '\0' : c;
 		y = 0;	
 		
 
 	}
-	printf("\r\n%s\n",str);
+	putstr("\n\r");
+	putstr(str);
 	free(str);
 	tcsetattr(0, TCSADRAIN, &save);
 	close(fd);
