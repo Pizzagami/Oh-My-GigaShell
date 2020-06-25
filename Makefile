@@ -4,25 +4,28 @@ LIB = libft.a
 
 FLAG = -Wall -Wextra -Werror
 
-SRCS = ./builtin/builtin_pwd.c
+CFLAGS = -Wall -Wextra -Werror -I includes/ -I includes/libft
+
+SRCS = ./srcs/*.c
 
 OBJS = $(SRCS:.c=.o)
 
 all: $(NAME)
 
-$(NAME): $(LIB)
-	gcc -o $(NAME) $(FLAG) $(SRCS) -L./includes/libft
+$(NAME): $(OBJS)
+	gcc -o $(NAME) $(FLAG) $(OBJS)
 
-$(LIB):
+lib:
 	make -C ./includes/libft re
  
 clean:
 	make -C ./includes/libft clean
+	rm -f $(OBJS)
 
 fclean: clean
 	rm -f $(NAME)
-	make -C libft fclean
 
 re: fclean all
+	rm -rf $(OBJS)
 
-
+.PHONY: all clean fclean re lib
