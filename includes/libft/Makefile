@@ -6,7 +6,7 @@
 #    By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/11 11:50:27 by braimbau          #+#    #+#              #
-#    Updated: 2019/10/19 10:47:05 by braimbau         ###   ########.fr        #
+#    Updated: 2020/06/25 18:54:27 by selgrabl         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,7 +45,8 @@ SRCS =  ./ft_atoi.c        \
         ./ft_strlcat.c     \
         ./ft_strncmp.c     \
         ./ft_substr.c      \
-        ./ft_strlcpy.c       \
+        ./ft_strlcpy.c     \
+		./ft_putstr.c
 
 BONUS = ./ft_lstadd_back.c		\
 		./ft_lstadd_front.c	\

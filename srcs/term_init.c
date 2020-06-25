@@ -29,5 +29,6 @@ void	term_init(struct termios *save)
 		ft_putstr("error applying configuration\n");
 		exit(0);
 	}
-	return
+	return;
 }
+

@@ -2,30 +2,34 @@ NAME = minishell
 
 LIB = libft.a
 
-FLAG = -Wall -Wextra -Werror
+SRCS = ./srcs/main.c	\
+	   ./srcs/bashy.c	\
+	   ./srcs/term_init.c
 
-CFLAGS = -Wall -Wextra -Werror -I includes/ -I includes/libft
+FLAG = -L includes/libft -Wall -Wextra -Werror
 
-SRCS = ./srcs/*.c
+CFLAGS = -Wall -Wextra -Werror -I includes/ -I includes/libft/	
+
+CC = gcc
 
 OBJS = $(SRCS:.c=.o)
 
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	gcc -o $(NAME) $(FLAG) $(OBJS)
+	$(CC) -o $(NAME) $(FLAG) $(CFLAGS) $(OBJS)  ./includes/libft/libft.a
+
 
 lib:
 	make -C ./includes/libft re
  
 clean:
-	make -C ./includes/libft clean
-	rm -f $(OBJS)
+	${RM} $(OBJS)
 
 fclean: clean
-	rm -f $(NAME)
+	${RM} $(NAME)
 
 re: fclean all
-	rm -rf $(OBJS)
+	${RM} $(OBJS)
 
 .PHONY: all clean fclean re lib

@@ -9,14 +9,13 @@ void 	parse(t_hist *hist ,char *str)
 		hist->tab[hist->x] = str;
 		hist->x++;
 	}
-	putstr("parsing....\n\r");
 }
 
 char caspe(char c)	//pointeur sur fctn ?	
 {
 	if((int)c == 127)		//bloquer le del &>
 	{
-		putstr("\b \b");
+		ft_putstr("\b \b");
 		c = '\0';
 	}
 	return(c);
@@ -55,18 +54,22 @@ int		bashy(t_hist *hist)
 	while(1)
 	{
 		write(1, &c, 1);
-		read(fd, &c, 1);
+		read(0, &c, 1);
 		if((int)c == 3 || (int)c == 4) // create break cas
 			break;
 		else if ((int)c == 10)
 		{
-			putstr("\r\n&>");
+			ft_putstr("\r\n&>");
 			parse(hist, str);
 			ft_bzero(str, ft_strlen(str));
 			c = '\0';
 		}
 		else
-			str = remalloc(str);
+		{
+			c =	caspe(c);
+			str = remalloc(str, c);
+		}
 	}
 	free(str);
+	return(0);
 }
