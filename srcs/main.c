@@ -13,6 +13,7 @@ int main(int argc,char **argv)
 	x = bashy(&hist);
 	if(x == 0)
 		ft_putstr("\n\r^C fin du programme\n\r");
+	//free hist
 	tcsetattr(0, TCSADRAIN, &save);
 	return(0);
 }
