@@ -6,7 +6,7 @@ SRCS = ./srcs/main.c	\
 	   ./srcs/bashy.c	\
 	   ./srcs/term_init.c
 
-FLAG = -L includes/libft -Wall -Wextra -Werror
+FLAG = -L includes/libft
 
 CFLAGS = -Wall -Wextra -Werror -I includes/ -I includes/libft/	
 
@@ -22,7 +22,7 @@ $(NAME): $(OBJS)
 
 lib:
 	make -C ./includes/libft re
- 
+	make -C ./includes/libft clean
 clean:
 	${RM} $(OBJS)
 
