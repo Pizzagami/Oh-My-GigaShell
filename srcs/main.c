@@ -12,7 +12,7 @@ int main(int argc,char **argv)
 	term_init(&save);
 	x = bashy(&hist);
 	if(x == 0)
-		ft_putstr("\b\b^C fin du programme\n\r");
+		ft_putstr("\n\r^C fin du programme\n\r");
 	tcsetattr(0, TCSADRAIN, &save);
 	return(0);
 }

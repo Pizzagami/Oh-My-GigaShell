@@ -11,11 +11,15 @@ void 	parse(t_hist *hist ,char *str)
 	}
 }
 
-char caspe(char c)	//pointeur sur fctn ?	
+char caspe(char c, char *str)	//pointeur sur fctn ?	
 {
-	if((int)c == 127)		//bloquer le del &>
+	if((int)c == 127)
 	{
-		ft_putstr("\b \b");
+		if(ft_strlen(str) > 0)
+		{
+			ft_putstr("\b \b");
+			str[ft_strlen(str) - 1] = '\0';
+		}
 		c = '\0';
 	}
 	return(c);
@@ -66,7 +70,7 @@ int		bashy(t_hist *hist)
 		}
 		else
 		{
-			c =	caspe(c);
+			c =	caspe(c, str);
 			str = remalloc(str, c);
 		}
 	}
