@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/11 12:02:39 by braimbau          #+#    #+#             */
-/*   Updated: 2020/06/25 18:53:47 by selgrabl         ###   ########.fr       */
+/*   Updated: 2020/06/29 14:39:54 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ size_t			ft_strlcpy(char *restrict dst, const char *restrict src,
 				size_t size);
 size_t			ft_strlen(const char *s);
 char			*ft_strmapi(const char *s, char (*f) (unsigned int, char));
+int				ft_strcmp(char *s1, char *s2);
 int				ft_strncmp(const char *s1, const char *s2, size_t n);
 char			*ft_strnstr(const char *haystack, const char *needle,
 				size_t len);

@@ -11,8 +11,9 @@ void 	parse(t_hist *hist ,char *str)
 	}
 }
 
-char caspe(char c, char *str)	//pointeur sur fctn ?	
+char caspe(char c, char *str, t_arrow *ar)	//pointeur sur fctn ?	
 {
+	char x[3];
 	if((int)c == 127)
 	{
 		if(ft_strlen(str) > 0)
@@ -22,6 +23,21 @@ char caspe(char c, char *str)	//pointeur sur fctn ?
 		}
 		c = '\0';
 	}
+	if((int)c == 27)
+	{
+		read(0,x,2);
+		x[2] = '\0';
+		if (ft_strcmp("[D",x) == 0)
+			ar->x--;
+		if (ft_strcmp("[C",x) == 0)
+			ar->x++;
+		if (ft_strcmp("[A",x) == 0)
+			ar->y--;
+		if (ft_strcmp("[B",x) == 0)
+			ar->y++;
+		ft_putstr(x);
+		exit(0);
+	}	
 	return(c);
 }
 
@@ -46,7 +62,7 @@ char *remalloc(char *str, char c)
 	return(str);
 }
 
-int		bashy(t_hist *hist)
+int		bashy(t_hist *hist, t_arrow *ar)
 {
 	char c;
 	char *str;
@@ -70,7 +86,7 @@ int		bashy(t_hist *hist)
 		}
 		else
 		{
-			c =	caspe(c, str);
+			c =	caspe(c, str, ar);
 			str = remalloc(str, c);
 		}
 	}

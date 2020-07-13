@@ -7,10 +7,13 @@ int main(int argc,char **argv)
 	int x;
 	struct termios save;
 	t_hist	hist;
+	t_arrow ar;
 
+	ar.x = 0;
+	ar.y = 0;
 	hist.x = 0;
 	term_init(&save);
-	x = bashy(&hist);
+	x = bashy(&hist, &ar);
 	if(x == 0)
 		ft_putstr("\n\r^C fin du programme\n\r");
 	//free hist

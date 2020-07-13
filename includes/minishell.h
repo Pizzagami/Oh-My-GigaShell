@@ -10,6 +10,12 @@ typedef struct		s_hist
 	int		x;
 }					t_hist;
 
+typedef struct		s_arrow
+{
+	int		x;
+	int		y;
+}					t_arrow;
+
 void		term_init(struct termios *save);
 void		parse(t_hist *hist, char *str);
 char		caspe(char c, char *str);

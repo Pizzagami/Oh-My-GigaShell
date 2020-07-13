@@ -117,9 +117,7 @@ int	main(int argc, char **argv)
 		str[i + 1] = (y == 1)? '\r': '\0';
 	   	str[i + 2] = '\0';
 		c = (y == 1)? '\0' : c;
-		y = 0;	
-		
-
+		y = 0;		
 	}
 	putstr("\n\r");
 	putstr(str);
