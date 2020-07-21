@@ -11,19 +11,25 @@ void 	parse(t_hist *hist ,char *str)
 	}
 }
 
-char caspe(char c, char *str, t_arrow *ar)	//pointeur sur fctn ?	
+void	strdel(char *str, t_arrow *ar)
+{
+	ft_strlen(
+}
+
+
+char	caspe(char c, char *str, t_arrow *ar)	//pointeur sur fctn ?	
 {
 	char x[3];
 	if((int)c == 127)
 	{
-		if(ft_strlen(str) > 0)
+		strdel(str, ar); //traitemnt string del
 		{
 			ft_putstr("\b \b");
 			str[ft_strlen(str) - 1] = '\0';
 		}
 		c = '\0';
 	}
-	if((int)c == 27)
+	else if((int)c == 27)
 	{
 		read(0,x,2);
 		x[2] = '\0';
@@ -35,9 +41,12 @@ char caspe(char c, char *str, t_arrow *ar)	//pointeur sur fctn ?
 			ar->y--;
 		if (ft_strcmp("[B",x) == 0)
 			ar->y++;
-		ft_putstr(x);
-		exit(0);
-	}	
+	}
+	else
+	{
+		str = remalloc(str, c);
+		write(1, &c, 1);
+	}
 	return(c);
 }
 
@@ -73,7 +82,6 @@ int		bashy(t_hist *hist, t_arrow *ar)
 	write(1, "&>",2);
 	while(1)
 	{
-		write(1, &c, 1);
 		read(0, &c, 1);
 		if((int)c == 3 || (int)c == 4) // create break cas
 			break;
@@ -82,13 +90,9 @@ int		bashy(t_hist *hist, t_arrow *ar)
 			ft_putstr("\r\n&>");
 			parse(hist, str);
 			ft_bzero(str, ft_strlen(str));
-			c = '\0';
 		}
 		else
-		{
 			c =	caspe(c, str, ar);
-			str = remalloc(str, c);
-		}
 	}
 	free(str);
 	return(0);
