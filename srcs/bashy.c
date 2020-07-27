@@ -13,7 +13,23 @@ void 	parse(t_hist *hist ,char *str)
 
 void	strdel(char *str, t_arrow *ar)
 {
-	ft_strlen(
+	int x;
+
+	x = 0;
+	x = ft_strlen(str) + ar->x;
+	while (x + 1 < (int)ft_strlen(str))
+	{
+		str[x] = (x == (int)ft_strlen(str)) ? 0: str[x + 1];
+		write(1, &str[x], 1);
+		x++;
+	}
+	x = 0;
+	while (x > ar->x)
+	{
+		write(1 , "\b", 0);
+		x--;
+	}
+	str[x] = 0;
 }
 
 
@@ -23,10 +39,6 @@ char	caspe(char c, char *str, t_arrow *ar)	//pointeur sur fctn ?
 	if((int)c == 127)
 	{
 		strdel(str, ar); //traitemnt string del
-		{
-			ft_putstr("\b \b");
-			str[ft_strlen(str) - 1] = '\0';
-		}
 		c = '\0';
 	}
 	else if((int)c == 27)
@@ -34,9 +46,18 @@ char	caspe(char c, char *str, t_arrow *ar)	//pointeur sur fctn ?
 		read(0,x,2);
 		x[2] = '\0';
 		if (ft_strcmp("[D",x) == 0)
+		{
 			ar->x--;
+			ft_putstr("\b");
+		}
 		if (ft_strcmp("[C",x) == 0)
-			ar->x++;
+		{
+			if(ar->x < 0)
+			{
+				ar->x++;
+				ft_putstr("\033[C");
+			}
+		}
 		if (ft_strcmp("[A",x) == 0)
 			ar->y--;
 		if (ft_strcmp("[B",x) == 0)
@@ -58,7 +79,7 @@ char *remalloc(char *str, char c)
 
 	x = 0;
 	i = ft_strlen(str);
-	tmp = str;
+	tmp = ft_strdup(str);
 	str = malloc(sizeof(char) * (i + 2));
 	while(x < i)
 	{
