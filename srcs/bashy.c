@@ -11,30 +11,31 @@ void 	parse(t_hist *hist ,char *str)
 	}
 }
 
-void	strdel(char *str, t_arrow *ar)
+void	strdel(char **str, t_arrow *ar)
 {
 	int x;
 
-	x = 0;
-	x = ft_strlen(str) + ar->x;
-	while (x + 1 < (int)ft_strlen(str))
+	x = ft_strlen(*str) + ar->x;
+	while (x + 1 < (int)ft_strlen(*str))
 	{
-		str[x] = (x == (int)ft_strlen(str)) ? 0: str[x + 1];
-		write(1, &str[x], 1);
+		
+		*(str[x]) = (x + 1 == (int)ft_strlen(*str)) ? 0: *(str[x + 1]);
+		write(1, &(*str[x]), 1);
 		x++;
 	}
 	x = 0;
 	while (x > ar->x)
 	{
-		write(1 , "\b", 0);
+		ft_putstr("\b");
 		x--;
 	}
 	str[x] = 0;
 }
 
 
-char	caspe(char c, char *str, t_arrow *ar)	//pointeur sur fctn ?	
+char	caspe(char c, char **str, t_arrow *ar)	//pointeur sur fctn ?	
 {
+
 	char x[3];
 	if((int)c == 127)
 	{
@@ -65,7 +66,7 @@ char	caspe(char c, char *str, t_arrow *ar)	//pointeur sur fctn ?
 	}
 	else
 	{
-		str = remalloc(str, c);
+		*str = remalloc(*str, c);
 		write(1, &c, 1);
 	}
 	return(c);
@@ -113,7 +114,7 @@ int		bashy(t_hist *hist, t_arrow *ar)
 			ft_bzero(str, ft_strlen(str));
 		}
 		else
-			c =	caspe(c, str, ar);
+			c =	caspe(c, &str, ar);
 	}
 	free(str);
 	return(0);
