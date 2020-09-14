@@ -11,25 +11,26 @@ void 	parse(t_hist *hist ,char *str)
 	}
 }
 
-void	strdel(char **str, t_arrow *ar)
+char*	strdel(char *str, t_arrow *ar)
 {
 	int x;
+	int y;
 
-	x = ft_strlen(*str) + ar->x;
-	while (x + 1 < (int)ft_strlen(*str))
+	y = ft_strlen(str);
+	x =	y + ar->x;
+	int i = x;
+	while (x <= y)
 	{
-		
-		*(str[x]) = (x + 1 == (int)ft_strlen(*str)) ? 0: *(str[x + 1]);
-		write(1, &(*str[x]), 1);
+		str[x - 1] = (x == y) ? 0: str[x];
+		write(1, &(str[x]), 1);
 		x++;
 	}
-	x = 0;
-	while (x > ar->x)
+	while (i <= y)
 	{
 		ft_putstr("\b");
-		x--;
+		i++;
 	}
-	str[x] = 0;
+	return (str);
 }
 
 
@@ -39,7 +40,7 @@ char	caspe(char c, char **str, t_arrow *ar)	//pointeur sur fctn ?
 	char x[3];
 	if((int)c == 127)
 	{
-		strdel(str, ar); //traitemnt string del
+	 *str = strdel(*str, ar); //traitemnt string del
 		c = '\0';
 	}
 	else if((int)c == 27)
@@ -109,6 +110,8 @@ int		bashy(t_hist *hist, t_arrow *ar)
 			break;
 		else if ((int)c == 10)
 		{
+			ft_putstr("\n");
+			ft_putstr(str);
 			ft_putstr("\r\n&>");
 			parse(hist, str);
 			ft_bzero(str, ft_strlen(str));
