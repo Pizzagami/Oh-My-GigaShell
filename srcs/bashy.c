@@ -71,11 +71,12 @@ char	*strput(char *str, t_arrow *ar, char c)
 		}
 		str[y - 1] = c;
 		y = ft_strlen(str);
-		while (x < y)
+		while (y + ar->x > 1)
 		{
-			write(1, &(str[x]), 1);
-			x++;
+			ft_putstr("\b");
+			y--;
 		}
+		ft_putstr(str);
 		x = 1;
 		while (ar->x < --x)
 			ft_putstr("\b");
