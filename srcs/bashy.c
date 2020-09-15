@@ -11,24 +11,74 @@ void 	parse(t_hist *hist ,char *str)
 	}
 }
 
-char*	strdel(char *str, t_arrow *ar)
+char	*strdel(char *str, t_arrow *ar)
 {
 	int x;
 	int y;
 
 	y = ft_strlen(str);
 	x =	y + ar->x;
-	int i = x;
-	while (x <= y)
+	if (x < 1)
+		return(str);
+	while (x < y)
 	{
-		str[x - 1] = (x == y) ? 0: str[x];
-		write(1, &(str[x]), 1);
+		str[x - 1] = str[x];
 		x++;
 	}
-	while (i <= y)
+	if (x == y)
+		{
+			str[x - 1] = 0;
+			y--;
+		}
+	x =	y + ar->x;
+	while (x < y)
 	{
 		ft_putstr("\b");
-		i++;
+		write(1, &(str[x]), 1);
+		ft_putstr("\033[C");
+		x++;
+	}
+	if (x == y)
+		{
+			ft_putstr("\b \b");
+		}
+	x = 1;
+	while (ar->x < --x)
+		ft_putstr("\b");
+	return (str);
+}
+
+char	*strput(char *str, t_arrow *ar, char c)
+{
+	int x;
+	int y;
+
+	if (ar->x == 0)
+	{
+		write(1, &c, 1);
+		str = remalloc(str, c);
+	}
+	else
+	{
+		str = remalloc(str, 'X');
+		y = ft_strlen(str);
+		x =	y + ar->x;
+		x++;
+		while (y > x)
+		{	
+			str[y - 1] = str[y - 2];
+			y--;
+		}
+		str[y - 1] = c;
+		y = ft_strlen(str);
+		while (x < y)
+		{
+			write(1, &(str[x]), 1);
+			x++;
+		}
+		x = 1;
+		while (ar->x < --x)
+			ft_putstr("\b");
 	}
 	return (str);
 }
@@ -47,7 +97,7 @@ char	caspe(char c, char **str, t_arrow *ar)	//pointeur sur fctn ?
 	{
 		read(0,x,2);
 		x[2] = '\0';
-		if (ft_strcmp("[D",x) == 0)
+		if (ft_strcmp("[D",x) == 0 && ft_strlen(*str) + ar->x > 0)
 		{
 			ar->x--;
 			ft_putstr("\b");
@@ -66,12 +116,13 @@ char	caspe(char c, char **str, t_arrow *ar)	//pointeur sur fctn ?
 			ar->y++;
 	}
 	else
-	{
-		*str = remalloc(*str, c);
-		write(1, &c, 1);
-	}
+		*str = strput(*str,ar, c);
+	/*	*str = remalloc(*str, c);
+		write(1, &c, 1);*/
 	return(c);
 }
+
+
 
 char *remalloc(char *str, char c)
 {
@@ -113,6 +164,7 @@ int		bashy(t_hist *hist, t_arrow *ar)
 			ft_putstr("\n");
 			ft_putstr(str);
 			ft_putstr("\r\n&>");
+			ar->x = 0;
 			parse(hist, str);
 			ft_bzero(str, ft_strlen(str));
 		}
