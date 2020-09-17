@@ -12,6 +12,7 @@ int main(int argc,char **argv)
 	ar.x = 0;
 	ar.y = 0;
 	hist.x = 0;
+	ft_init_tab(&hist);
 	term_init(&save);
 	x = bashy(&hist, &ar);
 	if(x == 0)

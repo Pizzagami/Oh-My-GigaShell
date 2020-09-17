@@ -2,13 +2,19 @@
 #include "minishell.h"
 
 
-void 	parse(t_hist *hist ,char *str)
+t_hist	*historic(t_hist *hist ,char *str)
 {
-	if(hist->x < 256)
+	int x;
+
+	x = 254;
+	free(hist->tab[255]);
+	while (x >= 0)
 	{
-		hist->tab[hist->x] = str;
-		hist->x++;
+		hist->tab[x + 1] = hist->tab[x];
+		x--;
 	}
+	hist->tab[0] = ft_strdup(str);
+	return(hist);
 }
 
 char	*strdel(char *str, t_arrow *ar)
@@ -118,12 +124,8 @@ char	caspe(char c, char **str, t_arrow *ar)	//pointeur sur fctn ?
 	}
 	else
 		*str = strput(*str,ar, c);
-	/*	*str = remalloc(*str, c);
-		write(1, &c, 1);*/
 	return(c);
 }
-
-
 
 char *remalloc(char *str, char c)
 {
@@ -162,16 +164,21 @@ int		bashy(t_hist *hist, t_arrow *ar)
 			break;
 		else if ((int)c == 10)
 		{
-			ft_putstr("\n");
-			ft_putstr(str);
 			ft_putstr("\r\n&>");
 			ar->x = 0;
-			parse(hist, str);
+			hist = historic(hist, str);
 			ft_bzero(str, ft_strlen(str));
 		}
 		else
 			c =	caspe(c, &str, ar);
 	}
+	while(hist->tab[hist->x][0] != 0)
+		{
+			ft_putstr(hist->tab[hist->x]);
+			ft_putstr("\r\n");
+			hist->x++;
+		}
+		hist->x = 0;
 	free(str);
 	return(0);
 }

@@ -2,9 +2,10 @@ NAME = minishell
 
 LIB = libft.a
 
-SRCS = ./srcs/main.c	\
-	   ./srcs/bashy.c	\
-	   ./srcs/term_init.c
+SRCS = ./srcs/main.c		\
+	   ./srcs/bashy.c		\
+	   ./srcs/term_init.c	\
+	   ./srcs/tools.c
 
 FLAG = -L includes/libft
 
