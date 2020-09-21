@@ -17,8 +17,8 @@ typedef struct		s_arrow
 }					t_arrow;
 
 void		term_init(struct termios *save);
-t_hist		*historic(t_hist *hist, char *str);
-char		caspe(char c, char **str, t_arrow *ar);
+void		historic(t_hist *hist, char *str);
+char		caspe(char c, char **str, t_arrow *ar, t_hist *hist);
 char		*remalloc(char *str, char c);
 int			bashy(t_hist *hist, t_arrow *ar);
 

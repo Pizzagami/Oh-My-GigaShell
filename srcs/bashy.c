@@ -2,7 +2,7 @@
 #include "minishell.h"
 
 
-t_hist	*historic(t_hist *hist ,char *str)
+void	historic(t_hist *hist ,char *str)
 {
 	int x;
 
@@ -14,7 +14,6 @@ t_hist	*historic(t_hist *hist ,char *str)
 		x--;
 	}
 	hist->tab[0] = ft_strdup(str);
-	return(hist);
 }
 
 char	*strdel(char *str, t_arrow *ar)
@@ -91,7 +90,7 @@ char	*strput(char *str, t_arrow *ar, char c)
 }
 
 
-char	caspe(char c, char **str, t_arrow *ar)	//pointeur sur fctn ?	
+char	caspe(char c, char **str, t_arrow *ar, t_hist *hist)	//pointeur sur fctn ?	
 {
 
 	char x[3];
@@ -117,10 +116,40 @@ char	caspe(char c, char **str, t_arrow *ar)	//pointeur sur fctn ?
 				ft_putstr("\033[C");
 			}
 		}
-		if (ft_strcmp("[A",x) == 0)
-			ar->y--;
-		if (ft_strcmp("[B",x) == 0)
+		if (ft_strcmp("[A",x) == 0 && hist->x > ar->y) // separer pour normer
+		{
+			int x = 0;
+			while (ar->x < 0)
+			{
+				ar->x++;
+				ft_putstr("\033[C");
+			}
+			while((int)ft_strlen(*str) > x)
+			{
+			x++;
+			ft_putstr("\b \b");
+		} 
+			ft_putstr(hist->tab[ar->y]);
+			*str = ft_strdup(hist->tab[ar->y]);
 			ar->y++;
+		}
+		if (ft_strcmp("[B",x) == 0 && ar->y > 0)
+			{
+			ar->y --;
+			int x = 0;
+			while (ar->x < 0)
+			{
+				ar->x++;
+				ft_putstr("\033[C");
+			}
+			while((int)ft_strlen(*str) > x)
+			{
+			x++;
+			ft_putstr("\b \b");
+		} 
+			ft_putstr(hist->tab[ar->y]);
+			*str = ft_strdup(hist->tab[ar->y]);
+		}
 	}
 	else
 		*str = strput(*str,ar, c);
@@ -156,7 +185,7 @@ int		bashy(t_hist *hist, t_arrow *ar)
 	str = malloc(sizeof(char) * 1);
 	str[0] = '\0';
 	c ='\0';
-	write(1, "&>",2);
+	write(1, "My-Bash $ ",10);
 	while(1)
 	{
 		read(0, &c, 1);
@@ -164,21 +193,23 @@ int		bashy(t_hist *hist, t_arrow *ar)
 			break;
 		else if ((int)c == 10)
 		{
-			ft_putstr("\r\n&>");
+			ft_putstr("\r\nMy-Bash $ ");
 			ar->x = 0;
-			hist = historic(hist, str);
+			ar->y = 0;
+			historic(hist, str);
+			hist->x++;
 			ft_bzero(str, ft_strlen(str));
 		}
 		else
-			c =	caspe(c, &str, ar);
+			c =	caspe(c, &str, ar, hist);
 	}
-	while(hist->tab[hist->x][0] != 0)
+	int x = 0;
+	while(hist->tab[x][0] != 0)
 		{
-			ft_putstr(hist->tab[hist->x]);
+			ft_putstr(hist->tab[x]);
 			ft_putstr("\r\n");
-			hist->x++;
+			x++;
 		}
-		hist->x = 0;
 	free(str);
 	return(0);
 }
