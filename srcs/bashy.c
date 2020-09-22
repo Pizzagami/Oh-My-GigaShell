@@ -119,6 +119,8 @@ char	caspe(char c, char **str, t_arrow *ar, t_hist *hist)	//pointeur sur fctn ?
 		if (ft_strcmp("[A",x) == 0 && hist->x > ar->y) // separer pour normer
 		{
 			int x = 0;
+		if (ar->y == 0 && ft_strlen(*str))
+				ar->y++;
 			while (ar->x < 0)
 			{
 				ar->x++;
@@ -135,6 +137,8 @@ char	caspe(char c, char **str, t_arrow *ar, t_hist *hist)	//pointeur sur fctn ?
 		}
 		if (ft_strcmp("[B",x) == 0 && ar->y > 0)
 			{
+			if(ar->y == hist->x)
+				ar->y--;
 			ar->y --;
 			int x = 0;
 			while (ar->x < 0)
