@@ -9,7 +9,7 @@ void	term_init(struct termios *save)
 	fd = 0;
 	if (tcgetattr(fd, &config) < 0)
 	{
-		ft_putstr("config termios failure \n");
+		ft_putstr("config termios failure \n\r");
 		exit(0);
 	}
 	config.c_iflag &= ~(IXON);
@@ -21,12 +21,12 @@ void	term_init(struct termios *save)
 	config.c_cc[VTIME] = 0;
 	if(cfsetispeed(&config, B9600) < 0 || cfsetospeed(&config, B9600) < 0)
 	{
-		ft_putstr("communication speed error\n");
+		ft_putstr("communication speed error\n\r");
 		exit(0);
 	}
 	if(tcsetattr(fd, TCSADRAIN, &config) < 0)
 	{
-		ft_putstr("error applying configuration\n");
+		ft_putstr("error applying configuration\n\r");
 		exit(0);
 	}
 	return;

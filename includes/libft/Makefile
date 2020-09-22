@@ -32,6 +32,7 @@ SRCS =  ./ft_atoi.c			\
         ./ft_calloc.c		\
         ./ft_isdigit.c		\
         ./ft_memchr.c		\
+        ./ft_strfind.c      \
         ./ft_memset.c		\
         ./ft_putstr_fd.c	\
         ./ft_strjoin.c		\
@@ -49,20 +50,10 @@ SRCS =  ./ft_atoi.c			\
         ./ft_strlcpy.c		\
 		./ft_putstr.c
 
-BONUS = ./ft_lstadd_back.c		\
-		./ft_lstadd_front.c	\
-		./ft_lstclear.c		\
-		./ft_lstdelone.c		\
-		./ft_lstiter.c			\
-		./ft_lstlast.c			\
-		./ft_lstmap.c			\
-		./ft_lstnew.c			\
-		./ft_lstsize.c			\
-
 
 OBJ = $(SRCS:.c=.o)
 
-OBJ_BONUS = $(BONUS:.c=.o) $(OBJ)
+OBJ_BONUS = $(OBJ)
 
 CFLAGS += -Wall -Wextra -Werror -I./includes
 

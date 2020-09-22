@@ -1,5 +1,21 @@
 #include "minishell.h"
 #include <stdlib.h>
+#include "parser.h"
+
+void	printf_token(t_token *token_o)
+{
+	int		i;
+	t_token *token;
+
+	token = token_o;
+	i = 0;
+	while (token)
+	{
+		printf("token nᵒ %d : _%s_ type = %d\n\r", i, token->str, token->type);
+		i++;
+		token = token->next;
+	}
+}
 
 void ft_init_tab(t_hist *hist)
 {
