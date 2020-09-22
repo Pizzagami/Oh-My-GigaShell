@@ -85,10 +85,10 @@ int		exec_redirection(t_redirection *redirection, t_omm omm)
 
 	if (redirection && redirection->type == GREAT)
 	{
-		fd = open(redirection->filename, O_CREAT | O_RDWR | O_TRUNC);
+		fd = open(redirection->filename, O_CREAT | O_RDWR | O_TRUNC, 777);
 		if (fd == -1)
 		{
-			printf("Error : %s\n\r", strerror(errno));
+			printf("Error : %s\n", strerror(errno));
 			return (1);
 		}
 		dup2(fd, 1);
@@ -96,10 +96,10 @@ int		exec_redirection(t_redirection *redirection, t_omm omm)
 	}
 	else if (redirection && redirection->type == DGREAT)
 	{
-		fd = open(redirection->filename, O_CREAT | O_RDWR | O_APPEND);
+		fd = open(redirection->filename, O_CREAT | O_RDWR | O_APPEND, 777);
 		if (fd == -1)
 		{
-			printf("Error : %s\n\r", strerror(errno));
+			printf("Error : %s\n", strerror(errno));
 			return (1);
 		}
 		dup2(fd, 1);
@@ -107,10 +107,10 @@ int		exec_redirection(t_redirection *redirection, t_omm omm)
 	}
 	else if (redirection && redirection->type == LESS)
 	{
-		fd = open(redirection->filename, O_RDONLY);
+		fd = open(redirection->filename, O_RDONLY, 777);
 		if (fd == -1)
 		{
-			printf("Error : %s\n\r", strerror(errno));
+			printf("Error : %s\n", strerror(errno));
 			return (1);
 		}
 		dup2(fd, 0);
@@ -118,10 +118,10 @@ int		exec_redirection(t_redirection *redirection, t_omm omm)
 	}
 	else
 	{
-		//if (omm.stdout != 1)
-			//dup2(omm.stdout, 1);
-		//if (omm.stdin != 0)
-			//dup2(omm.stdin, 0);
+		if (omm.stdout != 1)
+			dup2(omm.stdout, 1);
+		if (omm.stdin != 0)
+			dup2(omm.stdin, 0);
 	}
 	if (redirection && redirection->brother)
 	{
@@ -154,7 +154,7 @@ int		exec_instruction(t_instruction *instruction, t_omm omm)
 		if (ret)
 		{
 			free(tab);
-			write(2, "Error while executing program\n\r", 30);
+			write(2, "Error while executing program\n", 30);
 			//exit(0)
 		}
 		else
@@ -162,7 +162,7 @@ int		exec_instruction(t_instruction *instruction, t_omm omm)
 	}
 	else
 	{
-		ft_putstr("\r");
+		ft_putstr("");
 		wait(&ret);
 		free(tab);
 	}

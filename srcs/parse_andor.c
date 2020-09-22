@@ -24,7 +24,7 @@ t_andor	*parse_andor2(t_andor *andor, int *ec, t_token *token, t_token *max)
 	andor->brother = parse_andor(token, max, ec);
 	if (andor->brother == NULL && andor->type)
 	{
-		print_error("Error : Missing element(s) after && or ||\n\r", ec, 2311);
+		print_error("Error : Missing element(s) after && or ||\n", ec, 2311);
 		return (andor);
 	}
 	return (andor);
@@ -38,11 +38,11 @@ t_andor	*parse_andor(t_token *start, t_token *max, int *ec)
 		return (NULL);
 	andor = malloc(sizeof(t_andor));
 	if (andor == NULL)
-		return (print_error("Malloc error\n\r", ec, 13));
+		return (print_error("Malloc error\n", ec, 13));
 	if (start && (start->type == AND_IF || start->type == OR_IF ||
 		start->type == AND))
 	{
-		print_error("Error : Missing element(s) before && or ||\n\r", ec, 2301);
+		print_error("Error : Missing element(s) before && or ||\n", ec, 2301);
 		return (andor);
 	}
 	token = start;

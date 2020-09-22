@@ -17,20 +17,20 @@ t_list	*parse_list(t_token *start, t_token *max, int *ec)
 	t_list	*list;
 	t_token	*token;
 
-	//printf("START = %d\n\r", start->type);
+	//printf("START = %d\n", start->type);
 	list = NULL;
 	if (!start || start == max)
 		return (NULL);
 	list = malloc(sizeof(t_list));
 	if (list == NULL)
 	{
-		print_error("Malloc error\n\r", ec, 12);
+		print_error("Malloc error\n", ec, 12);
 		return (NULL);
 	}
 	token = start;
 	if (start && start->type == SEMI && token != max)
 	{
-		print_error("Error : Missing element(s) before semicolon\n\r", ec, 2200);
+		print_error("Error : Missing element(s) before semicolon\n", ec, 2200);
 		return (list);
 	}
 	while (token && token != max && (token->type != SEMI ||

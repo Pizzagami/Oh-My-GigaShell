@@ -197,13 +197,13 @@ int		bashy(t_hist *hist, t_arrow *ar, char **env)
 			break;
 		else if ((int)c == 10)
 		{
-			ft_putstr("\r\n");
+			ft_putstr("\n");
 			ar->x = 0;
 			ar->y = 0;
 			historic(hist, str);
 			hist->x++;
 			persecutor(hist, ar, env);
-			ft_putstr("\rMy-Bash $ ");
+			ft_putstr("My-Bash $ ");
 			ft_bzero(str, ft_strlen(str));
 		}
 		else

@@ -16,7 +16,7 @@ int main(int argc,char **argv, char **env)
 	term_init(&save);
 	x = bashy(&hist, &ar, env);
 	if(x == 0)
-		ft_putstr("\n\r^C fin du programme\n\r");
+		ft_putstr("\n^C fin du programme\n");
 	//free hist
 	tcsetattr(0, TCSADRAIN, &save);
 	return(0);

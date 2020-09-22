@@ -17,24 +17,24 @@ int			brackets_error(t_token **token, t_token *start, t_token *max,
 {
 	if (!*token)
 	{
-		print_error("Error : Missing closing paranthesis\n\r", ec, 2525);
+		print_error("Error : Missing closing paranthesis\n", ec, 2525);
 		return (1);
 	}
 	if ((*token)->type == CBRA)
 	{
-		print_error("Error : Void paranthesis\n\r", ec, 2536);
+		print_error("Error : Void paranthesis\n", ec, 2536);
 		return (1);
 	}
 	while (*token && is_in_brackets(*token, start) && *token != max)
 		*token = (*token)->next;
 	if (!(*token))
 	{
-		print_error("Error : Missing closing paranthesis\n\r", ec, 2525);
+		print_error("Error : Missing closing paranthesis\n", ec, 2525);
 		return (1);
 	}
 	if (double_brackets(start->next, *token))
 	{
-		print_error("Error : Way too much paranthesis\n\r", ec, 2536);
+		print_error("Error : Way too much paranthesis\n", ec, 2536);
 		return (1);
 	}
 	return (0);
@@ -54,7 +54,7 @@ t_command	*parse_command(t_token *start, t_token *max, int *ec)
 	token = start;
 	if (token->type == CBRA)
 	{
-		print_error("Error : Missing opening paranthesis\n\r", ec, 2524);
+		print_error("Error : Missing opening paranthesis\n", ec, 2524);
 		return (command);
 	}
 	if (token->type == OBRA)

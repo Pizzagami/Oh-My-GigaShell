@@ -25,7 +25,7 @@ t_instruction	*parse_instruction(t_token *start, t_token *max, int *ec)
 	{
 		if (token->type == OBRA || token->type == CBRA)
 		{
-			print_error("Error : Parsing error near unexepected token\n\r", ec, 2736);
+			print_error("Error : Parsing error near unexepected token\n", ec, 2736);
 		}
 		token = token->next;
 	}

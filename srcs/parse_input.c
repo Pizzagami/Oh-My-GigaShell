@@ -21,7 +21,7 @@ t_input	*parse_input(t_token *start, int *ec)
 	input = malloc(sizeof(t_input));
 	if (input == NULL)
 	{
-		print_error("Malloc error\n\r", ec, 11);
+		print_error("Malloc error\n", ec, 11);
 		return (NULL);
 	}
 	input->list = parse_list(start, NULL, ec);

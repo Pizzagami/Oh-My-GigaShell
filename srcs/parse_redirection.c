@@ -25,12 +25,12 @@ t_redirection	*parse_redirection(t_token *token, t_token *max, int *ec)
 		{
 			if (!token->next)
 			{
-				print_error("Error : Missing file after redirection\n\r", ec, 2513);
+				print_error("Error : Missing file after redirection\n", ec, 2513);
 				return (redirection_start);
 			}
 			if (token->next->type >= LESS)
 			{
-				print_error("Error : Missing file after redirection\n\r", ec, 2513);
+				print_error("Error : Missing file after redirection\n", ec, 2513);
 				return (redirection_start);
 			}
 			redirection = malloc(sizeof(t_redirection));

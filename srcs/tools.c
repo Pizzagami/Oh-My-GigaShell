@@ -11,7 +11,7 @@ void	printf_token(t_token *token_o)
 	i = 0;
 	while (token)
 	{
-		printf("token nᵒ %d : _%s_ type = %d\n\r", i, token->str, token->type);
+		printf("token nᵒ %d : _%s_ type = %d\n", i, token->str, token->type);
 		i++;
 		token = token->next;
 	}

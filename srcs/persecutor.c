@@ -26,7 +26,7 @@ int		persecutor(t_hist *hist, t_arrow *ar, char *env[])
 	token_start = create_token_list(hist->tab[0], &ec);
 	if (ec)
 	{
-		printf("Missing closing double quote\n\r");
+		printf("Missing closing double quote\n");
 		clean_token_list(token_start);
 		return (ec);
 	}
