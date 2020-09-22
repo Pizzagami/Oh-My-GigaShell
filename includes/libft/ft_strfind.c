@@ -1,26 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstiter.c                                       :+:      :+:    :+:   */
+/*   ft_strfind.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: braimbau <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/16 14:30:48 by selgrabl          #+#    #+#             */
-/*   Updated: 2019/10/19 11:46:36 by selgrabl         ###   ########.fr       */
+/*   Created: 2020/07/30 18:38:06 by braimbau          #+#    #+#             */
+/*   Updated: 2020/07/30 18:47:39 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+# include "libft.h"
 
-void	ft_lstiter(t_list *lst, void (*f)(void *))
+int ft_strfind(char *str, char c)
 {
-	t_list *current;
+	int i;
 
-	current = lst;
-	if (lst)
-		while (current)
-		{
-			f(current->content);
-			current = current->next;
-		}
+	i = 0;
+	while (str[i] && str[i] != c)
+		i++;
+	if (!str[i])
+		return (-1);
+	return (i);
 }

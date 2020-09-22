@@ -1,30 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstadd_back.c                                   :+:      :+:    :+:   */
+/*   fd_gestion.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: braimbau <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/16 14:30:48 by selgrabl          #+#    #+#             */
-/*   Updated: 2019/10/19 17:28:40 by selgrabl         ###   ########.fr       */
+/*   Created: 2020/07/28 15:03:37 by braimbau          #+#    #+#             */
+/*   Updated: 2020/09/14 09:48:25 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "parser.h"
 
-void	ft_lstadd_back(t_list **alst, t_list *new)
+t_omm	init_std_fd(char **env)
 {
-	t_list	*tmp;
+	t_omm omm;
+	
+	omm.env = env;
+	omm.stdin = dup(0);
+	omm.stdout = dup(1);
+	return (omm);
+}
 
-	if (alst == NULL)
-		return ;
-	tmp = *alst;
-	if (*alst == NULL)
-		*alst = new;
-	else
-	{
-		while (tmp->next)
-			tmp = tmp->next;
-		tmp->next = new;
-	}
+void	reset_fd(t_omm omm)
+{
+		if (1)
+			dup2(omm.stdout, 1);
+		if (1)
+			dup2(omm.stdin, 0);
 }

@@ -2,26 +2,161 @@
 #include "minishell.h"
 
 
-void 	parse(t_hist *hist ,char *str)
+void	historic(t_hist *hist ,char *str)
 {
-	if(hist->x < 256)
+	int x;
+
+	x = 254;
+	free(hist->tab[255]);
+	while (x >= 0)
 	{
-		hist->tab[hist->x] = str;
-		hist->x++;
+		hist->tab[x + 1] = hist->tab[x];
+		x--;
 	}
+	hist->tab[0] = ft_strdup(str);
 }
 
-char caspe(char c, char *str)	//pointeur sur fctn ?	
+char	*strdel(char *str, t_arrow *ar)
 {
-	if((int)c == 127)
+	int x;
+	int y;
+
+	y = ft_strlen(str);
+	x =	y + ar->x;
+	if (x < 1)
+		return(str);
+	while (x < y)
 	{
-		if(ft_strlen(str) > 0)
+		str[x - 1] = str[x];
+		x++;
+	}
+	if (x == y)
+		{
+			str[x - 1] = 0;
+			y--;
+		}
+	x =	y + ar->x;
+	while (x < y)
+	{
+		ft_putstr("\b");
+		write(1, &(str[x]), 1);
+		ft_putstr("\033[C");
+		x++;
+	}
+	if (x == y)
 		{
 			ft_putstr("\b \b");
-			str[ft_strlen(str) - 1] = '\0';
 		}
+	x = 1;
+	while (ar->x < --x)
+		ft_putstr("\b");
+	return (str);
+}
+
+char	*strput(char *str, t_arrow *ar, char c)
+{
+	int x;
+	int y;
+
+	if (ar->x == 0)
+	{
+		write(1, &c, 1);
+		str = remalloc(str, c);
+	}
+	else
+	{
+		str = remalloc(str, 'X');
+		y = ft_strlen(str);
+		x =	y + ar->x;
+		x++;
+		while (y >= x)
+		{	
+			str[y - 1] = str[y - 2];
+			y--;
+		}
+		str[y - 1] = c;
+		y = ft_strlen(str);
+		x = y + ar->x - 1;
+		while (x <= y)
+		{
+			write(1, &(str[x]), 1);
+			x++;
+		}
+		x = 1;
+		while (ar->x < --x)
+			ft_putstr("\b");
+	}
+	return (str);
+}
+
+
+char	caspe(char c, char **str, t_arrow *ar, t_hist *hist)	//pointeur sur fctn ?	
+{
+
+	char x[3];
+	if((int)c == 127)
+	{
+	 *str = strdel(*str, ar); //traitemnt string del
 		c = '\0';
 	}
+	else if((int)c == 27)
+	{
+		read(0,x,2);
+		x[2] = '\0';
+		if (ft_strcmp("[D",x) == 0 && ft_strlen(*str) + ar->x > 0)
+		{
+			ar->x--;
+			ft_putstr("\b");
+		}
+		if (ft_strcmp("[C",x) == 0)
+		{
+			if(ar->x < 0)
+			{
+				ar->x++;
+				ft_putstr("\033[C");
+			}
+		}
+		if (ft_strcmp("[A",x) == 0 && hist->x > ar->y) // separer pour normer
+		{
+			int x = 0;
+		if (ar->y == 0 && ft_strlen(*str))
+				ar->y++;
+			while (ar->x < 0)
+			{
+				ar->x++;
+				ft_putstr("\033[C");
+			}
+			while((int)ft_strlen(*str) > x)
+			{
+			x++;
+			ft_putstr("\b \b");
+		} 
+			ft_putstr(hist->tab[ar->y]);
+			*str = ft_strdup(hist->tab[ar->y]);
+			ar->y++;
+		}
+		if (ft_strcmp("[B",x) == 0 && ar->y > 0)
+			{
+			if(ar->y == hist->x)
+				ar->y--;
+			ar->y --;
+			int x = 0;
+			while (ar->x < 0)
+			{
+				ar->x++;
+				ft_putstr("\033[C");
+			}
+			while((int)ft_strlen(*str) > x)
+			{
+			x++;
+			ft_putstr("\b \b");
+		} 
+			ft_putstr(hist->tab[ar->y]);
+			*str = ft_strdup(hist->tab[ar->y]);
+		}
+	}
+	else
+		*str = strput(*str,ar, c);
 	return(c);
 }
 
@@ -33,7 +168,7 @@ char *remalloc(char *str, char c)
 
 	x = 0;
 	i = ft_strlen(str);
-	tmp = str;
+	tmp = ft_strdup(str);
 	str = malloc(sizeof(char) * (i + 2));
 	while(x < i)
 	{
@@ -46,7 +181,7 @@ char *remalloc(char *str, char c)
 	return(str);
 }
 
-int		bashy(t_hist *hist)
+int		bashy(t_hist *hist, t_arrow *ar, char **env)
 {
 	char c;
 	char *str;
@@ -54,25 +189,25 @@ int		bashy(t_hist *hist)
 	str = malloc(sizeof(char) * 1);
 	str[0] = '\0';
 	c ='\0';
-	write(1, "&>",2);
+	write(1, "My-Bash $ ",10);
 	while(1)
 	{
-		write(1, &c, 1);
 		read(0, &c, 1);
 		if((int)c == 3 || (int)c == 4) // create break cas
 			break;
 		else if ((int)c == 10)
 		{
-			ft_putstr("\r\n&>");
-			parse(hist, str);
+			ft_putstr("\n");
+			ar->x = 0;
+			ar->y = 0;
+			historic(hist, str);
+			hist->x++;
+			persecutor(hist, ar, env);
+			ft_putstr("My-Bash $ ");
 			ft_bzero(str, ft_strlen(str));
-			c = '\0';
 		}
 		else
-		{
-			c =	caspe(c, str);
-			str = remalloc(str, c);
-		}
+			c =	caspe(c, &str, ar, hist);
 	}
 	free(str);
 	return(0);

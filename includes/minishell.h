@@ -10,11 +10,21 @@ typedef struct		s_hist
 	int		x;
 }					t_hist;
 
+typedef struct		s_arrow
+{
+	int		x;
+	int		y;
+}					t_arrow;
+
 void		term_init(struct termios *save);
-void		parse(t_hist *hist, char *str);
-char		caspe(char c, char *str);
+void		historic(t_hist *hist, char *str);
+char		caspe(char c, char **str, t_arrow *ar, t_hist *hist);
 char		*remalloc(char *str, char c);
-int			bashy(t_hist *hist);
+int			bashy(t_hist *hist, t_arrow *ar, char **env);
+int			persecutor(t_hist *hist, t_arrow *ar, char *env[]);
+
+
+void 		ft_init_tab(t_hist *hist);
 
 
 #endif

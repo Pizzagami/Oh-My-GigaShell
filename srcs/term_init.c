@@ -13,8 +13,8 @@ void	term_init(struct termios *save)
 		exit(0);
 	}
 	config.c_iflag &= ~(IXON);
-	config.c_oflag = 0;
-	config.c_lflag &= ~(ECHO | ECHOE | ICANON | IEXTEN | ISIG);
+	//config.c_oflag = 0;
+	config.c_lflag &= ~(ECHO | ICANON | ISIG);
 	config.c_cflag &= 0;
 	config.c_cflag |= CS8;
 	config.c_cc[VMIN]  = 1;
