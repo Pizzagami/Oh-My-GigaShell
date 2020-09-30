@@ -12,11 +12,15 @@ int main(int argc,char **argv, char **env)
 	ar.x = 0;
 	ar.y = 0;
 	hist.x = 0;
+	x = 0;
 	ft_init_tab(&hist);
 	term_init(&save);
-	x = bashy(&hist, &ar, env);
-	if(x == 0)
-		ft_putstr("\n^C fin du programme\n");
+	while(x != 3)
+	{
+		x = bashy(&hist, &ar);
+		persecutor(&hist, &ar, env);
+	}
+	ft_putstr("\n^C fin du programme\n");
 	//free hist
 	tcsetattr(0, TCSADRAIN, &save);
 	return(0);

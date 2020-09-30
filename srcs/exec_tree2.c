@@ -6,7 +6,7 @@
 /*   By: raimbaultbrieuc <marvin@42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 14:44:24 by raimbault         #+#    #+#             */
-/*   Updated: 2020/09/21 15:50:55 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/09/25 09:46:41 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,16 @@
 
 int		exec_input(t_input *input, t_omm omm)
 {
+	int ret;
+
 	if (input == NULL)
 		return (0);
-	return (exec_list(input->list, omm));
+	ret = exec_list(input->list, omm);
+	if (omm.stdout != 1)
+		dup2(omm.stdout, 1);
+	if (omm.stdin != 0)
+		dup2(omm.stdin, 0);
+	return (ret);
 }
 
 int	exec_list(t_list *list, t_omm omm)

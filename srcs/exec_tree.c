@@ -6,7 +6,7 @@
 /*   By: raimbaultbrieuc <marvin@42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 14:45:18 by raimbault         #+#    #+#             */
-/*   Updated: 2020/09/18 10:33:57 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/09/25 09:58:14 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ int		exec_pipeline(t_pipeline *pipeline, t_omm omm)
 			close(pfd[1]);
 			if (pipeline->command)
 				i = exec_command(pipeline->command, omm);
+			//dup2(omm.stdout, 1);
+			//dup2(omm.stdin, 0);
 		}
 	}
 	else
@@ -85,7 +87,7 @@ int		exec_redirection(t_redirection *redirection, t_omm omm)
 
 	if (redirection && redirection->type == GREAT)
 	{
-		fd = open(redirection->filename, O_CREAT | O_RDWR | O_TRUNC, 777);
+		fd = open(redirection->filename, O_CREAT | O_RDWR | O_TRUNC, S_IRWXU);
 		if (fd == -1)
 		{
 			printf("Error : %s\n", strerror(errno));
@@ -96,7 +98,7 @@ int		exec_redirection(t_redirection *redirection, t_omm omm)
 	}
 	else if (redirection && redirection->type == DGREAT)
 	{
-		fd = open(redirection->filename, O_CREAT | O_RDWR | O_APPEND, 777);
+		fd = open(redirection->filename, O_CREAT | O_RDWR | O_APPEND);
 		if (fd == -1)
 		{
 			printf("Error : %s\n", strerror(errno));
@@ -107,7 +109,7 @@ int		exec_redirection(t_redirection *redirection, t_omm omm)
 	}
 	else if (redirection && redirection->type == LESS)
 	{
-		fd = open(redirection->filename, O_RDONLY, 777);
+		fd = open(redirection->filename, O_RDONLY);
 		if (fd == -1)
 		{
 			printf("Error : %s\n", strerror(errno));
@@ -151,6 +153,7 @@ int		exec_instruction(t_instruction *instruction, t_omm omm)
 			ret = 1;
 		else
 			ret = execve(path, tab, omm.env);
+		printf("%s %s\n", path, tab[0]);
 		if (ret)
 		{
 			free(tab);

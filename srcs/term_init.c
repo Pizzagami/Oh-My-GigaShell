@@ -12,13 +12,13 @@ void	term_init(struct termios *save)
 		ft_putstr("config termios failure \n");
 		exit(0);
 	}
-	config.c_iflag &= ~(IXON);
+//	config.c_iflag &= ~(IXON);
 	//config.c_oflag = 0;
 	config.c_lflag &= ~(ECHO | ICANON | ISIG);
-	config.c_cflag &= 0;
-	config.c_cflag |= CS8;
-	config.c_cc[VMIN]  = 1;
-	config.c_cc[VTIME] = 0;
+//	config.c_cflag &= 0;
+//	config.c_cflag |= CS8;
+//	config.c_cc[VMIN]  = 1;
+//	config.c_cc[VTIME] = 0;
 	if(cfsetispeed(&config, B9600) < 0 || cfsetospeed(&config, B9600) < 0)
 	{
 		ft_putstr("communication speed error\n");

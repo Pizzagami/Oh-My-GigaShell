@@ -181,7 +181,7 @@ char *remalloc(char *str, char c)
 	return(str);
 }
 
-int		bashy(t_hist *hist, t_arrow *ar, char **env)
+int		bashy(t_hist *hist, t_arrow *ar)
 {
 	char c;
 	char *str;
@@ -194,7 +194,10 @@ int		bashy(t_hist *hist, t_arrow *ar, char **env)
 	{
 		read(0, &c, 1);
 		if((int)c == 3 || (int)c == 4) // create break cas
-			break;
+			{
+				free(str);
+				return(3);
+			}
 		else if ((int)c == 10)
 		{
 			ft_putstr("\n");
@@ -202,13 +205,10 @@ int		bashy(t_hist *hist, t_arrow *ar, char **env)
 			ar->y = 0;
 			historic(hist, str);
 			hist->x++;
-			persecutor(hist, ar, env);
-			ft_putstr("My-Bash $ ");
 			ft_bzero(str, ft_strlen(str));
+			return(0);
 		}
 		else
 			c =	caspe(c, &str, ar, hist);
 	}
-	free(str);
-	return(0);
 }
