@@ -6,7 +6,7 @@
 /*   By: raimbaultbrieuc <marvin@42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 14:45:18 by raimbault         #+#    #+#             */
-/*   Updated: 2020/09/25 09:58:14 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/10/02 15:28:15 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,8 @@ int		exec_pipeline(t_pipeline *pipeline, t_omm omm)
 			close(pfd[1]);
 			if (pipeline->command)
 				i = exec_command(pipeline->command, omm);
-			//dup2(omm.stdout, 1);
-			//dup2(omm.stdin, 0);
+			dup2(omm.stdout, 1);
+			dup2(omm.stdin, 0);
 		}
 	}
 	else
@@ -118,7 +118,7 @@ int		exec_redirection(t_redirection *redirection, t_omm omm)
 		dup2(fd, 0);
 		close(fd);
 	}
-	else
+	else if (0)
 	{
 		if (omm.stdout != 1)
 			dup2(omm.stdout, 1);
@@ -153,12 +153,11 @@ int		exec_instruction(t_instruction *instruction, t_omm omm)
 			ret = 1;
 		else
 			ret = execve(path, tab, omm.env);
-		printf("%s %s\n", path, tab[0]);
 		if (ret)
 		{
 			free(tab);
 			write(2, "Error while executing program\n", 30);
-			//exit(0)
+			exit(0);
 		}
 		else
 			free(tab);

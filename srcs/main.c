@@ -14,7 +14,7 @@ int main(int argc,char **argv, char **env)
 	hist.x = 0;
 	x = 0;
 	ft_init_tab(&hist);
-	term_init(&save);
+	//term_init(&save);
 	while(x != 3)
 	{
 		x = bashy(&hist, &ar);
