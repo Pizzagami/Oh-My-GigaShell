@@ -93,7 +93,7 @@ char	*strput(char *str, t_arrow *ar, char c)
 char	caspe(char c, char **str, t_arrow *ar, t_hist *hist)	//pointeur sur fctn ?	
 {
 
-	char x[3];
+	char x[1]; //enlever char*
 	if((int)c == 127)
 	{
 	 *str = strdel(*str, ar); //traitemnt string del
@@ -101,14 +101,16 @@ char	caspe(char c, char **str, t_arrow *ar, t_hist *hist)	//pointeur sur fctn ?
 	}
 	else if((int)c == 27)
 	{
-		read(0,x,2);
-		x[2] = '\0';
-		if (ft_strcmp("[C",x) == 0 && ft_strlen(*str) + ar->x > 0)
+		read(0,x,1);
+		if (x[0] == '[')
+		{
+			read(0,x,1);
+		if (x[0] == 'D' && ft_strlen(*str) + ar->x > 0)
 		{
 			ar->x--;
 			ft_putstr("\b");
 		}
-		else if (ft_strcmp("[D",x) == 0)
+		if (x[0] == 'C')
 		{
 			if(ar->x < 0)
 			{
@@ -116,7 +118,7 @@ char	caspe(char c, char **str, t_arrow *ar, t_hist *hist)	//pointeur sur fctn ?
 				ft_putstr("\033[C");
 			}
 		}
-		else if (ft_strcmp("[B",x) == 0 && hist->x > ar->y) // separer pour normer
+		if (x[0] == 'A' && hist->x > ar->y) // separer pour normer
 		{
 			int x = 0;
 		if (ar->y == 0 && ft_strlen(*str))
@@ -135,7 +137,7 @@ char	caspe(char c, char **str, t_arrow *ar, t_hist *hist)	//pointeur sur fctn ?
 			*str = ft_strdup(hist->tab[ar->y]);
 			ar->y++;
 		}
-		else if (ft_strcmp("[A",x) == 0 && ar->y > 0)
+		if (x[0] == 'B' && ar->y > 0)
 			{
 			if(ar->y == hist->x)
 				ar->y--;
@@ -153,6 +155,7 @@ char	caspe(char c, char **str, t_arrow *ar, t_hist *hist)	//pointeur sur fctn ?
 		} 
 			ft_putstr(hist->tab[ar->y]);
 			*str = ft_strdup(hist->tab[ar->y]);
+		}
 		}
 	}
 	else
