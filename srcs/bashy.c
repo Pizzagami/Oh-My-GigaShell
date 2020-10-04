@@ -103,12 +103,12 @@ char	caspe(char c, char **str, t_arrow *ar, t_hist *hist)	//pointeur sur fctn ?
 	{
 		read(0,x,2);
 		x[2] = '\0';
-		if (ft_strcmp("[D",x) == 0 && ft_strlen(*str) + ar->x > 0)
+		if (ft_strcmp("[C",x) == 0 && ft_strlen(*str) + ar->x > 0)
 		{
 			ar->x--;
 			ft_putstr("\b");
 		}
-		if (ft_strcmp("[C",x) == 0)
+		else if (ft_strcmp("[D",x) == 0)
 		{
 			if(ar->x < 0)
 			{
@@ -116,7 +116,7 @@ char	caspe(char c, char **str, t_arrow *ar, t_hist *hist)	//pointeur sur fctn ?
 				ft_putstr("\033[C");
 			}
 		}
-		if (ft_strcmp("[A",x) == 0 && hist->x > ar->y) // separer pour normer
+		else if (ft_strcmp("[B",x) == 0 && hist->x > ar->y) // separer pour normer
 		{
 			int x = 0;
 		if (ar->y == 0 && ft_strlen(*str))
@@ -135,7 +135,7 @@ char	caspe(char c, char **str, t_arrow *ar, t_hist *hist)	//pointeur sur fctn ?
 			*str = ft_strdup(hist->tab[ar->y]);
 			ar->y++;
 		}
-		if (ft_strcmp("[B",x) == 0 && ar->y > 0)
+		else if (ft_strcmp("[A",x) == 0 && ar->y > 0)
 			{
 			if(ar->y == hist->x)
 				ar->y--;
