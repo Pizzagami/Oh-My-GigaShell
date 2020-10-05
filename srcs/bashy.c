@@ -89,7 +89,6 @@ char	*strput(char *str, t_arrow *ar, char c)
 	return (str);
 }
 
-
 char	caspe(char c, char **str, t_arrow *ar, t_hist *hist)	//pointeur sur fctn ?	
 {
 
@@ -206,9 +205,14 @@ int		bashy(t_hist *hist, t_arrow *ar)
 			ft_putstr("\n");
 			ar->x = 0;
 			ar->y = 0;
-			historic(hist, str);
-			hist->x++;
-			ft_bzero(str, ft_strlen(str));
+			if(str[0] != 0)
+			{
+				historic(hist, str);
+				hist->x++;
+				ft_bzero(str, ft_strlen(str));
+			}
+			else
+				bashy(hist, ar);
 			return(0);
 		}
 		else

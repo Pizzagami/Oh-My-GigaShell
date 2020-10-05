@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+         #
+#    By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/11 11:50:27 by braimbau          #+#    #+#              #
-#    Updated: 2020/06/29 14:42:02 by selgrabl         ###   ########.fr        #
+#    Updated: 2020/10/05 17:51:16 by selgrabl         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,7 +48,9 @@ SRCS =  ./ft_atoi.c			\
         ./ft_strncmp.c		\
         ./ft_substr.c		\
         ./ft_strlcpy.c		\
-		./ft_putstr.c
+		./ft_putstr.c       \
+        ./get_next_line.c   \
+        ./get_next_line_utils.c
 
 
 OBJ = $(SRCS:.c=.o)

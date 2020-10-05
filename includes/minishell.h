@@ -22,8 +22,8 @@ char		caspe(char c, char **str, t_arrow *ar, t_hist *hist);
 char		*remalloc(char *str, char c);
 int			bashy(t_hist *hist, t_arrow *ar);
 int			persecutor(t_hist *hist, t_arrow *ar, char *env[]);
-
-
+void		file_histo(t_hist *hist);
+void		histo_file(t_hist *hist);
 void 		ft_init_tab(t_hist *hist);
 
 
