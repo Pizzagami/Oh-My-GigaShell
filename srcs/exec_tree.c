@@ -6,7 +6,7 @@
 /*   By: raimbaultbrieuc <marvin@42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 14:45:18 by raimbault         #+#    #+#             */
-/*   Updated: 2020/10/02 15:28:15 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/10/04 20:35:57 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,18 +35,20 @@ int		exec_pipeline(t_pipeline *pipeline, t_omm omm)
 	int i;
 	int pfd[2];
 	int pid;
+	int bite;
 
 	i = 0;
 	if (pipeline->brother)
 	{
 		pipe(pfd);
 		pid = fork();
-		if (pid == 0)
+		if (pid != 0)
 		{
 			close(pfd[1]);
 			dup2(pfd[0], 0);
 			close(pfd[0]);
 			i = exec_pipeline(pipeline->brother, omm);
+			waitpid(pid, &bite, 0);
 		}
 		else
 		{
@@ -55,8 +57,9 @@ int		exec_pipeline(t_pipeline *pipeline, t_omm omm)
 			close(pfd[1]);
 			if (pipeline->command)
 				i = exec_command(pipeline->command, omm);
-			dup2(omm.stdout, 1);
-			dup2(omm.stdin, 0);
+			exit(0);
+			//dup2(omm.stdout, 1);
+			//dup2(omm.stdin, 0);
 		}
 	}
 	else
@@ -138,8 +141,9 @@ int		exec_instruction(t_instruction *instruction, t_omm omm)
 	t_token *token;
 	int ret;
 	char *path;
+	int mdr;
 
-	ret = 0;;
+	ret = 0;
 	char **tab;
 	tab = create_tab(instruction->start, instruction->max);
 	if (tab[0] == NULL)
@@ -160,12 +164,16 @@ int		exec_instruction(t_instruction *instruction, t_omm omm)
 			exit(0);
 		}
 		else
+		{
+			wait(&ret);
 			free(tab);
+			exit(0);
+		}
 	}
 	else
 	{
 		ft_putstr("");
-		wait(&ret);
+		waitpid(pid, &mdr, 0);
 		free(tab);
 	}
 	return (ret);
