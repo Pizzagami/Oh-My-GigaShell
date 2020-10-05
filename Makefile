@@ -30,7 +30,7 @@ SRCS = ./srcs/main.c					\
 
 FLAG = -L includes/libft
 
-CFLAGS = -Wall -Wextra -Werror -I includes/ -I includes/libft/ -fsanitize=address	
+CFLAGS = -Wall -Wextra -Werror -I includes/ -I includes/libft/ 	
 
 CC = gcc
 

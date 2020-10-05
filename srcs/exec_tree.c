@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_tree.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: raimbaultbrieuc <marvin@42.fr>             +#+  +:+       +#+        */
+/*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 14:45:18 by raimbault         #+#    #+#             */
-/*   Updated: 2020/10/04 20:35:57 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/10/05 16:18:18 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int		exec_pipeline(t_pipeline *pipeline, t_omm omm)
 	int i;
 	int pfd[2];
 	int pid;
-	int bite;
+	int x;
 
 	i = 0;
 	if (pipeline->brother)
@@ -48,7 +48,7 @@ int		exec_pipeline(t_pipeline *pipeline, t_omm omm)
 			dup2(pfd[0], 0);
 			close(pfd[0]);
 			i = exec_pipeline(pipeline->brother, omm);
-			waitpid(pid, &bite, 0);
+			waitpid(pid, &x, 0);
 		}
 		else
 		{
@@ -172,7 +172,6 @@ int		exec_instruction(t_instruction *instruction, t_omm omm)
 	}
 	else
 	{
-		ft_putstr("");
 		waitpid(pid, &mdr, 0);
 		free(tab);
 	}
