@@ -15,6 +15,7 @@ int		main(int argc,char **argv, char **env)
 	ar.x = 0;
 	ar.y = 0;
 	hist.x = 0;
+	hist.cc = is_unicorn_set(env);
 	x = 0;
 	ft_init_tab(&hist);
 	term_init(&save_cano, &save_nncano);

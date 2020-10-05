@@ -26,7 +26,8 @@ SRCS = ./srcs/main.c					\
 		./srcs/token_creation_utils.c 	\
 		./srcs/token_tools.c 			\
 		./srcs/exec.c 					\
-		./srcs/get_env.c
+		./srcs/get_env.c				\
+		./srcs/colors.c
 
 FLAG = -L includes/libft
 

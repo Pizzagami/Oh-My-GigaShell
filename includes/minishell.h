@@ -8,6 +8,7 @@ typedef struct		s_hist
 {
 	char	*tab[256];
 	int		x;
+	int		cc;
 }					t_hist;
 
 typedef struct		s_arrow
@@ -25,6 +26,8 @@ int			persecutor(t_hist *hist, t_arrow *ar, char *env[]);
 void		file_histo(t_hist *hist);
 void		histo_file(t_hist *hist);
 void 		ft_init_tab(t_hist *hist);
+void		setcolor(int *x);
+int			is_unicorn_set(char **env);
 
 
 #endif

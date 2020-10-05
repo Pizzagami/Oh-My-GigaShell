@@ -191,7 +191,9 @@ int		bashy(t_hist *hist, t_arrow *ar)
 	str = malloc(sizeof(char) * 1);
 	str[0] = '\0';
 	c ='\0';
+	setcolor(&(hist->cc));
 	write(1, "My-Bash $ ",10);
+	ft_putstr("\033[0m");
 	while(1)
 	{
 		read(0, &c, 1);
@@ -208,7 +210,7 @@ int		bashy(t_hist *hist, t_arrow *ar)
 			if(str[0] != 0)
 			{
 				historic(hist, str);
-				hist->x++;
+				hist->x = (hist->x < 256) ? hist->x + 1: hist->x;
 				ft_bzero(str, ft_strlen(str));
 			}
 			else
