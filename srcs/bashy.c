@@ -137,7 +137,7 @@ char	caspe(char c, char **str, t_arrow *ar, t_hist *hist)	//pointeur sur fctn ?
 			ar->y++;
 		}
 		if (x == 'B' && ar->y > 0)
-			{
+		{
 			if(ar->y == hist->x)
 				ar->y--;
 			ar->y --;
@@ -149,11 +149,16 @@ char	caspe(char c, char **str, t_arrow *ar, t_hist *hist)	//pointeur sur fctn ?
 			}
 			while((int)ft_strlen(*str) > x)
 			{
-			x++;
-			ft_putstr("\b \b");
-		} 
-			ft_putstr(hist->tab[ar->y]);
-			*str = ft_strdup(hist->tab[ar->y]);
+				x++;
+				ft_putstr("\b \b");
+			}
+			if (ar->y == 0)
+				*str = 0;
+			else
+			{
+				ft_putstr(hist->tab[ar->y]);
+				*str = ft_strdup(hist->tab[ar->y]);
+			}
 		}
 		}
 	}
