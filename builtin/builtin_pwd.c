@@ -3,14 +3,11 @@
 #include <errno.h>
 #include <string.h>
  
-#define PATH_MAX        1024
+#define PATH_MAX        1024 //faire .h
  
 void		builtin_pwd(void)
 {
-	char	buff[PATH_MAX];
-	(void)argv; 
-	if (argc == 1)
-		printf("pwd: %s\n", getcwd(buff, PATH_MAX -1));
-	
+	char	path[PATH_MAX];
+		ft_putstr(getcwd(path, PATH_MAX - 1));
 	return;
 }
