@@ -4,8 +4,20 @@
 #include <string.h>
 #include "libft.h"
 
-void    buitin_echo(char *str, int n)
+void    buitin_echo(char **str, int n)
 {
-    void(n);
-   ft_putstr(str); //verifier /n
+    while (*str)
+    {
+        ft_strlen(*str);
+        ft_putstr(*str); //verifier /n
+        ft_putstr(" ");
+        *str++;
+    }
+    if (n == 1)
+    {
+        if (*(str[ft_strlen(*str) - 1]) != '/n')
+            {
+                write(1,"%",1);
+            }
+    } 
 }
