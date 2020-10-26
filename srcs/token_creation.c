@@ -6,7 +6,7 @@
 /*   By: raimbaultbrieuc <marvin@42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/15 15:30:31 by raimbault         #+#    #+#             */
-/*   Updated: 2020/07/28 14:37:01 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/10/23 13:55:41 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,6 @@ void	set_special_token(char c, t_token **token_current)
 		add_token_malloc(token_current, AND, "&", 1);
 	if (c == '|')
 		add_token_malloc(token_current, PIPE, "|", 1);
-	if (c == '*')
-		add_token_malloc(token_current, STAR, "*", 1);
 }
 
 int		set_double_token(char c, char c2, t_token **token_current)
@@ -97,9 +95,8 @@ t_token	*create_token_list(char *str, int *ec)
 	int		i;
 	int		x;
 
-	token_start = malloc(sizeof(t_token));
-	token_start->next = NULL;
-	token_current = token_start;
+	token_current = NULL;
+	token_start = NULL;
 	i = 0;
 	while (str[i])
 	{
@@ -115,6 +112,8 @@ t_token	*create_token_list(char *str, int *ec)
 					!is_special_char(str[i + x]))
 				x++;
 			add_token(&token_current, VOID, create_str(str, i, x));
+			if (token_start == NULL)
+				token_start = token_current;
 			i += x;
 		}
 		i += (str[i] == ' ') ? 1 : 0; //si ca merde cest a cause de ca

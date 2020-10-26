@@ -2,7 +2,7 @@
 # define MINISHELL_H
 
 #include <termios.h>
-
+#include "token.h"
 
 typedef struct		s_hist
 {
@@ -28,6 +28,8 @@ void		histo_file(t_hist *hist);
 void 		ft_init_tab(t_hist *hist);
 void		setcolor(int *x);
 int			is_unicorn_set(char **env);
+t_token		*create_simple_token_list(char *str);
+char		*create_str(char *str, int start, int len);
 
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: raimbaultbrieuc <marvin@42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/15 16:13:31 by raimbault         #+#    #+#             */
-/*   Updated: 2020/09/11 10:09:46 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/10/23 14:22:25 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,5 +112,6 @@ char			**create_tab(t_token *start, t_token *max);
 char			*get_path(char **env, char *str);
 char			*get_env(char **env, char *key);
 void			reset_fd(t_omm omm);
+t_token			*starize_list(t_token *a);
 
 #endif

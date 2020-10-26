@@ -6,7 +6,7 @@
 /*   By: raimbaultbrieuc <marvin@42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/15 15:24:37 by raimbault         #+#    #+#             */
-/*   Updated: 2020/10/02 15:29:19 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/10/26 16:47:09 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 int		persecutor(t_hist *hist, t_arrow *ar, char *env[])
 {
 	t_token	*token_start;
-	t_token *tmp;
+//	t_token *tmp;
 	t_input	*tree;
 	int		ec;
 
@@ -30,11 +30,9 @@ int		persecutor(t_hist *hist, t_arrow *ar, char *env[])
 		clean_token_list(token_start);
 		return (ec);
 	}
-	tmp = token_start;
-	token_start = token_start->next; //ultra bancal et pas leaks proof
-	free(tmp);
-	tree = parse_input(token_start, &ec);
+	token_start = starize_list(token_start);
 	//printf_token(token_start);
+	tree = parse_input(token_start, &ec);
 	if (!ec)
 	{
 		//display_input(tree, 0);
