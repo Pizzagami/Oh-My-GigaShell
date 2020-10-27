@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 14:45:18 by raimbault         #+#    #+#             */
-/*   Updated: 2020/10/05 16:18:18 by selgrabl         ###   ########.fr       */
+/*   Updated: 2020/10/27 15:40:31 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,7 +141,6 @@ int		exec_instruction(t_instruction *instruction, t_omm omm)
 	t_token *token;
 	int ret;
 	char *path;
-	int mdr;
 
 	ret = 0;
 	char **tab;
@@ -161,10 +160,11 @@ int		exec_instruction(t_instruction *instruction, t_omm omm)
 		{
 			free(tab);
 			write(2, "Error while executing program\n", 30);
-			exit(0);
+			exit(127);
 		}
 		else
 		{
+			printf("bon bah j'ai rien compris enfaite\n");
 			wait(&ret);
 			free(tab);
 			exit(0);
@@ -172,8 +172,13 @@ int		exec_instruction(t_instruction *instruction, t_omm omm)
 	}
 	else
 	{
-		waitpid(pid, &mdr, 0);
+		waitpid(pid, &ret, 0);
+		if (WIFEXITED(ret))
+			ret = WEXITSTATUS(ret);
+		else
+			ret = 0;
 		free(tab);
 	}
+	printf("ret = %d\n", ret);
 	return (ret);
 }
