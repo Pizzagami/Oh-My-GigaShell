@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/11 12:02:39 by braimbau          #+#    #+#             */
-/*   Updated: 2020/06/29 14:39:54 by selgrabl         ###   ########.fr       */
+/*   Updated: 2020/10/28 11:01:06 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,5 +62,6 @@ char			*ft_substr(char const *s, unsigned int start, size_t len);
 char			*ft_strsub(char const *s, unsigned int start, size_t len);
 int				ft_toupper(int c);
 int				ft_tolower(int c);
+int				ft_findstr(char *str, char *to_find);
 
 #endif

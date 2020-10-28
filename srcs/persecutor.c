@@ -6,17 +6,17 @@
 /*   By: raimbaultbrieuc <marvin@42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/15 15:24:37 by raimbault         #+#    #+#             */
-/*   Updated: 2020/10/26 16:47:09 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/10/28 13:22:13 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 #include "minishell.h"
 
-int		persecutor(t_hist *hist, t_arrow *ar, char *env[])
+int		persecutor(t_hist *hist, t_arrow *ar, char *env[], int *last_ret)
 {
 	t_token	*token_start;
-//	t_token *tmp;
+	char	*home;
 	t_input	*tree;
 	int		ec;
 
@@ -30,13 +30,15 @@ int		persecutor(t_hist *hist, t_arrow *ar, char *env[])
 		clean_token_list(token_start);
 		return (ec);
 	}
-	token_start = starize_list(token_start);
+	home = get_env(env, "HOME");
+	token_start = starize_list(token_start, home);
+	free(home);
 	//printf_token(token_start);
 	tree = parse_input(token_start, &ec);
 	if (!ec)
 	{
 		//display_input(tree, 0);
-		exec_input(tree, init_std_fd(env));
+		exec_input(tree, init_std_fd(env, last_ret));
 	}
 	clean_input(tree);
 	clean_token_list(token_start);

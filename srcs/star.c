@@ -418,7 +418,7 @@ int	recurdir(char *patern, char *path, char *minipath, char **final)
 	return (0);
 }
 
-int gigastar(char *patern, char **final)
+int gigastar(char *patern, char **final, char *home)
 {
 	char *path;
 	char *minipath;
@@ -432,8 +432,8 @@ int gigastar(char *patern, char **final)
 	}
 	else if (patern[0] == '~')
 	{
-		path = "/Users/raimbaultbrieuc";
-		minipath = "/Users/raimbaultbrieuc";
+		path = home;
+		minipath = home;
 		recurdir(patern + 2, path, minipath, final);
 	}
 	else
@@ -444,10 +444,12 @@ int gigastar(char *patern, char **final)
 		recurdir(patern, path, minipath, final);
 		free(path);
 	}
-	return ((final) ? 0 : 1);
+	if (!(*final))
+		*final = ft_strdup(patern);
+	return (0);
 }
 
-t_token *starize_list(t_token *first)
+t_token *starize_list(t_token *first, char *home)
 {
 	t_token *tmp;
 	t_token *tmp2;
@@ -459,7 +461,7 @@ t_token *starize_list(t_token *first)
 		if (a == first && srcchar('*', a->str) != -1)
 		{
 			str = NULL;
-			gigastar(a->str, &str);
+			gigastar(a->str, &str, home);
 			tmp = create_simple_token_list(str);
 			tmp2 = tmp;
 			while (tmp->next)
@@ -474,7 +476,7 @@ t_token *starize_list(t_token *first)
 		if (a->next && srcchar('*', a->next->str) != -1)
 		{
 			str = NULL;
-			gigastar(a->next->str, &str);
+			gigastar(a->next->str, &str, home);
 			tmp = create_simple_token_list(str);
 			tmp2 = tmp;
 			while (tmp->next)

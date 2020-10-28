@@ -6,7 +6,7 @@
 /*   By: raimbaultbrieuc <marvin@42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/15 16:13:31 by raimbault         #+#    #+#             */
-/*   Updated: 2020/10/23 14:22:25 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/10/28 13:19:33 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ typedef struct	s_omm
 {
 	int		stdin;
 	int		stdout;
+	int		*last_ret;
 	char	**env;
 }				t_omm;
 
@@ -107,11 +108,12 @@ int				exec_redirection(t_redirection *redirection, t_omm omm);
 int				exec_instruction(t_instruction *instruction, t_omm omm);
 int				ft_strcmp(char *s1, char *s2);
 char			*lower_case(char *s);
-t_omm			init_std_fd(char *env[]);
+t_omm			init_std_fd(char *env[], int *last_ret);
 char			**create_tab(t_token *start, t_token *max);
 char			*get_path(char **env, char *str);
 char			*get_env(char **env, char *key);
 void			reset_fd(t_omm omm);
-t_token			*starize_list(t_token *a);
+t_token			*starize_list(t_token *a, char *home);
+void			replace_dolint(t_token *a, int ret);
 
 #endif
