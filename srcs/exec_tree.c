@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 14:45:18 by raimbault         #+#    #+#             */
-/*   Updated: 2020/10/28 13:23:08 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/10/28 14:42:56 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,11 +139,9 @@ int		exec_redirection(t_redirection *redirection, t_omm omm)
 
 int		exec_instruction(t_instruction *instruction, t_omm omm)
 {
-
 	t_token *token;
 	int ret;
 	char *path;
-
 	ret = 0;
 	char **tab;
 
@@ -152,6 +150,8 @@ int		exec_instruction(t_instruction *instruction, t_omm omm)
 	tab = create_tab(instruction->start, instruction->max);
 	if (tab[0] == NULL)
 		return (ret);	int pid = fork();
+//	if ()
+//		return (exec_builtin(tab, omm.env));
 	if (pid == 0)
 	{
 		path = get_path(omm.env, token->str);
