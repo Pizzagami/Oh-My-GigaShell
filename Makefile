@@ -34,7 +34,7 @@ SRCS = ./srcs/main.c					\
 FLAG = -L includes/libft
 
 CFLAGS = -Wall -Wextra -Werror -I includes/ -I includes/libft/	
-FSANITIZE = -fsanitize=address -g3
+FSANITIZE = -fsanitize=undefined -g3
 
 CC = gcc
 

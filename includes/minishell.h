@@ -31,5 +31,4 @@ int			is_unicorn_set(char **env);
 t_token		*create_simple_token_list(char *str);
 char		*create_str(char *str, int start, int len);
 
-
 #endif

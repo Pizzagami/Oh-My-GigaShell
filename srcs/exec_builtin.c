@@ -6,53 +6,84 @@
 /*   By: raimbaultbrieuc <marvin@42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/15 15:24:37 by raimbault         #+#    #+#             */
-/*   Updated: 2020/10/28 14:44:01 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/10/30 16:05:12 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "libft.h"
+#include "errno.h"
+#include "stdio.h"
+#include "fcntl.h"
 
-int strcmpnocase(char *s1, char *s2)
+void    buitin_echo(char **str)
 {
-	int i;
+    int n;
 
-	i = 0;
-	if (ft_strlen(s1) != ft_strlen(s2))
-		return (ft_strlen(s1) - ft_strlen(s2));
-	while (s1[i])
+    n = 0;
+	str++;
+	if (ft_strcmp("-n", *str) != 0)
 	{
-		if (s1[i] >= 'A' && s1[i] <= 'Z')
-		{
-			if (s1[i] != s2[i] && s1[i] + 32 != s2[i])
-				return (i);
-		}
-		else if (s1[i] >= 'a' && s1[i] <= 'a')
-		{
-			if (s1[i] != s2[i] && s1[i] - 32 != s2[i])
-				return (i);
-		}
-		else if (s1[i] != s2[i])
-			return (i);
-		i++;
+		n = 1;
+		str++;
 	}
-	return (0);
+    while (*str)
+    {
+		ft_strlen(*str);
+		ft_putstr(*str); //verifier /n
+		ft_putstr(" ");
+		str++;
+    }
+    if (n == 0)
+    {
+        write(1,"\n",1);
+    } 
+}
+
+void	built_in_cd(char **tab)
+{
+	int fd;
+	char *path;
+
+	path = tab[1];
+	fd = open(path, O_RDONLY);
+	if (!path)
+		return;
+	if (chdir(path) == -1)
+	{
+		perror("chdir()");
+	}
+	/*if (fd < 0) // verifier les differente erreurs (et perror?)
+	{
+		ft_putstr("cd: no such file or directory: ");
+		ft_putstr(path);
+	}
+	else
+	{
+		chdir(path);
+	}*/
+	close(fd);
 }
 
 int	is_builtin(char *executable)
 {
-	if (strcmpnocase(executable, "test1"))
+	if (strcmp(executable, "echo") == 0)
 		return (1);
-	if (strcmpnocase(executable, "test2"))
+	if (strcmp(executable, "cd") == 0)
 		return (2);
 	return (0);
 }
 
 int exec_builtin(char *executable, char **tab, char **env)
 {
-	(void)executable;
-	(void)tab;
+	int i;
+
 	(void)env;
-	printf("Boooooonnnnjour !\n");
+	i = is_builtin(executable);
+	if (i == 1)
+		buitin_echo(tab);
+	if (i == 2)
+		built_in_cd(tab);
+
 	return (42);
 }
