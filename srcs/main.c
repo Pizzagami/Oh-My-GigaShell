@@ -7,12 +7,14 @@ int		main(int argc,char **argv, char **env)
 {	
 	(void)argc;(void)argv;
 	int x;
+	t_env env;
 	struct termios save_cano;
 	struct termios save_nncano;
 	t_hist	hist;
 	t_arrow ar;
 	int	last_ret;
 
+	//env = (env_origin);//a list chainé
 	last_ret = 0;
 	ar.x = 0;
 	ar.y = 0;
