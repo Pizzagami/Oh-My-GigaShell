@@ -6,7 +6,7 @@
 /*   By: raimbaultbrieuc <marvin@42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 14:55:58 by raimbault         #+#    #+#             */
-/*   Updated: 2020/07/23 17:08:47 by raimbaul         ###   ########.fr       */
+/*   Updated: 2020/11/03 13:01:30 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ typedef struct	s_token
 {
 	t_type			type;
 	char			*str;
+	char			*quot;
 	struct s_token	*next;
 }				t_token;
 

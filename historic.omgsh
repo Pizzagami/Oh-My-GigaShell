@@ -1,3 +1,27 @@
+jnfklm
+echo */*/*.c
+echo */*
+echo *
+echo *
+echo *
+echo *
+ls
+sls
+;
+echo *
+ls
+echo *
+ls
+touch c
+ls
+touch "1 2"
+touch a
+touch "test 1 && 2"
+touch "test 1 2"
+make
+echo "test" mdr"xd"djnm
+echo "test"
+echo test
 echo -n lol
 echo test
 echo -n lol

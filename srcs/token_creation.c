@@ -6,7 +6,7 @@
 /*   By: raimbaultbrieuc <marvin@42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/15 15:30:31 by raimbault         #+#    #+#             */
-/*   Updated: 2020/10/30 14:04:25 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/11/03 13:46:28 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,9 +94,7 @@ t_token	*create_token_list(char *str, int *ec)
 	t_token *token_current;
 	int		i;
 	int		x;
-	int		is_quoted;
 
-	is_quoted = 0;
 	token_current = NULL;
 	token_start = NULL;
 	i = 0;
