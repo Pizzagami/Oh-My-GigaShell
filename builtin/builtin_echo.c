@@ -17,7 +17,7 @@ void    buitin_echo(char **str, int n)
     {
         if (*(str[ft_strlen(*str) - 1]) != '/n')
             {
-                write(1,"%",1);
+                write(1,"%",1);//changer couleur fond
             }
     } 
 }

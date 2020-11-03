@@ -1,3 +1,12 @@
+ls
+cd
+ls
+export -p
+export
+echo "pizza" "gami"
+lslsls
+echo -n pizza gammi
+echo pizza gammi
 x
 :x
 \

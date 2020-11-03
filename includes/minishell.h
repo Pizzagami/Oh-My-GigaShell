@@ -3,6 +3,13 @@
 
 #include <termios.h>
 
+typedef struct	s_env
+{
+	char			*chro;
+	char			*tri;
+	struct s_token	*next;
+
+}				t_env;
 
 typedef struct		s_hist
 {
