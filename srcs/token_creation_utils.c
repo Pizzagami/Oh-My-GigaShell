@@ -6,7 +6,7 @@
 /*   By: raimbaultbrieuc <marvin@42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/15 15:33:29 by raimbault         #+#    #+#             */
-/*   Updated: 2020/07/15 16:28:59 by raimbaul         ###   ########.fr       */
+/*   Updated: 2020/10/23 13:51:21 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,15 @@ void	add_token(t_token **token_current, t_type type, char *str)
 	tmp->type = type;
 	tmp->str = str;
 	tmp->next = NULL;
-	(*token_current)->next = tmp;
 	if (type == VOID)
 		tmp->type = WORD;
-	(*token_current) = (*token_current)->next;
+	if (*token_current)
+	{
+		(*token_current)->next = tmp;
+		(*token_current) = (*token_current)->next;
+	}
+	else
+		(*token_current) = tmp;
 }
 
 void	add_token_malloc(t_token **token_current, t_type type, char *str, int s)
@@ -41,10 +46,15 @@ void	add_token_malloc(t_token **token_current, t_type type, char *str, int s)
 		tmp->str[2] = 0;
 	}
 	tmp->next = NULL;
-	(*token_current)->next = tmp;
 	if (type == VOID)
 		tmp->type = WORD;
-	(*token_current) = (*token_current)->next;
+	if (*token_current)
+	{
+		(*token_current)->next = tmp;
+		(*token_current) = (*token_current)->next;
+	}
+	else
+		(*token_current) = tmp;
 }
 
 char	*create_str(char *str, int start, int len)
@@ -68,7 +78,7 @@ int		is_special_char(char c)
 	char	*special;
 	int		i;
 
-	special = "()<>|&*';\"";
+	special = "()<>|&';\"";
 	i = 0;
 	while (special[i])
 	{

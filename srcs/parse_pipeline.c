@@ -6,7 +6,7 @@
 /*   By: raimbaultbrieuc <marvin@42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/15 16:33:07 by raimbault         #+#    #+#             */
-/*   Updated: 2020/07/31 10:36:20 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/10/28 14:58:37 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ t_pipeline	*parse_pipeline2(int *ec, t_token *start, t_token *max)
 	pipeline = malloc(sizeof(t_pipeline));
 	if (pipeline == NULL)
 		return (print_error("Malloc Error\n", ec, 14));
+	pipeline->brother = NULL;
+	pipeline->command = NULL;
 	return (pipeline);
 }
 

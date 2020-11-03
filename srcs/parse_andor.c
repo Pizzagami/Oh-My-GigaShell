@@ -6,7 +6,7 @@
 /*   By: raimbaultbrieuc <marvin@42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/15 16:31:43 by raimbault         #+#    #+#             */
-/*   Updated: 2020/07/31 11:38:32 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/10/28 15:37:04 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ t_andor	*parse_andor(t_token *start, t_token *max, int *ec)
 	if (!start || start == max)
 		return (NULL);
 	andor = malloc(sizeof(t_andor));
+	andor->brother = NULL;
+	andor->pipeline = NULL;
 	if (andor == NULL)
 		return (print_error("Malloc error\n", ec, 13));
 	if (start && (start->type == AND_IF || start->type == OR_IF ||

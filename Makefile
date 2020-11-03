@@ -27,11 +27,14 @@ SRCS = ./srcs/main.c					\
 		./srcs/token_tools.c 			\
 		./srcs/exec.c 					\
 		./srcs/get_env.c				\
-		./srcs/colors.c
+		./srcs/colors.c					\
+		./srcs/star.c					\
+		./srcs/exec_builtin.c			\
 
 FLAG = -L includes/libft
 
-CFLAGS = -Wall -Wextra -Werror -I includes/ -I includes/libft/ 	
+CFLAGS = -Wall -Wextra -Werror -I includes/ -I includes/libft/	
+FSANITIZE = -fsanitize=undefined -g3
 
 CC = gcc
 
@@ -40,7 +43,7 @@ OBJS = $(SRCS:.c=.o)
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	$(CC) -o $(NAME) $(FLAG) $(CFLAGS) $(OBJS)  ./includes/libft/libft.a
+	$(CC) -o $(NAME) $(FLAG) $(CFLAGS) $(OBJS) $(FSANITIZE) ./includes/libft/libft.a
 
 
 lib:

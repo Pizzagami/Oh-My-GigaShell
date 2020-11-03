@@ -6,7 +6,7 @@
 #    By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/11 11:50:27 by braimbau          #+#    #+#              #
-#    Updated: 2020/10/05 17:51:16 by selgrabl         ###   ########.fr        #
+#    Updated: 2020/10/28 11:01:34 by braimbau         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,6 +49,7 @@ SRCS =  ./ft_atoi.c			\
         ./ft_substr.c		\
         ./ft_strlcpy.c		\
 		./ft_putstr.c       \
+		./ft_findstr.c		\
         ./get_next_line.c   \
         ./get_next_line_utils.c
 

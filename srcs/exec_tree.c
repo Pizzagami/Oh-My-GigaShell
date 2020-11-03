@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 14:45:18 by raimbault         #+#    #+#             */
-/*   Updated: 2020/10/05 16:18:18 by selgrabl         ###   ########.fr       */
+/*   Updated: 2020/10/30 14:12:34 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,20 +136,14 @@ int		exec_redirection(t_redirection *redirection, t_omm omm)
 	return (0);
 }
 
-int		exec_instruction(t_instruction *instruction, t_omm omm)
+int exec_binary(char **tab, t_omm omm, t_token *token)
 {
-	t_token *token;
+	int pid;
 	int ret;
 	char *path;
-	int mdr;
-
+	
 	ret = 0;
-	char **tab;
-	tab = create_tab(instruction->start, instruction->max);
-	if (tab[0] == NULL)
-		return (ret);
-	token = instruction->start;
-	int pid = fork();
+	pid = fork();
 	if (pid == 0)
 	{
 		path = get_path(omm.env, token->str);
@@ -157,23 +151,38 @@ int		exec_instruction(t_instruction *instruction, t_omm omm)
 			ret = 1;
 		else
 			ret = execve(path, tab, omm.env);
-		if (ret)
-		{
-			free(tab);
-			write(2, "Error while executing program\n", 30);
-			exit(0);
-		}
-		else
-		{
-			wait(&ret);
-			free(tab);
-			exit(0);
-		}
+		free(tab);
+		write(2, "Error while executing program\n", 30);
+		exit(127);
 	}
 	else
 	{
-		waitpid(pid, &mdr, 0);
+		waitpid(pid, &ret, 0);
+		if (WIFEXITED(ret))
+			ret = WEXITSTATUS(ret);
+		else
+			ret = 0;
 		free(tab);
 	}
+	return (ret);
+}
+
+int		exec_instruction(t_instruction *instruction, t_omm omm)
+{
+	t_token *token;
+	int ret;
+	char **tab;
+
+	ret = 0;
+	token = instruction->start;
+	replace_dolint(token, *(omm.last_ret));
+	tab = create_tab(instruction->start, instruction->max);
+	if (tab[0] == NULL)
+		return (ret);
+	if (is_builtin(tab[0]))
+		ret = exec_builtin(tab[0], tab, omm.env);
+	else
+		ret = exec_binary(tab, omm, token);
+	*(omm.last_ret) = ret;
 	return (ret);
 }

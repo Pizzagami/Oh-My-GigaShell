@@ -12,8 +12,10 @@ int		main(int argc,char **argv, char **env)
 	struct termios save_nncano;
 	t_hist	hist;
 	t_arrow ar;
+	int	last_ret;
 
 	//env = (env_origin);//a list chainé
+	last_ret = 0;
 	ar.x = 0;
 	ar.y = 0;
 	hist.x = 0;
@@ -26,7 +28,7 @@ int		main(int argc,char **argv, char **env)
 	{
 		x = bashy(&hist, &ar);
 		tcsetattr(0, TCSADRAIN, &save_cano);
-		persecutor(&hist, &ar, env);
+		persecutor(&hist, &ar, env, &last_ret);
 		tcsetattr(0, TCSADRAIN, &save_nncano);
 	}
 	ft_putstr("\n^C fin du programme\n");

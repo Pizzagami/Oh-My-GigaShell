@@ -6,7 +6,7 @@
 /*   By: raimbaultbrieuc <marvin@42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/15 16:30:25 by raimbault         #+#    #+#             */
-/*   Updated: 2020/09/21 10:44:39 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/10/28 15:04:28 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ t_list	*parse_list(t_token *start, t_token *max, int *ec)
 	t_list	*list;
 	t_token	*token;
 
-	//printf("START = %d\n", start->type);
 	list = NULL;
 	if (!start || start == max)
 		return (NULL);
