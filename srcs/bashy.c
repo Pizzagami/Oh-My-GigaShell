@@ -20,8 +20,12 @@ char	*strdel(char *str, t_arrow *ar)
 {
 	int x;
 	int y;
+	int t;
 
+	t = 0;
 	y = ft_strlen(str);
+	if (str[y - 1] == 9)
+		t = 1;
 	x =	y + ar->x;
 	if (x < 1)
 		return(str);
@@ -47,6 +51,8 @@ char	*strdel(char *str, t_arrow *ar)
 		{
 			ft_putstr("\b \b");
 		}
+	if (t == 1)
+		ft_putstr("");
 	x = 1;
 	while (ar->x < --x)
 		ft_putstr("\b");
@@ -97,7 +103,7 @@ char	caspe(char c, char **str, t_arrow *ar, t_hist *hist)	//pointeur sur fctn ? 
 	 *str = strdel(*str, ar);
 		c = '\0';
 	}
-	else if((int)c == 27)
+	else if((int)c == 27) //faire un ++ la ou l autre endroit des é
 	{
 		read(0, &x, 1);
 		if (x == '[')
@@ -218,7 +224,10 @@ int		bashy(t_hist *hist, t_arrow *ar)
 				ft_bzero(str, ft_strlen(str));
 			}
 			else
-				bashy(hist, ar);
+			{
+				if (bashy(hist, ar) == 3)
+				return(3);
+			}
 			return(0);
 		}
 		else

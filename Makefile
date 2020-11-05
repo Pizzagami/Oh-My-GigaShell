@@ -27,6 +27,7 @@ SRCS = ./srcs/main.c					\
 		./srcs/token_tools.c 			\
 		./srcs/exec.c 					\
 		./srcs/get_env.c				\
+		./srcs/env.c 					\
 		./srcs/colors.c					\
 		./srcs/star.c					\
 		./srcs/exec_builtin.c			\
@@ -34,7 +35,7 @@ SRCS = ./srcs/main.c					\
 FLAG = -L includes/libft
 
 CFLAGS = -Wall -Wextra -Werror -I includes/ -I includes/libft/	
-FSANITIZE = -fsanitize=undefined -g3
+FSANITIZE = -fsanitize=address -g3
 
 CC = gcc
 

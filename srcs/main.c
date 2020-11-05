@@ -7,27 +7,30 @@ int		main(int argc,char **argv, char **env)
 {	
 	(void)argc;(void)argv;
 	int x;
-	//t_env envi;
+	t_env *envi;
 	struct termios save_cano;
 	struct termios save_nncano;
 	t_hist	hist;
 	t_arrow ar;
 	int	last_ret;
 
-	//env = (env_origin);//a list chainé
+	
 	last_ret = 0;
 	ar.x = 0;
 	ar.y = 0;
 	hist.x = 0;
 	hist.cc = is_unicorn_set(env);
 	x = 0;
+	dup_env(env, &envi);
 	ft_init_tab(&hist);
 	term_init(&save_cano, &save_nncano);
 	file_histo(&hist);
-	while(x != 3)
+	while(1)
 	{
 		x = bashy(&hist, &ar);
 		tcsetattr(0, TCSADRAIN, &save_cano);
+		if (x == 3)
+			break;
 		persecutor(&hist, &ar, env, &last_ret);
 		tcsetattr(0, TCSADRAIN, &save_nncano);
 	}
