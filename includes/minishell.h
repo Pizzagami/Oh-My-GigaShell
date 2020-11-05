@@ -6,9 +6,10 @@
 
 typedef struct	s_env
 {
-	char			*chro;
+	char			*var; 
+	char			*cache;
 	char			*tri;
-	struct s_token	*next;
+	struct s_env 	*next;
 
 }				t_env;
 
@@ -38,5 +39,9 @@ void		setcolor(int *x);
 int			is_unicorn_set(char **env);
 t_token		*create_simple_token_list(char *str);
 char		*create_str(char *str, int start, int len);
+void	dup_env(char **envp, t_env **env);
+void	add_tail(char *var, t_env **first);
+void	add_env_var(char *var, t_env **first);
+char	*get_env_var(char *var, t_env *first);
 
 #endif

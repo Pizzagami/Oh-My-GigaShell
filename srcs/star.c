@@ -1,7 +1,6 @@
 #include "minishell.h"
 #include "parser.h"
 #include "token.h"
-#include <libc.h>
 #include <dirent.h>
 #include <sys/types.h>
 #include <sys/stat.h>
@@ -161,7 +160,9 @@ char			*ft_strjoin_sep(char *s1, char *s2, char c)
 
 int is_dir(char *path, char *file)
 {
-	struct stat buf;
+	(void)path;
+	(void)file;
+	/*struct stat buf;
 	int x;
 
 	path = ft_strjoin_sep(path, file, '/');
@@ -169,7 +170,7 @@ int is_dir(char *path, char *file)
 	free(path);
 	if (S_ISDIR(buf.st_mode))
 		return(1);
-	return(0);
+	*/return(0);
 }
 
 char	*ft_substr(char const *s, unsigned int start, size_t len)
