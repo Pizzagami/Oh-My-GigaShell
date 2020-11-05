@@ -230,7 +230,7 @@ void removedoublestars(char **str_p)
 	int x = 0;
 	while (str && str[x] && str[x + 1])
 	{
-		if (str[x] == '*' && str[x + 1] == '*')
+		if (str[x] == CSTAR && str[x + 1] == CSTAR)
 			removechar(str_p, x + 1);
 		else
 			x++;
@@ -246,7 +246,7 @@ int numberstars(char *str)
 	y = 0;
 	while (str && str[x])
 	{
-		if (str[x] == '*')
+		if (str[x] == CSTAR)
 			y++;
 		x++;
 	}
@@ -263,7 +263,7 @@ int recursive(char * str, char * patern, int rc, int xp, int xs)
 		return (1);
 	else if (!str[xs])
 		return (0);
-	if (patern[xp] != '*')
+	if (patern[xp] != CSTAR)
 	{
 		if (str[xs] == patern[xp])
 			return (recursive(str, patern, rc, xp + 1, xs + 1));
@@ -418,6 +418,18 @@ int	recurdir(char *patern, char *path, char *minipath, char **final)
 	return (0);
 }
 
+void dereplace_stars(char *str)
+{
+	int i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == CSTAR)
+			str[i] = '*';
+		i++;
+	}	
+}
 int gigastar(char *patern, char **final, char *home)
 {
 	char *path;
@@ -445,7 +457,10 @@ int gigastar(char *patern, char **final, char *home)
 		free(path);
 	}
 	if (!(*final))
+	{
+		dereplace_stars(patern); //si t'as 2 lignes a gagner, tu peux monter cette ligne et la sortir du if 
 		*final = ft_strdup(patern);
+	}
 	return (0);
 }
 
@@ -458,7 +473,7 @@ t_token *starize_list(t_token *first, char *home)
 
 	while (a)
 	{
-		if (a == first && srcchar('*', a->str) != -1)
+		if (a == first && srcchar(CSTAR, a->str) != -1)
 		{
 			str = NULL;
 			gigastar(a->str, &str, home);
@@ -467,13 +482,13 @@ t_token *starize_list(t_token *first, char *home)
 			while (tmp->next)
 				tmp = tmp->next;
 			tmp->next = a->next;
-			free(first->str);
+		free(first->str);
 			free(first);
 			first = tmp2;
 			a = first;
 			free(str);
 		}
-		if (a->next && srcchar('*', a->next->str) != -1)
+		if (a->next && srcchar(CSTAR, a->next->str) != -1)
 		{
 			str = NULL;
 			gigastar(a->next->str, &str, home);

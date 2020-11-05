@@ -6,7 +6,7 @@
 /*   By: raimbaultbrieuc <marvin@42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/15 15:24:37 by raimbault         #+#    #+#             */
-/*   Updated: 2020/10/30 16:05:12 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/11/03 16:40:17 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void    buitin_echo(char **str)
     } 
 }
 
-void	built_in_cd(char **tab)
+void	builtin_cd(char **tab)
 {
 	int fd;
 	char *path;
@@ -83,7 +83,6 @@ int exec_builtin(char *executable, char **tab, char **env)
 	if (i == 1)
 		buitin_echo(tab);
 	if (i == 2)
-		built_in_cd(tab);
-
-	return (42);
+		builtin_cd(tab);
+	return (0);
 }

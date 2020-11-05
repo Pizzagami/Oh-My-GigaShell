@@ -24,14 +24,16 @@ int		main(int argc,char **argv, char **env)
 	ft_init_tab(&hist);
 	term_init(&save_cano, &save_nncano);
 	file_histo(&hist);
-	while(x != 3)
-	{
-		x = bashy(&hist, &ar);
-		tcsetattr(0, TCSADRAIN, &save_cano);
-		persecutor(&hist, &ar, env, &last_ret);
-		tcsetattr(0, TCSADRAIN, &save_nncano);
-	}
-	ft_putstr("\n^C fin du programme\n");
+	while(1)
+    {
+        x = bashy(&hist, &ar);
+        tcsetattr(0, TCSADRAIN, &save_cano);
+        if (x == 3)
+            break;
+        persecutor(&hist, &ar, env, &last_ret);
+        tcsetattr(0, TCSADRAIN, &save_nncano);
+    }
+    ft_putstr("\n^C fin du programme\n");
 	histo_file(&hist);
 	tcsetattr(0, TCSADRAIN, &save_cano);
 	return(0);

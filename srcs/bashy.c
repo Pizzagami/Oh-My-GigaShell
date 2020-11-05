@@ -218,7 +218,10 @@ int		bashy(t_hist *hist, t_arrow *ar)
 				ft_bzero(str, ft_strlen(str));
 			}
 			else
-				bashy(hist, ar);
+			{
+                if (bashy(hist, ar) == 3)
+                return(3);
+            }
 			return(0);
 		}
 		else

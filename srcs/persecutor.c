@@ -6,7 +6,7 @@
 /*   By: raimbaultbrieuc <marvin@42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/15 15:24:37 by raimbault         #+#    #+#             */
-/*   Updated: 2020/11/03 13:47:50 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/11/05 10:54:17 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,17 +19,20 @@ int		persecutor(t_hist *hist, t_arrow *ar, char *env[], int *last_ret)
 	char	*home;
 	t_input	*tree;
 	int		ec;
+	char *quot;
+	char *str;
 
 	ar->x = 0;
 	ec = ar->x;
 	ec = 0;
-	token_start = create_token_list(hist->tab[0], &ec);
+	str = ft_strdup(hist->tab[0]);
+	quot = quote_string(str, &ec);
 	if (ec)
 	{
-		printf("Missing closing double quote\n");
-		clean_token_list(token_start);
+		printf("Missong clothing quote, dquote or error with backslash\n");
 		return (ec);
 	}
+	token_start = create_token_list(str, quot);
 	home = get_env(env, "HOME");
 	token_start = starize_list(token_start, home);
 	free(home);

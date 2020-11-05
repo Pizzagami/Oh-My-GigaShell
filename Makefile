@@ -30,6 +30,7 @@ SRCS = ./srcs/main.c					\
 		./srcs/colors.c					\
 		./srcs/star.c					\
 		./srcs/exec_builtin.c			\
+		./srcs/quote_string.c			\
 
 FLAG = -L includes/libft
 

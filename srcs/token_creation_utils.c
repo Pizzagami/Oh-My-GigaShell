@@ -6,7 +6,7 @@
 /*   By: raimbaultbrieuc <marvin@42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/15 15:33:29 by raimbault         #+#    #+#             */
-/*   Updated: 2020/11/03 13:00:47 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/11/05 10:26:09 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ void	add_token(t_token **token_current, t_type type, char *str)
 	tmp = malloc(sizeof(t_token));
 	tmp->type = type;
 	tmp->str = str;
-	tmp->quot = NULL;
 	tmp->next = NULL;
 	if (type == VOID)
 		tmp->type = WORD;
@@ -38,7 +37,6 @@ void	add_token_malloc(t_token **token_current, t_type type, char *str, int s)
 
 	tmp = malloc(sizeof(t_token));
 	tmp->type = type;
-	tmp->quot = NULL;
 	tmp->str = malloc(sizeof(char) * (s + 1));
 	tmp->str[0] = str[0];
 	tmp->str[1] = 0;
@@ -80,7 +78,7 @@ int		is_special_char(char c)
 	char	*special;
 	int		i;
 
-	special = "()<>|&';\"";
+	special = "()<>|&;";
 	i = 0;
 	while (special[i])
 	{
