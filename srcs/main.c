@@ -26,7 +26,6 @@ int		main(int argc,char **argv, char **env)
 	term_init(&save_cano, &save_nncano);
 	file_histo(&hist);
 	while(1)
-<<<<<<< HEAD
     {
         x = bashy(&hist, &ar);
         tcsetattr(0, TCSADRAIN, &save_cano);
@@ -36,17 +35,6 @@ int		main(int argc,char **argv, char **env)
         tcsetattr(0, TCSADRAIN, &save_nncano);
     }
     ft_putstr("\n^C fin du programme\n");
-=======
-	{
-		x = bashy(&hist, &ar);
-		tcsetattr(0, TCSADRAIN, &save_cano);
-		if (x == 3)
-			break;
-		persecutor(&hist, &ar, env, &last_ret);
-		tcsetattr(0, TCSADRAIN, &save_nncano);
-	}
-	ft_putstr("\n^C fin du programme\n");
->>>>>>> 8805a5f097ef5a2c039069dc17fa0c29414fc908
 	histo_file(&hist);
 	tcsetattr(0, TCSADRAIN, &save_cano);
 	return(0);

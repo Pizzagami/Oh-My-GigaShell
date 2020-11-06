@@ -225,15 +225,9 @@ int		bashy(t_hist *hist, t_arrow *ar)
 			}
 			else
 			{
-<<<<<<< HEAD
-                if (bashy(hist, ar) == 3)
-                return(3);
-            }
-=======
 				if (bashy(hist, ar) == 3)
 				return(3);
 			}
->>>>>>> 8805a5f097ef5a2c039069dc17fa0c29414fc908
 			return(0);
 		}
 		else
