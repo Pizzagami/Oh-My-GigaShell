@@ -7,7 +7,7 @@ int		main(int argc,char **argv, char **env)
 {	
 	(void)argc;(void)argv;
 	int x;
-	t_env *envi;
+//	t_env *envi;
 	struct termios save_cano;
 	struct termios save_nncano;
 	t_hist	hist;
@@ -21,7 +21,7 @@ int		main(int argc,char **argv, char **env)
 	hist.x = 0;
 	hist.cc = is_unicorn_set(env);
 	x = 0;
-	dup_env(env, &envi);
+	//dup_env(env, &envi);
 	ft_init_tab(&hist);
 	term_init(&save_cano, &save_nncano);
 	file_histo(&hist);
