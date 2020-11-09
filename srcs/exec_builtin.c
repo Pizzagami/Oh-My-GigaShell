@@ -6,7 +6,7 @@
 /*   By: raimbaultbrieuc <marvin@42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/15 15:24:37 by raimbault         #+#    #+#             */
-/*   Updated: 2020/11/03 16:40:17 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/11/09 15:17:42 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void    buitin_echo(char **str)
 
     n = 0;
 	str++;
-	if (ft_strcmp("-n", *str) != 0)
+	if (ft_strcmp("-n", *str) == 0)
 	{
 		n = 1;
 		str++;
@@ -67,9 +67,9 @@ void	builtin_cd(char **tab)
 
 int	is_builtin(char *executable)
 {
-	if (strcmp(executable, "echo") == 0)
+	if (ft_strcmp(executable, "echo") == 0)
 		return (1);
-	if (strcmp(executable, "cd") == 0)
+	if (ft_strcmp(executable, "cd") == 0)
 		return (2);
 	return (0);
 }

@@ -2,6 +2,13 @@ export billy=4p=t
 env
 env
 echo *
+*
+echo -n test
+echo test
+echo test
+Echo test
+echo test
+echo *
 echo *jbhfbje*kbjf
 echo *jbhfbjekbjf
 echo */jnfk

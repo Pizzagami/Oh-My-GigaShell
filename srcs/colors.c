@@ -7,7 +7,7 @@ int is_unicorn_set(char **env)
 	char *str = get_env(env, "unicorn");
 	if (str == NULL)
 		return (-1);
-	if (ft_strcmp(str, "1") == 0)
+	if (ft_strcmp(str, "1"))
 		return (-1);
 	else
 		return (0);
