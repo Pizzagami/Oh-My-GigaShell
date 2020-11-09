@@ -21,6 +21,7 @@ int		main(int argc,char **argv, char **env)
 	hist.x = 0;
 	hist.cc = is_unicorn_set(env);
 	x = 0;
+	envi = NULL;
 	dup_env(env, &envi);
 	ft_init_tab(&hist);
 	term_init(&save_cano, &save_nncano);
