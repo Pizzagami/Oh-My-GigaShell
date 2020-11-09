@@ -1,4 +1,6 @@
-#include <libc.h>
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
 
 void remove_char(char *str, int index)
 {

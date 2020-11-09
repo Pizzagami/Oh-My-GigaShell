@@ -6,6 +6,7 @@ SRCS = ./srcs/main.c					\
 	   ./srcs/bashy.c					\
 	   ./srcs/term_init.c				\
 	   ./srcs/tools.c					\
+		./srcs/tools_env.c  		    \
 	   	./srcs/persecutor.c 			\
 		./srcs/display_tree.c 			\
 		./srcs/display_tree2.c			\

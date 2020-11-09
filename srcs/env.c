@@ -4,13 +4,13 @@
 
 void	dup_env(char **envp, t_env **env)
 {
-	char	*var_lst[] = {"PATH", "HOME", "OLDPWD", "PWD", "SHLVL", NULL};
-	int		nb_elem = 5;
+//	char	*var_lst[] = {"PATH", "HOME", "OLDPWD", "PWD", "SHLVL", NULL};
+//	int		nb_elem = 5;
 	int		i = 0;
 	while (envp[i])
 	{
 		add_tail(ft_strdup(envp[i]), &*env);
-		if (!ft_strncmp(envp[i], "PATH", 4))
+	/*	if (!ft_strncmp(envp[i], "PATH", 4))
 			var_lst[0] = NULL;
 		else if (!ft_strncmp(envp[i], "HOME", 4))
 			var_lst[1] = NULL;
@@ -20,29 +20,36 @@ void	dup_env(char **envp, t_env **env)
 			var_lst[3] = NULL;
 		else if (!ft_strncmp(envp[i], "SHLVL", 5))
 			var_lst[4] = NULL;
-		i++;
+	*/	i++;
 	}
-	i = 0;
+/*	i = 0;
 	while (i < nb_elem)
 	{
 		if (var_lst[i] != NULL)
 			add_env_var(var_lst[i], &*env);
 		i++;
 	}
-}
+*/}
 
 void	add_tail(char *var, t_env **first)
 {
 	t_env	*current = *first;
 	t_env	*next = NULL;
+	char *val;
+	char *name;
 
-	next = (t_env *)ft_calloc(sizeof(t_env), 1);
+	env_split(var, &name, &val);
+	if (!val)
+	{
+		ft_putstr("error parsing env\n");
+		return;
+	}
+	next = (t_env *)malloc(sizeof(t_env));
 	if (next == NULL)
 		exit(0);
-
-	next->var = var;
+	next->name = name;
+	next->val = val;
 	next->next = NULL;
-
 	if (current == NULL)
 		*first = next;
 	else
@@ -53,7 +60,7 @@ void	add_tail(char *var, t_env **first)
 	}
 }
 
-void	add_env_var(char *var, t_env **first)
+/*void	add_env_var(char *var, t_env **first)
 {
 	(void)var;
 	(void)first;
@@ -75,3 +82,4 @@ char	*get_env_var(char *var, t_env *first)
 	}
 	return (NULL);
 }
+*/

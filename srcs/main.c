@@ -7,7 +7,7 @@ int		main(int argc,char **argv, char **env)
 {	
 	(void)argc;(void)argv;
 	int x;
-	t_env *envi;
+	t_env  *envi;
 	struct termios save_cano;
 	struct termios save_nncano;
 	t_hist	hist;
