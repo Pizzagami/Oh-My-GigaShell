@@ -32,7 +32,7 @@ void	built_in_export(char *var, t_env **first)
 		tri_and_print(first); //tri et affiche
 	else if(!find_and_replace(first, var)) //creer si pas deja existant
 	{
-		//env split avec verif et cas de null ou NULL
+		//env split avec verif et cas de null ou NULL et caractere interdit
 	}
 	free(var);
 }
