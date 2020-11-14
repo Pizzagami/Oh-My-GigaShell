@@ -44,5 +44,6 @@ void		add_tail(char *var, t_env **first);
 void		add_env_var(char *var, t_env **first);
 char		*get_env_var(char *var, t_env *first);
 int			find_and_replace(t_env **first, char *var);
+void		tri_and_find(t_env *first);
 
 #endif

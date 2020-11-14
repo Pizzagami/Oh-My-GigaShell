@@ -1,7 +1,8 @@
 #include <stdlib.h>
 #include "minishell.h"
+#include "libft.h"
 
-void	env_split(char *str, char **name, char **val)
+void	env_split(char *str, char **name, char **val) //passer en int pour verif cas d erreur
 {
 	int i;
 	int j;
@@ -45,6 +46,7 @@ int		find_and_replace(t_env **first, char *var)
 	int l_name; //mettre dans la struct pour gagner des lignes?
 
 	i = 1;
+	current = *first;
 	l_var = ft_strlen(var);
 	l_name = ft_strlen(current->name);
 	current = *first;
@@ -52,7 +54,8 @@ int		find_and_replace(t_env **first, char *var)
 	{
 		if (!ft_strncmp(current->name, var, l_name) && var[l_name] == '=')
 			{
-				free(current->val);
+				if (current->val)
+					free(current->val);
 				current->val = malloc(sizeof(char)* (l_var - l_name));
 				current->val[l_var - l_name] = 0;
 				while(l_name + i < l_var)
@@ -65,4 +68,44 @@ int		find_and_replace(t_env **first, char *var)
 		current = current->next;
 	}
 	return (0);
+}
+
+void tri_and_find(t_env *first)
+{
+	t_env *tmp;
+	//char *swp;
+
+	tmp = first;
+	(void)tmp;
+/*	while (tmp)
+	{
+		tmp->tri = malloc(sizeof(char) * (tmp->n_len + tmp->v_len + 4));
+		tmp->tri = ft_strcat(tmp->tri, tmp->name);
+		tmp->tri = ft_strcat(tmp->tri, "=\"");
+		if (tmp->value != NULL)
+			tmp->tri = ft_strcat(tmp->tri, tmp->value);
+		tmp->tri = ft_strcat(tmp->tri, "\"");
+		tmp = tmp->next;
+	}
+	tmp = *env;
+	while (tmp)
+	{
+		if (tmp->next && ft_strcmp(tmp->tri, tmp->next->tri) > 0)
+		{
+			swp = tmp->tri;
+			tmp->tri = tmp->next->tri;
+			tmp->next->tri = swp;
+			tmp = *env;
+		}
+		else
+			tmp = tmp->next;
+	}
+	tmp = *env;
+	while (tmp)
+	{
+		if (ft_strncmp(tmp->tri, "_=\"/usr/bin/\"", 10) && tmp->tri)
+			ft_printf("%s\n", tmp->tri);
+		free(tmp->tri);
+		tmp = tmp->next;
+	}*/
 }
