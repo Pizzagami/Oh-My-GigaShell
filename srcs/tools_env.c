@@ -85,18 +85,32 @@ int		env_size(t_env *first)
 	return (compteur);
 }
 
+void	swap_list(t_env **tmp)
+{
+	char *n;
+	char *v;
+	char *l;
+
+	n = dup(tmp->name);
+	v = dup(tmp->val);
+	l = dup(tmp->l_name);
+	tmp->name = tmp->next->name;
+	tmp->val = tmp->next->val;
+	tmp->l_name = tmp->next->l_name;
+	tmp->next->name = n;
+	tmp->next->val = v;
+	tmp->next->l_name = l;
+}
+
 void 	tri_and_find(t_env *first)
 {
 	t_env *tmp;
-	char *swp_n;
-	char *swp_v;
-	char *swp_l;
 	int x;
 	int i;
 	int y;
 
 	i = 0;
-	x = env_size(first);
+	x = env_size(first); 
 	tmp = first;
 	while (i < x)
 		while (tmp->next) 
@@ -104,7 +118,7 @@ void 	tri_and_find(t_env *first)
 			y = (tmp->l_name > tmp->next->l_name) ? tmp->l_name : tmp->next->l_name;
 			if (ft_strncmp(tmp->name, tmp->next->name,y) > 0)
 			{
-				
+				swap_list(&tmp); // a creer	
 			}
 
 		}
