@@ -70,42 +70,38 @@ int		find_and_replace(t_env **first, char *var)
 	return (0);
 }
 
-void tri_and_find(t_env *first)
+int		env_size(t_env *first)
 {
-	t_env *tmp;
-	//char *swp;
+	int		compteur;
+	t_env	*tmp;
 
 	tmp = first;
-	(void)tmp;
-/*	while (tmp)
-	{
-		tmp->tri = malloc(sizeof(char) * (tmp->n_len + tmp->v_len + 4));
-		tmp->tri = ft_strcat(tmp->tri, tmp->name);
-		tmp->tri = ft_strcat(tmp->tri, "=\"");
-		if (tmp->value != NULL)
-			tmp->tri = ft_strcat(tmp->tri, tmp->value);
-		tmp->tri = ft_strcat(tmp->tri, "\"");
-		tmp = tmp->next;
-	}
-	tmp = *env;
+	compteur = 0;
 	while (tmp)
 	{
-		if (tmp->next && ft_strcmp(tmp->tri, tmp->next->tri) > 0)
-		{
-			swp = tmp->tri;
-			tmp->tri = tmp->next->tri;
-			tmp->next->tri = swp;
-			tmp = *env;
-		}
-		else
-			tmp = tmp->next;
-	}
-	tmp = *env;
-	while (tmp)
-	{
-		if (ft_strncmp(tmp->tri, "_=\"/usr/bin/\"", 10) && tmp->tri)
-			ft_printf("%s\n", tmp->tri);
-		free(tmp->tri);
+		compteur++;
 		tmp = tmp->next;
-	}*/
+	}
+	return (compteur);
 }
+
+void 	tri_and_find(t_env *first)
+{
+	t_env *tmp;
+	char *swp_n;
+	char *swp_v;
+	int x;
+	int i;
+	int y;
+
+	i = 0;
+	x = env_size(first);
+	tmp = first;
+	while (i < x)
+	y = 0;
+		while (tmp->next) 
+		{
+
+		}
+}
+
