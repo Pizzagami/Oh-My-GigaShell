@@ -90,6 +90,7 @@ void 	tri_and_find(t_env *first)
 	t_env *tmp;
 	char *swp_n;
 	char *swp_v;
+	char *swp_l;
 	int x;
 	int i;
 	int y;
@@ -98,9 +99,13 @@ void 	tri_and_find(t_env *first)
 	x = env_size(first);
 	tmp = first;
 	while (i < x)
-	y = 0;
 		while (tmp->next) 
 		{
+			y = (tmp->l_name > tmp->next->l_name) ? tmp->l_name : tmp->next->l_name;
+			if (ft_strncmp(tmp->name, tmp->next->name,y) > 0)
+			{
+				
+			}
 
 		}
 }
