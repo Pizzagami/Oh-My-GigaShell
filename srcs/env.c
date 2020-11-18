@@ -35,7 +35,8 @@ void	add_tail(char *var, t_env **first)
 {
 	t_env	*current = *first;
 	t_env	*next = NULL;
-
+	char 	*name;
+	char 	*val;
 	env_split(var, &name, &val);
 	if (!val)
 	{
@@ -47,6 +48,7 @@ void	add_tail(char *var, t_env **first)
 		exit(0);
 	next->name = name;
 	next->val = val;
+	next->l_name = ft_strlen(name);
 	next->next = NULL;
 	if (current == NULL)
 		*first = next;

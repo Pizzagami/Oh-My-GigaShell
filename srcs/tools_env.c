@@ -91,15 +91,15 @@ void	swap_list(t_env **tmp)
 	char *v;
 	char *l;
 
-	n = dup(tmp->name);
-	v = dup(tmp->val);
-	l = dup(tmp->l_name);
-	tmp->name = tmp->next->name;
-	tmp->val = tmp->next->val;
-	tmp->l_name = tmp->next->l_name;
-	tmp->next->name = n;
-	tmp->next->val = v;
-	tmp->next->l_name = l;
+	n = (*tmp)->name;
+	v = (*tmp)->val;
+	l = (*tmp)->l_name;
+	(*tmp)->name = (*tmp)->next->name;
+	(*tmp)->val = (*tmp)->next->val;
+	(*tmp)->l_name = (*tmp)->next->l_name;
+	(*tmp)->next->name = n;
+	(*tmp)->next->val = v;
+	(*tmp)->next->l_name = l;
 }
 
 void 	tri_and_find(t_env *first)
@@ -110,17 +110,34 @@ void 	tri_and_find(t_env *first)
 	int y;
 
 	i = 0;
-	x = env_size(first); 
 	tmp = first;
-	while (i < x)
-		while (tmp->next) 
+	while (tmp->next)
+	{
+		y = (tmp->l_name > tmp->next->l_name) ? tmp->l_name : tmp->next->l_name;
+		if (ft_strncmp(tmp->name, tmp->next->name,y) < 0)
 		{
-			y = (tmp->l_name > tmp->next->l_name) ? tmp->l_name : tmp->next->l_name;
-			if (ft_strncmp(tmp->name, tmp->next->name,y) > 0)
-			{
-				swap_list(&tmp); // a creer	
-			}
-
+			swap_list(&tmp);
+			tmp = first;
+			i = 0;
 		}
+		else
+		{
+			tmp = tmp->next;
+			i++;
+		}
+	}
+	i = 0;
+	while (i < x)
+	{
+		ft_putstr("declare -x ");
+		ft_putstr(tmp->name);
+		if(tmp->val)
+		{
+			ft_putstr("=\"");
+			ft_putstr(tmp->val);
+			ft_putstr("\"");
+		}
+		tmp = tmp->next;
+	}
 }
 
