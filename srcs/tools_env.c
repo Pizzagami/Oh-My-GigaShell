@@ -102,7 +102,7 @@ void	swap_list(t_env **tmp)
 	(*tmp)->next->l_name = l;
 }
 
-void 	tri_and_find(t_env *first)
+void 	tri_and_print(t_env *first)
 {
 	t_env *tmp;
 	int x;
