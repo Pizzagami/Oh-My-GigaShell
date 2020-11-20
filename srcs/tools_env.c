@@ -48,19 +48,18 @@ int		find_and_replace(t_env **first, char *var)
 	i = 1;
 	current = *first;
 	l_var = ft_strlen(var);
-	l_name = ft_strlen(current->name);
 	current = *first;
 	while (current)
 	{
-		if (!ft_strncmp(current->name, var, l_name) && var[l_name] == '=')
+		if (!ft_strncmp(current->name, var, current->l_name) && var[current->l_name] == '=')
 			{
 				if (current->val)
 					free(current->val);
-				current->val = malloc(sizeof(char)* (l_var - l_name));
-				current->val[l_var - l_name] = 0;
-				while(l_name + i < l_var)
+				current->val = malloc(sizeof(char)* (l_var - current->l_name));
+				current->val[l_var - current->l_name] = 0;
+				while(current->l_name + i < l_var)
 				{
-					current->val[i - 1] = var[l_name + i];
+					current->val[i - 1] = var[current->l_name + i];
 					i++;
 				}
 				return(1);

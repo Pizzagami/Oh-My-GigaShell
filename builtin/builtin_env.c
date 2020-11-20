@@ -36,7 +36,7 @@ void	built_in_export(char *var, t_env **first)
 		tri_and_print(*first); //tri et affiche
 	else if(!find_and_replace(first, var)) //creer si pas deja existant
 	{
-		env_split(var, &name, &val); 
+		env_split(var, &name, &val); //faut verif
 		while (current->next)
 			current = current->next;
 		current->next = malloc(sizeof(t_env));
@@ -50,34 +50,24 @@ void	built_in_export(char *var, t_env **first)
 	free(var);
 }
 
-void	built_in_unset(char *var, t_env *lst)
+void	built_in_unset(char *var, t_env **env)
 {
-	t_env *tmp = lst;
-
-	if (var == NULL)
+	t_env *current;
+	t_env *tmp;
+	
+	current = *env;
+	while(current->next != NULL)
 	{
-		ft_putstr("unset: not enough arguments\n");
-		return;
-	}
-	while(lst->next != NULL)
-	{
-		if (tmp->var && ft_strncmp(lst->next->var, var, ft_strlen(var)) == 0)
+		if (!ft_strncmp(current->next->name, var, current->next->l_name) && var[current->next->l_name] == '=')
 		{
-			ft_putstr("var\n");
-			tmp = lst->next;
-			free(tmp->var);
-			free(tmp);
-			lst->next = lst->next->next;
+			free(current->next->name);
+			free(current->next->val);
+			free(current->next->l_name);
+			tmp = current->next;
+			current->next = current->next->next;
+			free(tmp);  //aucune idee de si ca marche
+			break;
 		}
-		else if (tmp->cache && ft_strncmp(lst->next->var, var, ft_strlen(var)) == 0)
-		{
-			ft_putstr("cache\n");
-			tmp = lst->next;
-			free(tmp->cache);
-			free(tmp);
-			lst->next = lst->next->next;
-		}
-		if (lst->next != NULL)
-			lst = lst->next;
+		current = current->next;		
 	}
 }
