@@ -15,8 +15,8 @@ void	env_split(char *str, char **name, char **val) //passer en int pour verif ca
 	x = 0;
 	while(str && str[i] != '=')
 		i++;
-	str1 = malloc(sizeof(char) * i);
-	str1[i - 1] = 0;
+	str1 = malloc(sizeof(char) * (i + 1));
+	str1[i] = 0;
 	while(j < i)
 	{
 		str1[j] = str[j];

@@ -35,9 +35,8 @@ SRCS = ./srcs/main.c					\
 		./srcs/quote_string.c			\
 
 FLAG = -L includes/libft
-
-CFLAGS = -Wall -Wextra -Werror -I includes/ -I includes/libft/	
 FSANITIZE = -fsanitize=address -g3
+CFLAGS = -Wall -Wextra -Werror -I includes/ -I includes/libft/ $(FSANITIZE)	
 
 CC = gcc
 
@@ -46,7 +45,7 @@ OBJS = $(SRCS:.c=.o)
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	$(CC) -o $(NAME) $(FLAG) $(CFLAGS) $(OBJS) $(FSANITIZE) ./includes/libft/libft.a
+	$(CC) -o $(NAME) $(CFLAGS) $(FLAG) $(OBJS) ./includes/libft/libft.a
 
 
 lib:

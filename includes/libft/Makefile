@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+         #
+#    By: pizzagami <pizzagami@student.42.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/11 11:50:27 by braimbau          #+#    #+#              #
-#    Updated: 2020/10/28 11:01:34 by braimbau         ###   ########.fr        #
+#    Updated: 2020/11/26 12:26:58 by pizzagami        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,7 +58,7 @@ OBJ = $(SRCS:.c=.o)
 
 OBJ_BONUS = $(OBJ)
 
-CFLAGS += -Wall -Wextra -Werror -I./includes
+CFLAGS += -Wall -Wextra -Werror -fsanitize=address -g3 -I./includes
 
 all: $(NAME)
 

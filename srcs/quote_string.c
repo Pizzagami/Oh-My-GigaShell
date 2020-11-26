@@ -38,7 +38,7 @@ char	*quote_string(char *str, int *ec)
 
 	i = 0;
 	x = 0;
-	quot = malloc(sizeof(char) * strlen(str));
+	quot = malloc(sizeof(char) * (strlen(str) + 1));
 	while(str[i])
 	{
 		if (str[i] == 34) // "
