@@ -43,8 +43,6 @@ int		find_and_replace(t_env **first, char *var)
 	t_env *current;
 	int  i;
 	int	l_var;
-	int l_name; //mettre dans la struct pour gagner des lignes?
-
 	i = 1;
 	current = *first;
 	l_var = ft_strlen(var);
@@ -88,7 +86,7 @@ void	swap_list(t_env **tmp)
 {
 	char *n;
 	char *v;
-	char *l;
+	int	 l;
 
 	n = (*tmp)->name;
 	v = (*tmp)->val;
@@ -104,7 +102,6 @@ void	swap_list(t_env **tmp)
 void 	tri_and_print(t_env *first)
 {
 	t_env *tmp;
-	int x;
 	int i;
 	int y;
 
@@ -125,8 +122,7 @@ void 	tri_and_print(t_env *first)
 			i++;
 		}
 	}
-	i = 0;
-	while (i < x)
+	while (tmp->next)
 	{
 		ft_putstr("declare -x ");
 		ft_putstr(tmp->name);

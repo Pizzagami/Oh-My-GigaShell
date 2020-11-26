@@ -1,3 +1,5 @@
+ls
+echo pizza
 export billy=4p=t
 env
 env
