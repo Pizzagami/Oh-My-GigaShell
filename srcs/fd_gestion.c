@@ -6,13 +6,13 @@
 /*   By: braimbau <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/28 15:03:37 by braimbau          #+#    #+#             */
-/*   Updated: 2020/10/27 15:59:41 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/11/26 13:57:29 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 
-t_omm	init_std_fd(char **env, int *last_ret)
+t_omm	init_std_fd(t_env *env, int *last_ret)
 {
 	t_omm omm;
 	

@@ -26,8 +26,8 @@ void	env_split(char *str, char **name, char **val) //passer en int pour verif ca
 	j++;
 	while(str[i])
 		i++;
-	str2 = malloc(sizeof(char) * (i - j));
-	str2[i - j - 1] = 0;
+	str2 = malloc(sizeof(char) * (i - j + 1));
+	str2[i - j] = 0;
 	while(j < i)
 	{
 		str2[x] = str[j];
@@ -65,21 +65,6 @@ int		find_and_replace(t_env **first, char *var)
 		current = current->next;
 	}
 	return (0);
-}
-
-int		env_size(t_env *first)
-{
-	int		compteur;
-	t_env	*tmp;
-
-	tmp = first;
-	compteur = 0;
-	while (tmp)
-	{
-		compteur++;
-		tmp = tmp->next;
-	}
-	return (compteur);
 }
 
 void	swap_list(t_env **tmp)

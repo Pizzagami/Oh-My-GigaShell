@@ -19,10 +19,10 @@ int		main(int argc,char **argv, char **env)
 	ar.x = 0;
 	ar.y = 0;
 	hist.x = 0;
-	hist.cc = is_unicorn_set(env);
 	x = 0;
 	envi = NULL;
 	dup_env(env, &envi);
+	hist.cc = is_unicorn_set(envi);
 	ft_init_tab(&hist);
 	term_init(&save_cano, &save_nncano);
 	file_histo(&hist);
@@ -32,7 +32,7 @@ int		main(int argc,char **argv, char **env)
         tcsetattr(0, TCSADRAIN, &save_cano);
         if (x == 3)
             break;
-        persecutor(&hist, &ar, env, &last_ret);
+        persecutor(&hist, &ar, envi, &last_ret);
         tcsetattr(0, TCSADRAIN, &save_nncano);
     }
     ft_putstr("\n^C fin du programme\n");

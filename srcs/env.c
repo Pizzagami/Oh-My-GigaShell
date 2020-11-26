@@ -9,7 +9,7 @@ void	dup_env(char **envp, t_env **env)
 	int		i = 0;
 	while (envp[i])
 	{
-		add_tail(ft_strdup(envp[i]), &*env);
+		add_tail(ft_strdup(envp[i]), env);
 	/*	if (!ft_strncmp(envp[i], "PATH", 4))
 			var_lst[0] = NULL;
 		else if (!ft_strncmp(envp[i], "HOME", 4))

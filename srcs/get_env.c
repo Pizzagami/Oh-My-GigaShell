@@ -6,29 +6,21 @@
 /*   By: braimbau <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/30 14:53:54 by braimbau          #+#    #+#             */
-/*   Updated: 2020/11/09 15:17:54 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/11/26 15:13:23 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "parser.h"
 
-char *get_env(char**env, char *key)
+char *get_env(t_env *env, char *key)
 {
-	int i;
-	char *str;
-
-	i = 0;
-	while (env[i])
+	while (env)
 	{
-		str = ft_substr(env[i], 0, ft_strfind(env[i], '='));
-		if (ft_strcmp(str, key) == 0)
+		if (ft_strcmp(env->name, key) == 0)
 		{
-			free(str);
-			return (ft_substr(env[i], ft_strfind(env[i], '=') + 1,
-					ft_strlen(env[i]) - ft_strfind(env[i], '=')));
+			return (env->val);
 		}
-		free(str);
-		i++;
+		env = env->next;
 	}
 	return (NULL);
 }

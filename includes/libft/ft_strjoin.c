@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/16 18:30:44 by selgrabl          #+#    #+#             */
-/*   Updated: 2019/10/16 18:32:52 by selgrabl         ###   ########.fr       */
+/*   Updated: 2020/11/26 15:25:46 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,6 @@ char			*ft_strjoin(const char *s1, const char *s2)
 		return (NULL);
 	dest = ft_strcpy(dest, str1);
 	dest = ft_strcat(dest, str2, i);
-	dest[i + j + 1] = '\0';
+	dest[i + j] = '\0';
 	return (dest);
 }

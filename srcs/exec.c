@@ -6,7 +6,7 @@
 /*   By: braimbau <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/29 17:26:36 by braimbau          #+#    #+#             */
-/*   Updated: 2020/10/28 13:51:36 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/11/26 15:37:34 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int		is_in_directory(char *dirname, char *file)
 	return (0);
 }
 
-char *get_implicit_path(char **env, char *str)
+char *get_implicit_path(t_env *env, char *str)
 {
 	char	**tab;
 	int		i;
@@ -55,7 +55,6 @@ char *get_implicit_path(char **env, char *str)
 	i = 0;
 	test = get_env(env, "PATH");
 	tab = ft_split(test, ':');
-	free(test);
 	while (tab[i])
 	{
 		if (is_in_directory(tab[i], str))
@@ -73,7 +72,7 @@ char *get_implicit_path(char **env, char *str)
 	return (NULL);
 }
 
-char *get_path(char **env, char *str)
+char *get_path(t_env *env, char *str)
 {
 	char path[4096];
 	char *home;

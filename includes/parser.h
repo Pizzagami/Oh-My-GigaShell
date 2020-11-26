@@ -6,7 +6,7 @@
 /*   By: raimbaultbrieuc <marvin@42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/15 16:13:31 by raimbault         #+#    #+#             */
-/*   Updated: 2020/11/03 15:52:57 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/11/26 14:16:15 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,14 @@
 # include <sys/types.h>
 # include <sys/wait.h>
 # include <dirent.h>
+# include "minishell.h"
 
 typedef struct	s_omm
 {
 	int		stdin;
 	int		stdout;
 	int		*last_ret;
-	char	**env;
+	t_env	*env;
 }				t_omm;
 
 typedef struct	s_instruction
@@ -108,14 +109,14 @@ int				exec_redirection(t_redirection *redirection, t_omm omm);
 int				exec_instruction(t_instruction *instruction, t_omm omm);
 int				ft_strcmp(char *s1, char *s2);
 char			*lower_case(char *s);
-t_omm			init_std_fd(char *env[], int *last_ret);
+t_omm			init_std_fd(t_env *env, int *last_ret);
 char			**create_tab(t_token *start, t_token *max);
-char			*get_path(char **env, char *str);
-char			*get_env(char **env, char *key);
+char			*get_path(t_env *env, char *str);
+char			*get_env(t_env *env, char *key);
 void			reset_fd(t_omm omm);
 t_token			*starize_list(t_token *a, char *home);
 void			replace_dolint(t_token *a, int ret);
 int				is_builtin(char *executable);
-int				exec_builtin(char *executable, char **tab, char **env);
+int				exec_builtin(char *executable, char **tab, t_env *env);
 char			*quote_string(char *str, int *ec);
 #endif

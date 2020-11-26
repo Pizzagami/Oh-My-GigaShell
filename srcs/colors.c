@@ -2,7 +2,7 @@
 #include "parser.h"
 #include "libft.h"
 
-int is_unicorn_set(char **env)
+int is_unicorn_set(t_env *env)
 {
 	char *str = get_env(env, "unicorn");
 	if (str == NULL)

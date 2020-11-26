@@ -6,17 +6,16 @@
 /*   By: raimbaultbrieuc <marvin@42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/15 15:24:37 by raimbault         #+#    #+#             */
-/*   Updated: 2020/11/05 10:54:17 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/11/26 14:38:05 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 #include "minishell.h"
 
-int		persecutor(t_hist *hist, t_arrow *ar, char *env[], int *last_ret)
+int		persecutor(t_hist *hist, t_arrow *ar, t_env *env, int *last_ret)
 {
 	t_token	*token_start;
-	char	*home;
 	t_input	*tree;
 	int		ec;
 	char *quot;
@@ -33,9 +32,7 @@ int		persecutor(t_hist *hist, t_arrow *ar, char *env[], int *last_ret)
 		return (ec);
 	}
 	token_start = create_token_list(str, quot);
-	home = get_env(env, "HOME");
-	token_start = starize_list(token_start, home);
-	free(home);
+	token_start = starize_list(token_start, get_env(env, "HOME"));
 	//printf_token(token_start);
 	tree = parse_input(token_start, &ec);
 	if (!ec)

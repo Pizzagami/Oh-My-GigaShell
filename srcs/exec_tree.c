@@ -6,11 +6,26 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 14:45:18 by raimbault         #+#    #+#             */
-/*   Updated: 2020/11/03 16:37:32 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/11/26 15:40:33 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
+
+int		env_size(t_env *first)
+{
+	int		compteur;
+	t_env	*tmp;
+
+	tmp = first;
+	compteur = 0;
+	while (tmp)
+	{
+		compteur++;
+		tmp = tmp->next;
+	}
+	return (compteur);
+}
 
 int		exec_andor(t_andor *andor, t_omm omm)
 {
@@ -136,11 +151,33 @@ int		exec_redirection(t_redirection *redirection, t_omm omm)
 	return (0);
 }
 
+char  **link_tab(t_env *env)
+{
+	char **str;
+	char *tmp;
+	int x;
+	int j;
+
+	j = 0;
+	x = env_size(env);
+	str = malloc(sizeof(char*) * x);
+	while (j  < x)
+	{
+		tmp = ft_strjoin(env->name,"=");
+		str[j] = ft_strjoin(tmp,env->val);
+		free(tmp);
+		env = env->next;
+		j++;
+	}
+	return(str);
+}
+
 int exec_binary(char **tab, t_omm omm, t_token *token)
 {
 	int pid;
 	int ret;
 	char *path;
+	char **tabenv;
 	
 	ret = 0;
 	pid = fork();
@@ -150,7 +187,12 @@ int exec_binary(char **tab, t_omm omm, t_token *token)
 		if (!path)
 			ret = 1;
 		else
-			ret = execve(path, tab, omm.env);
+		{
+			tabenv = link_tab(omm.env);
+			printf("bite : %s \n", tab[1]);
+			ret = execve(path, tab, tabenv);
+			//la faut free mais j'ai la flem
+		}
 		free(tab);
 		write(2, "Error while executing program\n", 30);
 		exit(127);
