@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_tree.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pizzagami <pizzagami@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 14:45:18 by raimbault         #+#    #+#             */
-/*   Updated: 2020/11/26 15:40:33 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/11/26 16:00:20 by pizzagami        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ int		exec_redirection(t_redirection *redirection, t_omm omm)
 		fd = open(redirection->filename, O_CREAT | O_RDWR | O_TRUNC, S_IRWXU);
 		if (fd == -1)
 		{
-			printf("Error : %s\n", strerror(errno));
+			printf("Error : %s\n", strerror(errno));//perror
 			return (1);
 		}
 		dup2(fd, 1);
@@ -160,7 +160,8 @@ char  **link_tab(t_env *env)
 
 	j = 0;
 	x = env_size(env);
-	str = malloc(sizeof(char*) * x);
+	str = (char**)malloc(sizeof(char*) * (x + 1));
+	str[x] = NULL;
 	while (j  < x)
 	{
 		tmp = ft_strjoin(env->name,"=");
@@ -189,7 +190,7 @@ int exec_binary(char **tab, t_omm omm, t_token *token)
 		else
 		{
 			tabenv = link_tab(omm.env);
-			printf("bite : %s \n", tab[1]);
+			printf("bite : %s \n", tabenv[0]);
 			ret = execve(path, tab, tabenv);
 			//la faut free mais j'ai la flem
 		}
