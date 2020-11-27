@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 14:45:18 by raimbault         #+#    #+#             */
-/*   Updated: 2020/11/26 15:40:33 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/11/26 21:11:00 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -189,7 +189,6 @@ int exec_binary(char **tab, t_omm omm, t_token *token)
 		else
 		{
 			tabenv = link_tab(omm.env);
-			printf("bite : %s \n", tab[1]);
 			ret = execve(path, tab, tabenv);
 			//la faut free mais j'ai la flem
 		}

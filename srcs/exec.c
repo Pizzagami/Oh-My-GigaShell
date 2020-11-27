@@ -6,7 +6,7 @@
 /*   By: braimbau <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/29 17:26:36 by braimbau          #+#    #+#             */
-/*   Updated: 2020/11/26 15:37:34 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/11/26 21:22:47 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int		is_in_directory(char *dirname, char *file)
 	dir = opendir(dirname);
 	while ((dirent = readdir(dir)))
 	{
-		if (ft_strcmp(dirent->d_name, file) == 1)
+		if (ft_strcmp(dirent->d_name, file) == 0)
 		{
 			closedir(dir);
 			return (1);
