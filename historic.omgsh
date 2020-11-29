@@ -1,0 +1,27 @@
+echo $test
+echo $test  
+echo $test 
+echo $test"lol"
+echo $test"lol"
+echo $test"lol"
+echo $test"lol"
+echo $test\lol
+echo $test"lol"
+echo $HOME\test
+echo $HOME\t
+echo $test\t
+echo test\t
+echo $test\kf
+echo *
+echo *
+echo *
+echo $?
+echo $?
+ls
+x
+echo $?
+echo $
+ls
+echo $?
+echo $?
+exho $?

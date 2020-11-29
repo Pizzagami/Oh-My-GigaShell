@@ -4,7 +4,7 @@
 #include <fcntl.h>
 
 int		main(int argc,char **argv, char **env)
-{	
+{
 	(void)argc;(void)argv;
 	int x;
 	t_env  *envi;

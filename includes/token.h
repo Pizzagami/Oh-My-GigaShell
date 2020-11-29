@@ -6,7 +6,7 @@
 /*   By: raimbaultbrieuc <marvin@42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 14:55:58 by raimbault         #+#    #+#             */
-/*   Updated: 2020/11/05 10:58:26 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/11/27 15:09:24 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ typedef enum	e_char
 {
 	CVOID,
 	CSTAR,
-	CDOLLAR
+	CDOLLAR,
+	CDOLLEND
 }				t_char;
 
 typedef enum	e_type

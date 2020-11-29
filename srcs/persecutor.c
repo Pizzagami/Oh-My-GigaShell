@@ -6,7 +6,7 @@
 /*   By: raimbaultbrieuc <marvin@42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/15 15:24:37 by raimbault         #+#    #+#             */
-/*   Updated: 2020/11/26 21:15:10 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/11/27 15:51:31 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int		persecutor(t_hist *hist, t_arrow *ar, t_env *env, int *last_ret)
 	ec = ar->x;
 	ec = 0;
 	str = ft_strdup(hist->tab[0]);
-	quot = quote_string(str, &ec);
+	quot = quote_string(&str, &ec);
 	if (ec)
 	{
 		printf("Missong clothing quote, dquote or error with backslash\n");
