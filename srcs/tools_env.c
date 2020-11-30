@@ -2,7 +2,7 @@
 #include "minishell.h"
 #include "libft.h"
 
-void	env_split(char *str, char **name, char **val) //passer en int pour verif cas d erreur
+int		env_split(char *str, char **name, char **val) //passer en int pour verif cas d erreur
 {
 	int i;
 	int j;
@@ -14,7 +14,13 @@ void	env_split(char *str, char **name, char **val) //passer en int pour verif ca
 	j = 0;
 	x = 0;
 	while(str && str[i] != '=')
+	{
+		if (((str[i] > 47 && str[i] < 58) && i > 0) || (str[i] > 96 && str[i] < 123)
+		||(str[i] > 64 && str[i] < 91) || str[i] == '_')
 		i++;
+		else
+			return (-1);
+	}
 	str1 = malloc(sizeof(char) * (i + 1));
 	str1[i] = 0;
 	while(j < i)
@@ -84,6 +90,30 @@ void	swap_list(t_env **tmp)
 	(*tmp)->next->l_name = l;
 }
 
+t_env	*cpy_env(t_env *env)
+{
+	t_env *first;
+	t_env *cpy;
+	t_env *next;
+
+	first = NULL;
+	while(env)
+	{
+		cpy = malloc(sizeof(t_env));
+		cpy->name = dup(env->name);
+		cpy->val = dup(env->val);
+		cpy->next = dup(env->next);
+		cpy->l_name = env->l_name;
+		if (!first)
+			first = cpy;
+		if (!env->next)
+			break;
+		env = env->next;
+		cpy = cpy->next;
+	}
+	return(first);
+}
+
 void 	tri_and_print(t_env *first)
 {
 	t_env *tmp;
@@ -91,7 +121,7 @@ void 	tri_and_print(t_env *first)
 	int y;
 
 	i = 0;
-	tmp = first;
+	tmp = cpy_env(first);
 	while (tmp->next)
 	{
 		y = (tmp->l_name > tmp->next->l_name) ? tmp->l_name : tmp->next->l_name;

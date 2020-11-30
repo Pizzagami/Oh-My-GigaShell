@@ -59,27 +59,3 @@ void	add_tail(char *var, t_env **first)
 		current->next = next;
 	}
 }
-
-/*void	add_env_var(char *var, t_env **first)
-{
-	(void)var;
-	(void)first;
-	return;
-}
-
-char	*get_env_var(char *var, t_env *first)
-{
-	t_env	*tmp;
-	int		len;
-	
-	tmp = first;
-	len = ft_strlen(var);
-	while (tmp)
-	{
-		if (!ft_strncmp(var, tmp->var, len))
-			return (tmp->var);
-		tmp = tmp->next;
-	}
-	return (NULL);
-}
-*/
