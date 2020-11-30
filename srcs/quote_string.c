@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   quote_string.c								        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   by: raimbaultbrieuc <marvin@42.fr>             +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   created: 2020/07/15 16:13:31 by raimbault         #+#    #+#             */
+/*   updated: 2020/11/29 20:00:43 by braimbau         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -58,21 +70,20 @@ void replace_chars(char **pstr, char **pquot)
 	while (str && str[i])
 	{
 		if (str[i] == '*' && quot[i] == '0')
-			str[i] = 1;
-		if (str[i] == '$' && (quot[i] < '2' || quot[i] > 'a'))
+			str[i] = CSTAR;
+		if (str[i] == '$' && quot[i] != '1' && quot[i] != 'a')
 		{
-			str[i] = 'x';
+			str[i] = CDOLLAR;
 			i++;
-			while(str[i] && str[i] != ' ' && quot[i] != 'a' && quot[i] != 'b' && quot[i] != '2' && quot[i] != 3)
+			while(str[i] && str[i] != ' ' && str[i] != '\\' && str[i - 1] != '?' && str[i] != '$' && quot[i] != 'a' && quot[i] != 'b' && quot[i] != '1' && quot[i] != '3')
 				i++;
-			add_char(pstr, i, 'X');
-			add_char(pquot, i, '0');
+			add_char(pstr, i, CDOLLEND);
+			add_char(pquot, i, (*pquot)[i]);
 			str = *pstr;
 			quot = *pquot;
 		}
 		i++;
 	}
-	printf("%s\n", *pstr);
 }
 
 char	*quote_string(char **pstr, int *ec)

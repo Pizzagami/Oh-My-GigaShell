@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/16 18:30:44 by selgrabl          #+#    #+#             */
-/*   Updated: 2020/11/26 15:25:46 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/11/29 20:36:45 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static int		ft_strlen(char *str)
 	int i;
 
 	i = 0;
-	while (str[i] != '\0')
+	while (str && str[i] != '\0')
 		i++;
 	return (i);
 }
@@ -66,8 +66,8 @@ char			*ft_strjoin(const char *s1, const char *s2)
 	dest = malloc(sizeof(char) * (i + j + 1));
 	if (!dest)
 		return (NULL);
-	dest = ft_strcpy(dest, str1);
-	dest = ft_strcat(dest, str2, i);
+	ft_strcpy(dest, str1);
+	ft_strcat(dest, str2, i);
 	dest[i + j] = '\0';
 	return (dest);
 }

@@ -63,18 +63,36 @@ char *replace_occurences(char *str, char *to_rep, char *rep_by)
 	return (str);
 }
 
-void replace_dolint(t_token *a, int ret)
+void replace_dollar(t_token *a, t_omm omm)
 {
 	char *tmp;
+	char *key;
+	char index;
+	char *value;
+	char *subkey;
 
 	while (a && (a->type < SEMI || a->type > PIPE))
 	{
-		if (ft_findstr(a->str, "$?") != -1)
+		index = ft_strfind(a->str, CDOLLAR);
+		while (index != -1)
 		{
+			key = ft_substr(a->str, index, ft_strfind(a->str, CDOLLEND) - index + 1);
+			subkey = ft_substr(key, 1, ft_strlen(key) - 2);
+			value = NULL;
 			tmp = a->str;
-			a->str = replace_occurences(a->str, "$?", ft_itoa(ret));
+			if (key[1] == '?' && ft_strlen(key) == 3)
+				value = ft_itoa(*(omm.last_ret));
+			else if (get_env(omm.env, subkey))
+				value = ft_strdup(get_env(omm.env, subkey));
+			a->str = replace_occurence(a->str, key, value); 
+			index = ft_strfind(a->str, CDOLLAR);
 			free(tmp);
+			free(key);
+			free(subkey);
+			if (value)
+				free(value);
 		}
+
 		a = a->next;
 	}
 }

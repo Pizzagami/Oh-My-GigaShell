@@ -6,7 +6,7 @@
 /*   By: pizzagami <pizzagami@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 14:45:18 by raimbault         #+#    #+#             */
-/*   Updated: 2020/11/27 14:34:13 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/11/29 19:59:57 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -217,7 +217,7 @@ int		exec_instruction(t_instruction *instruction, t_omm omm)
 
 	ret = 0;
 	token = instruction->start;
-	replace_dolint(token, *(omm.last_ret));
+	replace_dollar(token, omm);
 	tab = create_tab(instruction->start, instruction->max);
 	if (tab[0] == NULL)
 		return (ret);
