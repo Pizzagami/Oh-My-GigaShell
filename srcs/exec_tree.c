@@ -6,7 +6,7 @@
 /*   By: pizzagami <pizzagami@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 14:45:18 by raimbault         #+#    #+#             */
-/*   Updated: 2020/11/29 19:59:57 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/12/01 15:25:44 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,10 @@ int		exec_andor(t_andor *andor, t_omm omm)
 
 int		exec_pipeline(t_pipeline *pipeline, t_omm omm)
 {
-	int i;
-	int pfd[2];
-	int pid;
-	int x;
+	int		i;
+	int		pfd[2];
+	int		pid;
+	int		x;
 
 	i = 0;
 	if (pipeline->brother)
@@ -70,6 +70,7 @@ int		exec_pipeline(t_pipeline *pipeline, t_omm omm)
 			close(pfd[0]);
 			dup2(pfd[1], 1);
 			close(pfd[1]);
+			omm.stdout = dup(pfd[1]); //pas sur de celui la mais inshala
 			if (pipeline->command)
 				i = exec_command(pipeline->command, omm);
 			exit(0);
