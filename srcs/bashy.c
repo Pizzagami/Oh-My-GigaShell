@@ -24,11 +24,11 @@ char	*strdel(char *str, t_arrow *ar)
 
 	t = 0;
 	y = ft_strlen(str);
-	if (str[y - 1] == 9)
-		t = 1;
 	x =	y + ar->x;
 	if (x < 1)
 		return(str);
+	if (str[y - 1] == 9)
+		t = 1;
 	while (x < y)
 	{
 		str[x - 1] = str[x];

@@ -42,6 +42,7 @@ int		env_split(char *str, char **name, char **val) //passer en int pour verif ca
 	}
 	*name = str1;
 	*val = str2;
+	return (1);
 }
 
 int		find_and_replace(t_env **first, char *var)
@@ -94,15 +95,13 @@ t_env	*cpy_env(t_env *env)
 {
 	t_env *first;
 	t_env *cpy;
-	t_env *next;
 
 	first = NULL;
 	while(env)
 	{
 		cpy = malloc(sizeof(t_env));
-		cpy->name = dup(env->name);
-		cpy->val = dup(env->val);
-		cpy->next = dup(env->next);
+		cpy->name = ft_strdup(env->name);
+		cpy->val = ft_strdup(env->val);
 		cpy->l_name = env->l_name;
 		if (!first)
 			first = cpy;
