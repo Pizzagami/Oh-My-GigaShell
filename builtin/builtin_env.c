@@ -1,7 +1,7 @@
 #include "libft.h"
 #include "minishell.h"
 
-void	built_in_env(t_env *first)
+void	builtin_env(t_env *first)
 {
 	t_env *current;
 
@@ -25,7 +25,7 @@ void	built_in_env(t_env *first)
 	}
 }
 
-void	built_in_export(char *var, t_env **first)
+void	builtin_export(char *var, t_env **first)
 {
 	t_env	*current = *first;
 	t_env	*next = NULL;
@@ -50,7 +50,7 @@ void	built_in_export(char *var, t_env **first)
 	free(var);
 }
 
-void	built_in_unset(char *var, t_env **env)
+void	builtin_unset(char *var, t_env **env)
 {
 	t_env *current;
 	t_env *tmp;

@@ -3,7 +3,7 @@
 #include <errno.h>
 #include <string.h>
 
-void	built_in_cd(char *path)
+void	builtin_cd(char *path)
 {
 	int fd;
 

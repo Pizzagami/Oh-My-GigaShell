@@ -2,10 +2,10 @@ NAME = minishell
 
 LIB = libft.a
 
-SRCS = ./srcs/main.c					\
-	   ./srcs/bashy.c					\
-	   ./srcs/term_init.c				\
-	   ./srcs/tools.c					\
+SRCS =	./srcs/main.c					\
+		./srcs/bashy.c					\
+		./srcs/term_init.c				\
+		./srcs/tools.c					\
 		./srcs/tools_env.c  		    \
 	   	./srcs/persecutor.c 			\
 		./srcs/display_tree.c 			\
@@ -33,6 +33,10 @@ SRCS = ./srcs/main.c					\
 		./srcs/star.c					\
 		./srcs/exec_builtin.c			\
 		./srcs/quote_string.c			\
+		./builtin/builtin_cd.c			\
+		./builtin/builtin_pwd.c			\
+		./builtin/builtin_env.c			\
+		./builtin/builtin_echo.c			\
 
 FLAG = -L includes/libft
 FSANITIZE = -fsanitize=address -g3

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_builtin.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: raimbaultbrieuc <marvin@42.fr>             +#+  +:+       +#+        */
+/*   By: pizzagami <pizzagami@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/15 15:24:37 by raimbault         #+#    #+#             */
-/*   Updated: 2020/12/02 15:21:51 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/12/02 15:47:05 by pizzagami        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,9 @@ int		exec_builtin(char *executable, char **tab, char **env)
 	(void)env;
 	i = is_builtin(executable);
 	(void)tab;
-//	if (i == 1)
-		//buitin_echo(tab);
-	//if (i == 2)
-		//builtin_cd(tab);
+	if (i == 1)
+		buitin_echo(tab);
+	if (i == 2)
+		builtin_cd(tab);
 	return (0);
 }
