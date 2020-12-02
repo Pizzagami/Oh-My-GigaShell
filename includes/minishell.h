@@ -3,6 +3,9 @@
 
 #include <termios.h>
 #include "token.h"
+#include <unistd.h>
+#include <fcntl.h>
+#include "libft.h"
 
 typedef struct	s_env
 {
@@ -46,6 +49,7 @@ void		add_env_var(char *var, t_env **first);
 char		*get_env_var(char *var, t_env *first);
 int			find_and_replace(t_env **first, char *var);
 void		tri_and_find(t_env *first);
+void	 	tri_and_print(t_env *first);
 void		add_char(char **str, int index, char c);
 char		*str_up(char *str);
 void		buitin_echo(char **str);

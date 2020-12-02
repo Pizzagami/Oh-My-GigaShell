@@ -62,7 +62,6 @@ void	builtin_unset(char *var, t_env **env)
 		{
 			free(current->next->name);
 			free(current->next->val);
-			free(current->next->l_name);
 			tmp = current->next;
 			current->next = current->next->next;
 			free(tmp);  //aucune idee de si ca marche

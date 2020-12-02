@@ -1,7 +1,5 @@
-#include "libft.h"
 #include "get_next_line.h"
 #include "minishell.h"
-#include <fcntl.h>
 
 int		main(int argc,char **argv, char **env)
 {
