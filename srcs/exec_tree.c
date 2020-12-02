@@ -6,11 +6,24 @@
 /*   By: pizzagami <pizzagami@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 14:45:18 by raimbault         #+#    #+#             */
-/*   Updated: 2020/12/01 16:05:31 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/12/02 13:19:16 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
+
+void	free_tab(char **tab)
+{
+	int i;
+
+	i = 0;
+	while (tab[i])
+	{
+		free(tab[i]);
+		i++;
+	}
+	free(tab);
+}
 
 int		env_size(t_env *first)
 {
@@ -70,12 +83,10 @@ int		exec_pipeline(t_pipeline *pipeline, t_omm omm)
 			close(pfd[0]);
 			dup2(pfd[1], 1);
 			close(pfd[1]);
-			omm.stdout = dup(pfd[1]); //pas sur de celui la mais inshala
+			omm.stdout = dup(pfd[1]);
 			if (pipeline->command)
 				i = exec_command(pipeline->command, omm);
 			exit(0);
-			//dup2(omm.stdout, 1);
-			//dup2(omm.stdin, 0);
 		}
 	}
 	else
@@ -152,35 +163,36 @@ int		exec_redirection(t_redirection *redirection, t_omm omm)
 	return (0);
 }
 
-char  **link_tab(t_env *env)
+char	**link_tab(t_env *env)
 {
-	char **str;
-	char *tmp;
-	int x;
-	int j;
+	char	**str;
+	char	*tmp;
+	int		x;
+	int		j;
 
 	j = 0;
-	x = env_size(env);
+	x = env_size(env) + 1;
 	str = (char**)malloc(sizeof(char*) * (x + 1));
 	str[x] = NULL;
-	while (j  < x)
+	while (j < x)
 	{
-		tmp = ft_strjoin(env->name,"=");
-		str[j] = ft_strjoin(tmp,env->val);
+		tmp = ft_strjoin(env->name, "=");
+		str[j] = ft_strjoin(tmp, env->val);
 		free(tmp);
 		env = env->next;
 		j++;
 	}
-	return(str);
+	str[j] = null;
+	return (str);
 }
 
-int exec_binary(char **tab, t_omm omm, t_token *token)
+int		exec_binary(char **tab, t_omm omm, t_token *token)
 {
-	int pid;
-	int ret;
-	char *path;
-	char **tabenv;
-	
+	int		pid;
+	int		ret;
+	char	*path;
+	char	**tabenv;
+
 	ret = 0;
 	pid = fork();
 	if (pid == 0)
@@ -192,7 +204,7 @@ int exec_binary(char **tab, t_omm omm, t_token *token)
 		{
 			tabenv = link_tab(omm.env);
 			ret = execve(path, tab, tabenv);
-			//la faut free mais j'ai la flem
+			free_tab(tabenv);
 		}
 		free(tab);
 		write(2, "Error while executing program\n", 30);
@@ -212,9 +224,9 @@ int exec_binary(char **tab, t_omm omm, t_token *token)
 
 int		exec_instruction(t_instruction *instruction, t_omm omm)
 {
-	t_token *token;
-	int ret;
-	char **tab;
+	t_token	*token;
+	int		ret;
+	char	**tab;
 
 	ret = 0;
 	token = instruction->start;

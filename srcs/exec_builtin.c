@@ -6,7 +6,7 @@
 /*   By: raimbaultbrieuc <marvin@42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/15 15:24:37 by raimbault         #+#    #+#             */
-/*   Updated: 2020/12/02 11:15:54 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/12/02 13:30:44 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,38 +16,37 @@
 #include "stdio.h"
 #include "fcntl.h"
 
-void    buitin_echo(char **str)
+void	buitin_echo(char **str)
 {
-    int n;
+	int n;
 
-    n = 0;
+	n = 0;
 	str++;
 	if (ft_strcmp("-n", *str) == 0)
 	{
 		n = 1;
 		str++;
 	}
-    while (*str)
-    {
-		ft_strlen(*str);
+	while (*str)
+	{
 		ft_putstr(*str);
 		str++;
-    }
-    if (n == 0)
-    {
-        write(1,"\n",1);
-    } 
+	}
+	if (n == 0)
+	{
+		write(1, "\n", 1);
+	}
 }
 
 void	builtin_cd(char **tab)
 {
-	int fd;
-	char *path;
+	int		fd;
+	char	*path;
 
 	path = tab[1];
 	fd = open(path, O_RDONLY);
 	if (!path)
-		return;
+		return ;
 	if (chdir(path) == -1)
 	{
 		perror("chdir()");
@@ -64,7 +63,7 @@ void	builtin_cd(char **tab)
 	close(fd);
 }
 
-int	is_builtin(char *executable)
+int		is_builtin(char *executable)
 {
 	if (ft_strcmp(executable, "echo") == 0)
 		return (1);
@@ -73,7 +72,7 @@ int	is_builtin(char *executable)
 	return (0);
 }
 
-int exec_builtin(char *executable, char **tab, char **env)
+int		exec_builtin(char *executable, char **tab, char **env)
 {
 	int i;
 

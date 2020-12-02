@@ -6,7 +6,7 @@
 /*   By: braimbau <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/29 17:26:36 by braimbau          #+#    #+#             */
-/*   Updated: 2020/12/02 11:03:46 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/12/02 13:05:51 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int		is_in_directory(char *dirname, char *file)
 		if (ft_strcmp(d_name_up, file_up) == 0)
 		{
 			ret = 1;
-			break;
+			break ;
 		}
 		free(d_name_up);
 	}
@@ -54,7 +54,7 @@ int		is_in_directory(char *dirname, char *file)
 	return (ret);
 }
 
-char *get_implicit_path(t_env *env, char *str)
+char	*get_implicit_path(t_env *env, char *str)
 {
 	char	**tab;
 	int		i;
@@ -82,7 +82,7 @@ char *get_implicit_path(t_env *env, char *str)
 	return (NULL);
 }
 
-char *get_path(t_env *env, char *str)
+char	*get_path(t_env *env, char *str)
 {
 	char path[4096];
 	char *home;
@@ -91,7 +91,7 @@ char *get_path(t_env *env, char *str)
 	if (str[0] == '.')
 	{
 		getcwd(path, 4096);
-		str = ft_substr(str, 1, ft_strlen(str) -1);
+		str = ft_substr(str, 1, ft_strlen(str) - 1);
 		tmp = str;
 		str = ft_strjoin(path, str);
 		free(tmp);
@@ -99,7 +99,7 @@ char *get_path(t_env *env, char *str)
 	else if (str[0] == '~')
 	{
 		home = get_env(env, "HOME");
-		str = ft_substr(str, 1, ft_strlen(str) -1);
+		str = ft_substr(str, 1, ft_strlen(str) - 1);
 		tmp = str;
 		str = ft_strjoin(home, str);
 		free(tmp);

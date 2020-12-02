@@ -6,7 +6,7 @@
 /*   By: raimbaultbrieuc <marvin@42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 14:44:24 by raimbault         #+#    #+#             */
-/*   Updated: 2020/09/25 09:46:41 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/12/02 13:20:21 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int		exec_input(t_input *input, t_omm omm)
 	return (ret);
 }
 
-int	exec_list(t_list *list, t_omm omm)
+int		exec_list(t_list *list, t_omm omm)
 {
 	int i;
 
@@ -38,11 +38,11 @@ int	exec_list(t_list *list, t_omm omm)
 	return (i);
 }
 
-char **create_tab(t_token *start, t_token *max)
+char	**create_tab(t_token *start, t_token *max)
 {
-	t_token *token;
-	int i;
-	char **tab;
+	t_token	*token;
+	int		i;
+	char	**tab;
 
 	i = 0;
 	token = start;
@@ -55,7 +55,7 @@ char **create_tab(t_token *start, t_token *max)
 	}
 	tab = malloc(sizeof(char *) * (i + 1));
 	token = start;
-		i = 0;
+	i = 0;
 	while (token && token != max)
 	{
 		if (token->type >= LESS)

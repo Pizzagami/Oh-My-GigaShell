@@ -1,10 +1,24 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   colors.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: braimbau <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/12/02 13:03:26 by braimbau          #+#    #+#             */
+/*   Updated: 2020/12/02 13:04:25 by braimbau         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 #include "parser.h"
 #include "libft.h"
 
-int is_unicorn_set(t_env *env)
+int		is_unicorn_set(t_env *env)
 {
-	char *str = get_env(env, "unicorn");
+	char *str;
+
+	str = get_env(env, "unicorn");
 	if (str == NULL)
 		return (-1);
 	if (ft_strcmp(str, "1"))
@@ -13,7 +27,7 @@ int is_unicorn_set(t_env *env)
 		return (0);
 }
 
-void setcolor (int *x)
+void	setcolor(int *x)
 {
 	if (*x == 0)
 		ft_putstr("\033[1;34m");
@@ -32,5 +46,4 @@ void setcolor (int *x)
 	}
 	else if (*x != -1)
 		(*x)++;
-
 }
