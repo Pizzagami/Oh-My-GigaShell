@@ -4,14 +4,27 @@
 #include <string.h>
 #include "libft.h"
 
-void    buitin_echo(char **str, int n)
+void    buitin_echo(char **str)
 {
+    int n;
+    int x;
+
+    x = 0;
+    n = 0;
+    if (ft_strcmp(*str, "-n") == 0)
+    {
+        n = 1;
+        (*str)++;
+    }
     while (*str)
     {
-        ft_strlen(*str);
+        if (x > 0)
+        {
+            ft_putstr(" ");
+        }
         ft_putstr(*str); //verifier /n
-        ft_putstr(" ");
-        *str++;
+        (*str)++;
+        x++;
     }
     if (n == 1)
     {
