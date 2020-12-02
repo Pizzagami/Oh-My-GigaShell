@@ -6,7 +6,7 @@
 /*   By: braimbau <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/29 17:26:36 by braimbau          #+#    #+#             */
-/*   Updated: 2020/11/26 21:22:47 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/12/02 11:03:46 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,18 +30,28 @@ int		is_in_directory(char *dirname, char *file)
 {
 	DIR				*dir;
 	struct dirent	*dirent;
+	char			*d_name_up;
+	char			*file_up;
+	int				ret;
 
+	ret = 0;
 	dir = opendir(dirname);
+	file_up = ft_strdup(file);
+	str_up(file_up);
 	while ((dirent = readdir(dir)))
 	{
-		if (ft_strcmp(dirent->d_name, file) == 0)
+		d_name_up = ft_strdup(dirent->d_name);
+		str_up(d_name_up);
+		if (ft_strcmp(d_name_up, file_up) == 0)
 		{
-			closedir(dir);
-			return (1);
+			ret = 1;
+			break;
 		}
+		free(d_name_up);
 	}
+	free(file_up);
 	closedir(dir);
-	return (0);
+	return (ret);
 }
 
 char *get_implicit_path(t_env *env, char *str)

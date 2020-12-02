@@ -47,5 +47,6 @@ char		*get_env_var(char *var, t_env *first);
 int			find_and_replace(t_env **first, char *var);
 void		tri_and_find(t_env *first);
 void		add_char(char **str, int index, char c);
+char		*str_up(char *str);
 
 #endif
