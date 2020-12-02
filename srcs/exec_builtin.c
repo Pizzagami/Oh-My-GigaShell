@@ -6,7 +6,7 @@
 /*   By: raimbaultbrieuc <marvin@42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/15 15:24:37 by raimbault         #+#    #+#             */
-/*   Updated: 2020/11/09 15:17:42 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/12/02 11:15:54 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,7 @@ void    buitin_echo(char **str)
     while (*str)
     {
 		ft_strlen(*str);
-		ft_putstr(*str); //verifier /n
-		ft_putstr(" ");
+		ft_putstr(*str);
 		str++;
     }
     if (n == 0)

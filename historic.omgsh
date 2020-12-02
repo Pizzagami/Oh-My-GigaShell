@@ -1,3 +1,16 @@
+echo $_
+echo $_
+echo test
+(echo lol) | wc
+(EcHo lol) | wc
+(echo lol)
+(echo lol) | wc
+(echo lol) | wc
+(echo test) && (echo lol) | wc
+(echo test > 2) | wc
+(echo test) | wc
+export test=test
+:x
 EcHo test
 Echo test
 Echo test
