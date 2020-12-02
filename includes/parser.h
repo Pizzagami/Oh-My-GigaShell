@@ -6,7 +6,7 @@
 /*   By: raimbaultbrieuc <marvin@42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/15 16:13:31 by raimbault         #+#    #+#             */
-/*   Updated: 2020/11/29 20:00:43 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/12/01 16:06:10 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ char			**create_tab(t_token *start, t_token *max);
 char			*get_path(t_env *env, char *str);
 char			*get_env(t_env *env, char *key);
 void			reset_fd(t_omm omm);
-t_token			*starize_list(t_token *a, char *home);
+t_token			*starize_list(t_token *a, t_token *max, char *home);
 void			replace_dollar(t_token *a, t_omm omm);
 int				is_builtin(char *executable);
 int				exec_builtin(char *executable, char **tab, t_env *env);

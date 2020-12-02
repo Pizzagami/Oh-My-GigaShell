@@ -6,7 +6,7 @@
 /*   By: pizzagami <pizzagami@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 14:45:18 by raimbault         #+#    #+#             */
-/*   Updated: 2020/12/01 15:25:44 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/12/01 16:05:31 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -219,6 +219,7 @@ int		exec_instruction(t_instruction *instruction, t_omm omm)
 	ret = 0;
 	token = instruction->start;
 	replace_dollar(token, omm);
+	instruction->start = starize_list(instruction->start, instruction->max, get_env(omm.env, "HOME"));
 	tab = create_tab(instruction->start, instruction->max);
 	if (tab[0] == NULL)
 		return (ret);

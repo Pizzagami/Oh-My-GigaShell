@@ -1,3 +1,27 @@
+echo $test/*
+echo */*
+echo */*
+echo */*
+echo */*
+echo */*
+echo srcs/*
+echo */*
+echo *
+echo srcs/*
+echo srcs/*
+echo srcs/*
+echo srcs/*
+echo srcs/*
+ls
+echo srcs/*
+echo $test/*
+echo *
+echo *
+echo */*
+echo $test/*
+echo $test
+export test=srcs
+echo ~/*
 echo test > 1 && echo lol
 (echo test) | wc
 (echo test) | wc
