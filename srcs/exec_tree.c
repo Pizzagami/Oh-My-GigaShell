@@ -6,7 +6,7 @@
 /*   By: pizzagami <pizzagami@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 14:45:18 by raimbault         #+#    #+#             */
-/*   Updated: 2020/12/02 13:19:16 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/12/02 13:32:51 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -182,7 +182,7 @@ char	**link_tab(t_env *env)
 		env = env->next;
 		j++;
 	}
-	str[j] = null;
+	str[j] = NULL;
 	return (str);
 }
 

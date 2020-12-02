@@ -1,3 +1,4 @@
+echo test
 echo $_
 echo $_
 echo test
