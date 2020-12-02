@@ -98,7 +98,7 @@ char	*strput(char *str, t_arrow *ar, char c)
 char	caspe(char c, char **str, t_arrow *ar, t_hist *hist)	//pointeur sur fctn ? //fix && é etv 
 {
 	char x;
-	if ((int)c == 9)
+	if ((int)c == 9 || (int)c < 1)
 		return(c = '\0');
 	if((int)c == 127)
 	{

@@ -14,7 +14,6 @@ int		main(int argc,char **argv, char **env)
 	t_arrow ar;
 	int	last_ret;
 
-	
 	last_ret = 0;
 	ar.x = 0;
 	ar.y = 0;
