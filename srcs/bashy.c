@@ -158,7 +158,9 @@ char	caspe(char c, char **str, t_arrow *ar, t_hist *hist)	//pointeur sur fctn ? 
 				ft_putstr("\b \b");
 			}
 			if (ar->y == 0)
-				*str = 0;
+			{
+				*str = ft_strdup("\0");
+			}
 			else
 			{
 				ft_putstr(hist->tab[ar->y]);
