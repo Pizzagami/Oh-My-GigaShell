@@ -6,7 +6,7 @@
 /*   By: raimbaultbrieuc <marvin@42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/15 16:33:43 by raimbault         #+#    #+#             */
-/*   Updated: 2020/09/18 10:05:48 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/12/02 15:37:49 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,17 @@ int			brackets_error(t_token **token, t_token *start, t_token *max,
 	return (0);
 }
 
+t_command	*malloc_to_null(void)
+{
+	t_command *command;
+
+	command = malloc(sizeof(t_command));
+	command->instruction = NULL;
+	command->redirection = NULL;
+	command->c_list = NULL;
+	return (command);
+}
+
 t_command	*parse_command(t_token *start, t_token *max, int *ec)
 {
 	t_command		*command;
@@ -47,10 +58,7 @@ t_command	*parse_command(t_token *start, t_token *max, int *ec)
 
 	if (!start || start == max)
 		return (NULL);
-	command = malloc(sizeof(t_command));
-	command->instruction = NULL;
-	command->redirection = NULL;
-	command->c_list = NULL;
+	command = malloc_to_null();
 	token = start;
 	if (token->type == CBRA)
 	{
@@ -60,17 +68,13 @@ t_command	*parse_command(t_token *start, t_token *max, int *ec)
 	if (token->type == OBRA)
 	{
 		token = token->next;
-		if (brackets_error(&token, start, max, ec))
-			return (command);
-		command->c_list = parse_list(start->next, token, ec);
+		if (!brackets_error(&token, start, max, ec))
+			command->c_list = parse_list(start->next, token, ec);
+		return (command);
+	}
+	while (token && token != max)
 		token = token->next;
-	}
-	else
-	{
-		while (token && token != max)
-			token = token->next;
-		command->redirection = parse_redirection(start, token, ec);
-		command->instruction = parse_instruction(start, token, ec);
-	}
+	command->redirection = parse_redirection(start, token, ec);
+	command->instruction = parse_instruction(start, token, ec);
 	return (command);
 }
