@@ -75,7 +75,7 @@ void replace_chars(char **pstr, char **pquot)
 		{
 			str[i] = CDOLLAR;
 			i++;
-			while(str[i] && str[i] != ' ' && str[i] != '\\' && str[i - 1] != '?' && str[i] != '$' && quot[i] != 'a' && quot[i] != 'b' && quot[i] != '1' && quot[i] != '3')
+			while(str[i] && str[i] != ' ' && str[i] != '\\' && str[i] != '/' && str[i - 1] != '?' && str[i] != '$' && quot[i] != 'a' && quot[i] != 'b' && quot[i] != '1' && quot[i] != '3')
 				i++;
 			add_char(pstr, i, CDOLLEND);
 			add_char(pquot, i, (*pquot)[i]);

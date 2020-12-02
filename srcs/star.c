@@ -162,7 +162,7 @@ int is_dir(char *path, char *file)
 {
 	(void)path;
 	(void)file;
-	/*struct stat buf;
+	struct stat buf;
 	int x;
 
 	path = ft_strjoin_sep(path, file, '/');
@@ -170,7 +170,7 @@ int is_dir(char *path, char *file)
 	free(path);
 	if (S_ISDIR(buf.st_mode))
 		return(1);
-	*/return(0);
+	return(0);
 }
 
 char	*ft_substr(char const *s, unsigned int start, size_t len)
@@ -402,15 +402,19 @@ int	recurdir(char *patern, char *path, char *minipath, char **final)
 		if (patern[0] != '/')
 			return(megastar(patern, path, minipath, final));
 		else
-			return(megastar("*", "/", minipath, final));
+			return(megastar("\x01", "/", minipath, final));
 	}
 	dir = opendir(path);
 	if (dir == NULL)
 		return (1);
 	dirname = ft_substr(patern, 0, srcchar('/', patern));
 	while ((dirent = readdir(dir)) != NULL)
+	{
 		if (is_dir(path, dirent->d_name) && superstar(dirent->d_name, dirname))
+		{
 			actual = new_maillon(actual, ft_strdup(dirent->d_name));
+		}
+	}
 	sort_list_dsm(actual);
 	throughdir(ft_strjoin_sep(minipath,path, '\0'), patern, actual, final);
 	free_list(actual);
@@ -465,14 +469,14 @@ int gigastar(char *patern, char **final, char *home)
 	return (0);
 }
 
-t_token *starize_list(t_token *first, char *home)
+t_token *starize_list(t_token *first,t_token *max, char *home)
 {
 	t_token *tmp;
 	t_token *tmp2;
 	char *str;
 	t_token *a = first;
 
-	while (a)
+	while (a && a != max)
 	{
 		if (a == first && srcchar(CSTAR, a->str) != -1)
 		{
@@ -489,7 +493,7 @@ t_token *starize_list(t_token *first, char *home)
 			a = first;
 			free(str);
 		}
-		if (a->next && srcchar(CSTAR, a->next->str) != -1)
+		if (a->next && a->next != max && srcchar(CSTAR, a->next->str) != -1)
 		{
 			str = NULL;
 			gigastar(a->next->str, &str, home);
@@ -503,7 +507,7 @@ t_token *starize_list(t_token *first, char *home)
 			a->next = tmp2;
 			free(str);
 		}
-		if (a)
+		if (a && a != max)
 			a = a->next;
 	}
 	return (first);
