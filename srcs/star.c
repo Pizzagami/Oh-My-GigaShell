@@ -163,10 +163,9 @@ int is_dir(char *path, char *file)
 	(void)path;
 	(void)file;
 	struct stat buf;
-	int x;
 
 	path = ft_strjoin_sep(path, file, '/');
-	x = stat(path, &buf);
+	stat(path, &buf);
 	free(path);
 	if (S_ISDIR(buf.st_mode))
 		return(1);

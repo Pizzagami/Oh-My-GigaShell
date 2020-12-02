@@ -16,7 +16,7 @@ void	term_init(struct termios *save_cano, struct termios *save_nncano)
 	//config.c_oflag = 0;
 	config.c_lflag &= ~(ECHO | ICANON | ISIG);
 	config.c_cflag &= 0;
-	config.c_cflag |= (CS8 | IUTF8);
+	config.c_cflag |= CS8 ;
 	config.c_cc[VMIN]  = 1;
 	config.c_cc[VTIME] = 0;
 	if(cfsetispeed(&config, B9600) < 0 || cfsetospeed(&config, B9600) < 0)
