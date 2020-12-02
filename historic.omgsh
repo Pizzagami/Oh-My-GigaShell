@@ -1,3 +1,5 @@
+echo -n pitre
+echo pitre
 echo po
 echo -n po
 po

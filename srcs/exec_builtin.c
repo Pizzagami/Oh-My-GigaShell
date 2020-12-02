@@ -6,7 +6,7 @@
 /*   By: pizzagami <pizzagami@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/15 15:24:37 by raimbault         #+#    #+#             */
-/*   Updated: 2020/12/02 15:56:13 by pizzagami        ###   ########.fr       */
+/*   Updated: 2020/12/02 17:16:32 by pizzagami        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,11 @@ int		exec_builtin(char *executable, char **tab, char **env)
 {
 	int i;
 
+	i = 0;
 	(void)env;
 	i = is_builtin(executable);
-	(void)tab;
+	if (i > 0)
+		tab++;
 	if (i == 1)
 		buitin_echo(tab);
 	if (i == 2)
