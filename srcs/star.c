@@ -6,7 +6,7 @@
 /*   By: braimbau <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/03 10:30:03 by braimbau          #+#    #+#             */
-/*   Updated: 2020/12/03 10:53:35 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/12/03 11:19:12 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -320,11 +320,36 @@ void		add_list(t_listdir *actual, char *minipath, char **final)
 	}
 }
 
-int			megastar(char *patern, char *path, char *minipath, char **final)
+int			add_mtaching_names(char *path, int sfdo, t_listdir **actual,
+								char *patern)
 {
 	DIR				*dir;
-	struct dirent	*dirent;
 	t_listdir		*list;
+	struct dirent	*dirent;
+
+	dir = opendir(path);
+	if (dir == NULL)
+		return (1);
+	while ((dirent = readdir(dir)) != NULL)
+	{
+		if (superstar(dirent->d_name, patern) && (!sfdo ||
+					is_dir(path, dirent->d_name)))
+		{
+			list = malloc(sizeof(t_list));
+			if (sfdo)
+				list->name = ft_strjoin_sep(dirent->d_name, NULL, '/');
+			else
+				list->name = ft_strdup(dirent->d_name);
+			list->next = (*actual);
+			*actual = list;
+		}
+	}
+	closedir(dir);
+	return (0);
+}
+
+int			megastar(char *patern, char *path, char *minipath, char **final)
+{
 	t_listdir		*actual;
 	int				sfdo;
 
@@ -335,26 +360,11 @@ int			megastar(char *patern, char *path, char *minipath, char **final)
 		patern[ft_strlen(patern) - 1] = 0;
 	}
 	actual = NULL;
-	dir = opendir(path);
-	if (dir == NULL)
+	if (add_mtaching_names(path, sfdo, &actual, patern))
 		return (1);
-	while ((dirent = readdir(dir)) != NULL)
-	{
-		if (superstar(dirent->d_name, patern) && (!sfdo || is_dir(path, dirent->d_name)))
-		{
-			list = malloc(sizeof(t_list));
-			if (sfdo)
-				list->name = ft_strjoin_sep(dirent->d_name, NULL, '/');
-			else
-				list->name = ft_strdup(dirent->d_name);
-			list->next = actual;
-			actual = list;
-		}
-	}
 	sort_list(actual);
 	add_list(actual, minipath, final);
 	free_list(actual);
-	closedir(dir);
 	return (0);
 }
 

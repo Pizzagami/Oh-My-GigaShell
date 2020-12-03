@@ -16,7 +16,7 @@
 #include "libft.h"
 #include "token.h"
 
-void remove_char(char *str, int index)
+void	remove_char(char *str, int index)
 {
 	int x;
 
@@ -26,30 +26,30 @@ void remove_char(char *str, int index)
 	while (str[x])
 	{
 		str[x] = str[x + 1];
-		x++ ;
+		x++;
 	}
 }
 
-void add_char(char **str, int index, char c)
+void	add_char(char **str, int index, char c)
 {
-	char *ret;
-	int i;
+	char	*ret;
+	int		i;
 
 	if (index > (int)ft_strlen(*str) || index < 0)
 	{
 		*str = NULL;
-		return;
+		return ;
 	}
 	i = 0;
 	ret = malloc((ft_strlen(*str) + 2) * sizeof(char));
-	while(i < index)
+	while (i < index)
 	{
 		ret[i] = (*str)[i];
 		i++;
 	}
 	ret[i] = c;
 	i++;
-	while((*str)[i - 1])
+	while ((*str)[i - 1])
 	{
 		ret[i] = (*str)[i - 1];
 		i++;
@@ -58,11 +58,11 @@ void add_char(char **str, int index, char c)
 	*str = ret;
 }
 
-void replace_chars(char **pstr, char **pquot)
+void	replace_chars(char **pstr, char **pquot)
 {
-	int i;
-	char *str;
-	char *quot;
+	int		i;
+	char	*str;
+	char	*quot;
 
 	str = *pstr;
 	quot = *pquot;
@@ -75,7 +75,7 @@ void replace_chars(char **pstr, char **pquot)
 		{
 			str[i] = CDOLLAR;
 			i++;
-			while(str[i] && str[i] != ' ' && str[i] != '\\' && str[i] != '/' && str[i - 1] != '?' && str[i] != '$' && quot[i] != 'a' && quot[i] != 'b' && quot[i] != '1' && quot[i] != '3')
+			while (str[i] && str[i] != ' ' && str[i] != '\\' && str[i] != '/' && str[i - 1] != '?' && str[i] != '$' && quot[i] != 'a' && quot[i] != 'b' && quot[i] != '1' && quot[i] != '3')
 				i++;
 			add_char(pstr, i, CDOLLEND);
 			add_char(pquot, i, (*pquot)[i]);
@@ -92,18 +92,18 @@ char	*quote_string(char **pstr, int *ec)
 	int		x;
 	char	*quot;
 	char	*str;
-	
+
 	str = *pstr;
 	i = 0;
 	x = 0;
 	quot = malloc(sizeof(char) * (strlen(str) + 1));
-	while(str[i])
+	while (str[i])
 	{
-		if (str[i] == 34) // "
+		if (str[i] == 34)
 		{
 			remove_char(str, i);
 			if (str[i] && str[i] != 34)
-			{
+				{
 				quot[x] = 'b';
 				x++;
 				i++;
@@ -118,12 +118,11 @@ char	*quote_string(char **pstr, int *ec)
 			{
 				*ec = 97;
 				free(quot);
-				return(NULL);
+				return (NULL);
 			}
 			remove_char(str, i);
-
 		}
-		if (str[i] == 39) // '
+		if (str[i] == 39)
 		{
 			remove_char(str, i);
 			if (str[i] && str[i] != 39)
@@ -142,12 +141,11 @@ char	*quote_string(char **pstr, int *ec)
 			{
 				*ec = 98;
 				free(quot);
-				return(NULL);
+				return (NULL);
 			}
 			remove_char(str, i);
-
 		}
-		if (str[i] == 92) // backslash
+		if (str[i] == 92)
 		{
 			remove_char(str, i);
 			if (!str[i])
@@ -159,7 +157,6 @@ char	*quote_string(char **pstr, int *ec)
 			quot[x] = '3';
 			x++;
 			i++;
-
 		}
 		else
 		{
@@ -167,7 +164,6 @@ char	*quote_string(char **pstr, int *ec)
 			x++;
 			i++;
 		}
-
 	}
 	quot[x] = 0;
 	replace_chars(pstr, &quot);
