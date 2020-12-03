@@ -1,4 +1,4 @@
-#ifndef	MINISHELL_H
+#ifndef	MINISHELL_H	
 # define MINISHELL_H
 
 #include <termios.h>
@@ -7,6 +7,12 @@
 #include <fcntl.h>
 #include "libft.h"
 
+typedef struct	s_listdir
+{
+	char *name;
+	struct s_listdir *next;
+}				t_listdir;
+	
 typedef struct	s_env
 {
 	char			*name;
@@ -29,6 +35,8 @@ typedef struct		s_arrow
 	int		y;
 }					t_arrow;
 
+
+int			recurdir(char *patern, char *path, char *minipath, char **final);
 void		term_init(struct termios *save_cano, struct termios *save_nncano);
 void		historic(t_hist *hist, char *str);
 char		caspe(char c, char **str, t_arrow *ar, t_hist *hist);

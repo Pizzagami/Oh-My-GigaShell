@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   star.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: braimbau <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/12/03 10:30:03 by braimbau          #+#    #+#             */
+/*   Updated: 2020/12/03 10:53:35 by braimbau         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 #include "parser.h"
 #include "token.h"
@@ -5,9 +17,7 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 
-int	recurdir(char *patern, char *path, char *minipath, char **final);
-
-int	ft_strcmp1(char *s1, char *s2)
+int			ft_strcmp1(char *s1, char *s2)
 {
 	unsigned int i;
 
@@ -15,15 +25,15 @@ int	ft_strcmp1(char *s1, char *s2)
 	while (s1[i] && s2[i])
 	{
 		if (s1[i] != s2[i])
-			return((unsigned char)s1[i] - s2[i]);
+			return ((unsigned char)s1[i] - s2[i]);
 		i++;
 	}
 	if ((s1[i] && !s2[i]) || (!s1[i] && s2[i]))
-		return((unsigned char)s1[i] - s2[i]);
+		return ((unsigned char)s1[i] - s2[i]);
 	return (0);
 }
 
-int	ft_strcmp2(char *s1, char *s2)
+int			ft_strcmp2(char *s1, char *s2)
 {
 	unsigned int i;
 
@@ -31,7 +41,7 @@ int	ft_strcmp2(char *s1, char *s2)
 	while (s1[i] && s2[i])
 	{
 		if (s1[i] != s2[i])
-			return((unsigned char)s1[i] - s2[i]);
+			return ((unsigned char)s1[i] - s2[i]);
 		i++;
 	}
 	if (!s1[i] && s2[i] == '.')
@@ -39,16 +49,11 @@ int	ft_strcmp2(char *s1, char *s2)
 	if (!s2[i] && s1[i] == '.')
 		return (-1);
 	if ((s1[i] && !s2[i]) || (!s1[i] && s2[i]))
-		return((unsigned char)s1[i] - s2[i]);
+		return ((unsigned char)s1[i] - s2[i]);
 	return (0);
 }
-typedef struct	s_listdir
-{
-	char *name;
-	struct s_listdir *next;
-}				t_listdir;
 
-void print_list(t_listdir *a)
+void		print_list(t_listdir *a)
 {
 	while (a)
 	{
@@ -57,17 +62,17 @@ void print_list(t_listdir *a)
 	}
 }
 
-t_listdir *new_maillon(t_listdir *actual, char *name)
+t_listdir	*new_maillon(t_listdir *actual, char *name)
 {
 	t_listdir *list;
 
-		list = malloc(sizeof(t_listdir));
-		list->name = name;
-		list->next = actual;
-		return(list);
+	list = malloc(sizeof(t_listdir));
+	list->name = name;
+	list->next = actual;
+	return (list);
 }
 
-void free_list(t_listdir *a)
+void		free_list(t_listdir *a)
 {
 	if (a)
 	{
@@ -77,14 +82,14 @@ void free_list(t_listdir *a)
 	}
 }
 
-void sort_list(t_listdir *actual)
+void		sort_list(t_listdir *actual)
 {
-	t_listdir *a;
-	t_listdir *b;
-	char *tmp;
+	t_listdir	*a;
+	t_listdir	*b;
+	char		*tmp;
 
 	if (!actual || !actual->next)
-		return;
+		return ;
 	a = actual;
 	while (a)
 	{
@@ -103,14 +108,14 @@ void sort_list(t_listdir *actual)
 	}
 }
 
-void sort_list_dsm(t_listdir *actual)
+void		sort_list_dsm(t_listdir *actual)
 {
-	t_listdir *a;
-	t_listdir *b;
-	char *tmp;
+	t_listdir	*a;
+	t_listdir	*b;
+	char		*tmp;
 
 	if (!actual || !actual->next)
-		return;
+		return ;
 	a = actual;
 	while (a)
 	{
@@ -129,7 +134,7 @@ void sort_list_dsm(t_listdir *actual)
 	}
 }
 
-char			*ft_strjoin_sep(char *s1, char *s2, char c)
+char		*ft_strjoin_sep(char *s1, char *s2, char c)
 {
 	int		i;
 	int		x;
@@ -158,21 +163,19 @@ char			*ft_strjoin_sep(char *s1, char *s2, char c)
 	return (dest);
 }
 
-int is_dir(char *path, char *file)
+int			is_dir(char *path, char *file)
 {
-	(void)path;
-	(void)file;
 	struct stat buf;
 
 	path = ft_strjoin_sep(path, file, '/');
 	stat(path, &buf);
 	free(path);
 	if (S_ISDIR(buf.st_mode))
-		return(1);
-	return(0);
+		return (1);
+	return (0);
 }
 
-char	*ft_substr(char const *s, unsigned int start, size_t len)
+char		*ft_substr(char const *s, unsigned int start, size_t len)
 {
 	unsigned int	i;
 	char			*ptr;
@@ -199,7 +202,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	return (ptr);
 }
 
-int srcchar(char c, char *str)
+int			srcchar(char c, char *str)
 {
 	int x;
 
@@ -213,7 +216,7 @@ int srcchar(char c, char *str)
 	return (-1);
 }
 
-void removechar(char **str, int x)
+void		removechar(char **str, int x)
 {
 	while ((*str)[x + 1])
 	{
@@ -223,11 +226,13 @@ void removechar(char **str, int x)
 	(*str)[x] = 0;
 }
 
-void removedoublestars(char **str_p)
+void		removedoublestars(char **str_p)
 {
-	char *str = *str_p;
+	char	*str;
+	int		x;
 
-	int x = 0;
+	str = *str_p;
+	x = 0;
 	while (str && str[x] && str[x + 1])
 	{
 		if (str[x] == CSTAR && str[x + 1] == CSTAR)
@@ -237,7 +242,7 @@ void removedoublestars(char **str_p)
 	}
 }
 
-int numberstars(char *str)
+int			numberstars(char *str)
 {
 	int x;
 	int y;
@@ -253,10 +258,10 @@ int numberstars(char *str)
 	return (y);
 }
 
-int recursive(char * str, char * patern, int rc, int xp, int xs)
+int			recursive(char *str, char *patern, int rc, int xp, int xs)
 {
 	int i;
-	
+
 	if (xs == 0 && xp == 0 && str[xs] == '.' && str[xs] != patern[xp])
 		return (0);
 	if (!str[xs] && (!patern[xp] || rc == 0))
@@ -270,20 +275,17 @@ int recursive(char * str, char * patern, int rc, int xp, int xs)
 		else
 			return (0);
 	}
-	else
+	i = rc;
+	while (i > -1)
 	{
-		i = rc;
-		while (i > -1)
-		{
-			if (recursive(str, patern, rc - i, xp +1, xs + i))
-				return (1);
-			i--;
-		}
-		return (0);
+		if (recursive(str, patern, rc - i, xp + 1, xs + i))
+			return (1);
+		i--;
 	}
+	return (0);
 }
 
-int superstar(char *str, char *patern)
+int			superstar(char *str, char *patern)
 {
 	int rc;
 	int ret;
@@ -294,7 +296,7 @@ int superstar(char *str, char *patern)
 	return (ret);
 }
 
-void add_list(t_listdir *actual, char *minipath, char **final)
+void		add_list(t_listdir *actual, char *minipath, char **final)
 {
 	char *pathedname;
 	char *tmp;
@@ -305,7 +307,7 @@ void add_list(t_listdir *actual, char *minipath, char **final)
 			pathedname = ft_strjoin_sep(minipath, actual->name, '/');
 		else
 			pathedname = ft_strdup(actual->name);
-		tmp = *final;		
+		tmp = *final;
 		if (*final == NULL)
 			*final = pathedname;
 		else
@@ -318,19 +320,19 @@ void add_list(t_listdir *actual, char *minipath, char **final)
 	}
 }
 
-int megastar(char *patern, char *path, char *minipath, char **final)
+int			megastar(char *patern, char *path, char *minipath, char **final)
 {
-	DIR *dir;
-	struct dirent *dirent;
-	t_listdir *list;
-	t_listdir *actual;
-	int sfdo;
+	DIR				*dir;
+	struct dirent	*dirent;
+	t_listdir		*list;
+	t_listdir		*actual;
+	int				sfdo;
 
 	sfdo = 0;
 	if (srcchar('/', patern) != -1)
 	{
 		sfdo = 1;
-		patern[ft_strlen(patern) -1] = 0;
+		patern[ft_strlen(patern) - 1] = 0;
 	}
 	actual = NULL;
 	dir = opendir(path);
@@ -342,7 +344,7 @@ int megastar(char *patern, char *path, char *minipath, char **final)
 		{
 			list = malloc(sizeof(t_list));
 			if (sfdo)
-				list->name = ft_strjoin_sep(dirent->d_name,  NULL, '/');
+				list->name = ft_strjoin_sep(dirent->d_name, NULL, '/');
 			else
 				list->name = ft_strdup(dirent->d_name);
 			list->next = actual;
@@ -356,18 +358,18 @@ int megastar(char *patern, char *path, char *minipath, char **final)
 	return (0);
 }
 
-void throughdir(char *multipath, char *patern, t_listdir *a, char **final)
+void		throughdir(char *multipath, char *patern, t_listdir *a, char **final)
 {
 	char *path;
-	char *minipath = multipath;
+	char *minipath;
 	char *newminipath;
+	char *newpatern;
+	char *newpath;
 
+	minipath = multipath;
 	path = multipath + ft_strlen(multipath) + 1;
 	while (a)
 	{
-		char *newpatern;
-		char *newpath;
-
 		newpatern = ft_substr(patern, srcchar('/', patern) + 1,
 		ft_strlen(patern) - srcchar('/', patern) + 1);
 		newpath = ft_strjoin_sep(path, a->name, '/');
@@ -377,7 +379,7 @@ void throughdir(char *multipath, char *patern, t_listdir *a, char **final)
 			recurdir(newpatern, newpath, newminipath, final);
 			free(newminipath);
 		}
-		else 
+		else
 		{
 			recurdir(newpatern, newpath, a->name, final);
 		}
@@ -388,20 +390,20 @@ void throughdir(char *multipath, char *patern, t_listdir *a, char **final)
 	free(multipath);
 }
 
-int	recurdir(char *patern, char *path, char *minipath, char **final)
+int			recurdir(char *patern, char *path, char *minipath, char **final)
 {
-	DIR *dir;
-	struct dirent *dirent;
-	char *dirname;
-	t_listdir *actual;
+	DIR				*dir;
+	struct dirent	*dirent;
+	char			*dirname;
+	t_listdir		*actual;
 
 	actual = NULL;
 	if (srcchar('/', patern) == -1 || srcchar('/', patern) == (int)ft_strlen(patern) - 1)
 	{
 		if (patern[0] != '/')
-			return(megastar(patern, path, minipath, final));
+			return (megastar(patern, path, minipath, final));
 		else
-			return(megastar("\x01", "/", minipath, final));
+			return (megastar("\x01", "/", minipath, final));
 	}
 	dir = opendir(path);
 	if (dir == NULL)
@@ -415,14 +417,14 @@ int	recurdir(char *patern, char *path, char *minipath, char **final)
 		}
 	}
 	sort_list_dsm(actual);
-	throughdir(ft_strjoin_sep(minipath,path, '\0'), patern, actual, final);
+	throughdir(ft_strjoin_sep(minipath, path, '\0'), patern, actual, final);
 	free_list(actual);
 	free(dirname);
 	closedir(dir);
 	return (0);
 }
 
-void dereplace_stars(char *str)
+void		dereplace_stars(char *str)
 {
 	int i;
 
@@ -432,9 +434,10 @@ void dereplace_stars(char *str)
 		if (str[i] == CSTAR)
 			str[i] = '*';
 		i++;
-	}	
+	}
 }
-int gigastar(char *patern, char **final, char *home)
+
+int			gigastar(char *patern, char **final, char *home)
 {
 	char *path;
 	char *minipath;
@@ -462,19 +465,20 @@ int gigastar(char *patern, char **final, char *home)
 	}
 	if (!(*final))
 	{
-		dereplace_stars(patern); //si t'as 2 lignes a gagner, tu peux monter cette ligne et la sortir du if 
+		dereplace_stars(patern);
 		*final = ft_strdup(patern);
 	}
 	return (0);
 }
 
-t_token *starize_list(t_token *first,t_token *max, char *home)
+t_token		*starize_list(t_token *first, t_token *max, char *home)
 {
-	t_token *tmp;
-	t_token *tmp2;
-	char *str;
-	t_token *a = first;
+	t_token	*tmp;
+	t_token	*tmp2;
+	char	*str;
+	t_token	*a;
 
+	a = first;
 	while (a && a != max)
 	{
 		if (a == first && srcchar(CSTAR, a->str) != -1)
@@ -486,7 +490,7 @@ t_token *starize_list(t_token *first,t_token *max, char *home)
 			while (tmp->next)
 				tmp = tmp->next;
 			tmp->next = a->next;
-		free(first->str);
+			free(first->str);
 			free(first);
 			first = tmp2;
 			a = first;
