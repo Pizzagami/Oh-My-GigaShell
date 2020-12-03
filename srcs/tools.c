@@ -110,3 +110,17 @@ char *str_up(char *s)
 	}
 	return (s);
 }
+
+char *str_low(char *s)
+{
+	int i;
+
+	i = 0;
+	while (s && s[i])
+	{
+		if (s[i] >= 'A' && s[i] <= 'Z')
+			s[i] += 32;
+		i++;
+	}
+	return (s);
+}

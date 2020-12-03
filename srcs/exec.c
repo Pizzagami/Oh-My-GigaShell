@@ -6,7 +6,7 @@
 /*   By: braimbau <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/29 17:26:36 by braimbau          #+#    #+#             */
-/*   Updated: 2020/12/02 13:05:51 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/12/03 10:15:58 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,11 @@ int		is_in_directory(char *dirname, char *file)
 	ret = 0;
 	dir = opendir(dirname);
 	file_up = ft_strdup(file);
-	str_up(file_up);
+	str_low(file_up);
 	while ((dirent = readdir(dir)))
 	{
 		d_name_up = ft_strdup(dirent->d_name);
-		str_up(d_name_up);
+		str_low(d_name_up);
 		if (ft_strcmp(d_name_up, file_up) == 0)
 		{
 			ret = 1;

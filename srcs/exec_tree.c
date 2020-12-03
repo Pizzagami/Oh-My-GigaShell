@@ -6,7 +6,7 @@
 /*   By: pizzagami <pizzagami@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 14:45:18 by raimbault         #+#    #+#             */
-/*   Updated: 2020/12/02 13:32:51 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/12/03 10:19:50 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,7 +171,7 @@ char	**link_tab(t_env *env)
 	int		j;
 
 	j = 0;
-	x = env_size(env) + 1;
+	x = env_size(env);
 	str = (char**)malloc(sizeof(char*) * (x + 1));
 	str[x] = NULL;
 	while (j < x)
