@@ -66,6 +66,7 @@ dkms.conf
 # Ignore all local history of files
 .history
 .ionide
+.swp
 
 ### vscode ###
 !.vscode/settings.json
