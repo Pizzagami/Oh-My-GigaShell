@@ -6,7 +6,7 @@
 /*   By: raimbaultbrieuc <marvin@42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/15 16:33:07 by raimbault         #+#    #+#             */
-/*   Updated: 2020/10/28 14:58:37 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/12/04 13:50:49 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,10 @@ t_pipeline	*parse_pipeline2(int *ec, t_token *start, t_token *max)
 		return (NULL);
 	pipeline = malloc(sizeof(t_pipeline));
 	if (pipeline == NULL)
-		return (print_error("Malloc Error\n", ec, 14));
+	{
+		print_error(ec, 10);
+		return (NULL);
+	}
 	pipeline->brother = NULL;
 	pipeline->command = NULL;
 	return (pipeline);
@@ -37,7 +40,7 @@ t_pipeline	*parse_pipeline(t_token *start, t_token *max, int *ec)
 		return (pipeline);
 	if (start && start->type == PIPE)
 	{
-		print_error("Error : Missing element(s) before pipe\n", ec, 2402);
+		print_error(ec, 11);
 		return (pipeline);
 	}
 	token = start;
@@ -50,6 +53,6 @@ t_pipeline	*parse_pipeline(t_token *start, t_token *max, int *ec)
 		token = token->next;
 	pipeline->brother = parse_pipeline(token, max, ec);
 	if (pipeline->brother == NULL && tmp && tmp->type == PIPE)
-		print_error("Error : Missing element(s) after pipe\n", ec, 2412);
+		print_error(ec, 12);
 	return (pipeline);
 }

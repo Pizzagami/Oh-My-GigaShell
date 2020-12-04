@@ -6,7 +6,7 @@
 /*   By: raimbaultbrieuc <marvin@42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/15 16:30:25 by raimbault         #+#    #+#             */
-/*   Updated: 2020/10/28 15:04:28 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/12/04 13:52:16 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,17 @@ t_list	*parse_list(t_token *start, t_token *max, int *ec)
 	if (!start || start == max)
 		return (NULL);
 	list = malloc(sizeof(t_list));
+	list->andor = NULL;
+	list->brother = NULL;
 	if (list == NULL)
 	{
-		print_error("Malloc error\n", ec, 12);
+		print_error(ec, 5);
 		return (NULL);
 	}
 	token = start;
 	if (start && start->type == SEMI && token != max)
 	{
-		print_error("Error : Missing element(s) before semicolon\n", ec, 2200);
+		print_error(ec, 6);
 		return (list);
 	}
 	while (token && token != max && (token->type != SEMI ||

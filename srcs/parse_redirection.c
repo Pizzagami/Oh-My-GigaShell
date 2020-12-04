@@ -6,7 +6,7 @@
 /*   By: raimbaultbrieuc <marvin@42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/15 16:34:28 by raimbault         #+#    #+#             */
-/*   Updated: 2020/09/21 15:44:11 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/12/04 13:52:43 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,12 @@ t_redirection	*parse_redirection(t_token *token, t_token *max, int *ec)
 		{
 			if (!token->next)
 			{
-				print_error("Error : Missing file after redirection\n", ec, 2513);
+				print_error(ec, 17);
 				return (redirection_start);
 			}
 			if (token->next->type >= LESS)
 			{
-				print_error("Error : Missing file after redirection\n", ec, 2513);
+				print_error(ec, 17);
 				return (redirection_start);
 			}
 			redirection = malloc(sizeof(t_redirection));

@@ -6,7 +6,7 @@
 /*   By: raimbaultbrieuc <marvin@42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/15 16:23:29 by raimbault         #+#    #+#             */
-/*   Updated: 2020/07/31 11:10:15 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/12/04 13:53:49 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,41 @@ int		double_brackets(t_token *start, t_token *max)
 	return (1);
 }
 
-void	*print_error(char *str, int *ec, int error)
+char	**create_str_tab(void)
 {
-	printf("%s", str);
+	char **ret;
+
+	ret = malloc(sizeof(char *) * 20);
+	ret[0] = NULL;
+	ret[1] = "Error : Missing clothing double quote\n";
+	ret[2] = "Error : Missing clothing simple quote\n";
+	ret[3] = "Error : Missing character(s) after backslash\n";
+	ret[4] = "Error : Malloc error while parsing input\n";
+	ret[5] = "Error : Malloc error while parsing list\n";
+	ret[6] = "Error : Missing element(s) before semicolon\n";
+	ret[7] = "Error : Missing element(s) after && or ||\n";
+	ret[8] = "Error : Malloc while parsing andir\n";
+	ret[9] = "Error : Missing element(s) before && or ||\n";
+	ret[10] = "Error : Malloc error while parsing pipeline\n";
+	ret[11] = "Error : Missing element(s) before pipe\n";
+	ret[12] = "Error : Missing element(s) after pipe\n";
+	ret[13] = "Error : Missing clothing paranthesis\n";
+	ret[14] = "Error : Void paranthesis\n";
+	ret[15] = "Error : Way to much paranthesis\n";
+	ret[16] = "Error : Missing opening paranthesis\n";
+	ret[17] = "Error : Missing file after redirection\n";
+	return (ret);
+}
+
+int		print_error(int *ec, int error)
+{
+	char **tab;
+
+	tab = create_str_tab();
+	ft_putstr(tab[error]);
 	*ec = error;
-	return (NULL);
+	free(tab);
+	return (error);
 }
 
 int		is_in_brackets(t_token *token, t_token *start)

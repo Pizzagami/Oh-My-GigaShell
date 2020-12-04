@@ -6,7 +6,7 @@
 /*   By: raimbaultbrieuc <marvin@42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/15 15:24:37 by raimbault         #+#    #+#             */
-/*   Updated: 2020/12/01 15:57:13 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/12/04 13:49:16 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,7 @@ int		persecutor(t_hist *hist, t_arrow *ar, t_env *env, int *last_ret)
 	str = ft_strdup(hist->tab[0]);
 	quot = quote_string(&str, &ec);
 	if (ec)
-	{
-		printf("Missong clothing quote, dquote or error with backslash\n");
-		return (ec);
-	}
+		return (print_error(&ec, ec));
 	token_start = create_token_list(str, quot);
 	//token_start = starize_list(token_start, get_env(env, "HOME"));
 	//printf_token(token_start);

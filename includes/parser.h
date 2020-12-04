@@ -6,7 +6,7 @@
 /*   By: raimbaultbrieuc <marvin@42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/15 16:13:31 by raimbault         #+#    #+#             */
-/*   Updated: 2020/12/01 16:06:10 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/12/04 13:48:59 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ void			printf_token(t_token *start);
 char			*create_str(char *str, int start, int len);
 int				is_special_char(char c);
 int				double_brackets(t_token *start, t_token *max);
-void			*print_error(char *str, int *ec, int error);
+int				print_error(int *ec, int error);
 int				is_in_brackets(t_token *token, t_token *start);
 void			display_list(t_list *list, int i);
 void			display_andor(t_andor *andor, int i);

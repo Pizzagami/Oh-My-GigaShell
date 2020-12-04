@@ -63,7 +63,7 @@ char	*replace_occurences(char *str, char *to_rep, char *rep_by)
 	return (str);
 }
 
-void	multi_free(char *s1, char *s2, char *s3, chat *s4)
+void	multi_free(char *s1, char *s2, char *s3, char *s4)
 {
 	if (s1)
 		free(s1);

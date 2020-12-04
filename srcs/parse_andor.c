@@ -6,7 +6,7 @@
 /*   By: raimbaultbrieuc <marvin@42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/15 16:31:43 by raimbault         #+#    #+#             */
-/*   Updated: 2020/10/28 15:37:04 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/12/04 13:49:46 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ t_andor	*parse_andor2(t_andor *andor, int *ec, t_token *token, t_token *max)
 	andor->brother = parse_andor(token, max, ec);
 	if (andor->brother == NULL && andor->type)
 	{
-		print_error("Error : Missing element(s) after && or ||\n", ec, 2311);
+		print_error(ec, 7);
 		return (andor);
 	}
 	return (andor);
@@ -40,11 +40,14 @@ t_andor	*parse_andor(t_token *start, t_token *max, int *ec)
 	andor->brother = NULL;
 	andor->pipeline = NULL;
 	if (andor == NULL)
-		return (print_error("Malloc error\n", ec, 13));
+	{
+		print_error(ec, 8);
+		return (NULL);
+	}
 	if (start && (start->type == AND_IF || start->type == OR_IF ||
 		start->type == AND))
 	{
-		print_error("Error : Missing element(s) before && or ||\n", ec, 2301);
+		print_error(ec, 9);
 		return (andor);
 	}
 	token = start;

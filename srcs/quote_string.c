@@ -103,7 +103,7 @@ char	*quote_string(char **pstr, int *ec)
 		{
 			remove_char(str, i);
 			if (str[i] && str[i] != 34)
-				{
+			{
 				quot[x] = 'b';
 				x++;
 				i++;
@@ -116,7 +116,7 @@ char	*quote_string(char **pstr, int *ec)
 			}
 			if (!str[i])
 			{
-				*ec = 97;
+				*ec = 1;
 				free(quot);
 				return (NULL);
 			}
@@ -139,7 +139,7 @@ char	*quote_string(char **pstr, int *ec)
 			}
 			if (!str[i])
 			{
-				*ec = 98;
+				*ec = 2;
 				free(quot);
 				return (NULL);
 			}
@@ -150,7 +150,7 @@ char	*quote_string(char **pstr, int *ec)
 			remove_char(str, i);
 			if (!str[i])
 			{
-				*ec = 99;
+				*ec = 3;
 				free(quot);
 				return (NULL);
 			}
