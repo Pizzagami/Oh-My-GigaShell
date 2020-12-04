@@ -6,7 +6,7 @@
 /*   By: pizzagami <pizzagami@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 14:45:18 by raimbault         #+#    #+#             */
-/*   Updated: 2020/12/03 10:19:50 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/12/04 13:59:17 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -199,7 +199,11 @@ int		exec_binary(char **tab, t_omm omm, t_token *token)
 	{
 		path = get_path(omm.env, token->str);
 		if (!path)
+		{
 			ret = 1;
+			ft_putstr(tab[0]);
+			ft_putstr(" : command not found\n");
+		}
 		else
 		{
 			tabenv = link_tab(omm.env);
