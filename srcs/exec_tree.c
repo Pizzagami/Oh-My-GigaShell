@@ -6,7 +6,7 @@
 /*   By: pizzagami <pizzagami@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 14:45:18 by raimbault         #+#    #+#             */
-/*   Updated: 2020/12/04 13:59:17 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/12/04 15:01:41 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -195,6 +195,7 @@ int		exec_binary(char **tab, t_omm omm, t_token *token)
 
 	ret = 0;
 	pid = fork();
+	tabenv = NULL;
 	if (pid == 0)
 	{
 		path = get_path(omm.env, token->str);
@@ -208,10 +209,9 @@ int		exec_binary(char **tab, t_omm omm, t_token *token)
 		{
 			tabenv = link_tab(omm.env);
 			ret = execve(path, tab, tabenv);
-			free_tab(tabenv);
 		}
 		free(tab);
-		write(2, "Error while executing program\n", 30);
+		//write(2, "Error while executing program\n", 30);
 		exit(127);
 	}
 	else
@@ -222,6 +222,8 @@ int		exec_binary(char **tab, t_omm omm, t_token *token)
 		else
 			ret = 0;
 		free(tab);
+		if (tabenv)
+			free_tab(tabenv);
 	}
 	return (ret);
 }
