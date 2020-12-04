@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: raimbaultbrieuc <marvin@42.fr>             +#+  +:+       +#+        */
+/*   By: pizzagami <pizzagami@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/15 16:13:31 by raimbault         #+#    #+#             */
-/*   Updated: 2020/12/04 13:48:59 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/12/04 15:02:36 by pizzagami        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,7 @@ t_omm			init_std_fd(t_env *env, int *last_ret);
 char			**create_tab(t_token *start, t_token *max);
 char			*get_path(t_env *env, char *str);
 char			*get_env(t_env *env, char *key);
+char			**get_env2(t_env *env, char *key);
 void			reset_fd(t_omm omm);
 t_token			*starize_list(t_token *a, t_token *max, char *home);
 void			replace_dollar(t_token *a, t_omm omm);
