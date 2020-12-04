@@ -1,24 +1,28 @@
 #include "minishell.h"
+#include "parser.h"
 
-void	builtin_cd(char *path)
+void	builtin_cd(char *path, t_env *env)
 {
-	int fd;
+	char	htap[PATH_MAX];
+	char	*oldpwd;
+	char	*pwd;
 
-	fd = open(path, O_RDONLY);
-	if (!path)
-		return;
-	if (chdir(path) == -1)
+	if (!path || !ft_strcmp(path, "~"))
+		path = get_env(env,"HOME");
+	if (chdir(path) == 0)
 	{
-		perror("chdir()");
-	}
-	/*if (fd < 0) // verifier les differente erreurs (et perror?)
-	{
-		ft_putstr("cd: no such file or directory: ");
-		ft_putstr(path);
+		pwd = get_env(env,"PWD");;
+		oldpwd = get_env(env,"OLDPWD");
+		if (!oldpwd && !pwd)
+			{
+				free(oldpwd);
+				oldpwd = pwd;
+				pwd = getcwd(htap, PATH_MAX - 1);
+			}
 	}
 	else
 	{
-		chdir(path);
-	}*/
-	close(fd);
+		ft_putstr("bash: cd: ");
+		perror(path);
+	}
 }
