@@ -62,7 +62,7 @@ void		add_char(char **str, int index, char c);
 char		*str_up(char *str);
 char		*str_low(char *str);
 void		buitin_echo(char **str);
-void		builtin_cd(char *path);
+void		builtin_cd(char *path, t_env *env);
 void		builtin_env(t_env *first);
 void		builtin_export(char *var, t_env **first);
 void		builtin_unset(char *var, t_env **env);

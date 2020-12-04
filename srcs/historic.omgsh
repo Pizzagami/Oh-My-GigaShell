@@ -1,11 +1,6 @@
-env
-export
+cd
 ls
-cd ..
 cd srcs
-cd fr
-cd fr
-cd try
 dnf
 echo lol ||
 echo test)

@@ -206,7 +206,7 @@ int		bashy(t_hist *hist, t_arrow *ar)
 	str[0] = '\0';
 	c ='\0';
 	setcolor(&(hist->cc));
-	write(1, "My-Bash $ ",10);
+	write(1, "My-Bash:",8);
 	ft_putstr("\033[0m");
 	while(1)
 	{
