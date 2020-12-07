@@ -6,7 +6,7 @@
 /*   By: pizzagami <pizzagami@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/15 15:24:37 by raimbault         #+#    #+#             */
-/*   Updated: 2020/12/07 15:30:56 by pizzagami        ###   ########.fr       */
+/*   Updated: 2020/12/07 15:55:37 by pizzagami        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,5 +49,7 @@ int		exec_builtin(char *exec, char **tab, t_env *env)
 		builtin_pwd();
 	if (i == 4)
 		builtin_env(env);
+	//if (i == 5)
+	//	builtin_export(tab, &env);
 	return (0);
 }
