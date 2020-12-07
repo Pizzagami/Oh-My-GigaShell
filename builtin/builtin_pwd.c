@@ -4,6 +4,8 @@
  void		builtin_pwd(void)
 {
 	char	path[PATH_MAX];
-		ft_putstr(getcwd(path, PATH_MAX - 1));
+
+	ft_putstr(getcwd(path, PATH_MAX - 1));
+	ft_putstr("\n");
 	return;
 }

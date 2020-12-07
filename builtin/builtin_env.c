@@ -6,21 +6,27 @@ void	builtin_env(t_env *first)
 	t_env *current;
 
 	current = first;
-	while(current && current->name && current->val &&
-	ft_strcmp(current->name,"_") && ft_strncmp(current->val,"/usr/bin/",9))
+	while(current && current->name && current->val)
 	{
-		ft_putstr(current->name);
-		ft_putstr("=");
-		ft_putstr(current->val);
+		if (ft_strcmp(current->name,"_"))// && ft_strncmp(current->val,"/usr/bin/",9))
+		{
+			ft_putstr(current->name);
+			ft_putstr("=");
+			ft_putstr(current->val);
+			write(1,"\n",1);
+		}
 		current = current->next;
 	}
 	current = first;
-	while(current && current->name && current->val &&
-	!ft_strcmp(current->name,"_") && !ft_strncmp(current->val,"/usr/bin/",9))
+	while(current && current->name && current->val)
 	{
-		ft_putstr(current->name);
-		ft_putstr("=");
-		ft_putstr(current->val);
+		if (!ft_strcmp(current->name,"_"))// && !ft_strncmp(current->val,"/usr/bin/",9))
+		{
+			ft_putstr(current->name);
+			ft_putstr("=");
+			ft_putstr(current->val); //prendre la derniere string sorti en entree
+			write(1,"\n",1); //mettre bon path de base a la main dans env
+		}
 		current = current->next;
 	}
 }

@@ -28,8 +28,8 @@ void	dup_env(char **envp, t_env **env)
 		if (var_lst[i] != NULL)
 			add_env_var(var_lst[i], &*env);
 		i++;
-	}
-*/}
+	}*/
+}
 
 void	add_tail(char *var, t_env **first)
 {

@@ -1,7 +1,7 @@
 #ifndef	MINISHELL_H	
 # define MINISHELL_H
 
-#define PATH_MAX 1024
+#define PATH_MAX 4096
 #include <termios.h>
 #include "token.h"
 #include <unistd.h>

@@ -11,7 +11,7 @@ void	builtin_cd(char *path, t_env *env)
 		path = *get_env2(env,"HOME");
 	if (chdir(path) == 0)
 	{
-		pwd = get_env2(env,"PWD");;
+		pwd = get_env2(env,"PWD");
 		oldpwd = get_env2(env,"OLDPWD");
 		if (!oldpwd && !pwd)
 			{
