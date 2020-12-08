@@ -31,12 +31,13 @@ SRCS =	./srcs/main.c					\
 		./srcs/env.c 					\
 		./srcs/colors.c					\
 		./srcs/star.c					\
+		./srcs/multilines.c				\
 		./srcs/exec_builtin.c			\
 		./srcs/quote_string.c			\
 		./builtin/builtin_cd.c			\
 		./builtin/builtin_pwd.c			\
 		./builtin/builtin_env.c			\
-		./builtin/builtin_echo.c			\
+		./builtin/builtin_echo.c		\
 
 FLAG = -L includes/libft
 FSANITIZE = -fsanitize=address -g3

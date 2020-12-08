@@ -43,7 +43,8 @@ void		historic(t_hist *hist, char *str);
 char		caspe(char c, char **str, t_arrow *ar, t_hist *hist);
 char		*remalloc(char *str, char c);
 int			bashy(t_hist *hist, t_arrow *ar);
-int			persecutor(t_hist *hist, t_arrow *ar, t_env *env, int *last_ret);
+int			persecutor(t_hist *hist, t_env *env, int *last_ret);
+int			multilines(t_hist *hist, t_env *env, int *last_ret, char **ml);
 void		file_histo(t_hist *hist);
 void		histo_file(t_hist *hist);
 void 		ft_init_tab(t_hist *hist);
@@ -68,5 +69,6 @@ void		builtin_env(t_env *first);
 void		builtin_export(char *var, t_env **first);
 void		builtin_unset(char *var, t_env **env);
 void		builtin_pwd(void);
+char		*ft_strjoin_sep(char *s1, char *s2, char sep);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: raimbaultbrieuc <marvin@42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/15 16:23:29 by raimbault         #+#    #+#             */
-/*   Updated: 2020/12/04 13:53:49 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/12/08 15:06:33 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,8 @@ char	**create_str_tab(void)
 
 	ret = malloc(sizeof(char *) * 20);
 	ret[0] = NULL;
-	ret[1] = "Error : Missing clothing double quote\n";
-	ret[2] = "Error : Missing clothing simple quote\n";
+	ret[1] = NULL; //"Error : Missing clothing double quote\n";
+	ret[2] = NULL; //"Error : Missing clothing simple quote\n";
 	ret[3] = "Error : Missing character(s) after backslash\n";
 	ret[4] = "Error : Malloc error while parsing input\n";
 	ret[5] = "Error : Malloc error while parsing list\n";
@@ -50,7 +50,7 @@ char	**create_str_tab(void)
 	ret[10] = "Error : Malloc error while parsing pipeline\n";
 	ret[11] = "Error : Missing element(s) before pipe\n";
 	ret[12] = "Error : Missing element(s) after pipe\n";
-	ret[13] = "Error : Missing clothing paranthesis\n";
+	ret[13] = NULL; //"Error : Missing clothing paranthesis\n";
 	ret[14] = "Error : Void paranthesis\n";
 	ret[15] = "Error : Way to much paranthesis\n";
 	ret[16] = "Error : Missing opening paranthesis\n";

@@ -11,6 +11,7 @@ int		main(int argc,char **argv, char **env)
 	t_hist	hist;
 	t_arrow ar;
 	int	last_ret;
+	char *ml;
 
 	last_ret = 0;
 	ar.x = 0;
@@ -23,13 +24,14 @@ int		main(int argc,char **argv, char **env)
 	ft_init_tab(&hist);
 	term_init(&save_cano, &save_nncano);
 	file_histo(&hist);
+	ml = NULL;
 	while(1)
     {
         x = bashy(&hist, &ar);
         tcsetattr(0, TCSADRAIN, &save_cano);
         if (x == 3)
             break;
-        persecutor(&hist, &ar, envi, &last_ret);
+		multilines(&hist, envi, &last_ret, &ml);
         tcsetattr(0, TCSADRAIN, &save_nncano);
     }
     ft_putstr("\n^C fin du programme\n");
