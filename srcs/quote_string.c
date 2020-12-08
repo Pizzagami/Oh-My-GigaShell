@@ -34,6 +34,7 @@ void	add_char(char **str, int index, char c)
 {
 	char	*ret;
 	int		i;
+	char	*tmp;
 
 	if (index > (int)ft_strlen(*str) || index < 0)
 	{
@@ -55,7 +56,9 @@ void	add_char(char **str, int index, char c)
 		i++;
 	}
 	ret[i] = 0;
+	tmp = *str;
 	*str = ret;
+	free(tmp);
 }
 
 void	replace_chars(char **pstr, char **pquot)
