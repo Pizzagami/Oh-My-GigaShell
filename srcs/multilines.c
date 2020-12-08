@@ -6,7 +6,7 @@
 /*   By: braimbau <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/08 10:49:12 by braimbau          #+#    #+#             */
-/*   Updated: 2020/12/08 15:34:18 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/12/08 15:55:20 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int multilines(t_hist *hist, t_env *env, int *last_ret, char **ml)
 	if (*ml != 0)
 	{
 		tmp = hist->tab[0];
-		hist->tab[0] = ft_strjoin_sep(*ml, hist->tab[0], 'O');
+		hist->tab[0] = ft_strjoin_sep(*ml, hist->tab[0], '\n');
 		free(tmp);
 		free(*ml);
 		*ml = NULL;
