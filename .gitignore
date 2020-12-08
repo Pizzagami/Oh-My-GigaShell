@@ -3,6 +3,8 @@ minishell
 # Edit at https://www.toptal.com/developers/gitignore?templates=c,vscode,visualstudiocode
 
 ### C ###
+.*.swp
+*.omgsh
 # Prerequisites
 *.d
 

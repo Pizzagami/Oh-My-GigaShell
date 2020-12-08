@@ -1,4 +1,4 @@
-/* ************************************************************************** */
+* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   exec_tree.c                                        :+:      :+:    :+:   */
@@ -6,7 +6,7 @@
 /*   By: pizzagami <pizzagami@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 14:45:18 by raimbault         #+#    #+#             */
-/*   Updated: 2020/12/04 15:01:41 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/12/08 16:16:25 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -242,7 +242,10 @@ int		exec_instruction(t_instruction *instruction, t_omm omm)
 	if (tab[0] == NULL)
 		return (ret);
 	if (is_builtin(tab[0]))
+	{
 		ret = exec_builtin(tab[0], tab, omm.env);
+		free(tab);
+	}
 	else
 		ret = exec_binary(tab, omm, token);
 	*(omm.last_ret) = ret;
