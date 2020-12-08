@@ -2,12 +2,11 @@
 #include "minishell.h"
 
 
-void	historic(t_hist *hist ,char *str) // enlever ligne vide et file
+void	historic(t_hist *hist ,char *str) // enlever ligne vide et file verif taille max
 {
 	int x;
 
 	x = 254;
-	free(hist->tab[255]);
 	while (x >= 0)
 	{
 		hist->tab[x + 1] = hist->tab[x];

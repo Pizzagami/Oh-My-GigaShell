@@ -1,5 +1,6 @@
 #include "get_next_line.h"
 #include "minishell.h"
+void	free_env(t_env *env);
 
 int		main(int argc,char **argv, char **env)
 {
@@ -20,7 +21,7 @@ int		main(int argc,char **argv, char **env)
 	envi = NULL;
 	dup_env(env, &envi);
 	hist.cc = is_unicorn_set(envi);
-	ft_init_tab(&hist);
+	//ft_init_tab(&hist);
 	term_init(&save_cano, &save_nncano);
 	file_histo(&hist);
 	while(1)
@@ -34,6 +35,7 @@ int		main(int argc,char **argv, char **env)
     }
     ft_putstr("\n^C fin du programme\n");
 	histo_file(&hist);
+	free_env(envi);
 	tcsetattr(0, TCSADRAIN, &save_cano);
 	return(0);
 }
@@ -53,10 +55,11 @@ void	file_histo(t_hist *hist)
 	hist->x = x;
 	if (g < 0)
 	{
-		ft_putstr("GNL Error \n");
+		ft_putstr("GNL Error in file Histo\n");
 	}
 	close(fd);
 }
+
 void	histo_file(t_hist *hist)
 {
 	int fd;
@@ -69,7 +72,22 @@ void	histo_file(t_hist *hist)
 		ft_putstr_fd(hist->tab[x], fd);
 		ft_putstr_fd("\n",fd);
 		free(hist->tab[x]);
-		x ++;
+		x++;
 	}
+	free(hist->tab[x]);
+	x = 0;
 	close(fd);
+}
+
+void	free_env(t_env *env)
+{
+	t_env *tmp;
+	while(env)
+	{
+		free(env->name);
+		free(env->val);
+		tmp = env;
+		env = env->next;
+		free(tmp);
+	}
 }

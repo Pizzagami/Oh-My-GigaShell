@@ -31,18 +31,20 @@ void	builtin_env(t_env *first)
 	}
 }
 
-void	builtin_export(char *var, t_env **first) //gerer multi val
+void	builtin_export(char **var, t_env **first) //gerer multi val
 {
 	t_env	*current = *first;
 	t_env	*next = NULL;
 	char *val;
 	char *name;
 
-	if (var == NULL)
+	if (*var == NULL)
 		tri_and_print(*first); //tri et affiche
-	else if(!find_and_replace(first, var)) //creer si pas deja existant
+	while (!var)
 	{
-		env_split(var, &name, &val); //faut verif
+		if(!find_and_replace(first, *var)) //creer si pas deja existant
+	{
+		env_split(*var, &name, &val); //faut verif
 		while (current->next)
 			current = current->next;
 		current->next = malloc(sizeof(t_env));
@@ -53,7 +55,9 @@ void	builtin_export(char *var, t_env **first) //gerer multi val
 		current->val = val;
 		//env split avec verif et cas de null ou NULL et caractere interdit
 	}
-	free(var);
+		free(*var);
+		var++;
+	}
 }
 
 void	builtin_unset(char *var, t_env **env) //gerer multi val
