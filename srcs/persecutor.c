@@ -6,7 +6,7 @@
 /*   By: raimbaultbrieuc <marvin@42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/15 15:24:37 by raimbault         #+#    #+#             */
-/*   Updated: 2020/12/08 15:51:31 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/12/08 16:10:20 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ int		persecutor(t_hist *hist, t_env *env, int *last_ret)
 	quot = quote_string(&str, &ec);
 	if (ec)
 	{
+		free(str);
 		free(quot);
 		return (print_error(&ec, ec));
 	}
@@ -40,6 +41,7 @@ int		persecutor(t_hist *hist, t_env *env, int *last_ret)
 	else
 		*last_ret = ec;
 	free(quot);
+	free(str);
 	clean_input(tree);
 	clean_token_list(token_start);
 	return (ec);

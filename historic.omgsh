@@ -1,3 +1,5 @@
+$
+echo test
 cd .
 ls
 echo "tetsOc;lOvOevdOvO"
