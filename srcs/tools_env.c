@@ -103,9 +103,9 @@ t_env	*cpy_env(t_env *env)
 		cpy->name = ft_strdup(env->name);
 		cpy->val = ft_strdup(env->val);
 		cpy->l_name = env->l_name;
-		if (!first)
+		if (first == NULL)
 			first = cpy;
-		if (!env->next)
+		if (env->next == NULL)
 			break;
 		env = env->next;
 		cpy = cpy->next;
