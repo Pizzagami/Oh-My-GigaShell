@@ -184,6 +184,7 @@ char *remalloc(char *str, char c)
 	x = 0;
 	i = ft_strlen(str);
 	tmp = ft_strdup(str);
+	free(str);
 	str = malloc(sizeof(char) * (i + 2));
 	while(x < i)
 	{
@@ -227,6 +228,7 @@ int		bashy(t_hist *hist, t_arrow *ar) //fleche bas casser
 				historic(hist, str);
 				hist->x = (hist->x < 256) ? hist->x + 1: hist->x;
 				ft_bzero(str, ft_strlen(str));
+				free(str);
 			}
 			else
 			{
