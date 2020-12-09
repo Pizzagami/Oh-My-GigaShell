@@ -36,6 +36,12 @@ typedef struct		s_arrow
 	int		y;
 }					t_arrow;
 
+typedef struct		s_multi
+{
+	char	*str;
+	int		type;
+}					t_multi;
+
 
 int			recurdir(char *patern, char *path, char *minipath, char **final);
 void		term_init(struct termios *save_cano, struct termios *save_nncano);
@@ -44,7 +50,7 @@ char		caspe(char c, char **str, t_arrow *ar, t_hist *hist);
 char		*remalloc(char *str, char c);
 int			bashy(t_hist *hist, t_arrow *ar);
 int			persecutor(t_hist *hist, t_env *env, int *last_ret);
-int			multilines(t_hist *hist, t_env *env, int *last_ret, char **ml);
+int			multilines(t_hist *hist, t_env *env, int *last_ret, t_multi *multi);
 void		file_histo(t_hist *hist);
 void		histo_file(t_hist *hist);
 void 		ft_init_tab(t_hist *hist);
