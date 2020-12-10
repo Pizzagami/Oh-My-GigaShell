@@ -40,6 +40,7 @@ typedef struct		s_multi
 {
 	char	*str;
 	int		type;
+	int		x;
 }					t_multi;
 
 
