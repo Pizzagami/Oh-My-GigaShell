@@ -128,6 +128,7 @@ char	caspe(char c, char **str, t_arrow *ar, t_hist *hist)	//pointeur sur fctn ? 
 			int x = 0;
 		if (ar->y == 0 && ft_strlen(*str))
 				ar->y++;
+			ar->y++;
 			while (ar->x < 0)
 			{
 				ar->x++;
@@ -140,7 +141,6 @@ char	caspe(char c, char **str, t_arrow *ar, t_hist *hist)	//pointeur sur fctn ? 
 		} 
 			ft_putstr(hist->tab[ar->y]);
 			*str = ft_strdup(hist->tab[ar->y]);
-			ar->y++;
 		}
 		if (x == 'B' && ar->y > 0)
 		{
