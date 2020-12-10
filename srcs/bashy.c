@@ -229,6 +229,7 @@ int		bashy(t_hist *hist, t_arrow *ar) //fleche bas casser
 				hist->x = (hist->x < 256) ? hist->x + 1: hist->x;
 				ft_bzero(str, ft_strlen(str));
 				free(str);
+				return(1);
 			}
 			else
 			{
