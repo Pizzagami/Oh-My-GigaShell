@@ -93,24 +93,24 @@ void	swap_list(t_env **tmp)
 
 t_env	*cpy_env(t_env *env)
 {
-	t_env *first;
 	t_env *cpy;
+	t_env *tmp;
+	t_env *next;
 
-	first = NULL;
-	while(env)
+	tmp = NULL;
+	cpy = tmp;
+	next = NULL;
+	next->next = env;
+	while(next->next)
 	{
-		cpy = malloc(sizeof(t_env));
-		cpy->name = ft_strdup(env->name);
-		cpy->val = ft_strdup(env->val);
-		cpy->l_name = env->l_name;
-		if (first == NULL)
-			first = cpy;
-		if (env->next == NULL)
-			break;
-		env = env->next;
-		cpy = cpy->next;
+		tmp = malloc(sizeof(t_env));
+		tmp->name = ft_strdup(next->next->name);
+		tmp->val = ft_strdup(next->next->val);
+		tmp->l_name = next->next->l_name;
+		next = next->next;
+		tmp = tmp->next;
 	}
-	return(first);
+	return(cpy);
 }
 
 void 	tri_and_print(t_env *first)

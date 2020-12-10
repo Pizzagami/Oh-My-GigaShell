@@ -123,11 +123,12 @@ char	caspe(char c, char **str, t_arrow *ar, t_hist *hist)	//pointeur sur fctn ? 
 				ft_putstr("\033[C");
 			}
 		}
-		if (x == 'A' && hist->x > ar->y) // separer pour normer
+		if (x == 'A' && hist->x > ar->y + 1) // separer pour normer
 		{
 			int x = 0;
 		if (ar->y == 0 && ft_strlen(*str))
 				ar->y++;
+			ar->y++;
 			while (ar->x < 0)
 			{
 				ar->x++;
@@ -140,7 +141,6 @@ char	caspe(char c, char **str, t_arrow *ar, t_hist *hist)	//pointeur sur fctn ? 
 		} 
 			ft_putstr(hist->tab[ar->y]);
 			*str = ft_strdup(hist->tab[ar->y]);
-			ar->y++;
 		}
 		if (x == 'B' && ar->y > 0)
 		{
@@ -229,13 +229,16 @@ int		bashy(t_hist *hist, t_arrow *ar) //fleche bas casser
 				hist->x = (hist->x < 256) ? hist->x + 1: hist->x;
 				ft_bzero(str, ft_strlen(str));
 				free(str);
+				return(1);
 			}
 			else
 			{
-				if (bashy(hist, ar) == 3)
-				return(3);
+				ft_putstr("else");
+				/*if (bashy(hist, ar) == 3)
+					return(3);*/
+				ft_putstr("...");
+				return(0);
 			}
-			return(0);
 		}
 		else
 			c =	caspe(c, &str, ar, hist);
