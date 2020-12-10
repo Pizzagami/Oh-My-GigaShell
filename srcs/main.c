@@ -31,6 +31,7 @@ int		main(int argc,char **argv, char **env)
     {
         x = bashy(&hist, &ar);
         tcsetattr(0, TCSADRAIN, &save_cano);
+		ft_putstr("ytytytyt\n");
         if (x == 3)
             break;
 		multilines(&hist, envi, &last_ret, &multi);

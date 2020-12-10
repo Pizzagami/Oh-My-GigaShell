@@ -233,10 +233,12 @@ int		bashy(t_hist *hist, t_arrow *ar) //fleche bas casser
 			}
 			else
 			{
-				if (bashy(hist, ar) == 3)
-				return(3);
+				ft_putstr("else");
+				/*if (bashy(hist, ar) == 3)
+					return(3);*/
+				ft_putstr("...");
+				return(0);
 			}
-			return(0);
 		}
 		else
 			c =	caspe(c, &str, ar, hist);

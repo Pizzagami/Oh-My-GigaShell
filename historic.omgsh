@@ -1,3 +1,12 @@
+ls
+cd Oh-My-GigaShell
+ls
+cd
+cd .
+cd
+ls
+l
+env
 
 $
 echo test

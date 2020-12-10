@@ -39,7 +39,7 @@ void	builtin_export(char **var, t_env **first) //gerer multi val
 	char *name;
 
 	if (*var == NULL)
-		tri_and_print(*first); //tri et affiche
+		tri_and_print(current); //tri et affiche
 	while (!var)
 	{
 		if(!find_and_replace(first, *var)) //creer si pas deja existant
