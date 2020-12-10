@@ -123,7 +123,7 @@ char	caspe(char c, char **str, t_arrow *ar, t_hist *hist)	//pointeur sur fctn ? 
 				ft_putstr("\033[C");
 			}
 		}
-		if (x == 'A' && hist->x > ar->y) // separer pour normer
+		if (x == 'A' && hist->x > ar->y + 1) // separer pour normer
 		{
 			int x = 0;
 		if (ar->y == 0 && ft_strlen(*str))
