@@ -94,59 +94,51 @@ void	swap_list(t_env **tmp)
 t_env	*cpy_env(t_env *env)
 {
 	t_env *cpy;
-	t_env *tmp;
-	t_env *next;
 
-	tmp = NULL;
-	cpy = tmp;
-	next = NULL;
-	next->next = env;
-	while(next->next)
-	{
-		tmp = malloc(sizeof(t_env));
-		tmp->name = ft_strdup(next->next->name);
-		tmp->val = ft_strdup(next->next->val);
-		tmp->l_name = next->next->l_name;
-		next = next->next;
-		tmp = tmp->next;
-	}
+	if (!env)
+		return (NULL);
+	cpy =  malloc(sizeof(t_env));
+	cpy->name = ft_strdup(env->name);
+	cpy->val = ft_strdup(env->val);
+	cpy->l_name = env->l_name;
+	cpy->next = cpy_env(env->next);
 	return(cpy);
 }
 
 void 	tri_and_print(t_env *first)
 {
 	t_env *tmp;
-	int i;
-	int y;
+	t_env *fre;
+	t_env *start;
 
-	i = 0;
-	tmp = cpy_env(first);
+	start = cpy_env(first);
+	tmp = start;
 	while (tmp->next)
 	{
-		y = (tmp->l_name > tmp->next->l_name) ? tmp->l_name : tmp->next->l_name;
-		if (ft_strncmp(tmp->name, tmp->next->name,y) < 0)
+		if (ft_strcmp(tmp->name, tmp->next->name) > 0)
 		{
 			swap_list(&tmp);
-			tmp = first;
-			i = 0;
+			tmp = start;
 		}
 		else
-		{
 			tmp = tmp->next;
-			i++;
-		}
 	}
-	while (tmp->next)
+	tmp = start;
+	while (tmp)
 	{
 		ft_putstr("declare -x ");
 		ft_putstr(tmp->name);
+		free(tmp->name);
 		if(tmp->val)
 		{
 			ft_putstr("=\"");
 			ft_putstr(tmp->val);
-			ft_putstr("\"");
+			free(tmp->val);
+			ft_putstr("\"\n");
 		}
+		fre = tmp;
 		tmp = tmp->next;
+		free(fre);
 	}
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   multilines.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: braimbau <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pizzagami <pizzagami@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/08 10:49:12 by braimbau          #+#    #+#             */
-/*   Updated: 2020/12/09 14:16:16 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/12/11 13:37:51 by pizzagami        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 int multilines(t_hist *hist, t_env *env, int *last_ret, t_multi	*multi)
 {
-	printf("+\n");
 	int		ret;
 	char	*tmp;
 
