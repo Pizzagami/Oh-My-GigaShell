@@ -6,7 +6,7 @@
 /*   By: raimbaultbrieuc <marvin@42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/15 16:23:29 by raimbault         #+#    #+#             */
-/*   Updated: 2020/12/08 15:06:33 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/12/10 10:40:11 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,12 @@ char	**create_str_tab(void)
 	ret[4] = "Error : Malloc error while parsing input\n";
 	ret[5] = "Error : Malloc error while parsing list\n";
 	ret[6] = "Error : Missing element(s) before semicolon\n";
-	ret[7] = "Error : Missing element(s) after && or ||\n";
+	ret[7] = NULL;//"Error : Missing element(s) after && or ||\n";
 	ret[8] = "Error : Malloc while parsing andir\n";
 	ret[9] = "Error : Missing element(s) before && or ||\n";
 	ret[10] = "Error : Malloc error while parsing pipeline\n";
 	ret[11] = "Error : Missing element(s) before pipe\n";
-	ret[12] = "Error : Missing element(s) after pipe\n";
+	ret[12] = NULL; //"Error : Missing element(s) after pipe\n";
 	ret[13] = NULL; //"Error : Missing clothing paranthesis\n";
 	ret[14] = "Error : Void paranthesis\n";
 	ret[15] = "Error : Way to much paranthesis\n";

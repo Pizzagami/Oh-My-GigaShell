@@ -33,6 +33,7 @@ int		main(int argc,char **argv, char **env)
         tcsetattr(0, TCSADRAIN, &save_cano);
         if (x == 3)
             break;
+		multi.x = x;	
 		multilines(&hist, envi, &last_ret, &multi);
         tcsetattr(0, TCSADRAIN, &save_nncano);
     }
