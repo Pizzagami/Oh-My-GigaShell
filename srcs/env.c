@@ -14,10 +14,13 @@ void	dup_env(char **envp, t_env **env)
 
 void	add_tail(char *var, t_env **first)
 {
-	t_env	*current = *first;
-	t_env	*next = NULL;
+	t_env	*current;
+	t_env	*next;
 	char 	*name;
 	char 	*val;
+
+	current = *first;
+	next = NULL;
 	env_split(var, &name, &val);
 	free(var);
 	if (!val)
