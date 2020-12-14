@@ -197,17 +197,19 @@ char *remalloc(char *str, char c)
 	return(str);
 }
 
-int		bashy(t_hist *hist, t_arrow *ar) //fleche bas casser
+int		bashy(t_hist *hist, t_arrow *ar, int y) //fleche bas casser
 {
 	char c;
 	char *str;
-	//char	path[PATH_MAX];
 
 	str = malloc(sizeof(char) * 1);
 	str[0] = '\0';
 	c ='\0';
 	setcolor(&(hist->cc));
-	write(1, "My-Bash:",8);
+	if (y)
+		write(1, "&>", 2);
+	else
+		write(1, "My-Bash:",8);
 	//ft_putstr(getcwd(path, PATH_MAX - 1));
 	ft_putstr("\033[0m$ ");
 	while(1)
