@@ -233,7 +233,6 @@ int		bashy(t_hist *hist, t_arrow *ar) //fleche bas casser
 			}
 			else
 			{
-				ft_putstr("else");
 				return(0);
 			}
 		}
