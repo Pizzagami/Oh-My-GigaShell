@@ -89,6 +89,19 @@ void	replace_chars(char **pstr, char **pquot)
 	}
 }
 
+void delete_unquoted_newlines(char *str, char *quot)
+{
+	int i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (quot[i] == '0' && str[i] == '\n')
+			remove_char(str, i);
+		i++;
+	}
+}
+
 char	*quote_string(char **pstr, int *ec)
 {
 	int		i;
@@ -170,5 +183,6 @@ char	*quote_string(char **pstr, int *ec)
 	}
 	quot[x] = 0;
 	replace_chars(pstr, &quot);
+	delete_unquoted_newlines(str, quot);
 	return (quot);
 }
