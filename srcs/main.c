@@ -6,6 +6,7 @@ int		main(int argc,char **argv, char **env)
 {
 	(void)argc;(void)argv;
 	int x;
+	int y;
 	t_env  *envi;
 	struct termios save_cano;
 	struct termios save_nncano;
@@ -17,6 +18,7 @@ int		main(int argc,char **argv, char **env)
 	multi.str = NULL;
 	multi.type = 0;
 	last_ret = 0;
+	y = 0;
 	ar.x = 0;
 	ar.y = 0;
 	hist.x = 0;
@@ -29,12 +31,12 @@ int		main(int argc,char **argv, char **env)
 	file_histo(&hist);
 	while(1)
     {
-        x = bashy(&hist, &ar);
+        x = bashy(&hist, &ar, y);
         tcsetattr(0, TCSADRAIN, &save_cano);
         if (x == 3)
             break;
 		multi.x = x;	
-		multilines(&hist, envi, &last_ret, &multi);
+		y = multilines(&hist, envi, &last_ret, &multi);
         tcsetattr(0, TCSADRAIN, &save_nncano);
     }
     ft_putstr("\n^C fin du programme\n");
@@ -73,9 +75,9 @@ void	histo_file(t_hist *hist)
 	fd = open("historic.omgsh", O_CREAT | O_RDWR | O_TRUNC, S_IRWXU);
 	while (hist->x > x)
 	{
-		ft_putstr_fd(hist->tab[x], fd);
-		ft_putstr_fd("\n",fd);
-		free(hist->tab[x]);
+			ft_putstr_fd(hist->tab[x], fd);
+			ft_putstr_fd("\n",fd);
+			free(hist->tab[x]);
 		x++;
 	}
 	free(hist->tab[x]);

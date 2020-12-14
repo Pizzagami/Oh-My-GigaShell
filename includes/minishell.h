@@ -49,7 +49,7 @@ void		term_init(struct termios *save_cano, struct termios *save_nncano);
 void		historic(t_hist *hist, char *str);
 char		caspe(char c, char **str, t_arrow *ar, t_hist *hist);
 char		*remalloc(char *str, char c);
-int			bashy(t_hist *hist, t_arrow *ar);
+int			bashy(t_hist *hist, t_arrow *ar, int y);
 int			persecutor(t_hist *hist, t_env *env, int *last_ret);
 int			multilines(t_hist *hist, t_env *env, int *last_ret, t_multi *multi);
 void		file_histo(t_hist *hist);
