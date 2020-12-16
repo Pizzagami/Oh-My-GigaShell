@@ -6,7 +6,7 @@
 /*   By: raimbaultbrieuc <marvin@42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/15 15:24:37 by raimbault         #+#    #+#             */
-/*   Updated: 2020/12/13 19:57:59 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/12/16 13:41:27 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int		persecutor(t_hist *hist, t_env *env, int *last_ret)
 	tree = parse_input(token_start, &ec);
 	if (!ec)
 	{
-		//display_input(tree, 0)
+		//display_input(tree, 0);
 		exec_input(tree, init_std_fd(env, last_ret));
 	}
 	else

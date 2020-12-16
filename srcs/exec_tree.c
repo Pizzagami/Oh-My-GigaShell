@@ -6,7 +6,7 @@
 /*   By: pizzagami <pizzagami@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 14:45:18 by raimbault         #+#    #+#             */
-/*   Updated: 2020/12/08 16:18:21 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/12/16 12:10:00 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -202,6 +202,7 @@ int		exec_binary(char **tab, t_omm omm, t_token *token)
 		if (!path)
 		{
 			ret = 1;
+			ft_putstr("bashy: ");
 			ft_putstr(tab[0]);
 			ft_putstr(" : command not found\n");
 		}

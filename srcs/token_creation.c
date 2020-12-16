@@ -6,7 +6,7 @@
 /*   By: raimbaultbrieuc <marvin@42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/15 15:30:31 by raimbault         #+#    #+#             */
-/*   Updated: 2020/11/05 10:24:52 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/12/16 13:41:13 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ t_token	*create_token_list(char *str, char *quot)
 				token_start = token_current;
 			i += x;
 		}
-		i += (str[i] == ' ' && quot[i] != '0') ? 1 : 0; //si ca merde cest a cause de ca
+		i += (str[i] == ' ' && quot[i] == '0') ? 1 : 0; //si ca merde cest a cause de ca
 	}
 	return (token_start);
 }
