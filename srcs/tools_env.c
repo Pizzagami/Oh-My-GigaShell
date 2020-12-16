@@ -50,6 +50,7 @@ int		find_and_replace(t_env **first, char *var)
 	t_env *current;
 	int  i;
 	int	l_var;
+
 	i = 1;
 	current = *first;
 	l_var = ft_strlen(var);
@@ -70,6 +71,7 @@ int		find_and_replace(t_env **first, char *var)
 				return(1);
 			}
 		current = current->next;
+		ft_putstr("1\n");
 	}
 	return (0);
 }
