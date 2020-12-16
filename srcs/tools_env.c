@@ -17,7 +17,7 @@ int		env_split(char *str, char **name, char **val) //passer en int pour verif ca
 	{
 		if (((str[i] > 47 && str[i] < 58) && i > 0) || (str[i] > 96 && str[i] < 123)
 		||(str[i] > 64 && str[i] < 91) || str[i] == '_')
-		i++;
+			i++;
 		else
 			return (-1);
 	}

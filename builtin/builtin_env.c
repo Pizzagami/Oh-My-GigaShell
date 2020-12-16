@@ -34,7 +34,6 @@ void	builtin_env(t_env *first)
 void	builtin_export(char **var, t_env **first) //gerer multi val
 {
 	t_env	*current = *first;
-	t_env	*next = NULL;
 	char *val;
 	char *name;
 
@@ -50,14 +49,15 @@ void	builtin_export(char **var, t_env **first) //gerer multi val
 			while (current->next)
 				current = current->next;
 			current->next = malloc(sizeof(t_env));
-			if (next == NULL)
-				exit(0);
+			if (current->next == NULL)
+				exit (0);
 			current = current->next;
 			current->name = name;
 			current->val = val;
 			//env split avec verif et cas de null ou NULL et caractere interdit
 		}
-		free(*var);
+		ft_putstr("4\n");
+		//free(*var);
 		var++;
 	}
 }
