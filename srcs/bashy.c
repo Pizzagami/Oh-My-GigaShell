@@ -130,6 +130,7 @@ void right(char **str, t_arrow *ar, t_hist *hist) //C
 		ft_putstr("\033[C");
 	}
 }
+
 void up(char **str, t_arrow *ar, t_hist *hist) //A
 {
 	int x;
@@ -195,6 +196,14 @@ void down(char **str, t_arrow *ar, t_hist *hist) //B
 char	caspe(char c, char **str, t_arrow *ar, t_hist *hist)	//pointeur sur fctn 
 {
 	char x;
+
+	FLCH_CSP *fleche_caspe[5];
+
+	fleche_caspe[0] = NULL;
+	fleche_caspe[1] = &up;
+	fleche_caspe[2] = &down;
+	fleche_caspe[3] = &right;
+	fleche_caspe[4] = &left;
 	if ((int)c == 9 || (int)c < 1)
 		return(c = '\0');
 	if((int)c == 127)
@@ -204,7 +213,7 @@ char	caspe(char c, char **str, t_arrow *ar, t_hist *hist)	//pointeur sur fctn
 	}
 	else if((int)c == 27)
 	{
-		*fleche_caspe[which_case](str, ar, hist);
+		(*fleche_caspe[which_case])(str, ar, hist);
 
 		
 		}

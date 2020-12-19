@@ -48,7 +48,9 @@ void down(char **str, t_arrow *ar, t_hist *hist);
 void right(char **str, t_arrow *ar, t_hist *hist);
 void left(char **str, t_arrow *ar, t_hist *hist);
 
-void *fleche_caspe[5];
+typedef void FLCH_CSP(char **str, t_arrow *ar, t_hist *hist);
+
+fleche_caspe[0] = up(char **str, t_arrow *ar, t_hist *hist);
 
 int			recurdir(char *patern, char *path, char *minipath, char **final);
 void		term_init(struct termios *save_cano, struct termios *save_nncano);
