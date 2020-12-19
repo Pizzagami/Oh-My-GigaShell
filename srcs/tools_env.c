@@ -17,7 +17,7 @@ int		env_split(char *str, char **name, char **val) //passer en int pour verif ca
 	{
 		if (((str[i] > 47 && str[i] < 58) && i > 0) || (str[i] > 96 && str[i] < 123)
 		||(str[i] > 64 && str[i] < 91) || str[i] == '_')
-		i++;
+			i++;
 		else
 			return (-1);
 	}
@@ -50,6 +50,7 @@ int		find_and_replace(t_env **first, char *var)
 	t_env *current;
 	int  i;
 	int	l_var;
+
 	i = 1;
 	current = *first;
 	l_var = ft_strlen(var);
@@ -70,6 +71,7 @@ int		find_and_replace(t_env **first, char *var)
 				return(1);
 			}
 		current = current->next;
+		ft_putstr("1\n");
 	}
 	return (0);
 }
