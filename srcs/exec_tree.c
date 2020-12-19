@@ -6,7 +6,7 @@
 /*   By: pizzagami <pizzagami@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 14:45:18 by raimbault         #+#    #+#             */
-/*   Updated: 2020/12/16 12:10:00 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/12/19 14:27:20 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,11 +89,8 @@ int		exec_pipeline(t_pipeline *pipeline, t_omm omm)
 			exit(0);
 		}
 	}
-	else
-	{
-		if (pipeline->command)
-			i = exec_command(pipeline->command, omm);
-	}
+	else if (pipeline->command)
+		i = exec_command(pipeline->command, omm);
 	return (i);
 }
 
@@ -111,50 +108,62 @@ int		exec_command(t_command *command, t_omm omm)
 	return (i);
 }
 
-int		exec_redirection(t_redirection *redirection, t_omm omm)
+int		exec_great_redirection(t_redirection *redirection)
 {
 	int fd;
 
-	if (redirection && redirection->type == GREAT)
+	fd = open(redirection->filename, O_CREAT | O_RDWR | O_TRUNC, S_IRWXU);
+	if (fd == -1)
 	{
-		fd = open(redirection->filename, O_CREAT | O_RDWR | O_TRUNC, S_IRWXU);
-		if (fd == -1)
-		{
-			printf("Error : %s\n", strerror(errno));//perror
-			return (1);
-		}
-		dup2(fd, 1);
-		close(fd);
+		perror("bashy");
+		return (1);
 	}
-	else if (redirection && redirection->type == DGREAT)
+	dup2(fd, 1);
+	close(fd);
+	return (0);
+}
+
+int		exec_dgreat_redirection(t_redirection *redirection)
+{
+	int fd;
+
+	fd = open(redirection->filename, O_CREAT | O_RDWR | O_APPEND);
+	if (fd == -1)
 	{
-		fd = open(redirection->filename, O_CREAT | O_RDWR | O_APPEND);
-		if (fd == -1)
-		{
-			printf("Error : %s\n", strerror(errno));
-			return (1);
-		}
-		dup2(fd, 1);
-		close(fd);
+		printf("Error : %s\n", strerror(errno));
+		return (1);
 	}
-	else if (redirection && redirection->type == LESS)
+	dup2(fd, 1);
+	close(fd);
+	return (0);
+}
+
+int		exec_less_redirection(t_redirection *redirection)
+{
+	int fd;
+
+	fd = open(redirection->filename, O_RDONLY);
+	if (fd == -1)
 	{
-		fd = open(redirection->filename, O_RDONLY);
-		if (fd == -1)
-		{
-			printf("Error : %s\n", strerror(errno));
-			return (1);
-		}
-		dup2(fd, 0);
-		close(fd);
+		printf("Error : %s\n", strerror(errno));
+		return (1);
 	}
-	else if (0)
-	{
-		if (omm.stdout != 1)
-			dup2(omm.stdout, 1);
-		if (omm.stdin != 0)
-			dup2(omm.stdin, 0);
-	}
+	dup2(fd, 0);
+	close(fd);
+	return (0);
+}
+
+int		exec_redirection(t_redirection *redirection, t_omm omm)
+{
+	if (redirection && redirection->type == GREAT
+			&& exec_great_redirection(redirection))
+		return (1);
+	else if (redirection && redirection->type == DGREAT
+			&& exec_dgreat_redirection(redirection))
+		return (1);
+	else if (redirection && redirection->type == LESS
+			&& exec_less_redirection(redirection))
+		return (1);
 	if (redirection && redirection->brother)
 	{
 		redirection = redirection->brother;
@@ -212,21 +221,15 @@ int		exec_binary(char **tab, t_omm omm, t_token *token)
 			ret = execve(path, tab, tabenv);
 		}
 		free(tab);
-		//write(2, "Error while executing program\n", 30);
-		exit(127);
+		if (path)
+			write(2, "Error while executing program\n", 30);
+		exit(ret);
 	}
-	else
-	{
-		waitpid(pid, &ret, 0);
-		if (WIFEXITED(ret))
-			ret = WEXITSTATUS(ret);
-		else
-			ret = 0;
-		free(tab);
-		if (tabenv)
-			free_tab(tabenv);
-	}
-	return (ret);
+	free(tab);
+	waitpid(pid, &ret, 0);
+	if (WIFEXITED(ret))
+		return (WEXITSTATUS(ret));
+	return (0);
 }
 
 int		exec_instruction(t_instruction *instruction, t_omm omm)
