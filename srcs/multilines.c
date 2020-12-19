@@ -6,7 +6,7 @@
 /*   By: pizzagami <pizzagami@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/08 10:49:12 by braimbau          #+#    #+#             */
-/*   Updated: 2020/12/14 14:32:25 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/12/16 13:53:19 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ int multilines(t_hist *hist, t_env *env, int *last_ret, t_multi	*multi)
 {
 	int		ret;
 	char	*tmp;
-
 
 	ret = 0;
 	if (multi->type != 0 && multi->x != 0)
