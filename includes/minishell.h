@@ -50,8 +50,6 @@ void left(char **str, t_arrow *ar, t_hist *hist);
 
 typedef void FLCH_CSP(char **str, t_arrow *ar, t_hist *hist);
 
-fleche_caspe[0] = up(char **str, t_arrow *ar, t_hist *hist);
-
 int			recurdir(char *patern, char *path, char *minipath, char **final);
 void		term_init(struct termios *save_cano, struct termios *save_nncano);
 void		historic(t_hist *hist, char *str);

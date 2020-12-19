@@ -113,8 +113,10 @@ int which_case()
 	return 0;
 }
 
-void right(char **str, t_arrow *ar, t_hist *hist) //D
+void left(char **str, t_arrow *ar, t_hist *hist) //D
 {
+	(void)hist;
+	(void)str;
 	if (ft_strlen(*str) + ar->x > 0)
 	{
 		ar->x--;
@@ -124,6 +126,8 @@ void right(char **str, t_arrow *ar, t_hist *hist) //D
 
 void right(char **str, t_arrow *ar, t_hist *hist) //C
 {
+	(void)hist;
+	(void)str;
 	if(ar->x < 0)
 	{
 		ar->x++;
@@ -195,8 +199,6 @@ void down(char **str, t_arrow *ar, t_hist *hist) //B
 
 char	caspe(char c, char **str, t_arrow *ar, t_hist *hist)	//pointeur sur fctn 
 {
-	char x;
-
 	FLCH_CSP *fleche_caspe[5];
 
 	fleche_caspe[0] = NULL;
@@ -214,9 +216,6 @@ char	caspe(char c, char **str, t_arrow *ar, t_hist *hist)	//pointeur sur fctn
 	else if((int)c == 27)
 	{
 		(*fleche_caspe[which_case])(str, ar, hist);
-
-		
-		}
 	}
 	else
 		*str = strput(*str,ar, c);
