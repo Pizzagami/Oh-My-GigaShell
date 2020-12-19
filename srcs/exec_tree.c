@@ -6,7 +6,7 @@
 /*   By: pizzagami <pizzagami@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 14:45:18 by raimbault         #+#    #+#             */
-/*   Updated: 2020/12/19 14:27:20 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/12/19 15:04:58 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -195,36 +195,39 @@ char	**link_tab(t_env *env)
 	return (str);
 }
 
+void	check_path_execve(char **tab, t_omm omm, t_token *token, char **tabenv)
+{
+	char *path;
+
+	path = get_path(omm.env, token->str);
+	if (!path)
+	{
+		ft_putstr("bashy: ");
+		ft_putstr(tab[0]);
+		ft_putstr(" : command not found\n");
+	}
+	else
+	{
+		tabenv = link_tab(omm.env);
+		exit(execve(path, tab, tabenv));
+	}
+	free(tab);
+	if (path)
+		write(2, "Error while executing program\n", 30);
+	exit(127);
+}
+
 int		exec_binary(char **tab, t_omm omm, t_token *token)
 {
 	int		pid;
 	int		ret;
-	char	*path;
 	char	**tabenv;
 
 	ret = 0;
 	pid = fork();
 	tabenv = NULL;
 	if (pid == 0)
-	{
-		path = get_path(omm.env, token->str);
-		if (!path)
-		{
-			ret = 1;
-			ft_putstr("bashy: ");
-			ft_putstr(tab[0]);
-			ft_putstr(" : command not found\n");
-		}
-		else
-		{
-			tabenv = link_tab(omm.env);
-			ret = execve(path, tab, tabenv);
-		}
-		free(tab);
-		if (path)
-			write(2, "Error while executing program\n", 30);
-		exit(ret);
-	}
+		check_path_execve(tab, omm, token, tabenv);
 	free(tab);
 	waitpid(pid, &ret, 0);
 	if (WIFEXITED(ret))
@@ -241,7 +244,8 @@ int		exec_instruction(t_instruction *instruction, t_omm omm)
 	ret = 0;
 	token = instruction->start;
 	replace_dollar(token, omm);
-	instruction->start = starize_list(instruction->start, instruction->max, get_env(omm.env, "HOME"));
+	instruction->start = starize_list(instruction->start,
+			instruction->max, get_env(omm.env, "HOME"));
 	tab = create_tab(instruction->start, instruction->max);
 	if (tab[0] == NULL)
 		return (ret);
