@@ -94,7 +94,7 @@ char	*strput(char *str, t_arrow *ar, char c)
 	return (str);
 }
 
-int which_case()
+int		which_case()
 {
 	char x;
 
@@ -113,7 +113,7 @@ int which_case()
 	return 0;
 }
 
-void left(char **str, t_arrow *ar, t_hist *hist) //D
+void	left(char **str, t_arrow *ar, t_hist *hist) //D
 {
 	(void)hist;
 	(void)str;
@@ -124,7 +124,7 @@ void left(char **str, t_arrow *ar, t_hist *hist) //D
 	}		
 }
 
-void right(char **str, t_arrow *ar, t_hist *hist) //C
+void	right(char **str, t_arrow *ar, t_hist *hist) //C
 {
 	(void)hist;
 	(void)str;
@@ -135,15 +135,15 @@ void right(char **str, t_arrow *ar, t_hist *hist) //C
 	}
 }
 
-void up(char **str, t_arrow *ar, t_hist *hist) //A
+void	up(char **str, t_arrow *ar, t_hist *hist) //A
 {
 	int x;
 
 	if (hist->x > ar->y)
 	{
 		x = 0;
-		if (ar->y == 0 && ft_strlen(*str))
-			ar->y++;
+		//if (ar->y == 0 && ft_strlen(*str))
+		//	ar->y++;
 		while (ar->x < 0)
 		{
 			ar->x++;
@@ -160,35 +160,31 @@ void up(char **str, t_arrow *ar, t_hist *hist) //A
 	}
 }
 
-void down(char **str, t_arrow *ar, t_hist *hist) //B
+void	down(char **str, t_arrow *ar, t_hist *hist) //B prob hist1 ligne
 {
 	int x;
+
+	x = 0;
+	while (ar->x < 0)
+		{
+			ar->x++;
+			ft_putstr("\033[C");
+		}
 	if (ar->y > 0)
 	{
 		if(ar->y == hist->x)
 			ar->y--;
 		ar->y--;
-		int x = 0;
-		while (ar->x < 0)
-		{
-			ar->x++;
-			ft_putstr("\033[C");
-		}
 		while((int)ft_strlen(*str) > x)
 		{
 			x++;
 			ft_putstr("\b \b");
 		}
+			ft_putnbr_fd(ar->y,0);
 			ft_putstr(hist->tab[ar->y]);
 			*str = ft_strdup(hist->tab[ar->y]);
 		return;
 	}
-	x = 0;
-		while (ar->x < 0)
-		{
-			ar->x++;
-			ft_putstr("\033[C");
-		}
 		while((int)ft_strlen(*str) > x)
 		{
 			x++;
@@ -197,7 +193,7 @@ void down(char **str, t_arrow *ar, t_hist *hist) //B
 	*str = ft_strdup("\0");
 }
 
-char	caspe(char c, char **str, t_arrow *ar, t_hist *hist)	//pointeur sur fctn 
+char	caspe(char c, char **str, t_arrow *ar, t_hist *hist)
 {
 	FLCH_CSP *fleche_caspe[5];
 
@@ -215,14 +211,14 @@ char	caspe(char c, char **str, t_arrow *ar, t_hist *hist)	//pointeur sur fctn
 	}
 	else if((int)c == 27)
 	{
-		(*fleche_caspe[which_case])(str, ar, hist);
+		(*fleche_caspe[which_case()])(str, ar, hist);
 	}
 	else
 		*str = strput(*str,ar, c);
 	return(c);
 }
 
-char *remalloc(char *str, char c)
+char	*remalloc(char *str, char c)
 {
 	int x;
 	int i;
@@ -283,9 +279,7 @@ int		bashy(t_hist *hist, t_arrow *ar, int y) //fleche bas casser
 				return(1);
 			}
 			else
-			{
 				return(0);
-			}
 		}
 		else
 			c =	caspe(c, &str, ar, hist);
