@@ -94,9 +94,114 @@ char	*strput(char *str, t_arrow *ar, char c)
 	return (str);
 }
 
-char	caspe(char c, char **str, t_arrow *ar, t_hist *hist)	//pointeur sur fctn ? //fix && é etv 
+int		which_case()
 {
 	char x;
+
+	read(0, &x, 1);
+	if (x != '[')
+		return 0;
+	read(0, &x, 1);
+	if (x == 'A')
+		return 1;
+	if (x == 'B')
+		return 2;
+	if (x == 'C')
+		return 3;
+	if (x == 'D')
+		return 4;
+	return 0;
+}
+
+void	left(char **str, t_arrow *ar, t_hist *hist) //D
+{
+	(void)hist;
+	(void)str;
+	if (ft_strlen(*str) + ar->x > 0)
+	{
+		ar->x--;
+		ft_putstr("\b");
+	}		
+}
+
+void	right(char **str, t_arrow *ar, t_hist *hist) //C
+{
+	(void)hist;
+	(void)str;
+	if(ar->x < 0)
+	{
+		ar->x++;
+		ft_putstr("\033[C");
+	}
+}
+
+void	up(char **str, t_arrow *ar, t_hist *hist) //A
+{
+	int x;
+
+	if (hist->x > ar->y)
+	{
+		x = 0;
+		//if (ar->y == 0 && ft_strlen(*str))
+		//	ar->y++;
+		while (ar->x < 0)
+		{
+			ar->x++;
+			ft_putstr("\033[C");
+		}
+		while((int)ft_strlen(*str) > x)
+		{
+			x++;
+			ft_putstr("\b \b");
+		} 
+		ft_putstr(hist->tab[ar->y]);
+		*str = ft_strdup(hist->tab[ar->y]);
+		ar->y++;
+	}
+}
+
+void	down(char **str, t_arrow *ar, t_hist *hist) //B prob hist1 ligne
+{
+	int x;
+
+	x = 0;
+	while (ar->x < 0)
+		{
+			ar->x++;
+			ft_putstr("\033[C");
+		}
+	if (ar->y > 0)
+	{
+		if(ar->y == hist->x)
+			ar->y--;
+		ar->y--;
+		while((int)ft_strlen(*str) > x)
+		{
+			x++;
+			ft_putstr("\b \b");
+		}
+			ft_putnbr_fd(ar->y,0);
+			ft_putstr(hist->tab[ar->y]);
+			*str = ft_strdup(hist->tab[ar->y]);
+		return;
+	}
+		while((int)ft_strlen(*str) > x)
+		{
+			x++;
+			ft_putstr("\b \b");
+		}
+	*str = ft_strdup("\0");
+}
+
+char	caspe(char c, char **str, t_arrow *ar, t_hist *hist)
+{
+	FLCH_CSP *fleche_caspe[5];
+
+	fleche_caspe[0] = NULL;
+	fleche_caspe[1] = &up;
+	fleche_caspe[2] = &down;
+	fleche_caspe[3] = &right;
+	fleche_caspe[4] = &left;
 	if ((int)c == 9 || (int)c < 1)
 		return(c = '\0');
 	if((int)c == 127)
@@ -104,93 +209,16 @@ char	caspe(char c, char **str, t_arrow *ar, t_hist *hist)	//pointeur sur fctn ? 
 	 *str = strdel(*str, ar);
 		c = '\0';
 	}
-	else if((int)c == 27) //faire un ++ la ou l autre endroit des é
+	else if((int)c == 27)
 	{
-		read(0, &x, 1);
-		if (x == '[')
-		{
-			read(0, &x, 1);
-		if (x == 'D' && ft_strlen(*str) + ar->x > 0)
-		{
-			ar->x--;
-			ft_putstr("\b");
-		}
-		if (x == 'C')
-		{
-			if(ar->x < 0)
-			{
-				ar->x++;
-				ft_putstr("\033[C");
-			}
-		}
-		if (x == 'A' && hist->x > ar->y) // separer pour normer
-		{
-			int x = 0;
-		if (ar->y == 0 && ft_strlen(*str))
-				ar->y++;
-			while (ar->x < 0)
-			{
-				ar->x++;
-				ft_putstr("\033[C");
-			}
-			while((int)ft_strlen(*str) > x)
-			{
-			x++;
-			ft_putstr("\b \b");
-		} 
-			ft_putstr(hist->tab[ar->y]);
-			*str = ft_strdup(hist->tab[ar->y]);
-			ar->y++;
-		}
-		if (x == 'B' && ar->y > 0)
-		{
-			if(ar->y == hist->x)
-				ar->y--;
-			ar->y--;
-			int x = 0;
-			while (ar->x < 0)
-			{
-				ar->x++;
-				ft_putstr("\033[C");
-			}
-			while((int)ft_strlen(*str) > x)
-			{
-				x++;
-				ft_putstr("\b \b");
-			}
-			/*if (ar->y == 0)
-			{
-				*str = ft_strdup("\0");
-			}
-			else
-			*/{
-				ft_putstr(hist->tab[ar->y]);
-				*str = ft_strdup(hist->tab[ar->y]);
-			}
-		}
-		else if (x == 'B' && ar->y == 0)
-		{
-			int x = 0;
-			while (ar->x < 0)
-			{
-				ar->x++;
-				ft_putstr("\033[C");
-			}
-			while((int)ft_strlen(*str) > x)
-			{
-				x++;
-				ft_putstr("\b \b");
-			}
-			*str = ft_strdup("\0");
-		}
-		}
+		(*fleche_caspe[which_case()])(str, ar, hist);
 	}
 	else
 		*str = strput(*str,ar, c);
 	return(c);
 }
 
-char *remalloc(char *str, char c)
+char	*remalloc(char *str, char c)
 {
 	int x;
 	int i;
@@ -251,9 +279,7 @@ int		bashy(t_hist *hist, t_arrow *ar, int y) //fleche bas casser
 				return(1);
 			}
 			else
-			{
 				return(0);
-			}
 		}
 		else
 			c =	caspe(c, &str, ar, hist);

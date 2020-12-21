@@ -143,4 +143,3 @@ void 	tri_and_print(t_env *first)
 		free(fre);
 	}
 }
-
