@@ -2,22 +2,29 @@
 #include "minishell.h"
 #include "libft.h"
 
-int		env_split(char *str, char **name, char **val) //passer en int pour verif cas d erreur
+int		env_split(char *str, char **name, char **val)
 {
 	int i;
 	int j;
 	int x;
+	int ret;
 	char *str1;
 	char *str2;
 
 	i = 0;
 	j = 0;
 	x = 0;
-	while(str && str[i] != '=')
+	ret = 0;
+	while(str && str[i] != '=' )
 	{
 		if (((str[i] > 47 && str[i] < 58) && i > 0) || (str[i] > 96 && str[i] < 123)
 		||(str[i] > 64 && str[i] < 91) || str[i] == '_')
 			i++;
+		else if (!str[i])
+		{
+			ret = 2;
+			break;
+		}
 		else
 			return (-1);
 	}
@@ -28,6 +35,8 @@ int		env_split(char *str, char **name, char **val) //passer en int pour verif ca
 		str1[j] = str[j];
 		j++;
 	}
+	if (ret == 2)
+		return(ret);
 	i++;
 	j++;
 	while(str[i])
@@ -42,7 +51,7 @@ int		env_split(char *str, char **name, char **val) //passer en int pour verif ca
 	}
 	*name = str1;
 	*val = str2;
-	return (1);
+	return (ret);
 }
 
 int		find_and_replace(t_env **first, char *var)
