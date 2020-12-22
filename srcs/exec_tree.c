@@ -6,7 +6,7 @@
 /*   By: pizzagami <pizzagami@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 14:45:18 by raimbault         #+#    #+#             */
-/*   Updated: 2020/12/19 15:04:58 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/12/21 14:03:30 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,40 +58,50 @@ int		exec_andor(t_andor *andor, t_omm omm)
 	return (i);
 }
 
-int		exec_pipeline(t_pipeline *pipeline, t_omm omm)
+int		exec_pipeline_father(int pfd[2], t_pipeline *pipeline, t_omm omm,
+		int pid)
 {
-	int		i;
-	int		pfd[2];
-	int		pid;
-	int		x;
+	int x;
+	int i;
 
 	i = 0;
+	close(pfd[1]);
+	dup2(pfd[0], 0);
+	close(pfd[0]);
+	i = exec_pipeline(pipeline->brother, omm);
+	waitpid(pid, &x, 0);
+	return (i);
+}
+
+int		exec_pipeline_son(int pfd[2], t_pipeline *pipeline, t_omm omm)
+{
+	close(pfd[0]);
+	dup2(pfd[1], 1);
+	close(pfd[1]);
+	omm.stdout = dup(pfd[1]);
+	if (pipeline->command)
+		exec_command(pipeline->command, omm);
+	exit(0);
+	return (1);
+}
+
+int		exec_pipeline(t_pipeline *pipeline, t_omm omm)
+{
+	int		pfd[2];
+	int		pid;
+
 	if (pipeline->brother)
 	{
 		pipe(pfd);
 		pid = fork();
 		if (pid != 0)
-		{
-			close(pfd[1]);
-			dup2(pfd[0], 0);
-			close(pfd[0]);
-			i = exec_pipeline(pipeline->brother, omm);
-			waitpid(pid, &x, 0);
-		}
+			return (exec_pipeline_father(pfd, pipeline, omm, pid));
 		else
-		{
-			close(pfd[0]);
-			dup2(pfd[1], 1);
-			close(pfd[1]);
-			omm.stdout = dup(pfd[1]);
-			if (pipeline->command)
-				i = exec_command(pipeline->command, omm);
-			exit(0);
-		}
+			return (exec_pipeline_son(pfd, pipeline, omm));
 	}
 	else if (pipeline->command)
-		i = exec_command(pipeline->command, omm);
-	return (i);
+		return (exec_command(pipeline->command, omm));
+	return (0);
 }
 
 int		exec_command(t_command *command, t_omm omm)

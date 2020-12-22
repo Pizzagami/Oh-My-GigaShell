@@ -6,7 +6,7 @@
 /*   By: raimbaultbrieuc <marvin@42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 14:45:18 by raimbault         #+#    #+#             */
-/*   Updated: 2020/07/27 16:33:24 by raimbaul         ###   ########.fr       */
+/*   Updated: 2020/12/22 07:06:21 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,9 +86,9 @@ void	display_redirection(t_redirection *redirection, int i)
 
 void	display_instruction(t_instruction *instruction, int i)
 {
-	int x;
-	t_token *start;
-	t_token *max;
+	int		x;
+	t_token	*start;
+	t_token	*max;
 
 	start = instruction->start;
 	max = instruction->max;
