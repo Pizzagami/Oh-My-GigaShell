@@ -2,22 +2,30 @@
 #include "minishell.h"
 #include "libft.h"
 
-int		env_split(char *str, char **name, char **val) //passer en int pour verif cas d erreur
+int		env_split(char *str, char **name, char **val)
 {
 	int i;
 	int j;
 	int x;
+	int ret;
 	char *str1;
 	char *str2;
 
 	i = 0;
 	j = 0;
 	x = 0;
-	while(str && str[i] != '=')
+	ret = 0;
+	str2 = NULL;
+	while(str && str[i] != '=' )
 	{
 		if (((str[i] > 47 && str[i] < 58) && i > 0) || (str[i] > 96 && str[i] < 123)
 		||(str[i] > 64 && str[i] < 91) || str[i] == '_')
 			i++;
+		else if (!str[i])
+		{
+			ret = 2;
+			break;
+		}
 		else
 			return (-1);
 	}
@@ -28,23 +36,25 @@ int		env_split(char *str, char **name, char **val) //passer en int pour verif ca
 		str1[j] = str[j];
 		j++;
 	}
-	i++;
-	j++;
-	while(str[i])
-		i++;
-	str2 = malloc(sizeof(char) * (i - j + 1));
-	str2[i - j] = 0;
-	while(j < i)
+	if (ret != 2)
 	{
-		str2[x] = str[j];
-		x++;
+		i++;
 		j++;
+		while(str[i])
+			i++;
+		str2 = malloc(sizeof(char) * (i - j + 1));
+		str2[i - j] = 0;
+		while(j < i)
+		{
+			str2[x] = str[j];
+			x++;
+			j++;
+		}
 	}
 	*name = str1;
 	*val = str2;
-	return (1);
+	return (ret);
 }
-
 int		find_and_replace(t_env **first, char *var)
 {
 	t_env *current;
@@ -71,7 +81,7 @@ int		find_and_replace(t_env **first, char *var)
 				return(1);
 			}
 		current = current->next;
-		ft_putstr("1\n");
+		//ft_putstr("1\n");
 	}
 	return (0);
 }
@@ -99,10 +109,16 @@ t_env	*cpy_env(t_env *env)
 
 	if (!env)
 		return (NULL);
+	ft_putstr("yep:");
 	cpy =  malloc(sizeof(t_env));
 	cpy->name = ft_strdup(env->name);
-	cpy->val = ft_strdup(env->val);
+	if (env->val)
+		cpy->val = ft_strdup(env->val);
+	else
+		cpy->val = NULL;
 	cpy->l_name = env->l_name;
+	ft_putstr(cpy->name);
+	ft_putstr("\n");
 	cpy->next = cpy_env(env->next);
 	return(cpy);
 }
@@ -138,6 +154,8 @@ void 	tri_and_print(t_env *first)
 			free(tmp->val);
 			ft_putstr("\"\n");
 		}
+		else
+			ft_putstr("=''\n");
 		fre = tmp;
 		tmp = tmp->next;
 		free(fre);
