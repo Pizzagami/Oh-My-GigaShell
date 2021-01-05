@@ -64,7 +64,7 @@ int		find_and_replace(t_env **first, char *var)
 	current = *first;
 	l_var = ft_strlen(var);
 	current = *first;
-	while (current)
+	while (current && current->name)
 	{
 		if (!ft_strncmp(current->name, var, current->l_name) && var[current->l_name] == '=')
 			{
@@ -80,7 +80,6 @@ int		find_and_replace(t_env **first, char *var)
 				return(1);
 			}
 		current = current->next;
-		ft_putstr("1\n");
 	}
 	return (0);
 }
@@ -109,8 +108,14 @@ t_env	*cpy_env(t_env *env)
 	if (!env)
 		return (NULL);
 	cpy =  malloc(sizeof(t_env));
-	cpy->name = ft_strdup(env->name);
-	cpy->val = ft_strdup(env->val);
+	if (env->name)
+		cpy->name = ft_strdup(env->name);
+	else
+		cpy->name = NULL;
+	if (env->val)
+		cpy->val = ft_strdup(env->val);
+	else
+		cpy->val = NULL;
 	cpy->l_name = env->l_name;
 	cpy->next = cpy_env(env->next);
 	return(cpy);
@@ -124,7 +129,7 @@ void 	tri_and_print(t_env *first)
 
 	start = cpy_env(first);
 	tmp = start;
-	while (tmp->next)
+	while (tmp->next->name)
 	{
 		if (ft_strcmp(tmp->name, tmp->next->name) > 0)
 		{

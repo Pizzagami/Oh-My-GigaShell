@@ -6,7 +6,7 @@
 /*   By: pizzagami <pizzagami@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/15 16:13:31 by raimbault         #+#    #+#             */
-/*   Updated: 2020/12/04 15:02:36 by pizzagami        ###   ########.fr       */
+/*   Updated: 2021/01/04 14:30:20 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,7 @@ void			display_command(t_command *command, int i);
 void			display_instruction(t_instruction *instruction, int i);
 void			display_redirection(t_redirection *redirection, int i);
 void			clean_command(t_command *command);
+void			clean_redirection(t_redirection *redirection);
 int				exec_input(t_input *input, t_omm omm);
 int				exec_list(t_list *list, t_omm omm);
 int				exec_andor(t_andor *andor, t_omm omm);
