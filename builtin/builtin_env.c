@@ -41,7 +41,7 @@ void	builtin_export(char **var, t_env **first) //gerer multi val
 		tri_and_print(current); //tri et affiche
 	while (*var)
 	{
-		if(!find_and_replace(first, *var)) //creer si pas deja existant
+		if(find_and_replace(first, *var) != 1) //creer si pas deja existant
 		{
 			ft_putstr("exporting var\n");
 			if (env_split(*var, &name, &val) < 0)
@@ -53,6 +53,7 @@ void	builtin_export(char **var, t_env **first) //gerer multi val
 				exit (0);
 			current = current->next;
 			current->name = name;
+			current->l_name = ft_strlen(name);
 			current->val = val;
 			current->next = NULL;
 			//env split avec verif et cas de null ou NULL et caractere interdit

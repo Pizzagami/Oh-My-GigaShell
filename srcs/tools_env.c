@@ -67,17 +67,13 @@ int		find_and_replace(t_env **first, char *var)
 	current = *first;
 	while (current)
 	{
-		if (!ft_strncmp(current->name, var, current->l_name) && var[current->l_name] == '=')
+		printf("%s %d\n", current->name,current->l_name);
+		if (ft_strncmp(current->name, var, current->l_name) == 0
+		&& (var[current->l_name] == '=' || var[current->l_name] == 0))
 			{
 				if (current->val)
 					free(current->val);
-				current->val = malloc(sizeof(char)* (l_var - current->l_name));
-				current->val[l_var - current->l_name] = 0;
-				while(current->l_name + i < l_var)
-				{
-					current->val[i - 1] = var[current->l_name + i];
-					i++;
-				}
+				current->val = ft_substr(var, current->l_name + 1, l_var - current->l_name -1);
 				return(1);
 			}
 		current = current->next;
