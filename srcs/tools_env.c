@@ -15,6 +15,7 @@ int		env_split(char *str, char **name, char **val)
 	j = 0;
 	x = 0;
 	ret = 0;
+	str2 = NULL;
 	while(str && str[i] != '=' )
 	{
 		if (((str[i] > 47 && str[i] < 58) && i > 0) || (str[i] > 96 && str[i] < 123)
@@ -35,25 +36,25 @@ int		env_split(char *str, char **name, char **val)
 		str1[j] = str[j];
 		j++;
 	}
-	if (ret == 2)
-		return(ret);
-	i++;
-	j++;
-	while(str[i])
-		i++;
-	str2 = malloc(sizeof(char) * (i - j + 1));
-	str2[i - j] = 0;
-	while(j < i)
+	if (ret != 2)
 	{
-		str2[x] = str[j];
-		x++;
+		i++;
 		j++;
+		while(str[i])
+			i++;
+		str2 = malloc(sizeof(char) * (i - j + 1));
+		str2[i - j] = 0;
+		while(j < i)
+		{
+			str2[x] = str[j];
+			x++;
+			j++;
+		}
 	}
 	*name = str1;
 	*val = str2;
 	return (ret);
 }
-
 int		find_and_replace(t_env **first, char *var)
 {
 	t_env *current;
@@ -66,17 +67,13 @@ int		find_and_replace(t_env **first, char *var)
 	current = *first;
 	while (current && current->name)
 	{
-		if (!ft_strncmp(current->name, var, current->l_name) && var[current->l_name] == '=')
+		printf("%s %d\n", current->name,current->l_name);
+		if (ft_strncmp(current->name, var, current->l_name) == 0
+		&& (var[current->l_name] == '=' || var[current->l_name] == 0))
 			{
 				if (current->val)
 					free(current->val);
-				current->val = malloc(sizeof(char)* (l_var - current->l_name));
-				current->val[l_var - current->l_name] = 0;
-				while(current->l_name + i < l_var)
-				{
-					current->val[i - 1] = var[current->l_name + i];
-					i++;
-				}
+				current->val = ft_substr(var, current->l_name + 1, l_var - current->l_name -1);
 				return(1);
 			}
 		current = current->next;
@@ -107,16 +104,16 @@ t_env	*cpy_env(t_env *env)
 
 	if (!env)
 		return (NULL);
+	ft_putstr("yep:");
 	cpy =  malloc(sizeof(t_env));
-	if (env->name)
-		cpy->name = ft_strdup(env->name);
-	else
-		cpy->name = NULL;
+	cpy->name = ft_strdup(env->name);
 	if (env->val)
 		cpy->val = ft_strdup(env->val);
 	else
 		cpy->val = NULL;
 	cpy->l_name = env->l_name;
+	ft_putstr(cpy->name);
+	ft_putstr("\n");
 	cpy->next = cpy_env(env->next);
 	return(cpy);
 }
@@ -152,6 +149,8 @@ void 	tri_and_print(t_env *first)
 			free(tmp->val);
 			ft_putstr("\"\n");
 		}
+		else
+			ft_putstr("=''\n");
 		fre = tmp;
 		tmp = tmp->next;
 		free(fre);

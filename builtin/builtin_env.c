@@ -41,11 +41,11 @@ void	builtin_export(char **var, t_env **first) //gerer multi val
 		tri_and_print(current); //tri et affiche
 	while (*var)
 	{
-		if(!find_and_replace(first, *var)) //creer si pas deja existant
+		if(find_and_replace(first, *var) != 1) //creer si pas deja existant
 		{
-			ft_putstr("2\n");
-			ft_putnbr_fd(env_split(*var, &name, &val),0); //faut verif
-			ft_putstr("\n");
+			ft_putstr("exporting var\n");
+			if (env_split(*var, &name, &val) < 0)
+				ft_putstr("kc\n");
 			while (current->next)
 				current = current->next;
 			current->next = malloc(sizeof(t_env));
@@ -53,11 +53,12 @@ void	builtin_export(char **var, t_env **first) //gerer multi val
 				exit (0);
 			current = current->next;
 			current->name = name;
+			current->l_name = ft_strlen(name);
 			current->val = val;
 			current->next = NULL;
 			//env split avec verif et cas de null ou NULL et caractere interdit
 		}
-		ft_putstr("4\n");
+		ft_putstr("End export\n");
 		//free(*var);
 		var++;
 	}
