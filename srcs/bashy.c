@@ -1,6 +1,39 @@
 #include "libft.h"
 #include "minishell.h"
 
+void	histo_multi(char **str)
+{(void)str;
+/*	int nb;
+	int x;
+	char **tab;
+
+	nb = 0;
+	tab = ft_split(*str,'\n');
+	while(tab[nb])
+		nb++;
+	nb--;
+	while((int)ft_strlen(tab[nb]) > x)
+	{
+		x++;
+		ft_putstr("\b \b");
+	}
+	ft_putstr("\v");
+	nb--;
+	while (nb > 0)
+	{
+		x = 0;
+		while((int)ft_strlen(tab[nb]) > x)
+			ft_
+		while((int)ft_strlen(tab[nb]) > x)
+		{
+			x++;
+			ft_putstr("\b \b");
+		}
+	ft_putstr("\v");
+	nb--;
+	}
+*/
+}
 
 void	historic(t_hist *hist ,char *str) // enlever ligne vide et file verif taille max
 {
@@ -180,16 +213,20 @@ void	down(char **str, t_arrow *ar, t_hist *hist) //B prob hist1 ligne
 			x++;
 			ft_putstr("\b \b");
 		}
-			ft_putnbr_fd(ar->y,0);
 			ft_putstr(hist->tab[ar->y]);
 			*str = ft_strdup(hist->tab[ar->y]);
 		return;
 	}
-		while((int)ft_strlen(*str) > x)
-		{
-			x++;
-			ft_putstr("\b \b");
-		}
+	//	if(ft_strfind(*str, '\n') >= 0)
+	//	{
+			while((int)ft_strlen(*str) > x)
+			{
+				x++;
+				ft_putstr("\b \b");
+			}
+	//		else
+	//			histo_multi(str);
+	//	}
 	*str = ft_strdup("\0");
 }
 
