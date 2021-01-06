@@ -34,6 +34,7 @@ SRCS =	./srcs/main.c					\
 		./srcs/multilines.c				\
 		./srcs/exec_builtin.c			\
 		./srcs/quote_string.c			\
+		./srcs/grand_remplacement.c		\
 		./builtin/builtin_cd.c			\
 		./builtin/builtin_pwd.c			\
 		./builtin/builtin_env.c			\

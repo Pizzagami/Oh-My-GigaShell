@@ -34,8 +34,8 @@ void	builtin_env(t_env *first)
 void	builtin_export(char **var, t_env **first) //gerer multi val
 {
 	t_env	*current = *first;
-	char *val;
-	char *name;
+	char *val = NULL;
+	char *name = NULL;
 
 	if (*var == NULL)
 		tri_and_print(current); //tri et affiche
