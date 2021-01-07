@@ -6,7 +6,7 @@
 /*   By: raimbaultbrieuc <marvin@42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 14:44:24 by raimbault         #+#    #+#             */
-/*   Updated: 2020/12/02 13:20:21 by braimbau         ###   ########.fr       */
+/*   Updated: 2021/01/07 14:45:30 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,19 +58,14 @@ char	**create_tab(t_token *start, t_token *max)
 	i = 0;
 	while (token && token != max)
 	{
-		if (token->type >= LESS)
+		if (token->type >= LESS && (token = token->next))
 		{
-			token = token->next;
 			if (token == max)
 				token = NULL;
-			token = token->next;
 		}
 		else
-		{
-			tab[i] = token->str;
-			i++;
-			token = token->next;
-		}
+			tab[i++] = token->str;
+		token = token->next;
 	}
 	tab[i] = NULL;
 	return (tab);
