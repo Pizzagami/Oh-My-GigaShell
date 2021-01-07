@@ -6,7 +6,7 @@
 /*   By: raimbaultbrieuc <marvin@42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/15 16:35:12 by raimbault         #+#    #+#             */
-/*   Updated: 2020/12/08 14:16:10 by braimbau         ###   ########.fr       */
+/*   Updated: 2021/01/07 13:59:44 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,14 @@ t_instruction	*parse_instruction(t_token *start, t_token *max, int *ec)
 		if (token->type == OBRA)
 		{
 			print_error(ec, 13);
-			break;
+			break ;
 		}
 		if (token->type == CBRA)
 		{
 			print_error(ec, 16);
-			break;
-		}		token = token->next;
+			break ;
+		}
+		token = token->next;
 	}
 	return (instruction);
 }

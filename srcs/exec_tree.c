@@ -6,7 +6,7 @@
 /*   By: pizzagami <pizzagami@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 14:45:18 by raimbault         #+#    #+#             */
-/*   Updated: 2020/12/16 12:10:00 by braimbau         ###   ########.fr       */
+/*   Updated: 2021/01/07 14:17:22 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,17 @@ int		exec_andor(t_andor *andor, t_omm omm)
 	return (i);
 }
 
+void	son_pipeline(int pfd[2], t_omm *omm, t_pipeline *pipeline)
+{
+	close(pfd[0]);
+	dup2(pfd[1], 1);
+	close(pfd[1]);
+	omm->stdout = dup(pfd[1]);
+	if (pipeline->command)
+		exec_command(pipeline->command, *omm);
+	exit(0);
+}
+
 int		exec_pipeline(t_pipeline *pipeline, t_omm omm)
 {
 	int		i;
@@ -79,21 +90,10 @@ int		exec_pipeline(t_pipeline *pipeline, t_omm omm)
 			waitpid(pid, &x, 0);
 		}
 		else
-		{
-			close(pfd[0]);
-			dup2(pfd[1], 1);
-			close(pfd[1]);
-			omm.stdout = dup(pfd[1]);
-			if (pipeline->command)
-				i = exec_command(pipeline->command, omm);
-			exit(0);
-		}
+			son_pipeline(pfd, &omm, pipeline);
 	}
-	else
-	{
-		if (pipeline->command)
+	else if (pipeline->command)
 			i = exec_command(pipeline->command, omm);
-	}
 	return (i);
 }
 
@@ -111,21 +111,26 @@ int		exec_command(t_command *command, t_omm omm)
 	return (i);
 }
 
+void	greate_redirection(t_redirection *redirection)
+{
+	int fd;
+
+	fd = open(redirection->filename, O_CREAT | O_RDWR | O_TRUNC, S_IRWXU);
+	if (fd == -1)
+	{
+		printf("Error : %s\n", strerror(errno));//perror
+		return (1);
+	}
+	dup2(fd, 1);
+	close(fd);
+}
+
 int		exec_redirection(t_redirection *redirection, t_omm omm)
 {
 	int fd;
 
 	if (redirection && redirection->type == GREAT)
-	{
-		fd = open(redirection->filename, O_CREAT | O_RDWR | O_TRUNC, S_IRWXU);
-		if (fd == -1)
-		{
-			printf("Error : %s\n", strerror(errno));//perror
-			return (1);
-		}
-		dup2(fd, 1);
-		close(fd);
-	}
+		greate_redirection(redirection);
 	else if (redirection && redirection->type == DGREAT)
 	{
 		fd = open(redirection->filename, O_CREAT | O_RDWR | O_APPEND);

@@ -16,8 +16,10 @@ typedef struct	s_listdir
 
 typedef struct	s_mx
 {
-	int s;
-	int p;
+	int		s;
+	int		p;
+	char	*str;
+	char	*quot;
 }				t_mx;
 
 typedef struct	s_env
@@ -56,6 +58,7 @@ void left(char **str, t_arrow *ar, t_hist *hist);
 
 typedef void FLCH_CSP(char **str, t_arrow *ar, t_hist *hist);
 
+void		mfree(char *str1, char *str2);
 int			recurdir(char *patern, char *path, char *minipath, char **final);
 void		term_init(struct termios *save_cano, struct termios *save_nncano);
 void		historic(t_hist *hist, char *str);

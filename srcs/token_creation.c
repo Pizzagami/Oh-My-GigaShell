@@ -6,7 +6,7 @@
 /*   By: raimbaultbrieuc <marvin@42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/15 15:30:31 by raimbault         #+#    #+#             */
-/*   Updated: 2021/01/07 11:00:35 by braimbau         ###   ########.fr       */
+/*   Updated: 2021/01/07 13:58:09 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,12 +68,35 @@ int		special_tokens_switch(int i, char *str, t_token **token)
 	return (i);
 }
 
+t_mx	init_mx2(char *str, char *quot)
+{
+	t_mx mx;
+
+	mx.str = str;
+	mx.quot = quot;
+	return (mx);
+}
+
+int		create_classic_token(int i, t_mx b, t_token **token_start,
+		t_token **token_current)
+{
+	int x;
+
+	x = 0;
+	while ((b.str[i + x] && b.str[i + x] != ' '
+			&& !is_special_char(b.str[i + x])) || b.quot[i + x] > '0')
+		x++;
+	add_token(token_current, VOID, create_str(b.str, i, x));
+	if (*token_start == NULL)
+		*token_start = *token_current;
+	return (x);
+}
+
 t_token	*create_token_list(char *str, char *quot)
 {
 	t_token	*token_start;
 	t_token *token_current;
 	int		i;
-	int		x;
 
 	token_current = NULL;
 	token_start = NULL;
@@ -82,23 +105,16 @@ t_token	*create_token_list(char *str, char *quot)
 	{
 		if (str[i] == ' ' && quot[i] == '0')
 			i++;
-		if (is_special_char(str[i]) && quot[i] == '0')
+		if (is_special_char(str[i]) &&
+				quot[i] == '0')
 		{
 			i = special_tokens_switch(i, str, &token_current);
 			if (token_start == NULL)
 				token_start = token_current;
 		}
 		else
-		{
-			x = 0;
-			while ((str[i + x] && str[i + x] != ' '
-					&& !is_special_char(str[i + x])) || quot[i + x] > '0')
-				x++;
-			add_token(&token_current, VOID, create_str(str, i, x));
-			if (token_start == NULL)
-				token_start = token_current;
-			i += x;
-		}
+			i += create_classic_token(i, init_mx2(str, quot), &token_start,
+				&token_current);
 		i += (str[i] == ' ' && quot[i] == '0') ? 1 : 0;
 	}
 	return (token_start);

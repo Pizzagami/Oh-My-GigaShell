@@ -183,6 +183,6 @@ char	*quote_string(char **pstr, int *ec)
 	}
 	quot[x] = 0;
 	replace_chars(pstr, &quot);
-	delete_unquoted_newlines(str, quot);
+	delete_unquoted_newlines(*pstr, quot);
 	return (quot);
 }
