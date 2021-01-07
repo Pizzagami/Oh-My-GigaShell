@@ -6,7 +6,7 @@
 /*   By: raimbaultbrieuc <marvin@42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/15 16:31:43 by raimbault         #+#    #+#             */
-/*   Updated: 2020/12/04 13:49:46 by braimbau         ###   ########.fr       */
+/*   Updated: 2021/01/07 11:02:30 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,15 +30,24 @@ t_andor	*parse_andor2(t_andor *andor, int *ec, t_token *token, t_token *max)
 	return (andor);
 }
 
+t_andor	*init_andor(void)
+{
+	t_andor *andor;
+
+	andor = malloc(sizeof(t_andor));
+	andor->brother = NULL;
+	andor->pipeline = NULL;
+	return (andor);
+}
+
 t_andor	*parse_andor(t_token *start, t_token *max, int *ec)
 {
 	t_andor	*andor;
 	t_token *token;
+
 	if (!start || start == max)
 		return (NULL);
-	andor = malloc(sizeof(t_andor));
-	andor->brother = NULL;
-	andor->pipeline = NULL;
+	andor = init_andor();
 	if (andor == NULL)
 	{
 		print_error(ec, 8);

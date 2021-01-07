@@ -6,7 +6,7 @@
 /*   By: raimbaultbrieuc <marvin@42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/15 15:30:31 by raimbault         #+#    #+#             */
-/*   Updated: 2020/12/16 13:41:13 by braimbau         ###   ########.fr       */
+/*   Updated: 2021/01/07 11:00:35 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ t_token	*create_token_list(char *str, char *quot)
 	i = 0;
 	while (str[i])
 	{
-		if(str[i] == ' ' && quot[i] == '0')
+		if (str[i] == ' ' && quot[i] == '0')
 			i++;
 		if (is_special_char(str[i]) && quot[i] == '0')
 		{
@@ -91,14 +91,15 @@ t_token	*create_token_list(char *str, char *quot)
 		else
 		{
 			x = 0;
-			while ((str[i + x] && str[i + x] != ' ' && !is_special_char(str[i + x])) || quot[i + x] > '0')
+			while ((str[i + x] && str[i + x] != ' '
+					&& !is_special_char(str[i + x])) || quot[i + x] > '0')
 				x++;
 			add_token(&token_current, VOID, create_str(str, i, x));
 			if (token_start == NULL)
 				token_start = token_current;
 			i += x;
 		}
-		i += (str[i] == ' ' && quot[i] == '0') ? 1 : 0; //si ca merde cest a cause de ca
+		i += (str[i] == ' ' && quot[i] == '0') ? 1 : 0;
 	}
 	return (token_start);
 }
