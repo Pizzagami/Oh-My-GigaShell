@@ -1,10 +1,24 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   env.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: braimbau <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/01/07 15:59:42 by braimbau          #+#    #+#             */
+/*   Updated: 2021/01/07 16:00:36 by braimbau         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 #include "libft.h"
 #include <pwd.h>
 
 void	dup_env(char **envp, t_env **env)
 {
-	int		i = 0;
+	int		i;
+
+	i = 0;
 	while (envp[i])
 	{
 		add_tail(ft_strdup(envp[i]), env);
@@ -16,8 +30,8 @@ void	add_tail(char *var, t_env **first)
 {
 	t_env	*current;
 	t_env	*next;
-	char 	*name;
-	char 	*val;
+	char	*name;
+	char	*val;
 
 	current = *first;
 	next = NULL;
@@ -26,7 +40,7 @@ void	add_tail(char *var, t_env **first)
 	if (!val)
 	{
 		ft_putstr("error parsing env\n");
-		return;
+		return ;
 	}
 	next = (t_env *)malloc(sizeof(t_env));
 	if (next == NULL)
