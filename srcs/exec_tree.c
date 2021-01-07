@@ -6,7 +6,7 @@
 /*   By: pizzagami <pizzagami@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 14:45:18 by raimbault         #+#    #+#             */
-/*   Updated: 2021/01/07 14:26:11 by braimbau         ###   ########.fr       */
+/*   Updated: 2021/01/07 14:33:44 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ int		exec_pipeline(t_pipeline *pipeline, t_omm omm)
 			son_pipeline(pfd, &omm, pipeline);
 	}
 	else if (pipeline->command)
-			i = exec_command(pipeline->command, omm);
+		i = exec_command(pipeline->command, omm);
 	return (i);
 }
 
@@ -158,11 +158,14 @@ int		less_redirection(t_redirection *redirection)
 
 int		exec_redirection(t_redirection *redirection, t_omm omm)
 {
-	if (redirection && redirection->type == GREAT && greate_redirection(redirection))
+	if (redirection && redirection->type == GREAT &&
+			greate_redirection(redirection))
 		return (1);
-	else if (redirection && redirection->type == DGREAT && greater_redirection(redirection))
+	else if (redirection && redirection->type == DGREAT
+			&& greater_redirection(redirection))
 		return (1);
-	else if (redirection && redirection->type == LESS && less_redirection(redirection))
+	else if (redirection && redirection->type == LESS
+			&& less_redirection(redirection))
 		return (1);
 	else if (0)
 	{
@@ -202,35 +205,39 @@ char	**link_tab(t_env *env)
 	return (str);
 }
 
+void	exec_binary_son(t_omm omm, t_token *token, char **tab, char **tabenv)
+{
+	char	*path;
+	int		ret;
+
+	path = get_path(omm.env, token->str);
+	if (!path)
+	{
+		ret = 1;
+		ft_putstr("bashy: ");
+		ft_putstr(tab[0]);
+		ft_putstr(" : command not found\n");
+	}
+	else
+	{
+		tabenv = link_tab(omm.env);
+		ret = execve(path, tab, tabenv);
+	}
+	free(tab);
+	exit(127);
+}
+
 int		exec_binary(char **tab, t_omm omm, t_token *token)
 {
 	int		pid;
 	int		ret;
-	char	*path;
 	char	**tabenv;
 
 	ret = 0;
 	pid = fork();
 	tabenv = NULL;
 	if (pid == 0)
-	{
-		path = get_path(omm.env, token->str);
-		if (!path)
-		{
-			ret = 1;
-			ft_putstr("bashy: ");
-			ft_putstr(tab[0]);
-			ft_putstr(" : command not found\n");
-		}
-		else
-		{
-			tabenv = link_tab(omm.env);
-			ret = execve(path, tab, tabenv);
-		}
-		free(tab);
-		//write(2, "Error while executing program\n", 30);
-		exit(127);
-	}
+		exec_binary_son(omm, token, tab, tabenv);
 	else
 	{
 		waitpid(pid, &ret, 0);
@@ -254,7 +261,8 @@ int		exec_instruction(t_instruction *instruction, t_omm omm)
 	ret = 0;
 	token = instruction->start;
 	replace_dollar(token, omm);
-	instruction->start = starize_list(instruction->start, instruction->max, get_env(omm.env, "HOME"));
+	instruction->start = starize_list(instruction->start, instruction->max,
+		get_env(omm.env, "HOME"));
 	tab = create_tab(instruction->start, instruction->max);
 	if (tab[0] == NULL)
 		return (ret);
