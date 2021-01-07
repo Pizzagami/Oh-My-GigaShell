@@ -6,17 +6,16 @@
 /*   By: pizzagami <pizzagami@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/08 10:49:12 by braimbau          #+#    #+#             */
-/*   Updated: 2020/12/14 14:32:25 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/12/22 07:02:52 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int multilines(t_hist *hist, t_env *env, int *last_ret, t_multi	*multi)
+int	multilines(t_hist *hist, t_env *env, int *last_ret, t_multi *multi)
 {
 	int		ret;
 	char	*tmp;
-
 
 	ret = 0;
 	if (multi->type != 0 && multi->x != 0)
@@ -36,7 +35,7 @@ int multilines(t_hist *hist, t_env *env, int *last_ret, t_multi	*multi)
 	{
 		multi->str = ft_strdup(hist->tab[0]);
 		multi->type = ret;
-		return(ret);
+		return (ret);
 	}
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: raimbaultbrieuc <marvin@42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/15 16:31:43 by raimbault         #+#    #+#             */
-/*   Updated: 2020/12/04 13:49:46 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/12/21 16:11:59 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ t_andor	*parse_andor(t_token *start, t_token *max, int *ec)
 {
 	t_andor	*andor;
 	t_token *token;
+
 	if (!start || start == max)
 		return (NULL);
 	andor = malloc(sizeof(t_andor));
@@ -55,6 +56,5 @@ t_andor	*parse_andor(t_token *start, t_token *max, int *ec)
 			token->type != OR_IF) || is_in_brackets(token, start)))
 		token = token->next;
 	andor->pipeline = (parse_pipeline(start, token, ec));
-	andor = parse_andor2(andor, ec, token, max);
-	return (andor);
+	return (parse_andor2(andor, ec, token, max));
 }

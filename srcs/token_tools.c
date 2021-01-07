@@ -6,7 +6,7 @@
 /*   By: raimbaultbrieuc <marvin@42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 14:57:27 by raimbault         #+#    #+#             */
-/*   Updated: 2020/11/09 15:01:58 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/12/16 14:21:19 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ char	*lower_case(char *str)
 	return (str);
 }
 
-t_token *create_simple_token_list(char *str)
+t_token	*create_simple_token_list(char *str)
 {
 	t_token	*token_start;
 	t_token *token_current;

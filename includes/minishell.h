@@ -2,6 +2,9 @@
 # define MINISHELL_H
 
 #define PATH_MAX 4096
+#define DQUOT 34
+#define SQUOT 39
+#define BACKSLASH 92
 #include <termios.h>
 #include "token.h"
 #include <unistd.h>
@@ -13,6 +16,12 @@ typedef struct	s_listdir
 	char *name;
 	struct s_listdir *next;
 }				t_listdir;
+
+typedef struct	s_mx
+{
+	int s;
+	int p;
+}				t_mx;
 	
 typedef struct	s_env
 {

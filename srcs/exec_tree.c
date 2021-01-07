@@ -6,7 +6,7 @@
 /*   By: pizzagami <pizzagami@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 14:45:18 by raimbault         #+#    #+#             */
-/*   Updated: 2020/12/16 12:10:00 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/12/21 14:03:30 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,43 +58,50 @@ int		exec_andor(t_andor *andor, t_omm omm)
 	return (i);
 }
 
-int		exec_pipeline(t_pipeline *pipeline, t_omm omm)
+int		exec_pipeline_father(int pfd[2], t_pipeline *pipeline, t_omm omm,
+		int pid)
 {
-	int		i;
-	int		pfd[2];
-	int		pid;
-	int		x;
+	int x;
+	int i;
 
 	i = 0;
+	close(pfd[1]);
+	dup2(pfd[0], 0);
+	close(pfd[0]);
+	i = exec_pipeline(pipeline->brother, omm);
+	waitpid(pid, &x, 0);
+	return (i);
+}
+
+int		exec_pipeline_son(int pfd[2], t_pipeline *pipeline, t_omm omm)
+{
+	close(pfd[0]);
+	dup2(pfd[1], 1);
+	close(pfd[1]);
+	omm.stdout = dup(pfd[1]);
+	if (pipeline->command)
+		exec_command(pipeline->command, omm);
+	exit(0);
+	return (1);
+}
+
+int		exec_pipeline(t_pipeline *pipeline, t_omm omm)
+{
+	int		pfd[2];
+	int		pid;
+
 	if (pipeline->brother)
 	{
 		pipe(pfd);
 		pid = fork();
 		if (pid != 0)
-		{
-			close(pfd[1]);
-			dup2(pfd[0], 0);
-			close(pfd[0]);
-			i = exec_pipeline(pipeline->brother, omm);
-			waitpid(pid, &x, 0);
-		}
+			return (exec_pipeline_father(pfd, pipeline, omm, pid));
 		else
-		{
-			close(pfd[0]);
-			dup2(pfd[1], 1);
-			close(pfd[1]);
-			omm.stdout = dup(pfd[1]);
-			if (pipeline->command)
-				i = exec_command(pipeline->command, omm);
-			exit(0);
-		}
+			return (exec_pipeline_son(pfd, pipeline, omm));
 	}
-	else
-	{
-		if (pipeline->command)
-			i = exec_command(pipeline->command, omm);
-	}
-	return (i);
+	else if (pipeline->command)
+		return (exec_command(pipeline->command, omm));
+	return (0);
 }
 
 int		exec_command(t_command *command, t_omm omm)
@@ -111,50 +118,62 @@ int		exec_command(t_command *command, t_omm omm)
 	return (i);
 }
 
-int		exec_redirection(t_redirection *redirection, t_omm omm)
+int		exec_great_redirection(t_redirection *redirection)
 {
 	int fd;
 
-	if (redirection && redirection->type == GREAT)
+	fd = open(redirection->filename, O_CREAT | O_RDWR | O_TRUNC, S_IRWXU);
+	if (fd == -1)
 	{
-		fd = open(redirection->filename, O_CREAT | O_RDWR | O_TRUNC, S_IRWXU);
-		if (fd == -1)
-		{
-			printf("Error : %s\n", strerror(errno));//perror
-			return (1);
-		}
-		dup2(fd, 1);
-		close(fd);
+		perror("bashy");
+		return (1);
 	}
-	else if (redirection && redirection->type == DGREAT)
+	dup2(fd, 1);
+	close(fd);
+	return (0);
+}
+
+int		exec_dgreat_redirection(t_redirection *redirection)
+{
+	int fd;
+
+	fd = open(redirection->filename, O_CREAT | O_RDWR | O_APPEND);
+	if (fd == -1)
 	{
-		fd = open(redirection->filename, O_CREAT | O_RDWR | O_APPEND);
-		if (fd == -1)
-		{
-			printf("Error : %s\n", strerror(errno));
-			return (1);
-		}
-		dup2(fd, 1);
-		close(fd);
+		printf("Error : %s\n", strerror(errno));
+		return (1);
 	}
-	else if (redirection && redirection->type == LESS)
+	dup2(fd, 1);
+	close(fd);
+	return (0);
+}
+
+int		exec_less_redirection(t_redirection *redirection)
+{
+	int fd;
+
+	fd = open(redirection->filename, O_RDONLY);
+	if (fd == -1)
 	{
-		fd = open(redirection->filename, O_RDONLY);
-		if (fd == -1)
-		{
-			printf("Error : %s\n", strerror(errno));
-			return (1);
-		}
-		dup2(fd, 0);
-		close(fd);
+		printf("Error : %s\n", strerror(errno));
+		return (1);
 	}
-	else if (0)
-	{
-		if (omm.stdout != 1)
-			dup2(omm.stdout, 1);
-		if (omm.stdin != 0)
-			dup2(omm.stdin, 0);
-	}
+	dup2(fd, 0);
+	close(fd);
+	return (0);
+}
+
+int		exec_redirection(t_redirection *redirection, t_omm omm)
+{
+	if (redirection && redirection->type == GREAT
+			&& exec_great_redirection(redirection))
+		return (1);
+	else if (redirection && redirection->type == DGREAT
+			&& exec_dgreat_redirection(redirection))
+		return (1);
+	else if (redirection && redirection->type == LESS
+			&& exec_less_redirection(redirection))
+		return (1);
 	if (redirection && redirection->brother)
 	{
 		redirection = redirection->brother;
@@ -186,47 +205,44 @@ char	**link_tab(t_env *env)
 	return (str);
 }
 
+void	check_path_execve(char **tab, t_omm omm, t_token *token, char **tabenv)
+{
+	char *path;
+
+	path = get_path(omm.env, token->str);
+	if (!path)
+	{
+		ft_putstr("bashy: ");
+		ft_putstr(tab[0]);
+		ft_putstr(" : command not found\n");
+	}
+	else
+	{
+		tabenv = link_tab(omm.env);
+		exit(execve(path, tab, tabenv));
+	}
+	free(tab);
+	if (path)
+		write(2, "Error while executing program\n", 30);
+	exit(127);
+}
+
 int		exec_binary(char **tab, t_omm omm, t_token *token)
 {
 	int		pid;
 	int		ret;
-	char	*path;
 	char	**tabenv;
 
 	ret = 0;
 	pid = fork();
 	tabenv = NULL;
 	if (pid == 0)
-	{
-		path = get_path(omm.env, token->str);
-		if (!path)
-		{
-			ret = 1;
-			ft_putstr("bashy: ");
-			ft_putstr(tab[0]);
-			ft_putstr(" : command not found\n");
-		}
-		else
-		{
-			tabenv = link_tab(omm.env);
-			ret = execve(path, tab, tabenv);
-		}
-		free(tab);
-		//write(2, "Error while executing program\n", 30);
-		exit(127);
-	}
-	else
-	{
-		waitpid(pid, &ret, 0);
-		if (WIFEXITED(ret))
-			ret = WEXITSTATUS(ret);
-		else
-			ret = 0;
-		free(tab);
-		if (tabenv)
-			free_tab(tabenv);
-	}
-	return (ret);
+		check_path_execve(tab, omm, token, tabenv);
+	free(tab);
+	waitpid(pid, &ret, 0);
+	if (WIFEXITED(ret))
+		return (WEXITSTATUS(ret));
+	return (0);
 }
 
 int		exec_instruction(t_instruction *instruction, t_omm omm)
@@ -238,7 +254,8 @@ int		exec_instruction(t_instruction *instruction, t_omm omm)
 	ret = 0;
 	token = instruction->start;
 	replace_dollar(token, omm);
-	instruction->start = starize_list(instruction->start, instruction->max, get_env(omm.env, "HOME"));
+	instruction->start = starize_list(instruction->start,
+			instruction->max, get_env(omm.env, "HOME"));
 	tab = create_tab(instruction->start, instruction->max);
 	if (tab[0] == NULL)
 		return (ret);
