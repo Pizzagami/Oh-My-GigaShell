@@ -6,7 +6,7 @@
 /*   By: pizzagami <pizzagami@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 14:45:18 by raimbault         #+#    #+#             */
-/*   Updated: 2021/01/07 14:17:22 by braimbau         ###   ########.fr       */
+/*   Updated: 2021/01/07 14:26:11 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ int		exec_command(t_command *command, t_omm omm)
 	return (i);
 }
 
-void	greate_redirection(t_redirection *redirection)
+int		greate_redirection(t_redirection *redirection)
 {
 	int fd;
 
@@ -123,36 +123,47 @@ void	greate_redirection(t_redirection *redirection)
 	}
 	dup2(fd, 1);
 	close(fd);
+	return (0);
+}
+
+int		greater_redirection(t_redirection *redirection)
+{
+	int fd;
+
+	fd = open(redirection->filename, O_CREAT | O_RDWR | O_APPEND);
+	if (fd == -1)
+	{
+		printf("Error : %s\n", strerror(errno));
+		return (1);
+	}
+	dup2(fd, 1);
+	close(fd);
+	return (0);
+}
+
+int		less_redirection(t_redirection *redirection)
+{
+	int fd;
+
+	fd = open(redirection->filename, O_RDONLY);
+	if (fd == -1)
+	{
+		printf("Error : %s\n", strerror(errno));
+		return (1);
+	}
+	dup2(fd, 0);
+	close(fd);
+	return (0);
 }
 
 int		exec_redirection(t_redirection *redirection, t_omm omm)
 {
-	int fd;
-
-	if (redirection && redirection->type == GREAT)
-		greate_redirection(redirection);
-	else if (redirection && redirection->type == DGREAT)
-	{
-		fd = open(redirection->filename, O_CREAT | O_RDWR | O_APPEND);
-		if (fd == -1)
-		{
-			printf("Error : %s\n", strerror(errno));
-			return (1);
-		}
-		dup2(fd, 1);
-		close(fd);
-	}
-	else if (redirection && redirection->type == LESS)
-	{
-		fd = open(redirection->filename, O_RDONLY);
-		if (fd == -1)
-		{
-			printf("Error : %s\n", strerror(errno));
-			return (1);
-		}
-		dup2(fd, 0);
-		close(fd);
-	}
+	if (redirection && redirection->type == GREAT && greate_redirection(redirection))
+		return (1);
+	else if (redirection && redirection->type == DGREAT && greater_redirection(redirection))
+		return (1);
+	else if (redirection && redirection->type == LESS && less_redirection(redirection))
+		return (1);
 	else if (0)
 	{
 		if (omm.stdout != 1)
