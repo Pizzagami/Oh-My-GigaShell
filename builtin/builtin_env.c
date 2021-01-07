@@ -34,8 +34,8 @@ void	builtin_env(t_env *first)
 void	builtin_export(char **var, t_env **first) //gerer multi val
 {
 	t_env	*current = *first;
-	char *val = NULL;
-	char *name = NULL;
+	char *val;
+	char *name;
 
 	if (*var == NULL)
 		tri_and_print(current); //tri et affiche
@@ -70,9 +70,9 @@ void	builtin_unset(char *var, t_env **env) //gerer multi val
 	t_env *tmp;
 
 	current = *env;
-	while(current->next != NULL) // while plusieur et caracteres interdit
+	while(current->next != NULL)
 	{
-		if (!ft_strcmp(current->next->name, var))
+		if (!ft_strncmp(current->next->name, var, current->next->l_name) && var[current->next->l_name] == '=')
 		{
 			free(current->next->name);
 			free(current->next->val);

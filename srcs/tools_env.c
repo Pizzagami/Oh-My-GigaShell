@@ -65,7 +65,7 @@ int		find_and_replace(t_env **first, char *var)
 	current = *first;
 	l_var = ft_strlen(var);
 	current = *first;
-	while (current && current->name)
+	while (current)
 	{
 		printf("%s %d\n", current->name,current->l_name);
 		if (ft_strncmp(current->name, var, current->l_name) == 0
@@ -77,6 +77,7 @@ int		find_and_replace(t_env **first, char *var)
 				return(1);
 			}
 		current = current->next;
+		//ft_putstr("1\n");
 	}
 	return (0);
 }
@@ -126,7 +127,7 @@ void 	tri_and_print(t_env *first)
 
 	start = cpy_env(first);
 	tmp = start;
-	while (tmp->next->name)
+	while (tmp->next)
 	{
 		if (ft_strcmp(tmp->name, tmp->next->name) > 0)
 		{

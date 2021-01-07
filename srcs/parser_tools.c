@@ -6,7 +6,7 @@
 /*   By: raimbaultbrieuc <marvin@42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/15 16:23:29 by raimbault         #+#    #+#             */
-/*   Updated: 2020/12/16 16:54:40 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/12/10 10:40:11 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,6 @@ char	**create_str_tab(void)
 	ret[15] = "Error : Way to much paranthesis\n";
 	ret[16] = "Error : Missing opening paranthesis\n";
 	ret[17] = "Error : Missing file after redirection\n";
-	ret[18] = "Error : Malloc error\n";
-
 	return (ret);
 }
 

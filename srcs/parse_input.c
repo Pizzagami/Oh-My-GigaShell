@@ -6,7 +6,7 @@
 /*   By: raimbaultbrieuc <marvin@42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/15 16:23:04 by raimbault         #+#    #+#             */
-/*   Updated: 2020/12/22 07:07:00 by braimbau         ###   ########.fr       */
+/*   Updated: 2020/12/04 13:51:37 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 t_input	*parse_input(t_token *start, int *ec)
 {
 	t_input	*input;
-
+	
 	if (start == NULL)
 		return (NULL);
 	input = malloc(sizeof(t_input));
