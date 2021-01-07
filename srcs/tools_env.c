@@ -105,7 +105,7 @@ t_env	*cpy_env(t_env *env)
 
 	if (!env)
 		return (NULL);
-	ft_putstr("yep:");
+//	ft_putstr("yep:");
 	cpy =  malloc(sizeof(t_env));
 	cpy->name = ft_strdup(env->name);
 	if (env->val)
@@ -113,8 +113,8 @@ t_env	*cpy_env(t_env *env)
 	else
 		cpy->val = NULL;
 	cpy->l_name = env->l_name;
-	ft_putstr(cpy->name);
-	ft_putstr("\n");
+	//ft_putstr(cpy->name);
+	//ft_putstr("\n");
 	cpy->next = cpy_env(env->next);
 	return(cpy);
 }

@@ -58,7 +58,7 @@ void	builtin_export(char **var, t_env **first) //gerer multi val
 			current->next = NULL;
 			//env split avec verif et cas de null ou NULL et caractere interdit
 		}
-		ft_putstr("End export\n");
+	//	ft_putstr("End export\n");
 		//free(*var);
 		var++;
 	}

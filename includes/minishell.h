@@ -13,7 +13,13 @@ typedef struct	s_listdir
 	char *name;
 	struct s_listdir *next;
 }				t_listdir;
-	
+
+typedef struct	s_mx
+{
+	int s;
+	int p;
+}				t_mx;
+
 typedef struct	s_env
 {
 	char			*name;

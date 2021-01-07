@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   star.c                                             :+:      :+:    :+:   */
+/*   star.C                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: braimbau <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/03 10:30:03 by braimbau          #+#    #+#             */
-/*   Updated: 2020/12/03 11:19:12 by braimbau         ###   ########.fr       */
+/*   Updated: 2021/01/07 10:50:02 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,14 @@
 #include <dirent.h>
 #include <sys/types.h>
 #include <sys/stat.h>
+
+void		mfree(char *s1, char *s2)
+{
+	if (s1)
+		free(s1);
+	if (s2)
+		free(s2);
+}
 
 int			ft_strcmp1(char *s1, char *s2)
 {
@@ -258,27 +266,36 @@ int			numberstars(char *str)
 	return (y);
 }
 
-int			recursive(char *str, char *patern, int rc, int xp, int xs)
+t_mx		init_mx(int p, int s)
+{
+	t_mx	x;
+
+	x.s = s;
+	x.p = p;
+	return (x);
+}
+
+int			recursive(char *str, char *patern, int rc, t_mx x)
 {
 	int i;
 
-	if (xs == 0 && xp == 0 && str[xs] == '.' && str[xs] != patern[xp])
+	if (x.s == 0 && x.p == 0 && str[x.s] == '.' && str[x.s] != patern[x.p])
 		return (0);
-	if (!str[xs] && (!patern[xp] || rc == 0))
+	if (!str[x.s] && (!patern[x.p] || rc == 0))
 		return (1);
-	else if (!str[xs])
+	else if (!str[x.s])
 		return (0);
-	if (patern[xp] != CSTAR)
+	if (patern[x.p] != CSTAR)
 	{
-		if (str[xs] == patern[xp])
-			return (recursive(str, patern, rc, xp + 1, xs + 1));
+		if (str[x.s] == patern[x.p])
+			return (recursive(str, patern, rc, init_mx(x.p + 1, x.s + 1)));
 		else
 			return (0);
 	}
 	i = rc;
 	while (i > -1)
 	{
-		if (recursive(str, patern, rc - i, xp + 1, xs + i))
+		if (recursive(str, patern, rc - i, init_mx(x.p + 1, x.s + i)))
 			return (1);
 		i--;
 	}
@@ -292,7 +309,7 @@ int			superstar(char *str, char *patern)
 
 	removedoublestars(&patern);
 	rc = strlen(str) - (strlen(patern) - numberstars(patern));
-	ret = recursive(str, patern, rc, 0, 0);
+	ret = recursive(str, patern, rc, init_mx(0, 0));
 	return (ret);
 }
 
@@ -368,36 +385,31 @@ int			megastar(char *patern, char *path, char *minipath, char **final)
 	return (0);
 }
 
-void		throughdir(char *multipath, char *patern, t_listdir *a, char **final)
+void		throughdir(char *mpath, char *patern, t_listdir *a, char **final)
 {
 	char *path;
-	char *minipath;
 	char *newminipath;
 	char *newpatern;
 	char *newpath;
 
-	minipath = multipath;
-	path = multipath + ft_strlen(multipath) + 1;
+	path = mpath + ft_strlen(mpath) + 1;
 	while (a)
 	{
 		newpatern = ft_substr(patern, srcchar('/', patern) + 1,
 		ft_strlen(patern) - srcchar('/', patern) + 1);
 		newpath = ft_strjoin_sep(path, a->name, '/');
-		if (minipath[0])
+		if (mpath[0])
 		{
-			newminipath = ft_strjoin_sep(minipath, a->name, '/');
+			newminipath = ft_strjoin_sep(mpath, a->name, '/');
 			recurdir(newpatern, newpath, newminipath, final);
 			free(newminipath);
 		}
 		else
-		{
 			recurdir(newpatern, newpath, a->name, final);
-		}
-		free(newpatern);
-		free(newpath);
+		mfree(newpatern, newpath);
 		a = a->next;
 	}
-	free(multipath);
+	free(mpath);
 }
 
 int			recurdir(char *patern, char *path, char *minipath, char **final)
@@ -408,24 +420,19 @@ int			recurdir(char *patern, char *path, char *minipath, char **final)
 	t_listdir		*actual;
 
 	actual = NULL;
-	if (srcchar('/', patern) == -1 || srcchar('/', patern) == (int)ft_strlen(patern) - 1)
+	if (srcchar('/', patern) == -1
+		|| srcchar('/', patern) == (int)ft_strlen(patern) - 1)
 	{
 		if (patern[0] != '/')
 			return (megastar(patern, path, minipath, final));
-		else
-			return (megastar("\x01", "/", minipath, final));
+		return (megastar("\x01", "/", minipath, final));
 	}
-	dir = opendir(path);
-	if (dir == NULL)
+	if ((dir = opendir(path)) == NULL)
 		return (1);
 	dirname = ft_substr(patern, 0, srcchar('/', patern));
 	while ((dirent = readdir(dir)) != NULL)
-	{
 		if (is_dir(path, dirent->d_name) && superstar(dirent->d_name, dirname))
-		{
 			actual = new_maillon(actual, ft_strdup(dirent->d_name));
-		}
-	}
 	sort_list_dsm(actual);
 	throughdir(ft_strjoin_sep(minipath, path, '\0'), patern, actual, final);
 	free_list(actual);
@@ -454,17 +461,9 @@ int			gigastar(char *patern, char **final, char *home)
 
 	*final = NULL;
 	if (patern[0] == '/')
-	{
-		minipath = "";
-		path = "/";
-		recurdir(patern + 1, path, minipath, final);
-	}
+		recurdir(patern + 1, "/", "", final);
 	else if (patern[0] == '~')
-	{
-		path = home;
-		minipath = home;
-		recurdir(patern + 2, path, minipath, final);
-	}
+		recurdir(patern + 2, home, home, final);
 	else
 	{
 		minipath = NULL;
@@ -481,45 +480,58 @@ int			gigastar(char *patern, char **final, char *home)
 	return (0);
 }
 
-t_token		*starize_list(t_token *first, t_token *max, char *home)
+t_token		*first_link(t_token *a, char *home, t_token *first)
 {
+	char	*str;
 	t_token	*tmp;
 	t_token	*tmp2;
+
+	str = NULL;
+	gigastar(a->str, &str, home);
+	tmp = create_simple_token_list(str);
+	tmp2 = tmp;
+	while (tmp->next)
+		tmp = tmp->next;
+	tmp->next = a->next;
+	free(first->str);
+	free(first);
+	first = tmp2;
+	a = first;
+	free(str);
+	return (a);
+}
+
+t_token		*other_links(t_token *a, char *home)
+{
 	char	*str;
+	t_token	*tmp;
+	t_token	*tmp2;
+
+	str = NULL;
+	gigastar(a->next->str, &str, home);
+	tmp = create_simple_token_list(str);
+	tmp2 = tmp;
+	while (tmp->next)
+		tmp = tmp->next;
+	tmp->next = a->next->next;
+	free(a->next->str);
+	free(a->next);
+	a->next = tmp2;
+	free(str);
+	return (a);
+}
+
+t_token		*starize_list(t_token *first, t_token *max, char *home)
+{
 	t_token	*a;
 
 	a = first;
 	while (a && a != max)
 	{
 		if (a == first && srcchar(CSTAR, a->str) != -1)
-		{
-			str = NULL;
-			gigastar(a->str, &str, home);
-			tmp = create_simple_token_list(str);
-			tmp2 = tmp;
-			while (tmp->next)
-				tmp = tmp->next;
-			tmp->next = a->next;
-			free(first->str);
-			free(first);
-			first = tmp2;
-			a = first;
-			free(str);
-		}
+			a = first_link(a, home, first);
 		if (a->next && a->next != max && srcchar(CSTAR, a->next->str) != -1)
-		{
-			str = NULL;
-			gigastar(a->next->str, &str, home);
-			tmp = create_simple_token_list(str);
-			tmp2 = tmp;
-			while (tmp->next)
-				tmp = tmp->next;
-			tmp->next = a->next->next;
-			free(a->next->str);
-			free(a->next);
-			a->next = tmp2;
-			free(str);
-		}
+			a = other_links(a, home);
 		if (a && a != max)
 			a = a->next;
 	}
