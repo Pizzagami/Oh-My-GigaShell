@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   star.C                                             :+:      :+:    :+:   */
+/*   star.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: braimbau <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/03 10:30:03 by braimbau          #+#    #+#             */
-/*   Updated: 2021/01/07 10:50:02 by braimbau         ###   ########.fr       */
+/*   Updated: 2021/01/08 13:14:51 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,160 +16,6 @@
 #include <dirent.h>
 #include <sys/types.h>
 #include <sys/stat.h>
-
-void		mfree(char *s1, char *s2)
-{
-	if (s1)
-		free(s1);
-	if (s2)
-		free(s2);
-}
-
-int			ft_strcmp1(char *s1, char *s2)
-{
-	unsigned int i;
-
-	i = 0;
-	while (s1[i] && s2[i])
-	{
-		if (s1[i] != s2[i])
-			return ((unsigned char)s1[i] - s2[i]);
-		i++;
-	}
-	if ((s1[i] && !s2[i]) || (!s1[i] && s2[i]))
-		return ((unsigned char)s1[i] - s2[i]);
-	return (0);
-}
-
-int			ft_strcmp2(char *s1, char *s2)
-{
-	unsigned int i;
-
-	i = 0;
-	while (s1[i] && s2[i])
-	{
-		if (s1[i] != s2[i])
-			return ((unsigned char)s1[i] - s2[i]);
-		i++;
-	}
-	if (!s1[i] && s2[i] == '.')
-		return (1);
-	if (!s2[i] && s1[i] == '.')
-		return (-1);
-	if ((s1[i] && !s2[i]) || (!s1[i] && s2[i]))
-		return ((unsigned char)s1[i] - s2[i]);
-	return (0);
-}
-
-void		print_list(t_listdir *a)
-{
-	while (a)
-	{
-		printf("%s\n", a->name);
-		a = a->next;
-	}
-}
-
-t_listdir	*new_maillon(t_listdir *actual, char *name)
-{
-	t_listdir *list;
-
-	list = malloc(sizeof(t_listdir));
-	list->name = name;
-	list->next = actual;
-	return (list);
-}
-
-void		free_list(t_listdir *a)
-{
-	if (a)
-	{
-		free_list(a->next);
-		free(a->name);
-		free(a);
-	}
-}
-
-void		sort_list(t_listdir *actual)
-{
-	t_listdir	*a;
-	t_listdir	*b;
-	char		*tmp;
-
-	if (!actual || !actual->next)
-		return ;
-	a = actual;
-	while (a)
-	{
-		b = a->next;
-		while (b)
-		{
-			if (ft_strcmp1(a->name, b->name) > 0)
-			{
-				tmp = a->name;
-				a->name = b->name;
-				b->name = tmp;
-			}
-			b = b->next;
-		}
-		a = a->next;
-	}
-}
-
-void		sort_list_dsm(t_listdir *actual)
-{
-	t_listdir	*a;
-	t_listdir	*b;
-	char		*tmp;
-
-	if (!actual || !actual->next)
-		return ;
-	a = actual;
-	while (a)
-	{
-		b = a->next;
-		while (b)
-		{
-			if (ft_strcmp2(a->name, b->name) > 0)
-			{
-				tmp = a->name;
-				a->name = b->name;
-				b->name = tmp;
-			}
-			b = b->next;
-		}
-		a = a->next;
-	}
-}
-
-char		*ft_strjoin_sep(char *s1, char *s2, char c)
-{
-	int		i;
-	int		x;
-	char	*dest;
-
-	i = ft_strlen(s1) + ft_strlen(s2);
-	dest = malloc(sizeof(char) * (i + 2));
-	if (!dest)
-		return (NULL);
-	x = 0;
-	while (s1 && s1[x])
-	{
-		dest[x] = s1[x];
-		x++;
-	}
-	dest[x] = c;
-	x++;
-	i = 0;
-	while (s2 && s2[i])
-	{
-		dest[x] = s2[i];
-		x++;
-		i++;
-	}
-	dest[x] = 0;
-	return (dest);
-}
 
 int			is_dir(char *path, char *file)
 {
@@ -181,57 +27,6 @@ int			is_dir(char *path, char *file)
 	if (S_ISDIR(buf.st_mode))
 		return (1);
 	return (0);
-}
-
-char		*ft_substr(char const *s, unsigned int start, size_t len)
-{
-	unsigned int	i;
-	char			*ptr;
-
-	i = 0;
-	if (!s)
-		return (NULL);
-	while (s[i])
-		i++;
-	if (!(ptr = malloc((len + 1) * sizeof(char))))
-		return (NULL);
-	if (i <= start)
-	{
-		ptr[0] = 0;
-		return (ptr);
-	}
-	i = 0;
-	while (i < len && s[start + i])
-	{
-		ptr[i] = s[start + i];
-		i++;
-	}
-	ptr[i] = 0;
-	return (ptr);
-}
-
-int			srcchar(char c, char *str)
-{
-	int x;
-
-	x = 0;
-	while (str[x])
-	{
-		if (str[x] == c)
-			return (x);
-		x++;
-	}
-	return (-1);
-}
-
-void		removechar(char **str, int x)
-{
-	while ((*str)[x + 1])
-	{
-		(*str)[x] = (*str)[x + 1];
-		x++;
-	}
-	(*str)[x] = 0;
 }
 
 void		removedoublestars(char **str_p)
@@ -259,7 +54,7 @@ int			numberstars(char *str)
 	y = 0;
 	while (str && str[x])
 	{
-		if (str[x] == CSTAR)
+			if (str[x] == CSTAR)
 			y++;
 		x++;
 	}
@@ -337,7 +132,7 @@ void		add_list(t_listdir *actual, char *minipath, char **final)
 	}
 }
 
-int			add_mtaching_names(char *path, int sfdo, t_listdir **actual,
+int			add_matching_names(char *path, int sfdo, t_listdir **actual,
 								char *patern)
 {
 	DIR				*dir;
@@ -350,8 +145,7 @@ int			add_mtaching_names(char *path, int sfdo, t_listdir **actual,
 	while ((dirent = readdir(dir)) != NULL)
 	{
 		if (superstar(dirent->d_name, patern) && (!sfdo ||
-					is_dir(path, dirent->d_name)))
-		{
+					is_dir(path, dirent->d_name))){
 			list = malloc(sizeof(t_list));
 			if (sfdo)
 				list->name = ft_strjoin_sep(dirent->d_name, NULL, '/');
@@ -377,7 +171,7 @@ int			megastar(char *patern, char *path, char *minipath, char **final)
 		patern[ft_strlen(patern) - 1] = 0;
 	}
 	actual = NULL;
-	if (add_mtaching_names(path, sfdo, &actual, patern))
+	if (add_matching_names(path, sfdo, &actual, patern))
 		return (1);
 	sort_list(actual);
 	add_list(actual, minipath, final);
@@ -439,19 +233,6 @@ int			recurdir(char *patern, char *path, char *minipath, char **final)
 	free(dirname);
 	closedir(dir);
 	return (0);
-}
-
-void		dereplace_stars(char *str)
-{
-	int i;
-
-	i = 0;
-	while (str[i])
-	{
-		if (str[i] == CSTAR)
-			str[i] = '*';
-		i++;
-	}
 }
 
 int			gigastar(char *patern, char **final, char *home)

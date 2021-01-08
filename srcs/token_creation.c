@@ -6,32 +6,12 @@
 /*   By: raimbaultbrieuc <marvin@42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/15 15:30:31 by raimbault         #+#    #+#             */
-/*   Updated: 2021/01/07 13:58:09 by braimbau         ###   ########.fr       */
+/*   Updated: 2021/01/08 11:02:47 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "token.h"
 #include "parser.h"
-
-void	set_special_token(char c, t_token **token_current)
-{
-	if (c == '(')
-		add_token_malloc(token_current, OBRA, "(", 1);
-	if (c == ')')
-		add_token_malloc(token_current, CBRA, ")", 1);
-	if (c == '\n')
-		add_token_malloc(token_current, NEWLINE, "\n", 1);
-	if (c == ';')
-		add_token_malloc(token_current, SEMI, ";", 1);
-	if (c == '>')
-		add_token_malloc(token_current, GREAT, ">", 1);
-	if (c == '<')
-		add_token_malloc(token_current, LESS, "<", 1);
-	if (c == '&')
-		add_token_malloc(token_current, AND, "&", 1);
-	if (c == '|')
-		add_token_malloc(token_current, PIPE, "|", 1);
-}
 
 int		set_double_token(char c, char c2, t_token **token_current)
 {

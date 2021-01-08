@@ -5,6 +5,11 @@ LIB = libft.a
 SRCS =	./srcs/main.c					\
 		./srcs/bashy.c					\
 		./srcs/term_init.c				\
+		./srcs/star_utils.c				\
+		./srcs/star_list_gestion.c		\
+		./srcs/star_random_utils.c		\
+		./srcs/star_char_editing.c		\
+		./srcs/grand_remplacement.c		\
 		./srcs/tools.c					\
 		./srcs/tools_env.c  		    \
 	   	./srcs/persecutor.c 			\

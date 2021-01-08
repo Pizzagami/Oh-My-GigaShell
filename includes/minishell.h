@@ -1,4 +1,4 @@
-#ifndef	MINISHELL_H	
+#ifndef MINISHELL_H
 # define MINISHELL_H
 
 #define PATH_MAX 4096
@@ -8,28 +8,28 @@
 #include <fcntl.h>
 #include "libft.h"
 
-typedef struct	s_listdir
+typedef struct		s_listdir
 {
-	char *name;
-	struct s_listdir *next;
-}				t_listdir;
+	char	*name;
+	struct	s_listdir *next;
+}					t_listdir;
 
-typedef struct	s_mx
+typedef struct		s_mx
 {
 	int		s;
 	int		p;
 	char	*str;
 	char	*quot;
-}				t_mx;
+}					t_mx;
 
-typedef struct	s_env
+typedef struct		s_env
 {
 	char			*name;
-	char 			*val;
+	char			*val;
 	int 			l_name;
 	struct s_env 	*next;
 
-}				t_env;
+}					t_env;
 
 typedef struct		s_hist
 {
@@ -58,6 +58,18 @@ void left(char **str, t_arrow *ar, t_hist *hist);
 
 typedef void FLCH_CSP(char **str, t_arrow *ar, t_hist *hist);
 
+void		dereplace_stars(char *str);
+int			is_dir(char *path, char *file);
+void		removedoublestars(char **str_p);
+void		removechar(char **str, int x);
+int			srcchar(char c, char *str);	
+t_listdir	*new_maillon(t_listdir *actual, char *name);
+void		free_list(t_listdir *a);
+void		sort_list(t_listdir *a);
+void		sort_list_dsm(t_listdir *a);
+int			ft_strcmp1(char *s1, char *s2);
+int			ft_strcmp2(char *s1, char *s2);
+void		set_special_token(char c, t_token **token_current);
 void		free_env(t_env *env);
 void		mfree(char *str1, char *str2);
 int			recurdir(char *patern, char *path, char *minipath, char **final);
@@ -70,7 +82,7 @@ int			persecutor(t_hist *hist, t_env *env, int *last_ret);
 int			multilines(t_hist *hist, t_env *env, int *last_ret, t_multi *multi);
 void		file_histo(t_hist *hist);
 void		histo_file(t_hist *hist);
-void 		ft_init_tab(t_hist *hist);
+void		ft_init_tab(t_hist *hist);
 void		setcolor(int *x);
 int			is_unicorn_set(t_env *env);
 t_token		*create_simple_token_list(char *str);
@@ -82,7 +94,7 @@ void		add_env_var(char *var, t_env **first);
 char		*get_env_var(char *var, t_env *first);
 int			find_and_replace(t_env **first, char *var);
 void		tri_and_find(t_env *first);
-void	 	tri_and_print(t_env *first);
+void		tri_and_print(t_env *first);
 void		add_char(char **str, int index, char c);
 char		*str_up(char *str);
 char		*str_low(char *str);

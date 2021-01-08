@@ -6,7 +6,7 @@
 /*   By: raimbaultbrieuc <marvin@42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/15 15:33:29 by raimbault         #+#    #+#             */
-/*   Updated: 2020/11/05 10:26:09 by braimbau         ###   ########.fr       */
+/*   Updated: 2021/01/08 11:01:33 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,4 +87,24 @@ int		is_special_char(char c)
 		i++;
 	}
 	return (0);
+}
+
+void	set_special_token(char c, t_token **token_current)
+{
+	if (c == '(')
+		add_token_malloc(token_current, OBRA, "(", 1);
+	if (c == ')')
+		add_token_malloc(token_current, CBRA, ")", 1);
+	if (c == '\n')
+		add_token_malloc(token_current, NEWLINE, "\n", 1);
+	if (c == ';')
+		add_token_malloc(token_current, SEMI, ";", 1);
+	if (c == '>')
+		add_token_malloc(token_current, GREAT, ">", 1);
+	if (c == '<')
+		add_token_malloc(token_current, LESS, "<", 1);
+	if (c == '&')
+		add_token_malloc(token_current, AND, "&", 1);
+	if (c == '|')
+		add_token_malloc(token_current, PIPE, "|", 1);
 }
