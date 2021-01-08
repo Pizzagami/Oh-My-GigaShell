@@ -76,7 +76,7 @@ void	histo_file(t_hist *hist)
 	while (hist->x > x)
 	{
 			ft_putstr_fd(hist->tab[x], fd);
-			ft_putstr_fd("\n",fd);
+			ft_putchar_fd((char)1,fd);
 			free(hist->tab[x]);
 		x++;
 	}

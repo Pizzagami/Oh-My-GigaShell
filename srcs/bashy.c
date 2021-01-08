@@ -2,17 +2,26 @@
 #include "minishell.h"
 
 
-void	historic(t_hist *hist ,char *str) // enlever ligne vide et file verif taille max
+void	historic(t_hist *hist ,char *str, int y) // enlever ligne vide et file verif taille max
 {
 	int x;
 
 	x = 254;
-	while (x >= 0)
+	if (!y)
 	{
-		hist->tab[x + 1] = hist->tab[x];
-		x--;
+		while (x >= 0)
+		{
+			hist->tab[x + 1] = hist->tab[x];
+			x--;
+		}
+		hist->tab[0] = ft_strdup(str);
 	}
-	hist->tab[0] = ft_strdup(str);
+	else
+	{
+		free(hist->tab[0]);
+		hist->tab[0] = ft_strdup(str);
+	}
+	
 }
 
 char	*strdel(char *str, t_arrow *ar)
@@ -138,31 +147,47 @@ void	right(char **str, t_arrow *ar, t_hist *hist) //C
 void	up(char **str, t_arrow *ar, t_hist *hist) //A
 {
 	int x;
+	int y;
 
 	if (hist->x > ar->y)
 	{
 		x = 0;
-		//if (ar->y == 0 && ft_strlen(*str))
-		//	ar->y++;
-		while (ar->x < 0)
+		if (ar->y == 0 && ft_strlen(*str))
+			ar->y++;
+		x = ft_strlen(*str);
+		while(x > 0)
 		{
-			ar->x++;
-			ft_putstr("\033[C");
+			x--;
+			if ((*str)[x] != '\n')
+				ft_putstr("\b \b");
+			else
+			{
+				ft_putstr("\033[A");
+				x--;
+				y = x;
+				while((*str)[y] != '\n' && y > 0)
+				{
+					ft_putstr("\x1b[C");
+					y--;
+				}
+				if (y == 0)
+				{
+					y = 10;
+					while (y-- > 0)
+						ft_putstr("\x1b[C");
+				}
+			}
 		}
-		while((int)ft_strlen(*str) > x)
-		{
-			x++;
-			ft_putstr("\b \b");
-		} 
 		ft_putstr(hist->tab[ar->y]);
 		*str = ft_strdup(hist->tab[ar->y]);
-		ar->y++;
+		//ar->y++;
 	}
 }
 
 void	down(char **str, t_arrow *ar, t_hist *hist) //B prob hist1 ligne
 {
 	int x;
+	int y;
 
 	x = 0;
 	while (ar->x < 0)
@@ -175,21 +200,57 @@ void	down(char **str, t_arrow *ar, t_hist *hist) //B prob hist1 ligne
 		if(ar->y == hist->x)
 			ar->y--;
 		ar->y--;
-		while((int)ft_strlen(*str) > x)
+		x = ft_strlen(*str);
+		while(x > 0)
 		{
-			x++;
-			ft_putstr("\b \b");
+			x--;
+			if ((*str)[x] != '\n')
+				ft_putstr("\b \b");
+			else
+			{
+				ft_putstr("\033[A");
+				x--;
+				y = x;
+				while((*str)[y] != '\n' && y > 0)
+				{
+					ft_putstr("\x1b[C");
+					y--;
+				}
+				if (y == 0)
+				{
+					y = 10;
+					while (y-- > 0)
+						ft_putstr("\x1b[C");
+				}
+			}
 		}
-			ft_putnbr_fd(ar->y,0);
-			ft_putstr(hist->tab[ar->y]);
-			*str = ft_strdup(hist->tab[ar->y]);
+		ft_putstr(hist->tab[ar->y]);
+		*str = ft_strdup(hist->tab[ar->y]);
 		return;
 	}
-		while((int)ft_strlen(*str) > x)
-		{
-			x++;
+	x = ft_strlen(*str);
+	while(x > 0)
+	{
+		x--;
+		if ((*str)[x] != '\n')
 			ft_putstr("\b \b");
+		else
+		{
+			ft_putstr("\033[A");
+			y = x;
+			while((*str)[y] != '\n' && y > 0)
+			{
+				ft_putstr("\x1b[C");
+				y--;
+			}
+			if (y == 0)
+			{
+				y = 10;
+				while (y-- > 0)
+					ft_putstr("\x1b[C");
+			}
 		}
+	}
 	*str = ft_strdup("\0");
 }
 
@@ -257,6 +318,7 @@ int		bashy(t_hist *hist, t_arrow *ar, int y) //fleche bas casser
 	//ft_putstr(getcwd(path, PATH_MAX - 1));
 	ft_putstr("\033[0m$ ");
 	}
+	//279165
 	while(1)
 	{
 		read(0, &c, 1);
@@ -272,10 +334,10 @@ int		bashy(t_hist *hist, t_arrow *ar, int y) //fleche bas casser
 			ar->y = 0;
 			if(str[0] != 0)
 			{
-				historic(hist, str);
-				hist->x = (hist->x < 256) ? hist->x + 1: hist->x;
-				ft_bzero(str, ft_strlen(str));
-				free(str);
+					historic(hist, str, y);
+					hist->x = (hist->x < 256 && !y) ? hist->x + 1: hist->x;
+					ft_bzero(str, ft_strlen(str));
+					free(str);
 				return(1);
 			}
 			else

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   multilines.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pizzagami <pizzagami@student.42.fr>        +#+  +:+       +#+        */
+/*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/08 10:49:12 by braimbau          #+#    #+#             */
-/*   Updated: 2021/01/07 11:28:23 by braimbau         ###   ########.fr       */
+/*   Updated: 2021/01/07 17:42:51 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	multilines(t_hist *hist, t_env *env, int *last_ret, t_multi *multi)
 		tmp = hist->tab[0];
 		hist->tab[0] = ft_strjoin_sep(multi->str, hist->tab[0], '\n');
 		free(tmp);
-		free(multi->str);
+		free(multi->str); 
 		multi->type = 0;
 	}
 	if (multi->x == 0)

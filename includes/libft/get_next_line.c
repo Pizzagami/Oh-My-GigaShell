@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/26 15:03:19 by selgrabl          #+#    #+#             */
-/*   Updated: 2019/11/07 15:04:55 by selgrabl         ###   ########.fr       */
+/*   Updated: 2021/01/07 16:54:31 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,10 +59,10 @@ int		get_next_line(int fd, char **line)
 				return (clear_buff(x, fd, &buf));
 		}
 		x = 0;
-		while (buf[fd][x] && buf[fd][x] != '\n')
+		while (buf[fd][x] && buf[fd][x] != (char)1)
 			x++;
 		join(line, &buf[fd], x);
-		if (buf[fd][0] == '\n')
+		if (buf[fd][0] == (char)1)
 			return (increase_buf(&buf[fd]));
 	}
 }
