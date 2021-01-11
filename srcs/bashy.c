@@ -169,8 +169,8 @@ void	up(char **str, t_arrow *ar, t_hist *hist) //A
 			else
 			{
 				ft_putstr("\033[A");
-				x--;
-				y = x;
+			//	x--;
+				y = x - 1;
 				while((*str)[y] != '\n' && y > 0)
 				{
 					ft_putstr("\x1b[C");
@@ -178,7 +178,7 @@ void	up(char **str, t_arrow *ar, t_hist *hist) //A
 				}
 				if (y == 0)
 				{
-					y = 10;
+					y = 11;
 					while (y-- > 0)
 						ft_putstr("\x1b[C");
 				}
@@ -218,8 +218,8 @@ void	down(char **str, t_arrow *ar, t_hist *hist) //B prob hist1 ligne
 			else
 			{
 				ft_putstr("\033[A");
-				x--;
-				y = x;
+				//x--;
+				y = x - 1;
 				while((*str)[y] != '\n' && y > 0)
 				{
 					ft_putstr("\x1b[C");
@@ -227,7 +227,7 @@ void	down(char **str, t_arrow *ar, t_hist *hist) //B prob hist1 ligne
 				}
 				if (y == 0)
 				{
-					y = 10;
+					y = 11;
 					while (y-- > 0)
 						ft_putstr("\x1b[C");
 				}
@@ -246,7 +246,7 @@ void	down(char **str, t_arrow *ar, t_hist *hist) //B prob hist1 ligne
 		else
 		{
 			ft_putstr("\033[A");
-			y = x;
+			y = x - 1;
 			while((*str)[y] != '\n' && y > 0)
 			{
 				ft_putstr("\x1b[C");
@@ -254,7 +254,7 @@ void	down(char **str, t_arrow *ar, t_hist *hist) //B prob hist1 ligne
 			}
 			if (y == 0)
 			{
-				y = 10;
+				y = 11;
 				while (y-- > 0)
 					ft_putstr("\x1b[C");
 			}
