@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   quote_string.c								        :+:      :+:    :+:   */
+/*   quote_string.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   by: raimbaultbrieuc <marvin@42.fr>             +#+  +:+       +#+        */
+/*   By: braimbau <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   created: 2020/07/15 16:13:31 by raimbault         #+#    #+#             */
-/*   updated: 2020/11/29 20:00:43 by braimbau         ###   ########.fr       */
+/*   Created: 2021/01/11 16:17:48 by braimbau          #+#    #+#             */
+/*   Updated: 2021/01/11 17:45:12 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,11 @@ void	replace_chars(char **pstr, char **pquot)
 		{
 			str[i] = CDOLLAR;
 			i++;
-			while (str[i] && str[i] != ' ' && str[i] != '\\' && str[i] != '/' && str[i - 1] != '?' && str[i] != '$' && quot[i] != 'a' && quot[i] != 'b' && quot[i] != '1' && quot[i] != '3')
+			while (str[i] && str[i] != ' ' && str[i] != '\\' && str[i] != '/'
+					&& str[i - 1] != '?' && str[i] != '$' && quot[i] != 'a'
+					&& quot[i] != 'b' && quot[i] != '1' && quot[i] != '3'
+					&& (1 || quot[i - 1] == 'b' || quot[i - 1] == 'a'
+						|| quot[i] == quot[i - 1]))
 				i++;
 			add_char(pstr, i, CDOLLEND);
 			add_char(pquot, i, (*pquot)[i]);
@@ -89,7 +93,7 @@ void	replace_chars(char **pstr, char **pquot)
 	}
 }
 
-void delete_unquoted_newlines(char *str, char *quot)
+void	delete_unquoted_newlines(char *str, char *quot)
 {
 	int i;
 
@@ -100,6 +104,89 @@ void delete_unquoted_newlines(char *str, char *quot)
 			remove_char(str, i);
 		i++;
 	}
+}
+
+int		dquote(int *x, int *i, char *str, char *quot)
+{
+	remove_char(str, *i);
+	if (str[*i] && str[*i] != 34)
+	{
+		quot[*x] = 'b';
+		(*x)++;
+		(*i)++;
+	}
+	while (str[*i] && str[*i] != 34 )
+	{
+		quot[*x] = '2';
+		(*x)++;
+		(*i)++;
+	}
+	if (!str[*i])
+	{
+		free(quot);
+		return (1);
+	}
+	remove_char(str, *i);
+	return (0);
+}
+
+int		squote(int *x, int *i, char *str, char *quot)
+{
+	remove_char(str, *i);
+	if (str[*i] && str[*i] != 39)
+	{
+		quot[*x] = 'a';
+		(*x)++;
+		(*i)++;
+	}
+	while (str[*i] && str[*i] != 39)
+	{
+		quot[*x] = '1';
+		(*x)++;
+		(*i)++;
+	}
+	if (!str[*i])
+	{
+		free(quot);
+		return (1);
+	}
+	remove_char(str, *i);
+	return (0);
+}
+
+int		backslash(int *x, int *i, char *str, char *quot)
+{
+	if (str[*i] == 92)
+	{
+		remove_char(str, *i);
+		if (!str[*i])
+		{
+			free(quot);
+			return (1);
+		}
+		quot[*x] = '3';
+		(*x)++;
+		(*i)++;
+	}
+	else
+	{
+		quot[*x] = '0';
+		(*x)++;
+		(*i)++;
+	}
+	return (0);
+}
+
+int		switch_quot(int *x, int *i, char *str, char *quot)
+{
+	if (str[*i] == 34 && dquote(i, x, str, quot))
+		return (1);
+	if (str[*i] == 39 && squote(i, x, str, quot))
+		return (2);
+
+	if (backslash(i, x, str, quot))
+		return (3);
+	return (0);
 }
 
 char	*quote_string(char **pstr, int *ec)
@@ -115,71 +202,8 @@ char	*quote_string(char **pstr, int *ec)
 	quot = malloc(sizeof(char) * (strlen(str) + 1));
 	while (str[i])
 	{
-		if (str[i] == 34)
-		{
-			remove_char(str, i);
-			if (str[i] && str[i] != 34)
-			{
-				quot[x] = 'b';
-				x++;
-				i++;
-			}
-			while (str[i] && str[i] != 34)
-			{
-				quot[x] = '2';
-				x++;
-				i++;
-			}
-			if (!str[i])
-			{
-				*ec = 1;
-				free(quot);
-				return (NULL);
-			}
-			remove_char(str, i);
-		}
-		if (str[i] == 39)
-		{
-			remove_char(str, i);
-			if (str[i] && str[i] != 39)
-			{
-				quot[x] = 'a';
-				x++;
-				i++;
-			}
-			while (str[i] && str[i] != 39)
-			{
-				quot[x] = '1';
-				x++;
-				i++;
-			}
-			if (!str[i])
-			{
-				*ec = 2;
-				free(quot);
-				return (NULL);
-			}
-			remove_char(str, i);
-		}
-		if (str[i] == 92)
-		{
-			remove_char(str, i);
-			if (!str[i])
-			{
-				*ec = 3;
-				free(quot);
-				return (NULL);
-			}
-			quot[x] = '3';
-			x++;
-			i++;
-		}
-		else
-		{
-			quot[x] = '0';
-			x++;
-			i++;
-		}
+		if ((*ec = switch_quot(&x, &i, str, quot)))
+			return (NULL);
 	}
 	quot[x] = 0;
 	replace_chars(pstr, &quot);

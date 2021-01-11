@@ -47,7 +47,7 @@ SRCS =	./srcs/main.c					\
 
 FLAG = -L includes/libft
 FSANITIZE = -fsanitize=address -g3
-CFLAGS = -Wall -Wextra -Werror -I includes/ -I includes/libft/ $(FSANITIZE)	
+CFLAGS = -Wall -Wextra -Werror -I includes/ -I includes/libft/ $(FSANITIZE)
 
 CC = gcc
 
@@ -57,7 +57,6 @@ all: $(NAME)
 
 $(NAME): $(OBJS)
 	$(CC) -o $(NAME) $(CFLAGS) $(FLAG) $(OBJS) ./includes/libft/libft.a
-
 
 lib:
 	make -C ./includes/libft re
