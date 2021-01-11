@@ -19,10 +19,10 @@ int		main(int argc,char **argv, char **env)
 	multi.type = 0;
 	last_ret = 0;
 	y = 0;
+	x = 0;
 	ar.x = 0;
 	ar.y = 0;
 	hist.x = 0;
-	x = 0;
 	envi = NULL;
 	dup_env(env, &envi);
 	hist.cc = is_unicorn_set(envi);
@@ -63,6 +63,7 @@ void	file_histo(t_hist *hist)
 	{
 		ft_putstr("GNL Error in file Histo\n");
 	}
+	printf("hist->x = %d \n", hist->x);
 	close(fd);
 }
 

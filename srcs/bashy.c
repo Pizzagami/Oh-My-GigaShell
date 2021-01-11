@@ -149,11 +149,17 @@ void	up(char **str, t_arrow *ar, t_hist *hist) //A
 	int x;
 	int y;
 
-	if (hist->x > ar->y)
+	if (hist->x - 1 > ar->y || (ar->y == 0 && hist->x == 1 && !(**str)))
 	{
-		x = 0;
-		if (ar->y == 0 && ft_strlen(*str))
+		if(!(ar->y == 0 && !(**str)))
 			ar->y++;
+		x = 0;
+		while (ar->x < 0)
+		{
+			ar->x++;
+			ft_putstr("\033[C");
+		}
+		
 		x = ft_strlen(*str);
 		while(x > 0)
 		{
@@ -180,7 +186,7 @@ void	up(char **str, t_arrow *ar, t_hist *hist) //A
 		}
 		ft_putstr(hist->tab[ar->y]);
 		*str = ft_strdup(hist->tab[ar->y]);
-		//ar->y++;
+
 	}
 }
 
@@ -191,16 +197,19 @@ void	down(char **str, t_arrow *ar, t_hist *hist) //B prob hist1 ligne
 
 	x = 0;
 	while (ar->x < 0)
-		{
-			ar->x++;
-			ft_putstr("\033[C");
-		}
+	{
+		ar->x++;
+		ft_putstr("\033[C");
+	}
 	if (ar->y > 0)
 	{
-		if(ar->y == hist->x)
-			ar->y--;
 		ar->y--;
 		x = ft_strlen(*str);
+		while (ar->x < 0)
+			{
+				ar->x++;
+				ft_putstr("\033[C");
+			}
 		while(x > 0)
 		{
 			x--;
@@ -323,10 +332,10 @@ int		bashy(t_hist *hist, t_arrow *ar, int y) //fleche bas casser
 	{
 		read(0, &c, 1);
 		if((int)c == 3 || (int)c == 4) // create break cas
-			{
-				free(str);
-				return(3);
-			}
+		{
+			free(str);
+			return(3);
+		}
 		else if ((int)c == 10)
 		{
 			ft_putstr("\n");
@@ -334,10 +343,10 @@ int		bashy(t_hist *hist, t_arrow *ar, int y) //fleche bas casser
 			ar->y = 0;
 			if(str[0] != 0)
 			{
-					historic(hist, str, y);
-					hist->x = (hist->x < 256 && !y) ? hist->x + 1: hist->x;
-					ft_bzero(str, ft_strlen(str));
-					free(str);
+				historic(hist, str, y);
+				hist->x = (hist->x < 256 && !y) ? hist->x + 1: hist->x;
+				ft_bzero(str, ft_strlen(str));
+				free(str);
 				return(1);
 			}
 			else
