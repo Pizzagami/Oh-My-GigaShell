@@ -125,22 +125,47 @@ int		which_case()
 void	left(char **str, t_arrow *ar, t_hist *hist) //D
 {
 	(void)hist;
-	(void)str;
-	if (ft_strlen(*str) + ar->x > 0)
+	int len;
+	int y;
+
+	len = ft_strlen(*str);
+	if (len + ar->x > 0)
 	{
 		ar->x--;
-		ft_putstr("\b");
+		if ((*str)[len + ar->x] != '\n') 
+			ft_putstr("\b");
+		else
+		{
+			ft_putstr("\033[A");
+			y = len + ar->x - 1;
+			while((*str)[y] != '\n' && y > 0)
+			{
+				ft_putstr("\x1b[C");
+				y--;
+			}
+			if (y == 0)
+			{
+				y = 11;
+				while (y-- > 0)
+					ft_putstr("\x1b[C");
+			}
+		}
 	}		
 }
 
-void	right(char **str, t_arrow *ar, t_hist *hist) //C
+void	right(char **str, t_arrow *ar, t_hist *hist) //C peut etre bon
 {
 	(void)hist;
-	(void)str;
-	if(ar->x < 0)
+	int len;
+
+	len = ft_strlen(*str);
+	if (ar->x < 0)
 	{
+		if ((*str)[len + ar->x] != '\n') 
+			ft_putstr("\033[C");
+		else
+			ft_putstr("\n");
 		ar->x++;
-		ft_putstr("\033[C");
 	}
 }
 
