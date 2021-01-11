@@ -6,7 +6,7 @@
 /*   By: braimbau <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 13:06:07 by braimbau          #+#    #+#             */
-/*   Updated: 2021/01/08 13:07:20 by braimbau         ###   ########.fr       */
+/*   Updated: 2021/01/08 15:25:45 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ char		*ft_strjoin_sep(char *s1, char *s2, char c)
 	dest[x] = c;
 	x++;
 	i = 0;
-			while (s2 && s2[i])
+	while (s2 && s2[i])
 	{
 		dest[x] = s2[i];
 		x++;

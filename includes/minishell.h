@@ -7,6 +7,9 @@
 #include <unistd.h>
 #include <fcntl.h>
 #include "libft.h"
+#include <dirent.h>
+#include <sys/types.h>
+#include <sys/stat.h>
 
 typedef struct		s_listdir
 {
@@ -58,6 +61,16 @@ void left(char **str, t_arrow *ar, t_hist *hist);
 
 typedef void FLCH_CSP(char **str, t_arrow *ar, t_hist *hist);
 
+int			add_matching_names(char *path, int sfdo, t_listdir **actual,
+			char *patern);
+void		add_list(t_listdir *actual, char *minipath, char **final);
+int			recursive(char *str, char *patern, int rc, t_mx x);
+int			gigastar(char *patern, char **final, char *home);
+int			superstar(char *str, char *patern);
+t_token		*first_link(t_token *a, char *home, t_token *first);
+t_token		*other_links(t_token *a, char *home);
+t_mx		init_mx(int p, int s);
+int			numberstars(char *str);
 void		dereplace_stars(char *str);
 int			is_dir(char *path, char *file);
 void		removedoublestars(char **str_p);

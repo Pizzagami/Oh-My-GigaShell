@@ -6,9 +6,11 @@
 /*   By: braimbau <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 13:12:31 by braimbau          #+#    #+#             */
-/*   Updated: 2021/01/08 13:15:09 by braimbau         ###   ########.fr       */
+/*   Updated: 2021/01/08 15:26:30 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "minishell.h"
 
 void		dereplace_stars(char *str)
 {
@@ -60,7 +62,7 @@ int			numberstars(char *str)
 	y = 0;
 	while (str && str[x])
 	{
-			if (str[x] == CSTAR)
+		if (str[x] == CSTAR)
 			y++;
 		x++;
 	}
