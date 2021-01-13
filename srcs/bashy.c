@@ -26,125 +26,21 @@ void	historic(t_hist *hist ,char *str, int y) // enlever ligne vide et file veri
 
 char	*strdel(char *str, t_arrow *ar)
 {
-/*	int x;
+	int x;
+	int len;
 	int y;
-	int t;
 
-	t = 0;
-	y = ft_strlen(str);
-	x =	y + ar->x;
+	len = ft_strlen(str);
+	x =	len + ar->x;
 	if (x < 1)
 		return(str);
-	if (str[y - 1] == 9)
-		t = 1;
 	while (x < y)
 	{
 		str[x - 1] = str[x];
 		x++;
 	}
-	if (x == y)
-		{
-			str[x - 1] = 0;
-			y--;
-		}
-	x =	y + ar->x;
-	while (x < y)
-	{
-		ft_putstr("\b");
-		write(1, &(str[x]), 1);
-		ft_putstr("\033[C");
-		x++;
-	}
-	if (x == y)
-		{
-			ft_putstr("\b \b");
-		}
-	if (t == 1)
-		ft_putstr("");
-	x = 1;
-	while (ar->x < --x)
-		ft_putstr("\b");
-	return (str);
-	*/
-	int len;
-	int x;
-	int y;
-	
-	len = ft_strlen(str);
-	if (len + ar->x - 1 < 1)
-		return(str);
-	x = ar->x - 1;
-	ft_putstr("\b");
-	while (x < 0)
-	{
-		if ((str)[len + x] != '\n') 
-			ft_putstr(" ");
-		else
-			ft_putstr("\n");
-		x++;
-	}
-	while(x > ar->x - 1)
-	{
-		x--;
-		if ((str)[len + x] != '\n')
-			ft_putstr("\b");
-		else
-		{
-			ft_putstr("\033[A");
-			y = x - 1;
-			while((str)[len + y] != '\n' && y > 0)
-			{
-				ft_putstr("\x1b[C");
-				y--;
-			}
-			if (y == 0)
-			{
-				y = 11;
-				while (y-- > 0)
-					ft_putstr("\x1b[C");
-			}
-		}
-	}
-	x =	len + ar->x - 1;
-	while (x < len)
-	{
-		str[x - 1] = str[x];
-		x++;
-	}
-	if (x == len)
-	{
-		str[x - 1] = 0;
-		y--;
-	}
-	x =	len + ar->x - 1;
-	while (x < len)
-	{
-		write(1,&(str[x]),1);
-		x++;
-	}
-	x = 0;
-	while(x > ar->x - 1)
-	{
-		x--;
-		if ((str)[len +  x] != '\n')
-			ft_putstr("\b");
-		else
-		{
-			ft_putstr("\033[A");
-			y = x - 1;
-			while((str)[len + y] != '\n' && y > 0)
-			{
-				ft_putstr("\x1b[C");
-				y--;
-			}
-			if (y == 0)
-			{
-				y = 11;
-				while (y-- > 0)
-					ft_putstr("\x1b[C");
-			}
-		}
-	}
+	str[x - 1] = 0;
+
 	return(str);
 }
 
