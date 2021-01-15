@@ -69,38 +69,50 @@ char	*strdel(char *str, t_arrow *ar)
 return(str);
 }
 
-char	*strput(char *str, t_arrow *ar, char c)
+char	*strput(char *str, t_arrow *ar, char c) //multi dans multi
 {
 	int x;
 	int y;
+	int len;
 
-	if (ar->x == 0)
+	str = remalloc(str, 'X');
+	len = ft_strlen(str);
+	x =	len + ar->x;
+	y = len - 1;
+	while (x <= y)
 	{
-		write(1, &c, 1);
-		str = remalloc(str, c);
+		str[y] = str[y - 1];
+		y--;
 	}
-	else
+	x =	len + ar->x - 1;
+	str[x] = c;
+	while(x < len)
 	{
-		str = remalloc(str, 'X');
-		y = ft_strlen(str);
-		x =	y + ar->x;
+		ft_putchar(str[x]);
 		x++;
-		while (y >= x)
-		{	
-			str[y - 1] = str[y - 2];
-			y--;
-		}
-		str[y - 1] = c;
-		y = ft_strlen(str);
-		x = y + ar->x - 1;
-		while (x <= y)
-		{
-			write(1, &(str[x]), 1);
-			x++;
-		}
-		x = 1;
-		while (ar->x < --x)
+	}
+	x = 0;
+	while(x > ar->x)
+	{
+		x--;
+		if ((str)[len + x] != '\n') 
 			ft_putstr("\b");
+		else
+		{
+			ft_putstr("\033[A");
+			y = len + ar->x - 1;
+			while((str)[y] != '\n' && y > 0)
+			{
+				ft_putstr("\x1b[C");
+				y--;
+			}
+			if (y == 0)
+			{
+				y = 11;
+				while (y-- > 0)
+					ft_putstr("\x1b[C");
+			}
+		}
 	}
 	return (str);
 }
