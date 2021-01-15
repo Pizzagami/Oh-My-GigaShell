@@ -61,6 +61,9 @@ void left(char **str, t_arrow *ar, t_hist *hist);
 
 typedef void FLCH_CSP(char **str, t_arrow *ar, t_hist *hist);
 
+
+void		remove_char(char *str, int index);
+void		replace_chars(char **pstr, char **pquot);
 int			add_matching_names(char *path, int sfdo, t_listdir **actual,
 			char *patern);
 void		add_list(t_listdir *actual, char *minipath, char **final);
@@ -118,5 +121,7 @@ void		builtin_export(char **var, t_env **first);
 void		builtin_unset(char *var, t_env **env);
 void		builtin_pwd(void);
 char		*ft_strjoin_sep(char *s1, char *s2, char sep);
+void		delete_unquoted_newlines(char *str, char *quot);
+int			esc_bksl(int *x, int *i, char *str, char *quot);
 
 #endif

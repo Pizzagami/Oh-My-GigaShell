@@ -7,7 +7,7 @@ SRCS =	./srcs/main.c					\
 		./srcs/term_init.c				\
 		./srcs/star_utils.c				\
 		./srcs/star_list_gestion.c		\
-		./srcs/star_some_stuff.c			\
+		./srcs/star_some_stuff.c		\
 		./srcs/star_random_utils.c		\
 		./srcs/star_char_editing.c		\
 		./srcs/grand_remplacement.c		\
@@ -33,6 +33,8 @@ SRCS =	./srcs/main.c					\
 		./srcs/token_creation_utils.c 	\
 		./srcs/token_tools.c 			\
 		./srcs/exec.c 					\
+		./srcs/exec_utils.c				\
+		./srcs/exec_redirection.c		\
 		./srcs/get_env.c				\
 		./srcs/env.c 					\
 		./srcs/colors.c					\
@@ -40,6 +42,8 @@ SRCS =	./srcs/main.c					\
 		./srcs/multilines.c				\
 		./srcs/exec_builtin.c			\
 		./srcs/quote_string.c			\
+		./srcs/quote_utils.c			\
+		./srcs/quote_char_edit.c		\
 		./builtin/builtin_cd.c			\
 		./builtin/builtin_pwd.c			\
 		./builtin/builtin_env.c			\

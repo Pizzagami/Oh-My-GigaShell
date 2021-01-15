@@ -6,7 +6,7 @@
 /*   By: raimbaultbrieuc <marvin@42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/15 16:23:29 by raimbault         #+#    #+#             */
-/*   Updated: 2021/01/11 16:05:11 by braimbau         ###   ########.fr       */
+/*   Updated: 2021/01/12 11:03:32 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,11 +52,11 @@ char	**create_str_tab(void)
 	ret[12] = NULL;
 	ret[13] = NULL;
 	ret[14] = "Error : Void paranthesis\n";
-	ret[15] = "Error : Way to much paranthesis\n";
+	ret[15] = "Error : Parsing error with paranthesis\n";
 	ret[16] = "Error : Missing opening paranthesis\n";
 	ret[17] = "Error : Missing file after redirection\n";
-	ret[18] = "Error : Niques un peu tes morts pour voir\n";
-	ret[19] = "Error : Niques un peu tes grands morts pour voir\n";
+	ret[18] = "Error : feature not supported\n";
+	ret[19] = "Error : Wrong character after || or &&\n";
 	return (ret);
 }
 

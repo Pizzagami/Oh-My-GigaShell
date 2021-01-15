@@ -6,7 +6,7 @@
 /*   By: raimbaultbrieuc <marvin@42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/15 16:33:43 by raimbault         #+#    #+#             */
-/*   Updated: 2021/01/11 16:07:31 by braimbau         ###   ########.fr       */
+/*   Updated: 2021/01/15 11:27:46 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,20 @@ int			brackets_error(t_token **token, t_token *start, t_token *max,
 	{
 		print_error(ec, 15);
 		return (1);
+	}
+	return (0);
+}
+
+int	this_is_the_norme(t_token **token, int *ec, t_token *max)
+{
+	while (*token && *token != max)
+	{
+		if ((*token)->type == CBRA || (*token)->type == OBRA)
+		{
+			print_error(ec, 18);
+			return (1);
+		}
+		*token = (*token)->next;
 	}
 	return (0);
 }
@@ -72,15 +86,8 @@ t_command	*parse_command(t_token *start, t_token *max, int *ec)
 			command->c_list = parse_list(start->next, token, ec);
 		return (command);
 	}
-	while (token && token != max)
-	{
-		if (token->type == CBRA || token->type == OBRA)
-		{
-			print_error(ec, 18);
-			return (command);
-		}
-		token = token->next;
-	}
+	if (this_is_the_norme(&token, ec, max))
+		return (command);
 	command->redirection = parse_redirection(start, token, ec);
 	command->instruction = parse_instruction(start, token, ec);
 	return (command);

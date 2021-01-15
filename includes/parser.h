@@ -6,7 +6,7 @@
 /*   By: pizzagami <pizzagami@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/15 16:13:31 by raimbault         #+#    #+#             */
-/*   Updated: 2020/12/04 15:02:36 by pizzagami        ###   ########.fr       */
+/*   Updated: 2021/01/15 10:58:12 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,11 @@ typedef struct	s_input
 	t_list	*list;
 }				t_input;
 
-void			clean_token_list(t_token *token);
+
+void			son_pipeline(int pfd[2], t_omm *omm, t_pipeline *pipeline);
+void			exec_binary_son(t_omm omm, t_token *token, char **tab,
+				char **tabenv);void			clean_token_list(t_token *token);
+void			free_tab(char **tabenv);
 t_input			*parse_input(t_token *token_start, int *ec);
 t_list			*parse_list(t_token *token_start, t_token *max, int *ec);
 t_andor			*parse_andor(t_token *token_start, t_token *max, int *ec);
