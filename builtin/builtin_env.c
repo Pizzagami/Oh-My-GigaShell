@@ -45,8 +45,10 @@ void	builtin_export(char **var, t_env **first) //gerer multi val
 		{
 			if (env_split(*var, &name, &val) < 0)
 			{
-				ft_putstr("problem split export\n");
-				exit(0); //0 erreur ?
+				ft_putstr("bash: export: `");
+				ft_putstr(*var);
+				ft_putstr("': not a valid identifier\n");
+				return;
 			}
 			while (current->next)
 				current = current->next;
@@ -75,14 +77,23 @@ void	builtin_unset(char **var, t_env **env) //gerer multi val
 	{
 		while(current->next != NULL)
 		{
-			if (!ft_strncmp(current->next->name, *var, current->next->l_name) && *var[current->next->l_name] == '=')
+			if (!ft_strcmp(current->next->name, *var))
 			{
-				free(current->next->name);
-				free(current->next->val);
-				tmp = current->next;
-				current->next = current->next->next;
-				free(tmp);  //aucune idee de si ca marche
-				break;
+				if ((int)ft_strlen(*var) == current->next->l_name)
+				{
+					free(current->next->name);
+					free(current->next->val);
+					tmp = current->next;
+					current->next = current->next->next;
+					free(tmp);  //aucune idee de si ca marche
+					break;
+				}
+				else if (*var[current->next->l_name] == '=') //cas charactere imterdit
+					{
+						ft_putstr("bash: unset: `");
+						ft_putstr(*var);
+						ft_putstr("': not a valid identifier\n");
+					}
 			}
 			current = current->next;		
 		}
