@@ -48,6 +48,7 @@ SRCS =	./srcs/main.c					\
 		./builtin/builtin_pwd.c			\
 		./builtin/builtin_env.c			\
 		./builtin/builtin_echo.c		\
+		./builtin/builtin_exit.c		\
 
 FLAG = -L includes/libft
 FSANITIZE = -fsanitize=address -g3

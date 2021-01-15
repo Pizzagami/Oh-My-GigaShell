@@ -41,11 +41,13 @@ void	builtin_export(char **var, t_env **first) //gerer multi val
 		tri_and_print(current); //tri et affiche
 	while (*var)
 	{
-		if(find_and_replace(first, *var) != 1) //creer si pas deja existant
+		if(find_and_replace(first, *var) != 1) //creer si pas deja existant message d eereur
 		{
-			ft_putstr("exporting var\n");
 			if (env_split(*var, &name, &val) < 0)
-				ft_putstr("kc\n");
+			{
+				ft_putstr("problem split export\n");
+				exit(0); //0 erreur ?
+			}
 			while (current->next)
 				current = current->next;
 			current->next = malloc(sizeof(t_env));
@@ -58,29 +60,32 @@ void	builtin_export(char **var, t_env **first) //gerer multi val
 			current->next = NULL;
 			//env split avec verif et cas de null ou NULL et caractere interdit
 		}
-	//	ft_putstr("End export\n");
 		//free(*var);
 		var++;
 	}
 }
 
-void	builtin_unset(char *var, t_env **env) //gerer multi val
+void	builtin_unset(char **var, t_env **env) //gerer multi val
 {
 	t_env *current;
 	t_env *tmp;
 
 	current = *env;
-	while(current->next != NULL)
+	while(*var)
 	{
-		if (!ft_strncmp(current->next->name, var, current->next->l_name) && var[current->next->l_name] == '=')
+		while(current->next != NULL)
 		{
-			free(current->next->name);
-			free(current->next->val);
-			tmp = current->next;
-			current->next = current->next->next;
-			free(tmp);  //aucune idee de si ca marche
-			break;
+			if (!ft_strncmp(current->next->name, *var, current->next->l_name) && *var[current->next->l_name] == '=')
+			{
+				free(current->next->name);
+				free(current->next->val);
+				tmp = current->next;
+				current->next = current->next->next;
+				free(tmp);  //aucune idee de si ca marche
+				break;
+			}
+			current = current->next;		
 		}
-		current = current->next;		
+		var++;
 	}
 }

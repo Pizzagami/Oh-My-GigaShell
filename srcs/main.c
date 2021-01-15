@@ -63,7 +63,6 @@ void	file_histo(t_hist *hist)
 	{
 		ft_putstr("GNL Error in file Histo\n");
 	}
-	printf("hist->x = %d \n", hist->x);
 	close(fd);
 }
 
