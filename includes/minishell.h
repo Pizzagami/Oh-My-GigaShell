@@ -90,7 +90,7 @@ void		free_env(t_env *env);
 void		mfree(char *str1, char *str2);
 int			recurdir(char *patern, char *path, char *minipath, char **final);
 void		term_init(struct termios *save_cano, struct termios *save_nncano);
-void		historic(t_hist *hist, char *str);
+void		historic(t_hist *hist, char *str, int y);
 char		caspe(char c, char **str, t_arrow *ar, t_hist *hist);
 char		*remalloc(char *str, char c);
 int			bashy(t_hist *hist, t_arrow *ar, int y);

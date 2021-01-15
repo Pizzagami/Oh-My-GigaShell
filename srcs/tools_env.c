@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tools_env.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: braimbau <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 11:29:21 by braimbau          #+#    #+#             */
-/*   Updated: 2021/01/07 11:49:34 by braimbau         ###   ########.fr       */
+/*   Updated: 2021/01/15 14:53:37 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,10 +71,8 @@ int		env_split(char *str, char **name, char **val)
 int		find_and_replace(t_env **first, char *var)
 {
 	t_env	*current;
-	int		i;
 	int		l_var;
 
-	i = 1;
 	current = *first;
 	l_var = ft_strlen(var);
 	current = *first;

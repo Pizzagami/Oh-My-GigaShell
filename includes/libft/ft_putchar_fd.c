@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/16 14:06:26 by selgrabl          #+#    #+#             */
-/*   Updated: 2019/10/16 14:07:54 by selgrabl         ###   ########.fr       */
+/*   Updated: 2021/01/15 14:54:13 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,4 +15,9 @@
 void	ft_putchar_fd(char c, int fd)
 {
 	write(fd, &c, 1);
+}
+
+void	ft_putchar(char c)
+{
+	write(1, &c, 1);
 }
