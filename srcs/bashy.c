@@ -34,14 +34,39 @@ char	*strdel(char *str, t_arrow *ar)
 	x =	len + ar->x;
 	if (x < 1)
 		return(str);
-	while (x < y)
+	char c = str[x - 1];
+	while (x < len)
 	{
 		str[x - 1] = str[x];
 		x++;
 	}
 	str[x - 1] = 0;
-
-	return(str);
+	x =	len + ar->x - 1;
+	if (c != '\n') 
+			ft_putstr("\b");
+	else
+	{
+		ft_putstr("\033[A");
+		y = x - 1;
+		while((str)[y] != '\n' && y > 0)
+		{
+			ft_putstr("\x1b[C");
+			y--;
+		}
+		if (y == 0)
+		{
+			y = 11;
+			while (y-- > 0)
+				ft_putstr("\x1b[C");
+		}
+	}
+	while(x < len)
+	{
+		ft_putchar(str[x]);
+		ft_putstr(" \b");
+		x++;
+	}
+return(str);
 }
 
 char	*strput(char *str, t_arrow *ar, char c)
@@ -174,7 +199,6 @@ void	up(char **str, t_arrow *ar, t_hist *hist) //A
 			else
 			{
 				ft_putstr("\033[A");
-			//	x--;
 				y = x - 1;
 				while((*str)[y] != '\n' && y > 0)
 				{

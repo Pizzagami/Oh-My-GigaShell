@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/16 14:08:40 by selgrabl          #+#    #+#             */
-/*   Updated: 2020/07/28 15:24:45 by selgrabl         ###   ########.fr       */
+/*   Updated: 2021/01/15 12:14:48 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,4 +26,9 @@ void	ft_putnbr_fd(int nb, int fd)
 	if (nbr >= 10)
 		ft_putnbr_fd(nbr / 10, fd);
 	ft_putchar_fd((char)(nbr % 10 + 48), fd);
+}
+
+void ft_putnbr(nb)
+{
+	ft_putnbr_fd(nb, 1);
 }
