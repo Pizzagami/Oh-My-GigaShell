@@ -81,8 +81,8 @@ void	histo_file(t_hist *hist)
 			free(hist->tab[x]);
 		x++;
 	}
-	free(hist->tab[x]);
-	x = 0;
+	if (x != 0)
+		free(hist->tab[x]);
 	close(fd);
 }
 
