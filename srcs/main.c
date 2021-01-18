@@ -2,6 +2,10 @@
 #include "minishell.h"
 void	free_env(t_env *env);
 
+void langis(int sig)
+{
+	(void)sig;
+}
 int		main(int argc,char **argv, char **env)
 {
 	(void)argc;(void)argv;
@@ -17,6 +21,8 @@ int		main(int argc,char **argv, char **env)
 
 	multi.str = NULL;
 	multi.type = 0;
+	signal(SIGINT, langis);
+	signal(SIGQUIT, langis);
 	last_ret = 0;
 	y = 0;
 	x = 0;
@@ -32,14 +38,14 @@ int		main(int argc,char **argv, char **env)
 	while(1)
     {
         x = bashy(&hist, &ar, y);
-        tcsetattr(0, TCSADRAIN, &save_cano);
-        if (x == 3)
-            break;
-		multi.x = x;	
-		y = multilines(&hist, envi, &last_ret, &multi);
-        tcsetattr(0, TCSADRAIN, &save_nncano);
+		if (x != 3)
+		{
+			tcsetattr(0, TCSADRAIN, &save_cano);
+			multi.x = x;	
+			y = multilines(&hist, envi, &last_ret, &multi);
+			tcsetattr(0, TCSADRAIN, &save_nncano);
+		}
     }
-    ft_putstr("\n^C fin du programme\n");
 	histo_file(&hist);
 	free_env(envi);
 	tcsetattr(0, TCSADRAIN, &save_cano);
@@ -63,7 +69,6 @@ void	file_histo(t_hist *hist)
 	{
 		ft_putstr("GNL Error in file Histo\n");
 	}
-	printf("hist->x = %d \n", hist->x);
 	close(fd);
 }
 
@@ -81,8 +86,8 @@ void	histo_file(t_hist *hist)
 			free(hist->tab[x]);
 		x++;
 	}
-	free(hist->tab[x]);
-	x = 0;
+	if (x != 0)
+		free(hist->tab[x]);
 	close(fd);
 }
 

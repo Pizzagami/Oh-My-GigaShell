@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_builtin.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pizzagami <pizzagami@student.42.fr>        +#+  +:+       +#+        */
+/*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/15 15:24:37 by raimbault         #+#    #+#             */
-/*   Updated: 2020/12/15 17:53:22 by pizzagami        ###   ########.fr       */
+/*   Updated: 2021/01/15 16:40:24 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,9 @@ int		is_builtin(char *exec)
 	if (ft_strcmp(exec, "export") == 0)
 		return (5);
 	if (ft_strcmp(exec, "unset") == 0)
-		return (6); //rajouter exit
+		return (6);
+	if (ft_strcmp(exec, "exit") == 0)
+		return (7);
 	return (0);
 }
 
@@ -52,8 +54,8 @@ int		exec_builtin(char *exec, char **tab, t_env *env)
 	if (i == 5)
 		builtin_export(tab, &env); //message d erreur si probleme
 	if (i == 6)
-		builtin_unset(*tab, &env);
-	//if (i == 7)
-	//	builtin_export(tab, &env);
+		builtin_unset(tab, &env);
+	if (i == 7)
+		builtin_exit();
 	return (0);
 }

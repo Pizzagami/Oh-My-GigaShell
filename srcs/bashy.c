@@ -372,19 +372,20 @@ int		bashy(t_hist *hist, t_arrow *ar, int y) //fleche bas casser
 	ft_putstr("\033[0m$ ");
 	}
 	//279165
+	ar->x = 0;
+	ar->y = 0;
 	while(1)
 	{
 		read(0, &c, 1);
 		if((int)c == 3 || (int)c == 4) // create break cas
 		{
 			free(str);
+			ft_putchar('\n');
 			return(3);
 		}
 		else if ((int)c == 10)
 		{
 			ft_putstr("\n");
-			ar->x = 0;
-			ar->y = 0;
 			if(str[0] != 0)
 			{
 				historic(hist, str, y);
@@ -393,8 +394,7 @@ int		bashy(t_hist *hist, t_arrow *ar, int y) //fleche bas casser
 				free(str);
 				return(1);
 			}
-			else
-				return(0);
+			return(0);
 		}
 		else
 			c =	caspe(c, &str, ar, hist);

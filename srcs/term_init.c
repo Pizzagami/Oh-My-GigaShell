@@ -30,6 +30,8 @@ void	term_init(struct termios *save_cano, struct termios *save_nncano)
 		ft_putstr("error applying configuration\n");
 		exit(0);
 	}
+	signal(SIGINT, NULL);
+	signal(SIGQUIT, NULL);
 	tcgetattr(0, &(*save_nncano));
 	return ;
 }

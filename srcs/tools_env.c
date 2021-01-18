@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 11:29:21 by braimbau          #+#    #+#             */
-/*   Updated: 2021/01/15 14:53:37 by selgrabl         ###   ########.fr       */
+/*   Updated: 2021/01/15 17:14:19 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,13 @@ int		env_split(char *str, char **name, char **val)
 	x = 0;
 	ret = 0;
 	str2 = NULL;
+	if (str[0] == '=' || (str[i] >= '0' && str[i] <= '9')) //mieux gerer ce cas d erreur
+		return (-1);
 	while (str && str[i] != '=')
 	{
 		if (((str[i] > 47 && str[i] < 58) && i > 0) || (str[i] > 96 && str[i] < 123)
-		|| (str[i] > 64 && str[i] < 91) || str[i] == '_')
+		|| (str[i] > 64 && str[i] < 91) || str[i] == '_' ||
+		(str[i] >= '0' && str[i] <= '9'))
 			i++;
 		else if (!str[i])
 		{
@@ -78,7 +81,6 @@ int		find_and_replace(t_env **first, char *var)
 	current = *first;
 	while (current)
 	{
-		printf("%s %d\n", current->name, current->l_name);
 		if (ft_strncmp(current->name, var, current->l_name) == 0
 		&& (var[current->l_name] == '=' || var[current->l_name] == 0))
 		{
@@ -88,7 +90,6 @@ int		find_and_replace(t_env **first, char *var)
 			return (1);
 		}
 		current = current->next;
-		//ft_putstr("1\n");
 	}
 	return (0);
 }
@@ -116,7 +117,6 @@ t_env	*cpy_env(t_env *env)
 
 	if (!env)
 		return (NULL);
-//	ft_putstr("yep:");
 	cpy = malloc(sizeof(t_env));
 	cpy->name = ft_strdup(env->name);
 	if (env->val)
@@ -124,8 +124,6 @@ t_env	*cpy_env(t_env *env)
 	else
 		cpy->val = NULL;
 	cpy->l_name = env->l_name;
-	//ft_putstr(cpy->name);
-	//ft_putstr("\n");
 	cpy->next = cpy_env(env->next);
 	return (cpy);
 }
