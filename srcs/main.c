@@ -1,24 +1,37 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: braimbau <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/01/18 10:23:00 by braimbau          #+#    #+#             */
+/*   Updated: 2021/01/18 10:23:02 by braimbau         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "get_next_line.h"
 #include "minishell.h"
-void	free_env(t_env *env);
 
-void langis(int sig)
+void	langis(int sig)
 {
 	(void)sig;
 }
-int		main(int argc,char **argv, char **env)
-{
-	(void)argc;(void)argv;
-	int x;
-	int y;
-	t_env  *envi;
-	struct termios save_cano;
-	struct termios save_nncano;
-	t_hist	hist;
-	t_arrow ar;
-	int	last_ret;
-	t_multi	multi;
 
+int		main(int argc, char **argv, char **env)
+{
+	int				x;
+	int				y;
+	t_env			*envi;
+	struct termios	save_cano;
+	struct termios	save_nncano;
+	t_hist			hist;
+	t_arrow			ar;
+	int				last_ret;
+	t_multi			multi;
+
+	(void)argc;
+	(void)argv;
 	multi.str = NULL;
 	multi.type = 0;
 	signal(SIGINT, langis);
@@ -35,21 +48,21 @@ int		main(int argc,char **argv, char **env)
 	//ft_init_tab(&hist);
 	term_init(&save_cano, &save_nncano);
 	file_histo(&hist);
-	while(1)
-    {
-        x = bashy(&hist, &ar, y);
+	while (1)
+	{
+		x = bashy(&hist, &ar, y);
 		if (x != 3)
 		{
 			tcsetattr(0, TCSADRAIN, &save_cano);
-			multi.x = x;	
+			multi.x = x;
 			y = multilines(&hist, envi, &last_ret, &multi);
 			tcsetattr(0, TCSADRAIN, &save_nncano);
 		}
-    }
+	}
 	histo_file(&hist);
 	free_env(envi);
 	tcsetattr(0, TCSADRAIN, &save_cano);
-	return(0);
+	return (0);
 }
 
 void	file_histo(t_hist *hist)
@@ -61,7 +74,7 @@ void	file_histo(t_hist *hist)
 	x = 0;
 	fd = open("historic.omgsh", O_RDONLY | O_APPEND);
 	if (fd < 0)
-		return;
+		return ;
 	while ((g = get_next_line(fd, &(hist->tab[x]))) > 0)
 		x++;
 	hist->x = x;
@@ -81,9 +94,9 @@ void	histo_file(t_hist *hist)
 	fd = open("historic.omgsh", O_CREAT | O_RDWR | O_TRUNC, S_IRWXU);
 	while (hist->x > x)
 	{
-			ft_putstr_fd(hist->tab[x], fd);
-			ft_putchar_fd((char)1,fd);
-			free(hist->tab[x]);
+		ft_putstr_fd(hist->tab[x], fd);
+		ft_putchar_fd((char)1, fd);
+		free(hist->tab[x]);
 		x++;
 	}
 	if (x != 0)
@@ -94,7 +107,8 @@ void	histo_file(t_hist *hist)
 void	free_env(t_env *env)
 {
 	t_env *tmp;
-	while(env)
+
+	while (env)
 	{
 		free(env->name);
 		free(env->val);
@@ -103,3 +117,4 @@ void	free_env(t_env *env)
 		free(tmp);
 	}
 }
+

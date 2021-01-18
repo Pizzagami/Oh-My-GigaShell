@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 11:29:21 by braimbau          #+#    #+#             */
-/*   Updated: 2021/01/15 17:14:19 by selgrabl         ###   ########.fr       */
+/*   Updated: 2021/01/18 10:24:16 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +128,7 @@ t_env	*cpy_env(t_env *env)
 	return (cpy);
 }
 
-void		tri_and_print(t_env *first)
+void	tri_and_print(t_env *first)
 {
 	t_env *tmp;
 	t_env *fre;
@@ -166,3 +166,4 @@ void		tri_and_print(t_env *first)
 		free(fre);
 	}
 }
+

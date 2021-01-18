@@ -1,8 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   bashy.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: braimbau <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/01/18 09:59:09 by braimbau          #+#    #+#             */
+/*   Updated: 2021/01/18 10:35:55 by braimbau         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
 #include "minishell.h"
 
-
-void	historic(t_hist *hist ,char *str, int y) // enlever ligne vide et file verif taille max
+void	historic(t_hist *hist, char *str, int y) // enlever ligne vide et file verif taille max
 {
 	int x;
 
@@ -21,34 +32,16 @@ void	historic(t_hist *hist ,char *str, int y) // enlever ligne vide et file veri
 		free(hist->tab[0]);
 		hist->tab[0] = ft_strdup(str);
 	}
-	
 }
 
-char	*strdel(char *str, t_arrow *ar)
+void	bonjour(char c, char *str, int y)
 {
-	int x;
-	int len;
-	int y;
-
-	len = ft_strlen(str);
-	x =	len + ar->x;
-	if (x < 1)
-		return(str);
-	char c = str[x - 1];
-	while (x < len)
-	{
-		str[x - 1] = str[x];
-		x++;
-	}
-	str[x - 1] = 0;
-	x =	len + ar->x - 1;
-	if (c != '\n') 
-			ft_putstr("\b");
+	if (c != '\n')
+		ft_putstr("\b");
 	else
 	{
 		ft_putstr("\033[A");
-		y = x - 1;
-		while((str)[y] != '\n' && y > 0)
+		while ((str)[y] != '\n' && y > 0)
 		{
 			ft_putstr("\x1b[C");
 			y--;
@@ -60,13 +53,62 @@ char	*strdel(char *str, t_arrow *ar)
 				ft_putstr("\x1b[C");
 		}
 	}
-	while(x < len)
+}
+
+char	*strdel(char *str, t_arrow *ar)
+{
+	int		x;
+	int		len;
+	char	c;
+
+	len = ft_strlen(str);
+	x = len + ar->x;
+	if (x < 1)
+		return (str);
+	c = str[x - 1];
+	while (x < len)
+	{
+		str[x - 1] = str[x];
+		x++;
+	}
+	str[x - 1] = 0;
+	x = len + ar->x - 1;
+	bonjour(c, str, x - 1);
+	while (x < len)
 	{
 		ft_putchar(str[x]);
 		ft_putstr(" \b");
 		x++;
 	}
-return(str);
+	return (str);
+}
+
+void	heho(int x, t_arrow *ar, int len, char *str)
+{
+	int y;
+
+	while (x > ar->x)
+	{
+		x--;
+		if ((str)[len + x] != '\n')
+			ft_putstr("\b");
+		else
+		{
+			ft_putstr("\033[A");
+			y = len + ar->x - 1;
+			while ((str)[y] != '\n' && y > 0)
+			{
+				ft_putstr("\x1b[C");
+				y--;
+			}
+			if (y == 0)
+			{
+				y = 11;
+				while (y-- > 0)
+					ft_putstr("\x1b[C");
+			}
+		}
+	}
 }
 
 char	*strput(char *str, t_arrow *ar, char c) //multi dans multi
@@ -77,31 +119,61 @@ char	*strput(char *str, t_arrow *ar, char c) //multi dans multi
 
 	str = remalloc(str, 'X');
 	len = ft_strlen(str);
-	x =	len + ar->x;
+	x = len + ar->x;
 	y = len - 1;
 	while (x <= y)
 	{
 		str[y] = str[y - 1];
 		y--;
 	}
-	x =	len + ar->x - 1;
+	x = len + ar->x - 1;
 	str[x] = c;
-	while(x < len)
+	while (x < len)
 	{
 		ft_putchar(str[x]);
 		x++;
 	}
 	x = 0;
-	while(x > ar->x)
+	heho(x, ar, len, str);
+	return (str);
+}
+
+int		which_case(void)
+{
+	char x;
+
+	read(0, &x, 1);
+	if (x != '[')
+		return (0);
+	read(0, &x, 1);
+	if (x == 'A')
+		return (1);
+	if (x == 'B')
+		return (2);
+	if (x == 'C')
+		return (3);
+	if (x == 'D')
+		return (4);
+	return (0);
+}
+
+void	left(char **str, t_arrow *ar, t_hist *hist) //D
+{
+	int len;
+	int y;
+
+	(void)hist;
+	len = ft_strlen(*str);
+	if (len + ar->x > 0)
 	{
-		x--;
-		if ((str)[len + x] != '\n') 
+		ar->x--;
+		if ((*str)[len + ar->x] != '\n')
 			ft_putstr("\b");
 		else
 		{
 			ft_putstr("\033[A");
 			y = len + ar->x - 1;
-			while((str)[y] != '\n' && y > 0)
+			while ((*str)[y] != '\n' && y > 0)
 			{
 				ft_putstr("\x1b[C");
 				y--;
@@ -114,68 +186,17 @@ char	*strput(char *str, t_arrow *ar, char c) //multi dans multi
 			}
 		}
 	}
-	return (str);
-}
-
-int		which_case()
-{
-	char x;
-
-	read(0, &x, 1);
-	if (x != '[')
-		return 0;
-	read(0, &x, 1);
-	if (x == 'A')
-		return 1;
-	if (x == 'B')
-		return 2;
-	if (x == 'C')
-		return 3;
-	if (x == 'D')
-		return 4;
-	return 0;
-}
-
-void	left(char **str, t_arrow *ar, t_hist *hist) //D
-{
-	(void)hist;
-	int len;
-	int y;
-
-	len = ft_strlen(*str);
-	if (len + ar->x > 0)
-	{
-		ar->x--;
-		if ((*str)[len + ar->x] != '\n') 
-			ft_putstr("\b");
-		else
-		{
-			ft_putstr("\033[A");
-			y = len + ar->x - 1;
-			while((*str)[y] != '\n' && y > 0)
-			{
-				ft_putstr("\x1b[C");
-				y--;
-			}
-			if (y == 0)
-			{
-				y = 11;
-				while (y-- > 0)
-					ft_putstr("\x1b[C");
-			}
-		}
-	}		
 }
 
 void	right(char **str, t_arrow *ar, t_hist *hist) //C peut etre bon
 {
-	(void)hist;
 	int len;
 
+	(void)hist;
 	len = ft_strlen(*str);
 	if (ar->x < 0)
 	{
-		if ((*str)[len + ar->x] != '\n') 
+		if ((*str)[len + ar->x] != '\n')
 			ft_putstr("\033[C");
 		else
 			ft_putstr("\n");
@@ -190,20 +211,19 @@ void	up(char **str, t_arrow *ar, t_hist *hist) //A
 
 	if (hist->x - 1 > ar->y || (ar->y == 0 && hist->x == 1 && !(**str)))
 	{
-		if(!(ar->y == 0 && !(**str)))
+		if (!(ar->y == 0 && !(**str)))
 			ar->y++;
 		x = 0;
 		while (ar->x < 0)
 		{
-			if ((*str)[ft_strlen(*str) + ar->x] != '\n') 
+			if ((*str)[ft_strlen(*str) + ar->x] != '\n')
 				ft_putstr("\033[C");
 			else
 				ft_putstr("\n");
 			ar->x++;
 		}
-		
 		x = ft_strlen(*str);
-		while(x > 0)
+		while (x > 0)
 		{
 			x--;
 			if ((*str)[x] != '\n')
@@ -212,7 +232,7 @@ void	up(char **str, t_arrow *ar, t_hist *hist) //A
 			{
 				ft_putstr("\033[A");
 				y = x - 1;
-				while((*str)[y] != '\n' && y > 0)
+				while ((*str)[y] != '\n' && y > 0)
 				{
 					ft_putstr("\x1b[C");
 					y--;
@@ -227,7 +247,6 @@ void	up(char **str, t_arrow *ar, t_hist *hist) //A
 		}
 		ft_putstr(hist->tab[ar->y]);
 		*str = ft_strdup(hist->tab[ar->y]);
-
 	}
 }
 
@@ -237,10 +256,9 @@ void	down(char **str, t_arrow *ar, t_hist *hist) //B prob hist1 ligne
 	int y;
 
 	x = 0;
-
 	while (ar->x < 0)
 	{
-		if ((*str)[ft_strlen(*str) + ar->x] != '\n') 
+		if ((*str)[ft_strlen(*str) + ar->x] != '\n')
 			ft_putstr("\033[C");
 		else
 			ft_putstr("\n");
@@ -251,11 +269,11 @@ void	down(char **str, t_arrow *ar, t_hist *hist) //B prob hist1 ligne
 		ar->y--;
 		x = ft_strlen(*str);
 		while (ar->x < 0)
-			{
-				ar->x++;
-				ft_putstr("\033[C");
-			}
-		while(x > 0)
+		{
+			ar->x++;
+			ft_putstr("\033[C");
+		}
+		while (x > 0)
 		{
 			x--;
 			if ((*str)[x] != '\n')
@@ -264,7 +282,7 @@ void	down(char **str, t_arrow *ar, t_hist *hist) //B prob hist1 ligne
 			{
 				ft_putstr("\033[A");
 				y = x - 1;
-				while((*str)[y] != '\n' && y > 0)
+				while ((*str)[y] != '\n' && y > 0)
 				{
 					ft_putstr("\x1b[C");
 					y--;
@@ -279,10 +297,10 @@ void	down(char **str, t_arrow *ar, t_hist *hist) //B prob hist1 ligne
 		}
 		ft_putstr(hist->tab[ar->y]);
 		*str = ft_strdup(hist->tab[ar->y]);
-		return;
+		return ;
 	}
 	x = ft_strlen(*str);
-	while(x > 0)
+	while (x > 0)
 	{
 		x--;
 		if ((*str)[x] != '\n')
@@ -291,7 +309,7 @@ void	down(char **str, t_arrow *ar, t_hist *hist) //B prob hist1 ligne
 		{
 			ft_putstr("\033[A");
 			y = x - 1;
-			while((*str)[y] != '\n' && y > 0)
+			while ((*str)[y] != '\n' && y > 0)
 			{
 				ft_putstr("\x1b[C");
 				y--;
@@ -317,33 +335,33 @@ char	caspe(char c, char **str, t_arrow *ar, t_hist *hist)
 	fleche_caspe[3] = &right;
 	fleche_caspe[4] = &left;
 	if ((int)c == 9 || (int)c < 1)
-		return(c = '\0');
-	if((int)c == 127)
+		return (c = '\0');
+	if ((int)c == 127)
 	{
-	 *str = strdel(*str, ar);
+		*str = strdel(*str, ar);
 		c = '\0';
 	}
-	else if((int)c == 27)
+	else if ((int)c == 27)
 	{
 		(*fleche_caspe[which_case()])(str, ar, hist);
 	}
 	else
-		*str = strput(*str,ar, c);
-	return(c);
+		*str = strput(*str, ar, c);
+	return (c);
 }
 
 char	*remalloc(char *str, char c)
 {
-	int x;
-	int i;
-	char *tmp;
+	int		x;
+	int		i;
+	char	*tmp;
 
 	x = 0;
 	i = ft_strlen(str);
 	tmp = ft_strdup(str);
 	free(str);
 	str = malloc(sizeof(char) * (i + 2));
-	while(x < i)
+	while (x < i)
 	{
 		str[x] = tmp[x];
 		x++;
@@ -351,52 +369,58 @@ char	*remalloc(char *str, char c)
 	free(tmp);
 	str[i] = c;
 	str[i + 1] = '\0';
-	return(str);
+	return (str);
+}
+
+int		loop(char *str, t_hist *hist, int y, t_arrow *ar)
+{
+	char c;
+
+	c = 0;
+	while (1)
+	{
+		read(0, &c, 1);
+		if ((int)c == 3 || (int)c == 4) // create break cas
+		{
+			free(str);
+			ft_putchar('\n');
+			return (3);
+		}
+		else if ((int)c == 10)
+		{
+			ft_putstr("\n");
+			if (str[0] != 0)
+			{
+				historic(hist, str, y);
+				hist->x = (hist->x < 256 && !y) ? hist->x + 1 : hist->x;
+				ft_bzero(str, ft_strlen(str));
+				free(str);
+				return (1);
+			}
+			return (0);
+		}
+		else
+			c = caspe(c, &str, ar, hist);
+	}
 }
 
 int		bashy(t_hist *hist, t_arrow *ar, int y) //fleche bas casser
 {
-	char c;
 	char *str;
 
 	str = malloc(sizeof(char) * 1);
 	str[0] = '\0';
-	c ='\0';
 	setcolor(&(hist->cc));
 	if (y)
 		ft_putstr(">\033[0m");
 	else
 	{
-		write(1, "My-Bash:",8);
-	//ft_putstr(getcwd(path, PATH_MAX - 1));
-	ft_putstr("\033[0m$ ");
+		write(1, "My-Bash:", 8);
+		//ft_putstr(getcwd(path, PATH_MAX - 1));
+		ft_putstr("\033[0m$ ");
 	}
 	//279165
 	ar->x = 0;
 	ar->y = 0;
-	while(1)
-	{
-		read(0, &c, 1);
-		if((int)c == 3 || (int)c == 4) // create break cas
-		{
-			free(str);
-			ft_putchar('\n');
-			return(3);
-		}
-		else if ((int)c == 10)
-		{
-			ft_putstr("\n");
-			if(str[0] != 0)
-			{
-				historic(hist, str, y);
-				hist->x = (hist->x < 256 && !y) ? hist->x + 1: hist->x;
-				ft_bzero(str, ft_strlen(str));
-				free(str);
-				return(1);
-			}
-			return(0);
-		}
-		else
-			c =	caspe(c, &str, ar, hist);
-	}
+	return(loop(str, hist, y, ar)); 
 }
