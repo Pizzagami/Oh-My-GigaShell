@@ -6,7 +6,7 @@
 /*   By: raimbaultbrieuc <marvin@42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/15 16:33:43 by raimbault         #+#    #+#             */
-/*   Updated: 2021/01/15 11:27:46 by braimbau         ###   ########.fr       */
+/*   Updated: 2021/01/18 10:43:23 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int			brackets_error(t_token **token, t_token *start, t_token *max,
 	return (0);
 }
 
-int	this_is_the_norme(t_token **token, int *ec, t_token *max)
+int			this_is_the_norme(t_token **token, int *ec, t_token *max)
 {
 	while (*token && *token != max)
 	{

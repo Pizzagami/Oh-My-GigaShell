@@ -6,11 +6,12 @@
 /*   By: braimbau <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 11:09:48 by braimbau          #+#    #+#             */
-/*   Updated: 2021/01/15 10:31:00 by braimbau         ###   ########.fr       */
+/*   Updated: 2021/01/19 11:24:18 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
+#include "get_next_line.h"
 
 int		great_redirection(t_redirection *redirection)
 {
@@ -57,6 +58,33 @@ int		less_redirection(t_redirection *redirection)
 	return (0);
 }
 
+int		lesser_redirection(t_redirection *redirection)
+{
+	char	*buf;
+	char	*str = "";
+	int		ret;
+
+	ft_putstr(">");
+	ret = get_next_line(0, &buf);
+	while (ret && ft_strcmp(buf, redirection->filename))
+	{
+		if (ret == -1)
+			; //gerer cette erreur
+		str = ft_strjoin_sep(str, buf, '\n');
+		free(buf);
+		ft_putstr(">");
+		ret = get_next_line(0, &buf);
+	}
+	int fd = open(".tempfile", O_WRONLY | O_CREAT);
+	ft_putstr_fd(str, fd);
+	close(fd);
+	fd = open(".tempfile", O_RDONLY);
+	dup2(fd, 0);
+	close(fd);
+	remove(".tempfile");
+	return (0);
+}
+
 int		exec_redirection(t_redirection *redirection, t_omm omm)
 {
 	if (redirection && redirection->type == GREAT &&
@@ -67,6 +95,9 @@ int		exec_redirection(t_redirection *redirection, t_omm omm)
 		return (1);
 	else if (redirection && redirection->type == LESS
 			&& less_redirection(redirection))
+		return (1);
+	else if (redirection && redirection->type == DLESS
+			&& lesser_redirection(redirection))
 		return (1);
 	else if (0)
 	{

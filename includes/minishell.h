@@ -61,7 +61,15 @@ void left(char **str, t_arrow *ar, t_hist *hist);
 
 typedef void FLCH_CSP(char **str, t_arrow *ar, t_hist *hist);
 
-
+void		bonjour(char c, char *str, int y);
+void		heho(int x, t_arrow *ar, int len, char *str);
+int			which_case(void);
+char		*remalloc(char *str, char c);
+char		*strput(char *str, t_arrow *ar, char c);
+void		left(char **str, t_arrow *ar, t_hist *hist);
+void		right(char **str, t_arrow *ar, t_hist *hist);
+void		up(char **str, t_arrow *ar, t_hist *hist);
+void		down(char **str, t_arrow *ar, t_hist *hist);
 void		remove_char(char *str, int index);
 void		replace_chars(char **pstr, char **pquot);
 int			add_matching_names(char *path, int sfdo, t_listdir **actual,

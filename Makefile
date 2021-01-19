@@ -4,6 +4,8 @@ LIB = libft.a
 
 SRCS =	./srcs/main.c					\
 		./srcs/bashy.c					\
+		./srcs/bashy_direction.c		\
+		./srcs/bashy_utils.c			\
 		./srcs/term_init.c				\
 		./srcs/star_utils.c				\
 		./srcs/star_list_gestion.c		\
