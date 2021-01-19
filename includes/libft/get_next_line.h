@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/26 15:04:49 by selgrabl          #+#    #+#             */
-/*   Updated: 2020/10/05 18:04:29 by selgrabl         ###   ########.fr       */
+/*   Updated: 2021/01/19 15:42:23 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # include <stdlib.h>
 # include <stdio.h>
 
-int		get_next_line(int fd, char **line);
+int		get_next_line(int fd, char **line, char c);
 char	*ft_strcpy(char *dest, char *src);
 void	join(char **line, char **buf, int x);
 int		increase_buf(char **buf);

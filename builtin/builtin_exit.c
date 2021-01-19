@@ -1,6 +1,7 @@
-#include <stdlib.h>
+#include "minishell.h"
 
-void    builtin_exit(void)
+void    builtin_exit(t_env *env)
 {
+    free_env(env);
     exit(0);
 }

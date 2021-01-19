@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bashy.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: braimbau <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 09:59:09 by braimbau          #+#    #+#             */
-/*   Updated: 2021/01/18 11:03:11 by braimbau         ###   ########.fr       */
+/*   Updated: 2021/01/19 15:08:16 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,12 @@ char	*strdel(char *str, t_arrow *ar)
 	{
 		ft_putchar(str[x]);
 		ft_putstr(" \b");
+		x++;
+	}
+	x =	len + ar->x;
+	while(x < len)
+	{
+		ft_putstr("\b");
 		x++;
 	}
 	return (str);

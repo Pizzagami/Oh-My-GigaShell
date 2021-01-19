@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/26 15:03:19 by selgrabl          #+#    #+#             */
-/*   Updated: 2019/11/07 15:04:55 by selgrabl         ###   ########.fr       */
+/*   Updated: 2021/01/19 15:49:03 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ char	**init(char **line, char **buf, int fd)
 	return (buf);
 }
 
-int		get_next_line(int fd, char **line)
+int		get_next_line(int fd, char **line, char c)
 {
 	static char		**buf;
 	int				x;
@@ -59,10 +59,10 @@ int		get_next_line(int fd, char **line)
 				return (clear_buff(x, fd, &buf));
 		}
 		x = 0;
-		while (buf[fd][x] && buf[fd][x] != '\n')
+		while (buf[fd][x] && buf[fd][x] != c)
 			x++;
 		join(line, &buf[fd], x);
-		if (buf[fd][0] == '\n')
+		if (buf[fd][0] == c)
 			return (increase_buf(&buf[fd]));
 	}
 }
