@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 09:59:09 by braimbau          #+#    #+#             */
-/*   Updated: 2021/01/20 16:24:59 by selgrabl         ###   ########.fr       */
+/*   Updated: 2021/01/20 20:57:17 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ char	caspe(char c, char **str, t_arrow *ar, t_hist *hist)
 	{
 		(*fleche_caspe[which_case()])(str, ar, hist);
 	}
-	else if (ft_isalnum(c) || c == ' ')
+	else if (c > 31 && c < 127)
 		*str = strput(*str, ar, c);
 	return (c);
 }
