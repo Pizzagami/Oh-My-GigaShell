@@ -6,14 +6,13 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 09:59:09 by braimbau          #+#    #+#             */
-/*   Updated: 2021/01/20 14:58:10 by selgrabl         ###   ########.fr       */
+/*   Updated: 2021/01/20 16:24:59 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
 #include "minishell.h"
 
-void	historic(t_hist *hist, char *str, int y) // enlever ligne vide et file verif taille max
+void	historic(t_hist *hist, char *str, int y)
 {
 	int x;
 
@@ -94,7 +93,7 @@ char	caspe(char c, char **str, t_arrow *ar, t_hist *hist)
 	{
 		(*fleche_caspe[which_case()])(str, ar, hist);
 	}
-	else
+	else if (ft_isalnum(c) || c == ' ')
 		*str = strput(*str, ar, c);
 	return (c);
 }
@@ -139,7 +138,7 @@ int		loop(char *str, t_hist *hist, int y, t_arrow *ar)
 	}
 }
 
-int		bashy(t_hist *hist, t_arrow *ar, int y) //fleche bas casser
+int		bashy(t_hist *hist, t_arrow *ar, int y)
 {
 	char *str;
 

@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/08 10:49:12 by braimbau          #+#    #+#             */
-/*   Updated: 2021/01/20 15:34:37 by selgrabl         ###   ########.fr       */
+/*   Updated: 2021/01/20 15:53:01 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,22 +28,8 @@ int	multilines(t_hist *hist, t_env *env, int *last_ret, t_multi *multi)
 	}
 	if (multi->x == 0)
 		hist->tab[0] = (multi->type) ?
-		ft_strjoin_sep(multi->str, "", '\n') : "";
-	int pid = fork();
-	if (pid == 0)
-	{
-		printf("Bonjour, je rentre dans persecutor\n");
-		ret = persecutor(hist, env, last_ret);
-		printf("Bonjour, je sors de persecutor, je vais me tuer\n");
-		exit(ret);
-	}
-	else
-	{
-		printf("Bonjour, j'attend mon fils'\n");
-		waitpid(pid, &ret, 0);
-		printf("Bonjour, mon fils est mort'\n");
-
-	}
+	ft_strjoin_sep(multi->str, "", '\n') : "";
+	ret = persecutor(hist, env, last_ret);
 	if (ret == 1 || ret == 2 || ret == 7 || ret == 12 || ret == 13)
 	{
 		multi->str = ft_strdup(hist->tab[0]);

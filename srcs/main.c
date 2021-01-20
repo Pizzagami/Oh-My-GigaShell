@@ -6,18 +6,18 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 10:23:00 by braimbau          #+#    #+#             */
-/*   Updated: 2021/01/19 16:49:17 by selgrabl         ###   ########.fr       */
+/*   Updated: 2021/01/20 16:17:32 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 #include "minishell.h"
-#include <signal.h>
+
+
 void	langis(int sig)
 {
-	ft_putnbr(sig);
-	ft_putstr("\n");
-	(void)sig;
+	if (sig == 3)
+		ft_putstr("Quit: 3\n");
 }
 
 int		main(int argc, char **argv, char **env)
@@ -33,13 +33,11 @@ int		main(int argc, char **argv, char **env)
 	t_multi			multi;
 	char			*path;
 	
-	// kill(getpid(), SIGQUIT);
 	(void)argc;
 	(void)argv;
 	multi.str = NULL;
 	multi.type = 0;
-	signal(SIGINT, langis);
-	signal(SIGQUIT, langis);
+
 	path = malloc(sizeof(char) * 1024);
 	strlcat(getcwd(path, PATH_MAX - 1), "/historic.omgsh",ft_strlen(path) + 16);
 	last_ret = 0;
@@ -51,8 +49,9 @@ int		main(int argc, char **argv, char **env)
 	envi = NULL;
 	dup_env(env, &envi);
 	hist.cc = is_unicorn_set(envi);
-	//ft_init_tab(&hist);
 	term_init(&save_cano, &save_nncano);
+	signal(SIGINT, langis);
+	signal(SIGQUIT, langis);
 	file_histo(&hist, path);
 	while (1)
 	{
