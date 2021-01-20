@@ -6,7 +6,7 @@
 /*   By: braimbau <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 11:00:35 by braimbau          #+#    #+#             */
-/*   Updated: 2021/01/18 11:03:08 by braimbau         ###   ########.fr       */
+/*   Updated: 2021/01/20 10:06:21 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,4 +128,3 @@ char	*strput(char *str, t_arrow *ar, char c) //multi dans multi
 	heho(x, ar, len, str);
 	return (str);
 }
-

@@ -46,6 +46,8 @@ SRCS =	./srcs/main.c					\
 		./srcs/quote_string.c			\
 		./srcs/quote_utils.c			\
 		./srcs/quote_char_edit.c		\
+		./srcs/heredoc.c				\
+		./srcs/heredoc_tree.c			\
 		./builtin/builtin_cd.c			\
 		./builtin/builtin_pwd.c			\
 		./builtin/builtin_env.c			\
