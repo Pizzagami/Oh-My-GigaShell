@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bashy_direction.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: braimbau <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 10:55:06 by braimbau          #+#    #+#             */
-/*   Updated: 2021/01/18 10:59:21 by braimbau         ###   ########.fr       */
+/*   Updated: 2021/01/20 15:06:40 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,3 +180,61 @@ void	down(char **str, t_arrow *ar, t_hist *hist) //B prob hist1 ligne
 	*str = ft_strdup("\0");
 }
 
+void	home(char **str, t_arrow *ar, t_hist *hist) //27[H 27[F end
+{
+	(void)hist;
+	(void)str;
+	(void) ar;
+}
+
+void	endl(char **str, t_arrow *ar, t_hist *hist)
+{
+	(void)hist;
+	(void)str;
+	(void) ar;
+}
+
+void	wleft(t_arrow *ar, char *str) //1
+{
+	int len;
+
+	len = ft_strlen(str);
+	while (ft_isalnum(str[len + ar->x]) && len + ar->x > 0)
+	{
+		left(&str, ar, NULL);
+	}
+	while (((str[len + ar->x] == ' ' || str[len + ar->x] == '\n') && len + ar->x > 0) || ar->x == 0)
+	{
+		left(&str, ar, NULL);
+	}
+	while (ft_isalnum(str[len + ar->x]) && len + ar->x > 0)
+	{
+		left(&str, ar, NULL);
+	}
+	if (len + ar->x != 0)
+		right(&str, ar, NULL);
+}
+
+void	wright(t_arrow *ar, char *str) //5
+{
+	int len;
+	char *tmp;
+	//int ax;
+
+	tmp = ft_strdup(str);
+	len = ft_strlen(str);
+	/*ax = ar->x;
+	while (ft_isalnum(tmp[len + ax]))
+		ax++;
+	while (((tmp[len + ax] == ' ' || tmp[len + ax] == '\n') && len + ar->x  < len))
+		ax++;
+	if (ax >= 0)
+	{
+		free(tmp);
+		return;
+	} */
+	while (ft_isalnum(str[len + ar->x]) && len + ar->x < len)
+		right(&str, ar, NULL);
+	while ((str[len + ar->x] == ' ' || str[len + ar->x] == '\n') && len + ar->x < len)
+		right(&str, ar, NULL);
+}

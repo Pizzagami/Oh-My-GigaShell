@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_tree.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pizzagami <pizzagami@student.42.fr>        +#+  +:+       +#+        */
+/*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 14:45:18 by raimbault         #+#    #+#             */
-/*   Updated: 2021/01/12 11:21:17 by braimbau         ###   ########.fr       */
+/*   Updated: 2021/01/19 16:49:44 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int		exec_andor(t_andor *andor, t_omm omm)
 	}
 	return (i);
 }
-
+#include <signal.h>
 int		exec_pipeline(t_pipeline *pipeline, t_omm omm)
 {
 	int		i;
@@ -38,6 +38,7 @@ int		exec_pipeline(t_pipeline *pipeline, t_omm omm)
 	int		x;
 
 	i = 0;
+	// kill(getpid(), SIGQUIT);
 	if (pipeline->brother)
 	{
 		pipe(pfd);

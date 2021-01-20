@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 09:59:09 by braimbau          #+#    #+#             */
-/*   Updated: 2021/01/19 15:08:16 by selgrabl         ###   ########.fr       */
+/*   Updated: 2021/01/20 14:58:10 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ char	*strdel(char *str, t_arrow *ar)
 	}
 	str[x - 1] = 0;
 	x = len + ar->x - 1;
-	bonjour(c, str, x - 1);
+	vleft(c, str, x - 1);
 	while (x < len)
 	{
 		ft_putchar(str[x]);
@@ -70,13 +70,15 @@ char	*strdel(char *str, t_arrow *ar)
 
 char	caspe(char c, char **str, t_arrow *ar, t_hist *hist)
 {
-	FLCH_CSP *fleche_caspe[5];
+	FLCH_CSP *fleche_caspe[7];
 
 	fleche_caspe[0] = NULL;
 	fleche_caspe[1] = &up;
 	fleche_caspe[2] = &down;
 	fleche_caspe[3] = &right;
 	fleche_caspe[4] = &left;
+	fleche_caspe[5] = &endl;
+	fleche_caspe[6] = &home;
 	if ((int)c == 9 || (int)c < 1)
 		return (c = '\0');
 	if ((int)c == 127)
@@ -84,6 +86,10 @@ char	caspe(char c, char **str, t_arrow *ar, t_hist *hist)
 		*str = strdel(*str, ar);
 		c = '\0';
 	}
+	else if ((int)c == 1)
+		wleft(ar, *str);
+	else if ((int)c == 5)
+		wright(ar, *str);
 	else if ((int)c == 27)
 	{
 		(*fleche_caspe[which_case()])(str, ar, hist);
@@ -101,11 +107,19 @@ int		loop(char *str, t_hist *hist, int y, t_arrow *ar)
 	while (1)
 	{
 		read(0, &c, 1);
-		if ((int)c == 3 || (int)c == 4) // create break cas
+		if ((int)c == 3) // create cas d et 
 		{
 			free(str);
 			ft_putchar('\n');
 			return (3);
+		}
+		else if ((int)c == 4 && str[0] == 0)
+		{
+			free(str);
+			str = ft_strdup("exit");
+			ft_putstr("exit\n");
+			historic(hist, str, y);
+			return(1);
 		}
 		else if ((int)c == 10)
 		{

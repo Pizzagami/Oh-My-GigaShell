@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_redirection.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: braimbau <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 11:09:48 by braimbau          #+#    #+#             */
-/*   Updated: 2021/01/19 11:24:18 by braimbau         ###   ########.fr       */
+/*   Updated: 2021/01/19 16:20:51 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ int		lesser_redirection(t_redirection *redirection)
 	int		ret;
 
 	ft_putstr(">");
-	ret = get_next_line(0, &buf);
+	ret = get_next_line(0, &buf, '\n');
 	while (ret && ft_strcmp(buf, redirection->filename))
 	{
 		if (ret == -1)
@@ -73,7 +73,7 @@ int		lesser_redirection(t_redirection *redirection)
 		str = ft_strjoin_sep(str, buf, '\n');
 		free(buf);
 		ft_putstr(">");
-		ret = get_next_line(0, &buf);
+		ret = get_next_line(0, &buf, '\n');
 	}
 	int fd = open(".tempfile", O_WRONLY | O_CREAT);
 	ft_putstr_fd(str, fd);

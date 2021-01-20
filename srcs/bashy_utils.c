@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   bashy_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: braimbau <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 11:00:35 by braimbau          #+#    #+#             */
-/*   Updated: 2021/01/18 11:03:08 by braimbau         ###   ########.fr       */
+/*   Updated: 2021/01/20 14:56:46 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	bonjour(char c, char *str, int y)
+void	vleft(char c, char *str, int y)
 {
 	if (c != '\n')
 		ft_putstr("\b");
@@ -33,7 +33,7 @@ void	bonjour(char c, char *str, int y)
 	}
 }
 
-void	heho(int x, t_arrow *ar, int len, char *str)
+void	vleft_ar(int x, t_arrow *ar, int len, char *str)
 {
 	int y;
 
@@ -77,6 +77,10 @@ int		which_case(void)
 		return (3);
 	if (x == 'D')
 		return (4);
+	if (x == 'F')
+		return (5);
+	if (x == 'H')
+		return (6);
 	return (0);
 }
 
@@ -125,7 +129,7 @@ char	*strput(char *str, t_arrow *ar, char c) //multi dans multi
 		x++;
 	}
 	x = 0;
-	heho(x, ar, len, str);
+	vleft_ar(x, ar, len, str);
 	return (str);
 }
 

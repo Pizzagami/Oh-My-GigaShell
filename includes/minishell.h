@@ -58,11 +58,15 @@ void up(char **str, t_arrow *ar, t_hist *hist);
 void down(char **str, t_arrow *ar, t_hist *hist);
 void right(char **str, t_arrow *ar, t_hist *hist);
 void left(char **str, t_arrow *ar, t_hist *hist);
+void home(char **str, t_arrow *ar, t_hist *hist);
+void endl(char **str, t_arrow *ar, t_hist *hist);
 
 typedef void FLCH_CSP(char **str, t_arrow *ar, t_hist *hist);
 
-void		bonjour(char c, char *str, int y);
-void		heho(int x, t_arrow *ar, int len, char *str);
+void		wright(t_arrow *ar, char *str);
+void		wleft(t_arrow *ar, char *str);
+void		vleft(char c, char *str, int y);
+void		vleft_ar(int x, t_arrow *ar, int len, char *str);
 int			which_case(void);
 char		*remalloc(char *str, char c);
 char		*strput(char *str, t_arrow *ar, char c);

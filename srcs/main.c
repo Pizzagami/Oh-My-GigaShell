@@ -6,15 +6,17 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 10:23:00 by braimbau          #+#    #+#             */
-/*   Updated: 2021/01/19 15:46:50 by selgrabl         ###   ########.fr       */
+/*   Updated: 2021/01/19 16:49:17 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 #include "minishell.h"
-
+#include <signal.h>
 void	langis(int sig)
 {
+	ft_putnbr(sig);
+	ft_putstr("\n");
 	(void)sig;
 }
 
@@ -31,6 +33,7 @@ int		main(int argc, char **argv, char **env)
 	t_multi			multi;
 	char			*path;
 	
+	// kill(getpid(), SIGQUIT);
 	(void)argc;
 	(void)argv;
 	multi.str = NULL;
