@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 11:00:35 by braimbau          #+#    #+#             */
-/*   Updated: 2021/01/20 14:56:46 by selgrabl         ###   ########.fr       */
+/*   Updated: 2021/01/20 15:11:23 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,4 +132,3 @@ char	*strput(char *str, t_arrow *ar, char c) //multi dans multi
 	vleft_ar(x, ar, len, str);
 	return (str);
 }
-

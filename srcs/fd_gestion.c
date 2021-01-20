@@ -6,7 +6,7 @@
 /*   By: braimbau <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/28 15:03:37 by braimbau          #+#    #+#             */
-/*   Updated: 2020/12/03 13:12:16 by braimbau         ###   ########.fr       */
+/*   Updated: 2021/01/20 10:05:53 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,6 @@ t_omm	init_std_fd(t_env *env, int *last_ret)
 
 void	reset_fd(t_omm omm)
 {
-	if (1)
-		dup2(omm.stdout, 1);
-	if (1)
-		dup2(omm.stdin, 0);
+	dup2(omm.stdout, 1);
+	dup2(omm.stdin, 0);
 }

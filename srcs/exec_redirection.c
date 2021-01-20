@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 11:09:48 by braimbau          #+#    #+#             */
-/*   Updated: 2021/01/19 16:20:51 by selgrabl         ###   ########.fr       */
+/*   Updated: 2021/01/20 15:13:04 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,28 +60,11 @@ int		less_redirection(t_redirection *redirection)
 
 int		lesser_redirection(t_redirection *redirection)
 {
-	char	*buf;
-	char	*str = "";
-	int		ret;
-
-	ft_putstr(">");
-	ret = get_next_line(0, &buf, '\n');
-	while (ret && ft_strcmp(buf, redirection->filename))
-	{
-		if (ret == -1)
-			; //gerer cette erreur
-		str = ft_strjoin_sep(str, buf, '\n');
-		free(buf);
-		ft_putstr(">");
-		ret = get_next_line(0, &buf, '\n');
-	}
-	int fd = open(".tempfile", O_WRONLY | O_CREAT);
-	ft_putstr_fd(str, fd);
-	close(fd);
-	fd = open(".tempfile", O_RDONLY);
+	int fd;
+	fd = open(redirection->filename, O_RDONLY);
 	dup2(fd, 0);
 	close(fd);
-	remove(".tempfile");
+	remove(redirection->filename);
 	return (0);
 }
 
@@ -99,13 +82,6 @@ int		exec_redirection(t_redirection *redirection, t_omm omm)
 	else if (redirection && redirection->type == DLESS
 			&& lesser_redirection(redirection))
 		return (1);
-	else if (0)
-	{
-		if (omm.stdout != 1)
-			dup2(omm.stdout, 1);
-		if (omm.stdin != 0)
-			dup2(omm.stdin, 0);
-	}
 	if (redirection && redirection->brother)
 	{
 		redirection = redirection->brother;
@@ -113,3 +89,4 @@ int		exec_redirection(t_redirection *redirection, t_omm omm)
 	}
 	return (0);
 }
+

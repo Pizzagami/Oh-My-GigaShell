@@ -6,7 +6,7 @@
 /*   By: raimbaultbrieuc <marvin@42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/15 15:24:37 by raimbault         #+#    #+#             */
-/*   Updated: 2021/01/19 10:17:56 by braimbau         ###   ########.fr       */
+/*   Updated: 2021/01/19 13:23:18 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,13 @@ int		persecutor(t_hist *hist, t_env *env, int *last_ret)
 	str = ft_strdup(hist->tab[0]);
 	quot = quote_string(&str, &ec);
 	if (ec)
-	{
-		free(str);
-		free(quot);
+		mfree(str, quot);
+	if (ec)
 		return (print_error(&ec, ec));
-	}
 	token_start = create_token_list(str, quot);
 	tree = parse_input(token_start, &ec);
+	if (!ec)
+		heredoc_input(tree, &ec);
 	if (!ec)
 		exec_input(tree, init_std_fd(env, last_ret));
 	else

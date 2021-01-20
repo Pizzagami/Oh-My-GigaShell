@@ -6,7 +6,7 @@
 /*   By: raimbaultbrieuc <marvin@42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/15 16:23:29 by raimbault         #+#    #+#             */
-/*   Updated: 2021/01/12 11:03:32 by braimbau         ###   ########.fr       */
+/*   Updated: 2021/01/19 14:06:15 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ char	**create_str_tab(void)
 	ret[17] = "Error : Missing file after redirection\n";
 	ret[18] = "Error : feature not supported\n";
 	ret[19] = "Error : Wrong character after || or &&\n";
+	ret[20] = "Error : Can't create file for heredoc\n";
 	return (ret);
 }
 

@@ -6,7 +6,7 @@
 /*   By: pizzagami <pizzagami@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/15 16:13:31 by raimbault         #+#    #+#             */
-/*   Updated: 2021/01/19 11:39:04 by braimbau         ###   ########.fr       */
+/*   Updated: 2021/01/20 09:37:06 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,9 @@ typedef struct	s_input
 	t_list	*list;
 }				t_input;
 
-
+void			set_heredoc(t_redirection *redirection, int *ec);
+void			heredoc_list(t_list *list, int *ec);
+void			heredoc_input(t_input *input, int *ec);
 void			son_pipeline(int pfd[2], t_omm *omm, t_pipeline *pipeline);
 void			exec_binary_son(t_omm omm, t_token *token, char **tab,
 				char **tabenv);void			clean_token_list(t_token *token);
