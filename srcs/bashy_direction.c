@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 10:55:06 by braimbau          #+#    #+#             */
-/*   Updated: 2021/01/20 16:52:50 by selgrabl         ###   ########.fr       */
+/*   Updated: 2021/01/21 16:29:54 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ void	up(char **str, t_arrow *ar, t_hist *hist)
 				}
 				if (y == 0)
 				{
-					y = 11;
+					y = (hist->y == 0) ? 11: 11; //a regler 
 					while (y-- > 0)
 						ft_putstr("\x1b[C");
 				}

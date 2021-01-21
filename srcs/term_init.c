@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 10:25:04 by braimbau          #+#    #+#             */
-/*   Updated: 2021/01/20 15:12:32 by selgrabl         ###   ########.fr       */
+/*   Updated: 2021/01/21 15:10:05 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,6 @@ void	term_init(struct termios *save_cano, struct termios *save_nncano)
 	config.c_cc[VMIN] = 1;
 	config.c_cc[VTIME] = 0;
 	check_errors(&config, fd);
-	signal(SIGINT, NULL);
-	signal(SIGQUIT, NULL);
 	tcgetattr(0, &(*save_nncano));
 	return ;
 }

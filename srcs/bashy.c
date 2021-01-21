@@ -6,18 +6,18 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 09:59:09 by braimbau          #+#    #+#             */
-/*   Updated: 2021/01/21 11:33:45 by selgrabl         ###   ########.fr       */
+/*   Updated: 2021/01/21 16:55:56 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	historic(t_hist *hist, char *str, int y)
+void	historic(t_hist *hist, char *str)
 {
 	int x;
 
 	x = 254;
-	if (!y)
+	if (!hist->y)
 	{
 		while (x >= 0)
 		{
@@ -98,7 +98,7 @@ char	caspe(char c, char **str, t_arrow *ar, t_hist *hist)
 	return (c);
 }
 
-int		loop(char *str, t_hist *hist, int y, t_arrow *ar)
+int		loop(char *str, t_hist *hist, t_arrow *ar)
 {
 	char c;
 
@@ -110,14 +110,23 @@ int		loop(char *str, t_hist *hist, int y, t_arrow *ar)
 		{
 			free(str);
 			ft_putchar('\n');
+			hist->y = 0;
 			return (3);
 		}
 		else if ((int)c == 4 && str[0] == 0)
 		{
-			free(str);
-			str = ft_strdup("exit");
-			ft_putstr("exit\n");
-			historic(hist, str, y);
+			if(!hist->y)
+			{
+				free(str);
+				str = ft_strdup("exit");
+				ft_putstr("exit\n");
+				historic(hist, str);
+			}
+			else
+			{
+				ft_putstr("bash: unexpected EOF while looking for matching `'\"\nbash: syntaxt error: unexpected end of file");
+				free(str);
+			}
 			return(1);
 		}
 		else if ((int)c == 10)
@@ -125,8 +134,8 @@ int		loop(char *str, t_hist *hist, int y, t_arrow *ar)
 			ft_putstr("\n");
 			if (str[0] != 0)
 			{
-				historic(hist, str, y);
-				hist->x = (hist->x < 256 && !y) ? hist->x + 1 : hist->x;
+				historic(hist, str);
+				hist->x = (hist->x < 256 && !hist->y) ? hist->x + 1 : hist->x;
 				ft_bzero(str, ft_strlen(str));
 				free(str);
 				return (1);
@@ -138,14 +147,14 @@ int		loop(char *str, t_hist *hist, int y, t_arrow *ar)
 	}
 }
 
-int		bashy(t_hist *hist, t_arrow *ar, int y)
+int		bashy(t_hist *hist, t_arrow *ar)
 {
 	char *str;
 
 	str = malloc(sizeof(char) * 1);
 	str[0] = '\0';
 	setcolor(&(hist->cc));
-	if (y)
+	if (hist->y)
 		ft_putstr(">\033[0m");
 	else
 	{
@@ -155,5 +164,5 @@ int		bashy(t_hist *hist, t_arrow *ar, int y)
 	}
 	ar->x = 0;
 	ar->y = 0;
-	return(loop(str, hist, y, ar)); 
+	return(loop(str, hist, ar)); 
 }

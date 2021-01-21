@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 10:23:00 by braimbau          #+#    #+#             */
-/*   Updated: 2021/01/21 13:45:48 by braimbau         ###   ########.fr       */
+/*   Updated: 2021/01/21 16:09:36 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ void	langis(int sig)
 {
 	if (sig == 3)
 		ft_putstr("Quit: 3\n");
+		if (sig == 2)
+		ft_putstr("\b\b  \b\b");
 }
 
 int		main(int argc, char **argv, char **env)
@@ -46,6 +48,7 @@ int		main(int argc, char **argv, char **env)
 	ar.x = 0;
 	ar.y = 0;
 	hist.x = 0;
+	hist.y = 0;
 	envi = NULL;
 	dup_env(env, &envi);
 	hist.cc = is_unicorn_set(envi);
@@ -55,12 +58,12 @@ int		main(int argc, char **argv, char **env)
 	file_histo(&hist, path);
 	while (1)
 	{
-		x = bashy(&hist, &ar, y);
+		x = bashy(&hist, &ar);
 		if (x != 3)
 		{
 			tcsetattr(0, TCSADRAIN, &save_cano);
 			multi.x = x;
-			y = multilines(&hist, envi, &last_ret, &multi);
+			hist.y = multilines(&hist, envi, &last_ret, &multi);
 			histo_file(&hist, path);
 			tcsetattr(0, TCSADRAIN, &save_nncano);
 		}
