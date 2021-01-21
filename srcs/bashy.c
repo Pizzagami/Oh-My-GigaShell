@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 09:59:09 by braimbau          #+#    #+#             */
-/*   Updated: 2021/01/21 11:32:50 by selgrabl         ###   ########.fr       */
+/*   Updated: 2021/01/21 11:33:45 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ char	caspe(char c, char **str, t_arrow *ar, t_hist *hist)
 	{
 		(*fleche_caspe[which_case()])(str, ar, hist);
 	}
-	else if (ft_isalnum(c) || c == ' ')
+	else if (c > 31 && c < 127)
 		*str = strput(*str, ar, c);
 	return (c);
 }
@@ -106,7 +106,7 @@ int		loop(char *str, t_hist *hist, int y, t_arrow *ar)
 	while (1)
 	{
 		read(0, &c, 1);
-		if ((int)c == 3) // create cas d et 
+		if ((int)c == 3)
 		{
 			free(str);
 			ft_putchar('\n');
