@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 10:55:06 by braimbau          #+#    #+#             */
-/*   Updated: 2021/01/20 16:31:22 by selgrabl         ###   ########.fr       */
+/*   Updated: 2021/01/20 16:52:50 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	up(char **str, t_arrow *ar, t_hist *hist)
 {
 	int x;
 	int y;
-
+	
 	if (hist->x - 1 > ar->y || (ar->y == 0 && hist->x == 1 && !(**str)))
 	{
 		if (!(ar->y == 0 && !(**str)))

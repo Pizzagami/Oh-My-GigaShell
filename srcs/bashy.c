@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 09:59:09 by braimbau          #+#    #+#             */
-/*   Updated: 2021/01/20 16:24:59 by selgrabl         ###   ########.fr       */
+/*   Updated: 2021/01/21 11:32:50 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,7 +153,6 @@ int		bashy(t_hist *hist, t_arrow *ar, int y)
 		//ft_putstr(getcwd(path, PATH_MAX - 1));
 		ft_putstr("\033[0m$ ");
 	}
-	//279165
 	ar->x = 0;
 	ar->y = 0;
 	return(loop(str, hist, y, ar)); 
