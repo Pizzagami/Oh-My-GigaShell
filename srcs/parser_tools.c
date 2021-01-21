@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_tools.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: raimbaultbrieuc <marvin@42.fr>             +#+  +:+       +#+        */
+/*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/15 16:23:29 by raimbault         #+#    #+#             */
-/*   Updated: 2021/01/19 14:06:15 by braimbau         ###   ########.fr       */
+/*   Updated: 2021/01/21 13:50:10 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ char	**create_str_tab(void)
 {
 	char **ret;
 
-	ret = malloc(sizeof(char *) * 20);
+	ret = malloc(sizeof(char *) * 21);
 	ret[0] = NULL;
 	ret[1] = NULL;
 	ret[2] = NULL;
@@ -64,7 +64,6 @@ char	**create_str_tab(void)
 int		print_error(int *ec, int error)
 {
 	char **tab;
-
 	tab = create_str_tab();
 	ft_putstr(tab[error]);
 	*ec = error;
