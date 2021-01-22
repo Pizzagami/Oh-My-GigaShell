@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pizzagami <pizzagami@student.42.fr>        +#+  +:+       +#+        */
+/*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/15 16:13:31 by raimbault         #+#    #+#             */
-/*   Updated: 2021/01/20 09:37:06 by braimbau         ###   ########.fr       */
+/*   Updated: 2021/01/22 11:59:30 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ typedef struct	s_input
 	t_list	*list;
 }				t_input;
 
+int     		poor_bashy(char *eof,char **str);
 void			set_heredoc(t_redirection *redirection, int *ec);
 void			heredoc_list(t_list *list, int *ec);
 void			heredoc_input(t_input *input, int *ec);

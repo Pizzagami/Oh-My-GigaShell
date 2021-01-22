@@ -24,13 +24,6 @@ void    buitin_echo(char **str)
         str++;
         x++;
     }
-   /* if (n == 1)
-    {
-        if (*(str[ft_strlen(*str) - 1]) != '\n')
-            {
-                write(1,"%",1);//changer couleur fond
-            }
-    } */
     if (n == 0)
     {
         write(1,"\n",1);
