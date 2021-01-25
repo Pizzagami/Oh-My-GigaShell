@@ -3,6 +3,7 @@
 
 char	poor_caspe(char c, char **str, t_arrow *ar)
 {
+	int i;
 	FLCH_CSP *fleche_caspe[7];
 
 	fleche_caspe[0] = NULL;
@@ -25,7 +26,9 @@ char	poor_caspe(char c, char **str, t_arrow *ar)
 		wright(ar, *str);
 	else if ((int)c == 27)
 	{
-		(*fleche_caspe[which_case()])(str, ar, NULL);
+		i = which_case();
+		if (i > 2)
+			(*fleche_caspe[i])(str, ar, NULL);
 	}
 	else if (c > 31 && c < 127)
 		*str = strput(*str, ar, c);
@@ -42,7 +45,6 @@ int     poor_loop(char **str, t_arrow *ar,char *eof)
 		read(0, &c, 1);
 		if (c == 3)
 		{
-			ft_putstr("A\n");
 			free(*str);
 			return (3);
 		}
@@ -78,5 +80,9 @@ int     poor_bashy(char *eof,char **str, struct termios	save_cano,
 	tcsetattr(0, TCSADRAIN, &save_nncano);
     ret = poor_loop(str, &ar, eof);
     tcsetattr(0, TCSADRAIN, &save_cano);
+	if(ret != 2)
+		ft_putstr("\n");
+	else
+		ft_putchar(' ');
     return(ret);
 }

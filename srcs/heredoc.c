@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 11:49:38 by braimbau          #+#    #+#             */
-/*   Updated: 2021/01/25 16:03:52 by selgrabl         ###   ########.fr       */
+/*   Updated: 2021/01/25 16:40:34 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ void	set_heredoc(t_redirection *redirection, int *ec)
 	term_init(&save_cano, &save_nncano);
 	ft_putstr(">");
 	ret = poor_bashy(redirection->filename, &buf, save_cano, save_nncano);
-	ft_putstr("yo l rap\n");
 	while (ret < 2 && ft_strcmp(buf, redirection->filename))
 	{
 		(void)ec;
@@ -55,13 +54,13 @@ void	set_heredoc(t_redirection *redirection, int *ec)
 		free(buf);
 		ft_putstr(">\033[0m");
 		ret = poor_bashy(redirection->filename, &buf, save_cano, save_nncano);
-		ft_putstr("\n");
 	}
 	redirection->filename = rdmstr(12);
 	fd = open(redirection->filename, O_WRONLY | O_CREAT, S_IRWXU);
 	if (str)
 	{
-		ft_putstr_fd(str, fd);
+		if (ret != 3)
+			ft_putstr_fd(str, fd);
 		free(str);
 	}
 	close(fd);
