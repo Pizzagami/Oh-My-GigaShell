@@ -40,10 +40,10 @@ int     poor_loop(char **str, t_arrow *ar,char *eof)
 	while (1)
 	{
 		read(0, &c, 1);
+		ft_putnbr(c);
 		if ((int)c == 3)
 		{
 			free(*str);
-			ft_putchar('\n');
 			return (3);
 		}
 		else if ((int)c == 4 && *str[0] == 0)
@@ -55,7 +55,6 @@ int     poor_loop(char **str, t_arrow *ar,char *eof)
 		else if ((int)c == 10)
 		{
 
-			ft_putstr("\n");
 			if (*str[0] != 0)
 			{
 				ft_bzero(*str, ft_strlen(*str));
@@ -73,7 +72,7 @@ int     poor_bashy(char *eof,char **str)
     struct termios save_cano;
 	struct termios config;
     t_arrow ar;
-    int tam_r;
+    int ret;
 
 	*str = malloc(sizeof(char) * 1);
 	*str[0] = '\0';
@@ -81,7 +80,9 @@ int     poor_bashy(char *eof,char **str)
     config.c_lflag &= ~(ECHO | ICANON | ISIG);
 	 tcsetattr(0, TCSADRAIN, &config);
 	ar.y = 0;
-    tam_r = poor_loop(str,&ar, eof);
+	ar.x = 0;
+    ret = poor_loop(str,&ar, eof);
     tcsetattr(0, TCSADRAIN, &save_cano);
-    return(tam_r); 
+	ft_putstr("\n");
+    return(ret);
 }
