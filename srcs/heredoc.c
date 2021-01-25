@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 11:49:38 by braimbau          #+#    #+#             */
-/*   Updated: 2021/01/25 15:03:31 by selgrabl         ###   ########.fr       */
+/*   Updated: 2021/01/25 16:03:52 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,18 +38,24 @@ void	set_heredoc(t_redirection *redirection, int *ec)
 	char	*str;
 	int		ret;
 	int		fd;
-
+	struct termios	save_cano;
+	struct termios	save_nncano;
+	
 	str = NULL;
+	term_init(&save_cano, &save_nncano);
 	ft_putstr(">");
-	ret = poor_bashy(redirection->filename, &buf);
+	ret = poor_bashy(redirection->filename, &buf, save_cano, save_nncano);
+	ft_putstr("yo l rap\n");
 	while (ret < 2 && ft_strcmp(buf, redirection->filename))
 	{
+		(void)ec;
 		if (ret == -1)
 			print_error(ec, 20);
 		str = ft_strjoin_sep(str, buf, '\n');
 		free(buf);
 		ft_putstr(">\033[0m");
-		ret = poor_bashy(redirection->filename, &buf);
+		ret = poor_bashy(redirection->filename, &buf, save_cano, save_nncano);
+		ft_putstr("\n");
 	}
 	redirection->filename = rdmstr(12);
 	fd = open(redirection->filename, O_WRONLY | O_CREAT, S_IRWXU);
