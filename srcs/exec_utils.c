@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pizzagami <pizzagami@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 11:11:48 by braimbau          #+#    #+#             */
-/*   Updated: 2021/01/20 15:53:13 by selgrabl         ###   ########.fr       */
+/*   Updated: 2021/01/24 21:56:04 by pizzagami        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,12 +53,10 @@ char	**link_tab(t_env *env)
 void	exec_binary_son(t_omm omm, t_token *token, char **tab, char **tabenv)
 {
 	char	*path;
-	int		ret;
 
 	path = get_path(omm.env, token->str);
 	if (!path)
 	{
-		ret = 1;
 		ft_putstr("bashy: ");
 		ft_putstr(tab[0]);
 		ft_putstr(" : command not found\n");
@@ -66,7 +64,7 @@ void	exec_binary_son(t_omm omm, t_token *token, char **tab, char **tabenv)
 	else
 	{
 		tabenv = link_tab(omm.env);
-		ret = execve(path, tab, tabenv);
+		execve(path, tab, tabenv);
 	}
 	free(tab);
 	exit(127);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bashy_direction.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pizzagami <pizzagami@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 10:55:06 by braimbau          #+#    #+#             */
-/*   Updated: 2021/01/21 16:29:54 by selgrabl         ###   ########.fr       */
+/*   Updated: 2021/01/24 21:55:13 by pizzagami        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -218,9 +218,7 @@ void	wleft(t_arrow *ar, char *str)
 void	wright(t_arrow *ar, char *str)
 {
 	int len;
-	char *tmp;
 
-	tmp = ft_strdup(str);
 	len = ft_strlen(str);
 	while (ft_isalnum(str[len + ar->x]) && len + ar->x < len)
 		right(&str, ar, NULL);

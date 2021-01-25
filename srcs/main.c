@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pizzagami <pizzagami@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 10:23:00 by braimbau          #+#    #+#             */
-/*   Updated: 2021/01/21 16:09:36 by selgrabl         ###   ########.fr       */
+/*   Updated: 2021/01/24 22:01:02 by pizzagami        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,13 @@ void	langis(int sig)
 {
 	if (sig == 3)
 		ft_putstr("Quit: 3\n");
-		if (sig == 2)
+	if (sig == 2)
 		ft_putstr("\b\b  \b\b");
 }
 
 int		main(int argc, char **argv, char **env)
 {
 	int				x;
-	int				y;
 	t_env			*envi;
 	struct termios	save_cano;
 	struct termios	save_nncano;
@@ -40,10 +39,9 @@ int		main(int argc, char **argv, char **env)
 	multi.str = NULL;
 	multi.type = 0;
 
-	path = malloc(sizeof(char) * 1024);
-	strlcat(getcwd(path, PATH_MAX - 1), "/historic.omgsh",ft_strlen(path) + 16);
+	path = ft_calloc(1, 1024);
+	ft_strlcat(getcwd(path, PATH_MAX - 1), "/historic.omgsh",ft_strlen(path) + 16);
 	last_ret = 0;
-	y = 0;
 	x = 0;
 	ar.x = 0;
 	ar.y = 0;
