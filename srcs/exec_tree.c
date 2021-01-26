@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 14:45:18 by raimbault         #+#    #+#             */
-/*   Updated: 2021/01/20 15:11:14 by selgrabl         ###   ########.fr       */
+/*   Updated: 2021/01/26 10:05:40 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,27 @@
 int		exec_andor(t_andor *andor, t_omm omm)
 {
 	int i;
+	int a;
 
+	a = 1;
 	i = 0;
 	reset_fd(omm);
 	if (andor->pipeline)
 		i = exec_pipeline(andor->pipeline, omm);
-	if (andor->brother)
+	while (andor->brother && a)
 	{
 		if (andor->type == AND_IF && !i)
+		{
 			i = exec_andor(andor->brother, omm);
-		if (andor->type == OR_IF && i)
+			a = 0;
+		}
+		else if (andor->type == OR_IF && i)
+		{
 			i = exec_andor(andor->brother, omm);
+			a = 0;
+		}
+		else
+			andor = andor->brother;
 	}
 	return (i);
 }
