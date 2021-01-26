@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 10:55:06 by braimbau          #+#    #+#             */
-/*   Updated: 2021/01/26 16:36:41 by selgrabl         ###   ########.fr       */
+/*   Updated: 2021/01/26 17:15:12 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,16 +56,33 @@ void	right(char **str, t_arrow *ar, t_hist *hist)
 	}
 }
 
+void	upanddown(char **str, t_hist *hist, int x)
+{
+	int y;
+
+	ft_putstr("\033[A");
+	y = x - 1;
+	while ((*str)[y] != '\n' && y > 0)
+	{
+		ft_putstr("\x1b[C");
+		y--;
+	}
+	if (y == 0)
+	{
+		y = (hist->y == 0) ? 11 : 11;
+		while (y-- > 0)
+			ft_putstr("\x1b[C");
+	}
+}
+
 void	up(char **str, t_arrow *ar, t_hist *hist)
 {
 	int x;
-	int y;
 
 	if (hist->x - 1 > ar->y || (ar->y == 0 && hist->x == 1 && !(**str)))
 	{
 		if (!(ar->y == 0 && !(**str)))
 			ar->y++;
-		x = 0;
 		while (ar->x < 0)
 		{
 			if ((*str)[ft_strlen(*str) + ar->x] != '\n')
@@ -75,27 +92,12 @@ void	up(char **str, t_arrow *ar, t_hist *hist)
 			ar->x++;
 		}
 		x = ft_strlen(*str);
-		while (x > 0)
+		while (--x + 1 > 0)
 		{
-			x--;
 			if ((*str)[x] != '\n')
 				ft_putstr("\b \b");
 			else
-			{
-				ft_putstr("\033[A");
-				y = x - 1;
-				while ((*str)[y] != '\n' && y > 0)
-				{
-					ft_putstr("\x1b[C");
-					y--;
-				}
-				if (y == 0)
-				{
-					y = (hist->y == 0) ? 11 : 11;
-					while (y-- > 0)
-						ft_putstr("\x1b[C");
-				}
-			}
+				upanddown(str, hist, x);
 		}
 		ft_putstr(hist->tab[ar->y]);
 		*str = ft_strdup(hist->tab[ar->y]);
@@ -105,7 +107,6 @@ void	up(char **str, t_arrow *ar, t_hist *hist)
 void	down(char **str, t_arrow *ar, t_hist *hist)
 {
 	int x;
-	int y;
 
 	x = 0;
 	while (ar->x < 0)
@@ -131,21 +132,7 @@ void	down(char **str, t_arrow *ar, t_hist *hist)
 			if ((*str)[x] != '\n')
 				ft_putstr("\b \b");
 			else
-			{
-				ft_putstr("\033[A");
-				y = x - 1;
-				while ((*str)[y] != '\n' && y > 0)
-				{
-					ft_putstr("\x1b[C");
-					y--;
-				}
-				if (y == 0)
-				{
-					y = 11;
-					while (y-- > 0)
-						ft_putstr("\x1b[C");
-				}
-			}
+				upanddown(str, hist, x);
 		}
 		ft_putstr(hist->tab[ar->y]);
 		*str = ft_strdup(hist->tab[ar->y]);
@@ -158,21 +145,7 @@ void	down(char **str, t_arrow *ar, t_hist *hist)
 		if ((*str)[x] != '\n')
 			ft_putstr("\b \b");
 		else
-		{
-			ft_putstr("\033[A");
-			y = x - 1;
-			while ((*str)[y] != '\n' && y > 0)
-			{
-				ft_putstr("\x1b[C");
-				y--;
-			}
-			if (y == 0)
-			{
-				y = 11;
-				while (y-- > 0)
-					ft_putstr("\x1b[C");
-			}
-		}
+			upanddown(str, hist, x);
 	}
 	*str = ft_strdup("\0");
 }

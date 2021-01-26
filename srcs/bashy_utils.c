@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 11:00:35 by braimbau          #+#    #+#             */
-/*   Updated: 2021/01/26 16:29:42 by selgrabl         ###   ########.fr       */
+/*   Updated: 2021/01/26 17:23:26 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ char	*remalloc(char *str, char c)
 	return (str);
 }
 
-char	*strput(char *str, t_arrow *ar, char c) //multi dans multi
+char	*strput(char *str, t_arrow *ar, char c)
 {
 	int x;
 	int y;

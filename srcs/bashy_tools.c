@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 09:59:09 by braimbau          #+#    #+#             */
-/*   Updated: 2021/01/26 16:29:39 by selgrabl         ###   ########.fr       */
+/*   Updated: 2021/01/26 17:22:29 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ char	*strdel(char *str, t_arrow *ar)
 void	home(char **str, t_arrow *ar, t_hist *hist)
 {
 	(void)hist;
-	while(ft_strlen(*str) + ar->x > 0)
+	while (ft_strlen(*str) + ar->x > 0)
 		wleft(ar, *str);
 }
 
@@ -60,10 +60,10 @@ void	wleft(t_arrow *ar, char *str)
 	int len;
 
 	len = ft_strlen(str);
-
 	if (str[len + ar->x] != ' ' && len + ar->x > 0)
 		left(&str, ar, NULL);
-	while (((str[len + ar->x] == ' ' || str[len + ar->x] == '\n') && len + ar->x > 0) || ar->x == 0)
+	while (((str[len + ar->x] == ' ' || str[len + ar->x] == '\n')
+	&& len + ar->x > 0) || ar->x == 0)
 	{
 		left(&str, ar, NULL);
 	}
@@ -71,7 +71,7 @@ void	wleft(t_arrow *ar, char *str)
 	{
 		left(&str, ar, NULL);
 	}
-	if (len + ar->x != 0 ||(len + ar->x == 0 && str[0] == ' '))
+	if (len + ar->x != 0 || (len + ar->x == 0 && str[0] == ' '))
 		right(&str, ar, NULL);
 }
 
@@ -82,6 +82,7 @@ void	wright(t_arrow *ar, char *str)
 	len = ft_strlen(str);
 	while (str[len + ar->x] != ' ' && len + ar->x < len)
 		right(&str, ar, NULL);
-	while ((str[len + ar->x] == ' ' || str[len + ar->x] == '\n') && len + ar->x < len)
+	while ((str[len + ar->x] == ' ' || str[len + ar->x] == '\n')
+	&& len + ar->x < len)
 		right(&str, ar, NULL);
 }

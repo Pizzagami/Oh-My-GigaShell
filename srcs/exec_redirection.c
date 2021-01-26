@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 11:09:48 by braimbau          #+#    #+#             */
-/*   Updated: 2021/01/21 14:34:15 by braimbau         ###   ########.fr       */
+/*   Updated: 2021/01/26 17:23:07 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ int		less_redirection(t_redirection *redirection)
 int		lesser_redirection(t_redirection *redirection)
 {
 	int fd;
+
 	fd = open(redirection->filename, O_RDONLY);
 	dup2(fd, 0);
 	close(fd);
@@ -89,4 +90,3 @@ int		exec_redirection(t_redirection *redirection, t_omm omm)
 	}
 	return (0);
 }
-
