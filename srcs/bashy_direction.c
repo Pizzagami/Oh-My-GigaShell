@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 10:55:06 by braimbau          #+#    #+#             */
-/*   Updated: 2021/01/25 16:57:54 by selgrabl         ###   ########.fr       */
+/*   Updated: 2021/01/26 14:28:34 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -199,19 +199,18 @@ void	wleft(t_arrow *ar, char *str)
 	int len;
 
 	len = ft_strlen(str);
-	while (ft_isalnum(str[len + ar->x]) && len + ar->x > 0)
-	{
+
+	if (str[len + ar->x] != ' ' && len + ar->x > 0)
 		left(&str, ar, NULL);
-	}
 	while (((str[len + ar->x] == ' ' || str[len + ar->x] == '\n') && len + ar->x > 0) || ar->x == 0)
 	{
 		left(&str, ar, NULL);
 	}
-	while (ft_isalnum(str[len + ar->x]) && len + ar->x > 0)
+	while (str[len + ar->x] != ' ' && len + ar->x > 0)
 	{
 		left(&str, ar, NULL);
 	}
-	if (len + ar->x != 0 || str[0] != ' ')
+	if (len + ar->x != 0 ||(len + ar->x == 0 && str[0] == ' '))
 		right(&str, ar, NULL);
 }
 
@@ -220,7 +219,7 @@ void	wright(t_arrow *ar, char *str)
 	int len;
 
 	len = ft_strlen(str);
-	while (ft_isalnum(str[len + ar->x]) && len + ar->x < len)
+	while (str[len + ar->x] != ' ' && len + ar->x < len)
 		right(&str, ar, NULL);
 	while ((str[len + ar->x] == ' ' || str[len + ar->x] == '\n') && len + ar->x < len)
 		right(&str, ar, NULL);
