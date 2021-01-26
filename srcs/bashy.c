@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 09:59:09 by braimbau          #+#    #+#             */
-/*   Updated: 2021/01/21 16:55:56 by selgrabl         ###   ########.fr       */
+/*   Updated: 2021/01/26 16:26:43 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,51 +33,12 @@ void	historic(t_hist *hist, char *str)
 	}
 }
 
-char	*strdel(char *str, t_arrow *ar)
-{
-	int		x;
-	int		len;
-	char	c;
-
-	len = ft_strlen(str);
-	x = len + ar->x;
-	if (x < 1)
-		return (str);
-	c = str[x - 1];
-	while (x < len)
-	{
-		str[x - 1] = str[x];
-		x++;
-	}
-	str[x - 1] = 0;
-	x = len + ar->x - 1;
-	vleft(c, str, x - 1);
-	while (x < len)
-	{
-		ft_putchar(str[x]);
-		ft_putstr(" \b");
-		x++;
-	}
-	x =	len + ar->x;
-	while(x < len)
-	{
-		ft_putstr("\b");
-		x++;
-	}
-	return (str);
-}
-
 char	caspe(char c, char **str, t_arrow *ar, t_hist *hist)
 {
-	FLCH_CSP *fleche_caspe[7];
+	FLCH_CSP	*fleche_caspe[7];
+	int			i;
 
-	fleche_caspe[0] = NULL;
-	fleche_caspe[1] = &up;
-	fleche_caspe[2] = &down;
-	fleche_caspe[3] = &right;
-	fleche_caspe[4] = &left;
-	fleche_caspe[5] = &endl;
-	fleche_caspe[6] = &home;
+	fleche_init(fleche_caspe);
 	if ((int)c == 9 || (int)c < 1)
 		return (c = '\0');
 	if ((int)c == 127)
@@ -91,11 +52,41 @@ char	caspe(char c, char **str, t_arrow *ar, t_hist *hist)
 		wright(ar, *str);
 	else if ((int)c == 27)
 	{
-		(*fleche_caspe[which_case()])(str, ar, hist);
+		i = which_case();
+		if (i > 0)
+			(*fleche_caspe[i])(str, ar, hist);
 	}
 	else if (c > 31 && c < 127)
 		*str = strput(*str, ar, c);
 	return (c);
+}
+
+int		looping(char *str, char c, t_hist *hist)
+{
+	if ((int)c == 3)
+	{
+		free(str);
+		ft_putchar('\n');
+		hist->y = 0;
+		return (3);
+	}
+	else
+	{
+		if (!hist->y)
+		{
+			free(str);
+			str = ft_strdup("exit");
+			ft_putstr("exit\n");
+			historic(hist, str);
+		}
+		else
+		{
+			ft_putstr("bash: unexpected EOF while looking for matching");
+			ft_putstr(" `'\"\nbash: syntaxt error: unexpected end of file");
+			free(str);
+		}
+		return (1);
+	}
 }
 
 int		loop(char *str, t_hist *hist, t_arrow *ar)
@@ -106,29 +97,8 @@ int		loop(char *str, t_hist *hist, t_arrow *ar)
 	while (1)
 	{
 		read(0, &c, 1);
-		if ((int)c == 3)
-		{
-			free(str);
-			ft_putchar('\n');
-			hist->y = 0;
-			return (3);
-		}
-		else if ((int)c == 4 && str[0] == 0)
-		{
-			if(!hist->y)
-			{
-				free(str);
-				str = ft_strdup("exit");
-				ft_putstr("exit\n");
-				historic(hist, str);
-			}
-			else
-			{
-				ft_putstr("bash: unexpected EOF while looking for matching `'\"\nbash: syntaxt error: unexpected end of file");
-				free(str);
-			}
-			return(1);
-		}
+		if ((int)c == 3 || ((int)c == 4 && str[0] == 0))
+			return (looping(str, c, hist));
 		else if ((int)c == 10)
 		{
 			ft_putstr("\n");
@@ -159,10 +129,9 @@ int		bashy(t_hist *hist, t_arrow *ar)
 	else
 	{
 		write(1, "My-Bash:", 8);
-		//ft_putstr(getcwd(path, PATH_MAX - 1));
 		ft_putstr("\033[0m$ ");
 	}
 	ar->x = 0;
 	ar->y = 0;
-	return(loop(str, hist, ar)); 
+	return (loop(str, hist, ar));
 }

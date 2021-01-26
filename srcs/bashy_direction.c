@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 10:55:06 by braimbau          #+#    #+#             */
-/*   Updated: 2021/01/26 14:28:34 by selgrabl         ###   ########.fr       */
+/*   Updated: 2021/01/26 16:36:41 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,8 @@ void	left(char **str, t_arrow *ar, t_hist *hist)
 		{
 			ft_putstr("\033[A");
 			y = len + ar->x - 1;
-			while ((*str)[y] != '\n' && y > 0)
-			{
+			while ((*str)[y] != '\n' && y-- > 0)
 				ft_putstr("\x1b[C");
-				y--;
-			}
 			if (y == 0)
 			{
 				y = 11;
@@ -63,7 +60,7 @@ void	up(char **str, t_arrow *ar, t_hist *hist)
 {
 	int x;
 	int y;
-	
+
 	if (hist->x - 1 > ar->y || (ar->y == 0 && hist->x == 1 && !(**str)))
 	{
 		if (!(ar->y == 0 && !(**str)))
@@ -94,7 +91,7 @@ void	up(char **str, t_arrow *ar, t_hist *hist)
 				}
 				if (y == 0)
 				{
-					y = (hist->y == 0) ? 11: 11; //a regler 
+					y = (hist->y == 0) ? 11 : 11;
 					while (y-- > 0)
 						ft_putstr("\x1b[C");
 				}
@@ -178,49 +175,4 @@ void	down(char **str, t_arrow *ar, t_hist *hist)
 		}
 	}
 	*str = ft_strdup("\0");
-}
-
-void	home(char **str, t_arrow *ar, t_hist *hist)
-{
-	(void)hist;
-	while(ft_strlen(*str) + ar->x > 0)
-		wleft(ar, *str);
-}
-
-void	endl(char **str, t_arrow *ar, t_hist *hist)
-{
-	(void)hist;
-	while (ft_strlen(*str) + ar->x < ft_strlen(*str))
-		wright(ar, *str);
-}
-
-void	wleft(t_arrow *ar, char *str)
-{
-	int len;
-
-	len = ft_strlen(str);
-
-	if (str[len + ar->x] != ' ' && len + ar->x > 0)
-		left(&str, ar, NULL);
-	while (((str[len + ar->x] == ' ' || str[len + ar->x] == '\n') && len + ar->x > 0) || ar->x == 0)
-	{
-		left(&str, ar, NULL);
-	}
-	while (str[len + ar->x] != ' ' && len + ar->x > 0)
-	{
-		left(&str, ar, NULL);
-	}
-	if (len + ar->x != 0 ||(len + ar->x == 0 && str[0] == ' '))
-		right(&str, ar, NULL);
-}
-
-void	wright(t_arrow *ar, char *str)
-{
-	int len;
-
-	len = ft_strlen(str);
-	while (str[len + ar->x] != ' ' && len + ar->x < len)
-		right(&str, ar, NULL);
-	while ((str[len + ar->x] == ' ' || str[len + ar->x] == '\n') && len + ar->x < len)
-		right(&str, ar, NULL);
 }

@@ -66,6 +66,7 @@ void endl(char **str, t_arrow *ar, t_hist *hist);
 
 typedef void FLCH_CSP(char **str, t_arrow *ar, t_hist *hist);
 
+void		fleche_init(FLCH_CSP *fleche_caspe[7]);
 void		wright(t_arrow *ar, char *str);
 char		*strdel(char *str, t_arrow *ar);
 void		wleft(t_arrow *ar, char *str);
