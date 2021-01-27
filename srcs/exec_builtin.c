@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/15 15:24:37 by raimbault         #+#    #+#             */
-/*   Updated: 2021/01/22 11:16:20 by selgrabl         ###   ########.fr       */
+/*   Updated: 2021/01/26 17:20:00 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int		is_builtin(char *exec)
 
 int		exec_builtin(char *exec, char **tab, t_env *env)
 {
-	int i; //verif taille tab
+	int i;
 
 	i = 0;
 	i = is_builtin(exec);
@@ -50,7 +50,7 @@ int		exec_builtin(char *exec, char **tab, t_env *env)
 	if (i == 4)
 		builtin_env(env);
 	if (i == 5)
-		builtin_export(tab, &env); //message d erreur si probleme
+		builtin_export(tab, &env);
 	if (i == 6)
 		builtin_unset(tab, &env);
 	if (i == 7)

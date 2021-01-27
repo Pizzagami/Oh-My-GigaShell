@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_tools.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/15 16:23:29 by raimbault         #+#    #+#             */
-/*   Updated: 2021/01/21 13:50:10 by braimbau         ###   ########.fr       */
+/*   Updated: 2021/01/26 17:19:02 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ char	**create_str_tab(void)
 int		print_error(int *ec, int error)
 {
 	char **tab;
+
 	tab = create_str_tab();
 	ft_putstr(tab[error]);
 	*ec = error;

@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 11:49:38 by braimbau          #+#    #+#             */
-/*   Updated: 2021/01/25 16:40:34 by selgrabl         ###   ########.fr       */
+/*   Updated: 2021/01/26 17:18:15 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,13 @@ char	*rdmstr(int n)
 
 void	set_heredoc(t_redirection *redirection, int *ec)
 {
-	char	*buf;
-	char	*str;
-	int		ret;
-	int		fd;
+	char			*buf;
+	char			*str;
+	int				ret;
+	int				fd;
 	struct termios	save_cano;
 	struct termios	save_nncano;
-	
+
 	str = NULL;
 	term_init(&save_cano, &save_nncano);
 	ft_putstr(">");

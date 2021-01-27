@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pizzagami <pizzagami@student.42.fr>        +#+  +:+       +#+        */
+/*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 10:23:00 by braimbau          #+#    #+#             */
-/*   Updated: 2021/01/24 22:01:02 by pizzagami        ###   ########.fr       */
+/*   Updated: 2021/01/26 15:09:49 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,4 +122,3 @@ void	free_env(t_env *env)
 		free(tmp);
 	}
 }
-

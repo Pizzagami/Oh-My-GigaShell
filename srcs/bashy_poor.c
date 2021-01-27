@@ -1,18 +1,35 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   bashy_poor.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/01/18 10:23:00 by selgrabl          #+#    #+#             */
+/*   Updated: 2021/01/26 15:49:11 by selgrabl         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 #include <termios.h>
 
-char	poor_caspe(char c, char **str, t_arrow *ar)
+void		fleche_init(FLCH_CSP *fleche_caspe[7])
 {
-	int i;
-	FLCH_CSP *fleche_caspe[7];
-
 	fleche_caspe[0] = NULL;
-	fleche_caspe[1] = NULL;
-	fleche_caspe[2] = NULL;
+	fleche_caspe[1] = &up;
+	fleche_caspe[2] = &down;
 	fleche_caspe[3] = &right;
 	fleche_caspe[4] = &left;
 	fleche_caspe[5] = &endl;
 	fleche_caspe[6] = &home;
+}
+
+char		poor_caspe(char c, char **str, t_arrow *ar)
+{
+	int			i;
+	FLCH_CSP	*fleche_caspe[7];
+
+	fleche_init(fleche_caspe);
 	if ((int)c == 9 || (int)c < 1)
 		return (c = '\0');
 	if ((int)c == 127)
@@ -35,10 +52,8 @@ char	poor_caspe(char c, char **str, t_arrow *ar)
 	return (c);
 }
 
-int     poor_loop(char **str, t_arrow *ar,char *eof)
+int			poor_loop(char **str, t_arrow *ar, char *eof, char c)
 {
-	char c;
-
 	c = 0;
 	while (1)
 	{
@@ -50,9 +65,9 @@ int     poor_loop(char **str, t_arrow *ar,char *eof)
 		}
 		else if (c == 4 && *str[0] == 0)
 		{
-            free(*str);
-            *str = ft_strdup(eof);
-			return(2);
+			free(*str);
+			*str = ft_strdup(eof);
+			return (2);
 		}
 		else if (c == 10)
 		{
@@ -61,28 +76,28 @@ int     poor_loop(char **str, t_arrow *ar,char *eof)
 			return (0);
 		}
 		else
-		{
 			c = poor_caspe(c, str, ar);
-		}
 	}
 }
 
-int     poor_bashy(char *eof,char **str, struct termios	save_cano,
-	struct termios	save_nncano)
+int			poor_bashy(char *eof, char **str, struct termios save_cano,
+struct termios save_nncano)
 {
-    t_arrow ar;
-    int ret;
+	t_arrow		ar;
+	int			ret;
+	char		c;
 
+	c = 0;
 	*str = malloc(sizeof(char) * 1);
 	*str[0] = '\0';
 	ar.y = 0;
 	ar.x = 0;
 	tcsetattr(0, TCSADRAIN, &save_nncano);
-    ret = poor_loop(str, &ar, eof);
-    tcsetattr(0, TCSADRAIN, &save_cano);
-	if(ret != 2)
+	ret = poor_loop(str, &ar, eof, c);
+	tcsetattr(0, TCSADRAIN, &save_cano);
+	if (ret != 2)
 		ft_putstr("\n");
 	else
 		ft_putchar(' ');
-    return(ret);
+	return (ret);
 }

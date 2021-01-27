@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 11:29:21 by braimbau          #+#    #+#             */
-/*   Updated: 2021/01/18 10:24:16 by braimbau         ###   ########.fr       */
+/*   Updated: 2021/01/26 16:31:59 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int		env_split(char *str, char **name, char **val)
 	x = 0;
 	ret = 0;
 	str2 = NULL;
-	if (str[0] == '=' || (str[i] >= '0' && str[i] <= '9')) //mieux gerer ce cas d erreur
+	if (str[0] == '=' || (str[i] >= '0' && str[i] <= '9'))
 		return (-1);
 	while (str && str[i] != '=')
 	{

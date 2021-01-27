@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 10:25:04 by braimbau          #+#    #+#             */
-/*   Updated: 2021/01/22 14:12:11 by selgrabl         ###   ########.fr       */
+/*   Updated: 2021/01/26 16:34:00 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ void	term_init(struct termios *save_cano, struct termios *save_nncano)
 		exit(0);
 	}
 	config.c_iflag &= ~(IXON);
-	//config.c_oflag = 0;
 	config.c_lflag &= ~(ECHO | ICANON | ISIG);
 	config.c_cflag &= 0;
 	config.c_cflag |= CS8;

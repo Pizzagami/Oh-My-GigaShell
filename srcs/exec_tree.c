@@ -6,11 +6,12 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 14:45:18 by raimbault         #+#    #+#             */
-/*   Updated: 2021/01/26 10:05:40 by braimbau         ###   ########.fr       */
+/*   Updated: 2021/01/26 16:41:52 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
+#include <signal.h>
 
 int		exec_andor(t_andor *andor, t_omm omm)
 {
@@ -39,7 +40,7 @@ int		exec_andor(t_andor *andor, t_omm omm)
 	}
 	return (i);
 }
-#include <signal.h>
+
 int		exec_pipeline(t_pipeline *pipeline, t_omm omm)
 {
 	int		i;
@@ -48,7 +49,6 @@ int		exec_pipeline(t_pipeline *pipeline, t_omm omm)
 	int		x;
 
 	i = 0;
-	// kill(getpid(), SIGQUIT);
 	if (pipeline->brother)
 	{
 		pipe(pfd);
