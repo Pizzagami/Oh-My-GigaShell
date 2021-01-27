@@ -143,7 +143,7 @@ void		add_env_var(char *var, t_env **first);
 char		*get_env_var(char *var, t_env *first);
 int			find_and_replace(t_env **first, char *var);
 void		tri_and_find(t_env *first);
-void		tri_and_print(t_env *first);
+void		triex(t_env *first);
 void		add_char(char **str, int index, char c);
 char		*str_up(char *str);
 char		*str_low(char *str);

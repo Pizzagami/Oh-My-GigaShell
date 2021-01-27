@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 11:29:21 by braimbau          #+#    #+#             */
-/*   Updated: 2021/01/26 16:31:59 by selgrabl         ###   ########.fr       */
+/*   Updated: 2021/01/27 14:01:47 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,25 +14,19 @@
 #include "minishell.h"
 #include "libft.h"
 
-int		env_split(char *str, char **name, char **val)
+int		split_verif(char *str, int *y)
 {
-	int		i;
-	int		j;
-	int		x;
-	int		ret;
-	char	*str1;
-	char	*str2;
+	int i;
+	int ret;
 
-	i = 0;
-	j = 0;
-	x = 0;
 	ret = 0;
-	str2 = NULL;
+	i = 0;
 	if (str[0] == '=' || (str[i] >= '0' && str[i] <= '9'))
 		return (-1);
 	while (str && str[i] != '=')
 	{
-		if (((str[i] > 47 && str[i] < 58) && i > 0) || (str[i] > 96 && str[i] < 123)
+		if (((str[i] > 47 && str[i] < 58) && i > 0) ||
+				(str[i] > 96 && str[i] < 123)
 		|| (str[i] > 64 && str[i] < 91) || str[i] == '_' ||
 		(str[i] >= '0' && str[i] <= '9'))
 			i++;
@@ -44,6 +38,43 @@ int		env_split(char *str, char **name, char **val)
 		else
 			return (-1);
 	}
+	*y = i;
+	return (ret);
+}
+
+char	*env_val(char *str, char *str1, int i, int j)
+{
+	int x;
+
+	x = 0;
+	i++;
+	j++;
+	while (str[i])
+		i++;
+	str1 = malloc(sizeof(char) * (i - j + 1));
+	str1[i - j] = 0;
+	while (j < i)
+	{
+		str1[x] = str[j];
+		x++;
+		j++;
+	}
+	return (str1);
+}
+
+int		env_split(char *str, char **name, char **val)
+{
+	int		i;
+	int		j;
+	int		ret;
+	char	*str1;
+
+	i = 0;
+	j = 0;
+	ret = 0;
+	ret = split_verif(str, &i);
+	if (ret < 0)
+		return (ret);
 	str1 = malloc(sizeof(char) * (i + 1));
 	str1[i] = 0;
 	while (j < i)
@@ -51,23 +82,12 @@ int		env_split(char *str, char **name, char **val)
 		str1[j] = str[j];
 		j++;
 	}
+	*name = ft_strdup(str1);
+	free(str1);
+	str1 = NULL;
 	if (ret != 2)
-	{
-		i++;
-		j++;
-		while (str[i])
-			i++;
-		str2 = malloc(sizeof(char) * (i - j + 1));
-		str2[i - j] = 0;
-		while (j < i)
-		{
-			str2[x] = str[j];
-			x++;
-			j++;
-		}
-	}
-	*name = str1;
-	*val = str2;
+		str1 = env_val(str, str1, i, j);
+	*val = str1;
 	return (ret);
 }
 
@@ -86,7 +106,8 @@ int		find_and_replace(t_env **first, char *var)
 		{
 			if (current->val)
 				free(current->val);
-			current->val = ft_substr(var, current->l_name + 1, l_var - current->l_name - 1);
+			current->val = ft_substr(var, current->l_name + 1,
+					l_var - current->l_name - 1);
 			return (1);
 		}
 		current = current->next;
@@ -128,25 +149,10 @@ t_env	*cpy_env(t_env *env)
 	return (cpy);
 }
 
-void	tri_and_print(t_env *first)
+void	printex(t_env *tmp)
 {
-	t_env *tmp;
 	t_env *fre;
-	t_env *start;
 
-	start = cpy_env(first);
-	tmp = start;
-	while (tmp->next)
-	{
-		if (ft_strcmp(tmp->name, tmp->next->name) > 0)
-		{
-			swap_list(&tmp);
-			tmp = start;
-		}
-		else
-			tmp = tmp->next;
-	}
-	tmp = start;
 	while (tmp)
 	{
 		ft_putstr("declare -x ");
@@ -165,5 +171,26 @@ void	tri_and_print(t_env *first)
 		tmp = tmp->next;
 		free(fre);
 	}
+}
+
+void	triex(t_env *first)
+{
+	t_env *tmp;
+	t_env *start;
+
+	start = cpy_env(first);
+	tmp = start;
+	while (tmp->next)
+	{
+		if (ft_strcmp(tmp->name, tmp->next->name) > 0)
+		{
+			swap_list(&tmp);
+			tmp = start;
+		}
+		else
+			tmp = tmp->next;
+	}
+	tmp = start;
+	printex(tmp);
 }
 
