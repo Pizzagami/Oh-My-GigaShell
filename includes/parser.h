@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/15 16:13:31 by raimbault         #+#    #+#             */
-/*   Updated: 2021/01/25 15:33:29 by selgrabl         ###   ########.fr       */
+/*   Updated: 2021/01/27 16:06:55 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ typedef struct	s_input
 
 int     		poor_bashy(char *eof,char **str,struct termios	save_cano,
 	struct termios	save_nncano);
-void			set_heredoc(t_redirection *redirection, int *ec);
+void			set_heredoc(t_redirection *redirection, int *ec, int ret, char *str);
 void			heredoc_list(t_list *list, int *ec);
 void			heredoc_input(t_input *input, int *ec);
 void			son_pipeline(int pfd[2], t_omm *omm, t_pipeline *pipeline);

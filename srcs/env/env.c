@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: braimbau <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 15:59:42 by braimbau          #+#    #+#             */
-/*   Updated: 2021/01/07 16:00:36 by braimbau         ###   ########.fr       */
+/*   Updated: 2021/01/27 15:17:39 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,16 +34,11 @@ void	add_tail(char *var, t_env **first)
 	char	*val;
 
 	current = *first;
-	next = NULL;
 	env_split(var, &name, &val);
 	free(var);
 	if (!val)
-	{
-		ft_putstr("error parsing env\n");
-		return ;
-	}
-	next = (t_env *)malloc(sizeof(t_env));
-	if (next == NULL)
+		return (ft_putstr("error parsing env\n"));
+	if ((next = (t_env *)malloc(sizeof(t_env))) == NULL)
 		exit(0);
 	next->name = name;
 	next->val = val;

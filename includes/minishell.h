@@ -22,6 +22,12 @@ typedef struct		s_cell
 	int llx;
 }					t_cell;
 
+typedef struct		s_term
+{
+	struct termios	save_cano;
+	struct termios	save_nncano;
+}					t_term;
+
 typedef	struct		s_pos
 {
 	int x;
@@ -72,6 +78,17 @@ typedef struct		s_multi
 	int		x;
 }					t_multi;
 
+typedef struct		s_all
+{	
+	int		x;
+	t_env	*tenv;
+	t_term	term;
+	t_hist	thist;
+	t_arrow	tar;
+	t_multi	tmulti;
+}					t_all;
+
+
 void up(char **str, t_arrow *ar, t_hist *hist);
 void down(char **str, t_arrow *ar, t_hist *hist);
 void right(char **str, t_arrow *ar, t_hist *hist);
@@ -81,6 +98,11 @@ void endl(char **str, t_arrow *ar, t_hist *hist);
 
 typedef void FLCH_CSP(char **str, t_arrow *ar, t_hist *hist);
 
+void		mult_down(char **str, t_arrow *ar, t_hist *hist, int x);
+void		upanddown(char **str, t_hist *hist, int x);
+char		*env_val(char *str, char *str1, int i, int j);
+int			split_verif(char *str, int *y);
+void		printex(t_env *tmp);
 void		auto_completion(void);
 void		fleche_init(FLCH_CSP *fleche_caspe[7]);
 void		wright(t_arrow *ar, char *str);

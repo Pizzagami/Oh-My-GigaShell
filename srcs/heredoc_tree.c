@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc_tree.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: braimbau <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 09:33:39 by braimbau          #+#    #+#             */
-/*   Updated: 2021/01/20 09:34:03 by braimbau         ###   ########.fr       */
+/*   Updated: 2021/01/27 16:06:28 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	heredoc_command(t_command *command, int *ec)
 	if (command->c_list)
 		heredoc_list(command->c_list, ec);
 	if (command->redirection && command->redirection->type == DLESS)
-		set_heredoc(command->redirection, ec);
+		set_heredoc(command->redirection, ec, 0, NULL);
 }
 
 void	heredoc_pipeline(t_pipeline *pipeline, int *ec)

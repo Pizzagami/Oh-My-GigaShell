@@ -6,13 +6,12 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 10:23:00 by braimbau          #+#    #+#             */
-/*   Updated: 2021/01/26 15:09:49 by selgrabl         ###   ########.fr       */
+/*   Updated: 2021/01/27 16:54:13 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 #include "minishell.h"
-
 
 void	langis(int sig)
 {
@@ -22,91 +21,50 @@ void	langis(int sig)
 		ft_putstr("\b\b  \b\b");
 }
 
-int		main(int argc, char **argv, char **env)
+void	init_main(t_all *all, int *last_ret, int argc, char **argv)
 {
-	int				x;
-	t_env			*envi;
-	struct termios	save_cano;
-	struct termios	save_nncano;
-	t_hist			hist;
-	t_arrow			ar;
-	int				last_ret;
-	t_multi			multi;
-	char			*path;
-	
 	(void)argc;
 	(void)argv;
-	multi.str = NULL;
-	multi.type = 0;
-
-	path = ft_calloc(1, 1024);
-	ft_strlcat(getcwd(path, PATH_MAX - 1), "/historic.omgsh",ft_strlen(path) + 16);
-	last_ret = 0;
-	x = 0;
-	ar.x = 0;
-	ar.y = 0;
-	hist.x = 0;
-	hist.y = 0;
-	envi = NULL;
-	dup_env(env, &envi);
-	hist.cc = is_unicorn_set(envi);
-	term_init(&save_cano, &save_nncano);
+	*last_ret = 0;
+	all->tmulti.str = NULL;
+	all->tmulti.type = 0;
+	all->x = 0;
+	all->tar.x = 0;
+	all->tar.y = 0;
+	all->thist.x = 0;
+	all->thist.y = 0;
 	signal(SIGINT, langis);
 	signal(SIGQUIT, langis);
-	file_histo(&hist, path);
+	term_init(&all->term.save_cano, &all->term.save_nncano);
+}
+
+int		main(int argc, char **argv, char **env)
+{
+	t_all			all;
+	int				last_ret;
+	char			*path;
+
+	path = ft_calloc(1, 1024);
+	ft_strlcat(getcwd(path, 1023), "/historic.omgsh", ft_strlen(path) + 16);
+	init_main(&all, &last_ret, argc, argv);
+	dup_env(env, &all.tenv);
+	all.thist.cc = is_unicorn_set(all.tenv);
+	file_histo(&all.thist, path);
 	while (1)
 	{
-		x = bashy(&hist, &ar);
-		if (x != 3)
+		all.x = bashy(&all.thist, &all.tar);
+		if (all.x != 3)
 		{
-			tcsetattr(0, TCSADRAIN, &save_cano);
-			multi.x = x;
-			hist.y = multilines(&hist, envi, &last_ret, &multi);
-			histo_file(&hist, path);
-			tcsetattr(0, TCSADRAIN, &save_nncano);
+			tcsetattr(0, TCSADRAIN, &all.term.save_cano);
+			all.tmulti.x = all.x;
+			all.thist.y = multilines(&all.thist,
+			all.tenv, &last_ret, &all.tmulti);
+			histo_file(&all.thist, path);
+			tcsetattr(0, TCSADRAIN, &all.term.save_nncano);
 		}
 	}
-	tcsetattr(0, TCSADRAIN, &save_cano);
+	tcsetattr(0, TCSADRAIN, &all.term.save_cano);
 	return (0);
-}
-
-void	file_histo(t_hist *hist, char *path)
-{
-	int fd;
-	int x;
-	int g;
-
-	x = 0;
-	fd = open(path, O_RDONLY);
-	if (fd < 0)
-		return ;
-	while ((g = get_next_line(fd, &(hist->tab[x]), (char)1)) > 0)
-		x++;
-	hist->x = x;
-	if (g < 0)
-	{
-		ft_putstr("GNL Error in file Histo\n");
-	}
-	close(fd);
-}
-
-void	histo_file(t_hist *hist, char *path)
-{
-	int fd;
-	int x;
-
-	x = 0;
-	fd = open(path, O_CREAT | O_RDWR | O_TRUNC, S_IRWXU);
-	while (hist->x > x)
-	{
-		ft_putstr_fd(hist->tab[x], fd);
-		ft_putchar_fd((char)1, fd);
-		//free(hist->tab[x]);
-		x++;
-	}
-	//if (x != 0)
-	//	free(hist->tab[x]);
-	close(fd);
 }
 
 void	free_env(t_env *env)

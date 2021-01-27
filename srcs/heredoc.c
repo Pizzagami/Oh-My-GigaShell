@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 11:49:38 by braimbau          #+#    #+#             */
-/*   Updated: 2021/01/26 17:18:15 by selgrabl         ###   ########.fr       */
+/*   Updated: 2021/01/27 16:07:13 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,35 +32,29 @@ char	*rdmstr(int n)
 	return (str);
 }
 
-void	set_heredoc(t_redirection *redirection, int *ec)
+void	set_heredoc(t_redirection *redir, int *ec, int ret, char *str)
 {
 	char			*buf;
-	char			*str;
-	int				ret;
 	int				fd;
-	struct termios	save_cano;
-	struct termios	save_nncano;
+	t_term			t;
 
-	str = NULL;
-	term_init(&save_cano, &save_nncano);
+	term_init(&t.save_cano, &t.save_nncano);
 	ft_putstr(">");
-	ret = poor_bashy(redirection->filename, &buf, save_cano, save_nncano);
-	while (ret < 2 && ft_strcmp(buf, redirection->filename))
+	ret = poor_bashy(redir->filename, &buf, t.save_cano, t.save_nncano);
+	while (ret < 2 && ft_strcmp(buf, redir->filename))
 	{
-		(void)ec;
-		if (ret == -1)
-			print_error(ec, 20);
-		str = ft_strjoin_sep(str, buf, '\n');
+		(ret == -1) ? print_error(ec, 20) : 0;
+		str = (str != NULL) ? ft_strjoin_sep(str, buf, '\n') : ft_strdup(buf);
 		free(buf);
 		ft_putstr(">\033[0m");
-		ret = poor_bashy(redirection->filename, &buf, save_cano, save_nncano);
+		ret = poor_bashy(redir->filename, &buf, t.save_cano, t.save_nncano);
 	}
-	redirection->filename = rdmstr(12);
-	fd = open(redirection->filename, O_WRONLY | O_CREAT, S_IRWXU);
+	redir->filename = rdmstr(12);
+	fd = open(redir->filename, O_WRONLY | O_CREAT, S_IRWXU);
 	if (str)
 	{
-		if (ret != 3)
-			ft_putstr_fd(str, fd);
+		(ret != 3) ? ft_putstr_fd(str, fd) : 0;
+		ft_putchar_fd('\n', fd);
 		free(str);
 	}
 	close(fd);
