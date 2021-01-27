@@ -13,6 +13,21 @@
 #include <sys/signal.h>
 # include <signal.h>
 
+typedef struct		s_cell
+{
+	int x;
+	int y;
+	int len;
+	int nb;
+	int llx;
+}					t_cell;
+
+typedef	struct		s_pos
+{
+	int x;
+	int y;
+}					t_pos;
+
 typedef struct		s_listdir
 {
 	char	*name;
@@ -66,6 +81,7 @@ void endl(char **str, t_arrow *ar, t_hist *hist);
 
 typedef void FLCH_CSP(char **str, t_arrow *ar, t_hist *hist);
 
+void		auto_completion(void);
 void		wright(t_arrow *ar, char *str);
 char		*strdel(char *str, t_arrow *ar);
 void		wleft(t_arrow *ar, char *str);

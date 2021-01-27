@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 09:59:09 by braimbau          #+#    #+#             */
-/*   Updated: 2021/01/21 16:55:56 by selgrabl         ###   ########.fr       */
+/*   Updated: 2021/01/27 11:51:30 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,8 @@ char	*strdel(char *str, t_arrow *ar)
 
 char	caspe(char c, char **str, t_arrow *ar, t_hist *hist)
 {
-	FLCH_CSP *fleche_caspe[7];
-
+	FLCH_CSP	*fleche_caspe[7];
+	
 	fleche_caspe[0] = NULL;
 	fleche_caspe[1] = &up;
 	fleche_caspe[2] = &down;
@@ -78,7 +78,7 @@ char	caspe(char c, char **str, t_arrow *ar, t_hist *hist)
 	fleche_caspe[4] = &left;
 	fleche_caspe[5] = &endl;
 	fleche_caspe[6] = &home;
-	if ((int)c == 9 || (int)c < 1)
+	if (c < 1) // || c == 9
 		return (c = '\0');
 	if ((int)c == 127)
 	{
@@ -95,6 +95,8 @@ char	caspe(char c, char **str, t_arrow *ar, t_hist *hist)
 	}
 	else if (c > 31 && c < 127)
 		*str = strput(*str, ar, c);
+	else if (c == 9)
+		auto_completion();
 	return (c);
 }
 
