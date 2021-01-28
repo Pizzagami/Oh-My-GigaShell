@@ -6,13 +6,13 @@
 /*   By: braimbau <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/30 18:38:06 by braimbau          #+#    #+#             */
-/*   Updated: 2020/07/30 18:47:39 by braimbau         ###   ########.fr       */
+/*   Updated: 2021/01/28 10:21:51 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "libft.h"
+#include "libft.h"
 
-int ft_strfind(char *str, char c)
+int	ft_strfind(char *str, char c)
 {
 	int i;
 

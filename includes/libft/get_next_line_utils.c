@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/28 10:44:52 by selgrabl          #+#    #+#             */
-/*   Updated: 2020/10/05 18:03:30 by selgrabl         ###   ########.fr       */
+/*   Updated: 2021/01/28 10:26:23 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static int		ft_strlen(char *str)
 	return (i);
 }
 
-int		increase_buf(char **buf)
+int				increase_buf(char **buf)
 {
 	int x;
 
@@ -38,7 +38,7 @@ int		increase_buf(char **buf)
 	return (1);
 }
 
-void	join(char **line, char **buf, int x)
+void			join(char **line, char **buf, int x)
 {
 	int		i;
 	int		j;
@@ -65,7 +65,7 @@ void	join(char **line, char **buf, int x)
 		increase_buf(buf);
 }
 
-int		clear_buff(int x, int fd, char ***buf)
+int				clear_buff(int x, int fd, char ***buf)
 {
 	char	**buff;
 	int		i;

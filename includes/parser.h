@@ -6,12 +6,14 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/15 16:13:31 by raimbault         #+#    #+#             */
-/*   Updated: 2021/01/27 16:06:55 by selgrabl         ###   ########.fr       */
+/*   Updated: 2021/01/28 11:23:08 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PARSER_H
 # define PARSER_H
+
+# include "struct.h"
 # include "token.h"
 # include <unistd.h>
 # include <string.h>
@@ -23,66 +25,15 @@
 # include <dirent.h>
 # include "minishell.h"
 
-typedef struct	s_omm
-{
-	int		stdin;
-	int		stdout;
-	int		*last_ret;
-	t_env	*env;
-}				t_omm;
-
-typedef struct	s_instruction
-{
-	t_token	*start;
-	t_token	*max;
-}				t_instruction;
-
-typedef struct	s_redirection
-{
-	t_type					type;
-	char					*filename;
-	struct s_redirection	*brother;
-}				t_redirection;
-
-typedef struct	s_command
-{
-	struct s_list			*c_list;
-	struct s_instruction	*instruction;
-	t_redirection			*redirection;
-}				t_command;
-
-typedef struct	s_pipeline
-{
-	struct s_pipeline	*brother;
-	struct s_command	*command;
-}				t_pipeline;
-
-typedef struct	s_andor
-{
-	struct s_andor	*brother;
-	t_pipeline		*pipeline;
-	t_type			type;
-}				t_andor;
-
-typedef struct	s_list
-{
-	struct s_list	*brother;
-	t_andor			*andor;
-}				t_list;
-
-typedef struct	s_input
-{
-	t_list	*list;
-}				t_input;
-
-int     		poor_bashy(char *eof,char **str,struct termios	save_cano,
+int				poor_bashy(char *eof, char **str, struct termios	save_cano,
 	struct termios	save_nncano);
-void			set_heredoc(t_redirection *redirection, int *ec, int ret, char *str);
+void			set_heredoc(t_redirection *redir, int *ec, int ret, char *str);
 void			heredoc_list(t_list *list, int *ec);
 void			heredoc_input(t_input *input, int *ec);
 void			son_pipeline(int pfd[2], t_omm *omm, t_pipeline *pipeline);
 void			exec_binary_son(t_omm omm, t_token *token, char **tab,
-				char **tabenv);void			clean_token_list(t_token *token);
+				char **tabenv);
+void			clean_token_list(t_token *token);
 void			free_tab(char **tabenv);
 t_input			*parse_input(t_token *token_start, int *ec);
 t_list			*parse_list(t_token *token_start, t_token *max, int *ec);

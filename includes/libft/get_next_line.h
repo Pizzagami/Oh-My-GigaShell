@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/26 15:04:49 by selgrabl          #+#    #+#             */
-/*   Updated: 2021/01/19 15:42:23 by selgrabl         ###   ########.fr       */
+/*   Updated: 2021/01/28 10:46:32 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,4 @@ void	join(char **line, char **buf, int x);
 int		increase_buf(char **buf);
 int		clear_buff(int x, int fd, char ***buf);
 
-#endif
-
-#ifndef BUFFER_SIZE
-# define BUFFER_SIZE (32)
 #endif

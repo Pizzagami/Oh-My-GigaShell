@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bashy.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 09:59:09 by braimbau          #+#    #+#             */
-/*   Updated: 2021/01/27 12:48:47 by braimbau         ###   ########.fr       */
+/*   Updated: 2021/01/28 11:20:57 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	historic(t_hist *hist, char *str)
 
 char	caspe(char c, char **str, t_arrow *ar, t_hist *hist)
 {
-	FLCH_CSP	*fleche_caspe[7];
+	flch_csp	*fleche_caspe[7];
 	int			i;
 
 	fleche_init(fleche_caspe);

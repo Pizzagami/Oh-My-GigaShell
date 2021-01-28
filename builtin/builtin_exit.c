@@ -1,7 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   builtin_exit.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/01/18 10:23:00 by selgrabl          #+#    #+#             */
+/*   Updated: 2021/01/28 09:59:22 by selgrabl         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
-void    builtin_exit(t_env *env)
+void	builtin_exit(t_env *env)
 {
-    free_env(env);
-    exit(0);
+	free_env(env);
+	exit(0);
 }

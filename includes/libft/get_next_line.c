@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/26 15:03:19 by selgrabl          #+#    #+#             */
-/*   Updated: 2021/01/19 15:49:03 by selgrabl         ###   ########.fr       */
+/*   Updated: 2021/01/28 10:47:54 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ char	**init(char **line, char **buf, int fd)
 	}
 	if (buf[fd] == NULL)
 	{
-		if (!(buf[fd] = malloc(sizeof(char) * (BUFFER_SIZE + 1))))
+		if (!(buf[fd] = malloc(sizeof(char) * (32 + 1))))
 			return (NULL);
 		buf[fd][0] = 0;
 	}
@@ -44,7 +44,7 @@ int		get_next_line(int fd, char **line, char c)
 	static char		**buf;
 	int				x;
 
-	if (BUFFER_SIZE < 1 || line == 0 || fd < 0)
+	if (line == 0 || fd < 0)
 		return (-1);
 	buf = init(line, buf, fd);
 	while (1)
@@ -52,9 +52,9 @@ int		get_next_line(int fd, char **line, char c)
 		x = -1;
 		if (buf[fd][0] == 0)
 		{
-			while (x++ < BUFFER_SIZE)
+			while (x++ < 32)
 				buf[fd][x] = 0;
-			x = read(fd, buf[fd], BUFFER_SIZE);
+			x = read(fd, buf[fd], 32);
 			if (x < 1)
 				return (clear_buff(x, fd, &buf));
 		}

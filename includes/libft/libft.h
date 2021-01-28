@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/11 12:02:39 by braimbau          #+#    #+#             */
-/*   Updated: 2021/01/15 14:55:32 by selgrabl         ###   ########.fr       */
+/*   Updated: 2021/01/28 10:23:29 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void			*ft_memcpy(void *dst, const void *src,
 void			*ft_memmove(void *dst, const void *src, size_t n);
 void			*ft_memset(void *b, int c, size_t len);
 void			ft_putchar_fd(char c, int fd);
-void			ft_putnbr(int  nb);
+void			ft_putnbr(int nb);
 void			ft_putchar(char c);
 void			ft_putendl_fd(char *s, int fd);
 void			ft_putnbr_fd(int n, int fd);
