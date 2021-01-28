@@ -6,7 +6,7 @@
 /*   By: braimbau <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/29 17:26:36 by braimbau          #+#    #+#             */
-/*   Updated: 2020/12/03 10:15:58 by braimbau         ###   ########.fr       */
+/*   Updated: 2021/01/28 13:09:24 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,8 @@ char	*get_path(t_env *env, char *str)
 	char *home;
 	char *tmp;
 
+	if (str[0] == '/')
+		return (str);
 	if (str[0] == '.')
 	{
 		getcwd(path, 4096);

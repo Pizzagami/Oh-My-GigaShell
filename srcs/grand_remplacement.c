@@ -6,7 +6,7 @@
 /*   By: braimbau <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/21 16:13:58 by braimbau          #+#    #+#             */
-/*   Updated: 2020/12/21 16:19:28 by braimbau         ###   ########.fr       */
+/*   Updated: 2021/01/28 13:07:40 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,11 @@ void	replace_dollar(t_token *a, t_omm omm)
 		i = ft_strfind(a->str, CDOLLAR);
 		while (i != -1)
 		{
+			if (a->str[i + 1] == CDOLLEND)
+			{
+				a->str[i + 1] = '$';
+				return ;
+			}
 			key = ft_substr(a->str, i, ft_strfind(a->str, CDOLLEND) - i + 1);
 			subkey = ft_substr(key, 1, ft_strlen(key) - 2);
 			value = NULL;

@@ -6,7 +6,7 @@
 /*   By: pizzagami <pizzagami@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 11:11:48 by braimbau          #+#    #+#             */
-/*   Updated: 2021/01/24 21:56:04 by pizzagami        ###   ########.fr       */
+/*   Updated: 2021/01/28 13:08:51 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,9 @@ void	exec_binary_son(t_omm omm, t_token *token, char **tab, char **tabenv)
 	path = get_path(omm.env, token->str);
 	if (!path)
 	{
-		ft_putstr("bashy: ");
-		ft_putstr(tab[0]);
-		ft_putstr(" : command not found\n");
+		ft_putstr_fd("bashy: ", 2);
+		ft_putstr_fd(tab[0], 2);
+		ft_putstr_fd(" : command not found\n", 2);
 	}
 	else
 	{

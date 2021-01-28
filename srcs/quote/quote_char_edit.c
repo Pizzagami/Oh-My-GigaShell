@@ -6,7 +6,7 @@
 /*   By: braimbau <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 10:33:38 by braimbau          #+#    #+#             */
-/*   Updated: 2021/01/15 11:04:40 by braimbau         ###   ########.fr       */
+/*   Updated: 2021/01/28 13:06:12 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,8 @@ int		condition(int i, char *str, char *quot)
 		&& str[i - 1] != '?' && str[i] != '$' && quot[i] != 'a'
 		&& quot[i] != 'b' && quot[i] != '1' && quot[i] != '3'
 		&& (1 || quot[i - 1] == 'b' || quot[i - 1] == 'a'
-		|| quot[i] == quot[i - 1]))
+		|| quot[i] == quot[i - 1])
+		&& str[i] != '<' && str[i] != '>' && str[i] != '|' && str[i] != '&')
 		return (1);
 	return (0);
 }

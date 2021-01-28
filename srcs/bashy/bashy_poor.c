@@ -6,14 +6,14 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 10:23:00 by selgrabl          #+#    #+#             */
-/*   Updated: 2021/01/28 11:20:54 by selgrabl         ###   ########.fr       */
+/*   Updated: 2021/01/28 13:11:10 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include <termios.h>
 
-void		fleche_init(flch_csp *fleche_caspe[7])
+void		fleche_init(t_flch_csp *fleche_caspe[7])
 {
 	fleche_caspe[0] = NULL;
 	fleche_caspe[1] = &up;
@@ -27,7 +27,7 @@ void		fleche_init(flch_csp *fleche_caspe[7])
 char		poor_caspe(char c, char **str, t_arrow *ar)
 {
 	int			i;
-	flch_csp	*fleche_caspe[7];
+	t_flch_csp	*fleche_caspe[7];
 
 	fleche_init(fleche_caspe);
 	if ((int)c == 9 || (int)c < 1)
