@@ -47,7 +47,6 @@ SRCS =	./srcs/main.c							\
 		./srcs/sunob/term_init.c				\
 		./srcs/sunob/multilines.c				\
 		./srcs/sunob/file_histo.c				\
-		./srcs/sunob/auto_completion.c			\
 		./srcs/grand_remplacement.c				\
 		./srcs/tools.c							\
 	   	./srcs/persecutor.c 					\
