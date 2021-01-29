@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/15 16:13:31 by raimbault         #+#    #+#             */
-/*   Updated: 2021/01/28 11:26:21 by selgrabl         ###   ########.fr       */
+/*   Updated: 2021/01/28 17:09:13 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void			upanddown(char **str, t_hist *hist, int x);
 char			*env_val(char *str, char *str1, int i, int j);
 int				split_verif(char *str, int *y);
 void			printex(t_env *tmp);
-void			auto_completion(void);
+void			auto_completion(char **str);
 void			fleche_init(t_flch_csp *fleche_caspe[7]);
 void			wright(t_arrow *ar, char *str);
 char			*strdel(char *str, t_arrow *ar);

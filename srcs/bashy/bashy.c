@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 09:59:09 by braimbau          #+#    #+#             */
-/*   Updated: 2021/01/28 13:10:42 by braimbau         ###   ########.fr       */
+/*   Updated: 2021/01/28 17:08:50 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ char	caspe(char c, char **str, t_arrow *ar, t_hist *hist)
 	else if (c > 31 && c < 127)
 		*str = strput(*str, ar, c);
 	else if (c == 9)
-		auto_completion();
+		auto_completion(str);
 	return (c);
 }
 
