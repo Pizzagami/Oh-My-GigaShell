@@ -6,7 +6,7 @@
 /*   By: raimbaultbrieuc <marvin@42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/15 15:30:31 by raimbault         #+#    #+#             */
-/*   Updated: 2021/01/08 11:02:47 by braimbau         ###   ########.fr       */
+/*   Updated: 2021/01/31 14:28:49 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ t_token	*create_token_list(char *str, char *quot)
 	{
 		if (str[i] == ' ' && quot[i] == '0')
 			i++;
-		if (is_special_char(str[i]) &&
+		else if (is_special_char(str[i]) &&
 				quot[i] == '0')
 		{
 			i = special_tokens_switch(i, str, &token_current);

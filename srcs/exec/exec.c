@@ -6,7 +6,7 @@
 /*   By: braimbau <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/29 17:26:36 by braimbau          #+#    #+#             */
-/*   Updated: 2021/01/28 13:09:24 by braimbau         ###   ########.fr       */
+/*   Updated: 2021/01/31 14:31:43 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,8 @@ char	*get_implicit_path(t_env *env, char *str)
 
 	i = 0;
 	test = get_env(env, "PATH");
+	if (test == NULL)
+		return (NULL);
 	tab = ft_split(test, ':');
 	while (tab[i])
 	{
