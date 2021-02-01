@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/15 16:13:31 by raimbault         #+#    #+#             */
-/*   Updated: 2021/01/28 11:23:08 by selgrabl         ###   ########.fr       */
+/*   Updated: 2021/02/01 10:04:39 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ char			*get_env(t_env *env, char *key);
 char			**get_env2(t_env *env, char *key);
 void			reset_fd(t_omm omm);
 t_token			*starize_list(t_token *a, t_token *max, char *home);
-void			replace_dollar(t_token *a, t_omm omm);
+void			replace_dollar(t_token *a, t_omm omm, char i, char *key);
 int				is_builtin(char *executable);
 int				exec_builtin(char *executable, char **tab, t_env *env);
 char			*quote_string(char **pstr, int *ec);
