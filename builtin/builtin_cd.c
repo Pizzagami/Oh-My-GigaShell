@@ -6,12 +6,34 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 10:23:00 by selgrabl          #+#    #+#             */
-/*   Updated: 2021/01/28 10:00:01 by selgrabl         ###   ########.fr       */
+/*   Updated: 2021/02/02 14:02:34 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "parser.h"
+
+void	norme_cd(char **oldpwd, char **pwd, char htap[PATH_MAX], char *path)
+{
+	char *pwdtmp;
+
+	if (*oldpwd != 0 && *pwd != 0)
+	{
+		if (path[0] == '-' && path[1] == 0)
+		{
+			pwdtmp = *pwd;
+			*pwd = *oldpwd;
+			*oldpwd = pwdtmp;
+			chdir(*pwd);
+			builtin_pwd();
+		}
+		else
+		{
+			*oldpwd = *pwd;
+			*pwd = ft_strdup(getcwd(htap, PATH_MAX - 1));
+		}
+	}
+}
 
 void	builtin_cd(char *path, t_env *env)
 {
@@ -21,16 +43,11 @@ void	builtin_cd(char *path, t_env *env)
 
 	if (!path || !ft_strcmp(path, "~"))
 		path = *get_env2(env, "HOME");
-	if (chdir(path) == 0)
+	if (chdir(path) == 0 || (path[0] == '-' && path[1] == 0))
 	{
 		pwd = get_env2(env, "PWD");
 		oldpwd = get_env2(env, "OLDPWD");
-		if (!oldpwd && !pwd)
-		{
-			free(oldpwd);
-			oldpwd = pwd;
-			*pwd = getcwd(htap, PATH_MAX - 1);
-		}
+		norme_cd(oldpwd, pwd, htap, path);
 	}
 	else
 	{
