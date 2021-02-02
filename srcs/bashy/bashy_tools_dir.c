@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 10:55:06 by braimbau          #+#    #+#             */
-/*   Updated: 2021/01/27 15:13:59 by selgrabl         ###   ########.fr       */
+/*   Updated: 2021/02/02 16:36:47 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ void	mult_down(char **str, t_arrow *ar, t_hist *hist, int x)
 		else
 			upanddown(str, hist, x);
 	}
+	if (*str)
+		free(*str);
 	ft_putstr(hist->tab[ar->y]);
 	*str = ft_strdup(hist->tab[ar->y]);
 }

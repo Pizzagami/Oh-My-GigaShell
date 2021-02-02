@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 10:55:06 by braimbau          #+#    #+#             */
-/*   Updated: 2021/01/27 15:13:03 by selgrabl         ###   ########.fr       */
+/*   Updated: 2021/02/02 16:43:57 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,13 +73,10 @@ void	up(char **str, t_arrow *ar, t_hist *hist)
 			ar->x++;
 		}
 		x = ft_strlen(*str);
-		while (--x + 1 > 0)
-		{
-			if ((*str)[x] != '\n')
-				ft_putstr("\b \b");
-			else
-				upanddown(str, hist, x);
-		}
+		while (x-- > 0)
+			((*str)[x] != '\n') ? ft_putstr("\b \b") : upanddown(str, hist, x);
+		if (*str)
+			free(*str);
 		ft_putstr(hist->tab[ar->y]);
 		*str = ft_strdup(hist->tab[ar->y]);
 	}
@@ -103,13 +100,9 @@ void	down(char **str, t_arrow *ar, t_hist *hist)
 		mult_down(str, ar, hist, x);
 		return ;
 	}
-	while (x > 0)
-	{
-		x--;
-		if ((*str)[x] != '\n')
-			ft_putstr("\b \b");
-		else
-			upanddown(str, hist, x);
-	}
+	while (x-- > 0)
+		((*str)[x] != '\n') ? ft_putstr("\b \b") : upanddown(str, hist, x);
+	if (*str)
+		free(*str);
 	*str = ft_strdup("\0");
 }
