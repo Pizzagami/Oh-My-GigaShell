@@ -6,7 +6,7 @@
 /*   By: raimbaultbrieuc <marvin@42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/15 15:24:37 by raimbault         #+#    #+#             */
-/*   Updated: 2021/02/02 13:07:34 by braimbau         ###   ########.fr       */
+/*   Updated: 2021/02/02 15:33:36 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,6 @@ int		persecutor(t_hist *hist, t_env *env, int *last_ret)
 		*last_ret = ec;
 	mfree(quot, str);
 	clean_input(tree);
-	clean_token_list(token_start);
+//	clean_token_list(token_start);
 	return (ec);
 }

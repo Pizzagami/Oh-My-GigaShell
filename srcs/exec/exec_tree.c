@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 14:45:18 by raimbault         #+#    #+#             */
-/*   Updated: 2021/02/01 10:06:08 by braimbau         ###   ########.fr       */
+/*   Updated: 2021/02/02 16:43:07 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ int		exec_instruction(t_instruction *instruction, t_omm omm)
 	ret = 0;
 	token = instruction->start;
 	replace_dollar(token, omm, 0, NULL);
-	instruction->start = starize_list(instruction->start, instruction->max,
+	instruction->start = starize_list	(instruction->start, instruction->max,
 		get_env(omm.env, "HOME"));
 	tab = create_tab(instruction->start, instruction->max);
 	if (tab[0] == NULL)
@@ -128,7 +128,7 @@ int		exec_instruction(t_instruction *instruction, t_omm omm)
 		free(tab);
 	}
 	else
-		ret = exec_binary(tab, omm, token);
+		ret = exec_binary(tab, omm, instruction->start);
 	*(omm.last_ret) = ret;
 	return (ret);
 }

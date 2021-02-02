@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/15 16:13:31 by raimbault         #+#    #+#             */
-/*   Updated: 2021/01/28 11:26:21 by selgrabl         ###   ########.fr       */
+/*   Updated: 2021/02/02 15:23:13 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void			add_list(t_listdir *actual, char *minipath, char **final);
 int				recursive(char *str, char *patern, int rc, t_mx x);
 int				gigastar(char *patern, char **final, char *home);
 int				superstar(char *str, char *patern);
-t_token			*first_link(t_token *a, char *home, t_token *first);
+t_token			*first_link(t_token *a, char *home, t_token **first);
 t_token			*other_links(t_token *a, char *home);
 t_mx			init_mx(int p, int s);
 int				numberstars(char *str);

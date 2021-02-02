@@ -6,7 +6,7 @@
 /*   By: pizzagami <pizzagami@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 11:11:48 by braimbau          #+#    #+#             */
-/*   Updated: 2021/01/28 13:08:51 by braimbau         ###   ########.fr       */
+/*   Updated: 2021/02/02 16:43:52 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,12 @@ void	exec_binary_son(t_omm omm, t_token *token, char **tab, char **tabenv)
 	{
 		tabenv = link_tab(omm.env);
 		execve(path, tab, tabenv);
+	}
+	if (path)
+	{
+		ft_putstr_fd("bashy: permision denied: ", 2);
+		ft_putstr_fd(tab[0], 2);
+		ft_putstr_fd("\n", 2);
 	}
 	free(tab);
 	exit(127);

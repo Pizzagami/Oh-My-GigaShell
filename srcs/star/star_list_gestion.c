@@ -6,11 +6,12 @@
 /*   By: braimbau <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 15:26:13 by braimbau          #+#    #+#             */
-/*   Updated: 2021/01/08 15:26:14 by braimbau         ###   ########.fr       */
+/*   Updated: 2021/02/02 16:36:03 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "parser.h"
 
 t_listdir	*new_maillon(t_listdir *actual, char *name)
 {
@@ -92,11 +93,17 @@ t_token		*starize_list(t_token *first, t_token *max, char *home)
 	while (a && a != max)
 	{
 		if (a == first && srcchar(CSTAR, a->str) != -1)
-			a = first_link(a, home, first);
+		{
+			a = first_link(a, home, &first);
+		}
 		if (a->next && a->next != max && srcchar(CSTAR, a->next->str) != -1)
+		{
 			a = other_links(a, home);
+		}
 		if (a && a != max)
+		{
 			a = a->next;
+		}
 	}
 	return (first);
 }

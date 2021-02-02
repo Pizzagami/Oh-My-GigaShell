@@ -6,7 +6,7 @@
 /*   By: braimbau <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 14:46:25 by braimbau          #+#    #+#             */
-/*   Updated: 2021/01/08 15:27:44 by braimbau         ###   ########.fr       */
+/*   Updated: 2021/02/02 15:23:29 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ int			add_matching_names(char *path, int sfdo, t_listdir **actual,
 	return (0);
 }
 
-t_token		*first_link(t_token *a, char *home, t_token *first)
+t_token		*first_link(t_token *a, char *home, t_token **first)
 {
 	char	*str;
 	t_token	*tmp;
@@ -105,10 +105,10 @@ t_token		*first_link(t_token *a, char *home, t_token *first)
 	while (tmp->next)
 		tmp = tmp->next;
 	tmp->next = a->next;
-	free(first->str);
-	free(first);
-	first = tmp2;
-	a = first;
+	free((*first)->str);
+	free(*first);
+	*first = tmp2;
+	a = *first;
 	free(str);
 	return (a);
 }
