@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 11:29:21 by braimbau          #+#    #+#             */
-/*   Updated: 2021/01/27 14:38:13 by selgrabl         ###   ########.fr       */
+/*   Updated: 2021/02/02 15:25:19 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int		split_verif(char *str, int *y)
 	return (ret);
 }
 
-char	*env_val(char *str, char *str1, int i, int j)
+void	env_val(char *str, char **str1, int i, int j)
 {
 	int x;
 
@@ -51,15 +51,14 @@ char	*env_val(char *str, char *str1, int i, int j)
 	j++;
 	while (str[i])
 		i++;
-	str1 = malloc(sizeof(char) * (i - j + 1));
-	str1[i - j] = 0;
+	*str1 = malloc(sizeof(char) * (i - j + 1));
+	(*str1)[i - j] = 0;
 	while (j < i)
 	{
-		str1[x] = str[j];
+		(*str1)[x] = str[j];
 		x++;
 		j++;
 	}
-	return (str1);
 }
 
 int		env_split(char *str, char **name, char **val)
@@ -84,9 +83,9 @@ int		env_split(char *str, char **name, char **val)
 	}
 	*name = ft_strdup(str1);
 	free(str1);
-	str1 = NULL;
 	if (ret != 2)
-		str1 = env_val(str, str1, i, j);
-	*val = str1;
+		env_val(str, val, i, j);
+	else
+		*val = NULL;
 	return (ret);
 }

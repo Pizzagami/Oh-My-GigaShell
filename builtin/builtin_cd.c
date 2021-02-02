@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 10:23:00 by selgrabl          #+#    #+#             */
-/*   Updated: 2021/02/02 14:02:34 by braimbau         ###   ########.fr       */
+/*   Updated: 2021/02/02 15:32:14 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void	norme_cd(char **oldpwd, char **pwd, char htap[PATH_MAX], char *path)
 		}
 		else
 		{
+			free(*oldpwd);
 			*oldpwd = *pwd;
 			*pwd = ft_strdup(getcwd(htap, PATH_MAX - 1));
 		}

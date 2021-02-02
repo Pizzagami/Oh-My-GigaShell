@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 09:59:09 by braimbau          #+#    #+#             */
-/*   Updated: 2021/01/29 12:38:27 by braimbau         ###   ########.fr       */
+/*   Updated: 2021/02/02 14:59:35 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ int		looping(char *str, char c, t_hist *hist)
 			str = ft_strdup("exit");
 			ft_putstr("exit\n");
 			historic(hist, str);
+			free(str);
 		}
 		else
 		{

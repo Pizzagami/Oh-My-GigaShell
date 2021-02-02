@@ -6,8 +6,8 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/15 16:13:31 by raimbault         #+#    #+#             */
-/*   Updated: 2021/02/02 15:23:13 by braimbau         ###   ########.fr       */
-/*                                                                            */
+/*   Updated: 2021/02/02 16:46:52 by braimbau         ###   ########.fr       */
+/*																			  */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
@@ -36,7 +36,7 @@ void			home(char **str, t_arrow *ar, t_hist *hist);
 void			endl(char **str, t_arrow *ar, t_hist *hist);
 void			mult_down(char **str, t_arrow *ar, t_hist *hist, int x);
 void			upanddown(char **str, t_hist *hist, int x);
-char			*env_val(char *str, char *str1, int i, int j);
+void			env_val(char *str, char **str1, int i, int j);
 int				split_verif(char *str, int *y);
 void			printex(t_env *tmp);
 void			auto_completion(void);
