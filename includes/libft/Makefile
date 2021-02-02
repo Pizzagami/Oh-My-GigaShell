@@ -6,7 +6,7 @@
 #    By: pizzagami <pizzagami@student.42.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/11 11:50:27 by braimbau          #+#    #+#              #
-#    Updated: 2020/11/26 12:26:58 by pizzagami        ###   ########.fr        #
+#    Updated: 2021/02/02 14:12:36 by braimbau         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,7 +58,7 @@ OBJ = $(SRCS:.c=.o)
 
 OBJ_BONUS = $(OBJ)
 
-CFLAGS += -Wall -Wextra -Werror -fsanitize=address -g3 -I./includes
+CFLAGS += -Wall -Wextra -Werror -g3 -I./includes
 
 all: $(NAME)
 
