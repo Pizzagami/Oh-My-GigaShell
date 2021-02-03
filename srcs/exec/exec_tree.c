@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 14:45:18 by raimbault         #+#    #+#             */
-/*   Updated: 2021/02/03 10:33:49 by braimbau         ###   ########.fr       */
+/*   Updated: 2021/02/03 11:55:24 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int		exec_pipeline(t_pipeline *pipeline, t_omm omm)
 			dup2(pfd[0], 0);
 			close(pfd[0]);
 			i = exec_pipeline(pipeline->brother, omm);
-			waitpid(pid, &x, 0);
+			waitpid(pid, &x, 1);
 		}
 		else
 			son_pipeline(pfd, &omm, pipeline);

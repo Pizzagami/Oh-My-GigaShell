@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 11:09:48 by braimbau          #+#    #+#             */
-/*   Updated: 2021/01/26 17:23:07 by selgrabl         ###   ########.fr       */
+/*   Updated: 2021/02/03 14:04:19 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,11 @@ int		less_redirection(t_redirection *redirection)
 	fd = open(redirection->filename, O_RDONLY);
 	if (fd == -1)
 	{
-		printf("Error : %s\n", strerror(errno));
+		ft_putstr_fd("bashy : ", 2);
+		ft_putstr_fd(redirection->filename, 2);
+		ft_putstr_fd(": ", 2);
+		ft_putstr_fd(strerror(errno), 2);
+		ft_putstr_fd("\n", 2);
 		return (1);
 	}
 	dup2(fd, 0);
@@ -66,6 +70,7 @@ int		lesser_redirection(t_redirection *redirection)
 	dup2(fd, 0);
 	close(fd);
 	remove(redirection->filename);
+	free(redirection->filename);
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 10:23:00 by selgrabl          #+#    #+#             */
-/*   Updated: 2021/01/28 13:11:10 by braimbau         ###   ########.fr       */
+/*   Updated: 2021/02/03 14:10:23 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,10 +59,7 @@ int			poor_loop(char **str, t_arrow *ar, char *eof, char c)
 	{
 		read(0, &c, 1);
 		if (c == 3)
-		{
-			free(*str);
 			return (3);
-		}
 		else if (c == 4 && *str[0] == 0)
 		{
 			free(*str);
