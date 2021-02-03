@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/15 16:13:31 by raimbault         #+#    #+#             */
-/*   Updated: 2021/02/03 15:02:57 by selgrabl         ###   ########.fr       */
+/*   Updated: 2021/02/03 15:12:57 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ typedef struct				s_all
 {
 	int		x;
 	t_env	*env;
-	t_term	erm;
+	t_term	term;
 	t_hist	hist;
 	t_arrow	ar;
 	t_multi	multi;
