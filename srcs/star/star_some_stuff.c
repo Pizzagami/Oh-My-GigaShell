@@ -6,7 +6,7 @@
 /*   By: braimbau <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 14:46:25 by braimbau          #+#    #+#             */
-/*   Updated: 2021/02/02 15:23:29 by braimbau         ###   ########.fr       */
+/*   Updated: 2021/02/03 10:32:29 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,25 +92,26 @@ int			add_matching_names(char *path, int sfdo, t_listdir **actual,
 	return (0);
 }
 
-t_token		*first_link(t_token *a, char *home, t_token **first)
+t_token		*first_link(t_token *a, char *home, t_token *first)
 {
 	char	*str;
 	t_token	*tmp;
-	t_token	*tmp2;
+	t_token *tmp2;
 
 	str = NULL;
 	gigastar(a->str, &str, home);
 	tmp = create_simple_token_list(str);
-	tmp2 = tmp;
-	while (tmp->next)
-		tmp = tmp->next;
-	tmp->next = a->next;
-	free((*first)->str);
-	free(*first);
-	*first = tmp2;
-	a = *first;
+	tmp2 = a->next;
+	free(first->str);
+	first->type = tmp->type;
+	first->str = tmp->str;
+	first->next = tmp->next;
+	while (first->next)
+		first = first->next;
+	first->next = tmp2;
 	free(str);
-	return (a);
+	free(tmp);
+	return (tmp2);
 }
 
 t_token		*other_links(t_token *a, char *home)
