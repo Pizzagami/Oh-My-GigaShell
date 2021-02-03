@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/15 16:13:31 by raimbault         #+#    #+#             */
-/*   Updated: 2021/01/28 11:19:09 by selgrabl         ###   ########.fr       */
+/*   Updated: 2021/02/03 15:02:57 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,11 +84,11 @@ typedef struct				s_multi
 typedef struct				s_all
 {
 	int		x;
-	t_env	*tenv;
-	t_term	term;
-	t_hist	thist;
-	t_arrow	tar;
-	t_multi	tmulti;
+	t_env	*env;
+	t_term	erm;
+	t_hist	hist;
+	t_arrow	ar;
+	t_multi	multi;
 }							t_all;
 
 typedef struct				s_omm

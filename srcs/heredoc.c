@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 11:49:38 by braimbau          #+#    #+#             */
-/*   Updated: 2021/02/03 14:12:39 by braimbau         ###   ########.fr       */
+/*   Updated: 2021/02/03 14:48:28 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,19 @@ char	*rdmstr(int n)
 	return (str);
 }
 
+void	nif(int ret, char *str, char fd)
+{
+	(ret != 3) ? ft_putstr_fd(str, fd) : 0;
+	ft_putchar_fd('\n', fd);
+	free(str);
+}
+
 void	set_heredoc(t_redirection *redir, int *ec, int ret, char *str)
 {
 	char			*buf;
 	int				fd;
 	t_term			t;
-	char *tmp;
+	char			*tmp;
 
 	term_init(&t.save_cano, &t.save_nncano);
 	ft_putstr(">");
@@ -47,8 +54,7 @@ void	set_heredoc(t_redirection *redir, int *ec, int ret, char *str)
 		(ret == -1) ? print_error(ec, 20) : 0;
 		tmp = str;
 		str = (str != NULL) ? ft_strjoin_sep(str, buf, '\n') : ft_strdup(buf);
-		if (tmp)
-			free(tmp);
+		(tmp) ? free(tmp) : 0;
 		free(buf);
 		ft_putstr(">\033[0m");
 		ret = poor_bashy(redir->filename, &buf, t.save_cano, t.save_nncano);
@@ -57,10 +63,6 @@ void	set_heredoc(t_redirection *redir, int *ec, int ret, char *str)
 	redir->filename = rdmstr(12);
 	fd = open(redir->filename, O_WRONLY | O_CREAT, S_IRWXU);
 	if (str)
-	{
-		(ret != 3) ? ft_putstr_fd(str, fd) : 0;
-		ft_putchar_fd('\n', fd);
-		free(str);
-	}
+		nif(ret, str, fd);
 	close(fd);
 }

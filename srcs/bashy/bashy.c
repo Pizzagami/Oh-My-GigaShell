@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 09:59:09 by braimbau          #+#    #+#             */
-/*   Updated: 2021/02/03 14:19:00 by braimbau         ###   ########.fr       */
+/*   Updated: 2021/02/03 14:36:09 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,7 @@ int		loop(char *str, t_hist *hist, t_arrow *ar)
 				free(str);
 				return (1);
 			}
+			free(str);
 			return (0);
 		}
 		else

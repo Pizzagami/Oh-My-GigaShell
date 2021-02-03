@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 10:23:00 by braimbau          #+#    #+#             */
-/*   Updated: 2021/02/02 15:26:49 by selgrabl         ###   ########.fr       */
+/*   Updated: 2021/02/03 15:02:19 by selgrabl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,13 @@ void	init_main(t_all *all, int *last_ret, int argc, char **argv)
 	(void)argc;
 	(void)argv;
 	*last_ret = 0;
-	all->tmulti.str = NULL;
-	all->tmulti.type = 0;
+	all->multi.str = NULL;
+	all->multi.type = 0;
 	all->x = 0;
-	all->tar.x = 0;
-	all->tar.y = 0;
-	all->thist.x = 0;
-	all->thist.y = 0;
+	all->ar.x = 0;
+	all->ar.y = 0;
+	all->hist.x = 0;
+	all->hist.y = 0;
 	signal(SIGINT, langis);
 	signal(SIGQUIT, langis);
 	term_init(&all->term.save_cano, &all->term.save_nncano);
@@ -47,19 +47,19 @@ int		main(int argc, char **argv, char **env)
 	path = ft_calloc(1, 1024);
 	ft_strlcat(getcwd(path, 1023), "/historic.omgsh", ft_strlen(path) + 16);
 	init_main(&all, &last_ret, argc, argv);
-	dup_env(env, &all.tenv);
-	all.thist.cc = is_unicorn_set(all.tenv);
-	file_histo(&all.thist, path);
+	dup_env(env, &all.env);
+	all.hist.cc = is_unicorn_set(all.env);
+	file_histo(&all.hist, path);
 	while (1)
 	{
-		all.x = bashy(&all.thist, &all.tar);
+		all.x = bashy(&all.hist, &all.ar);
 		if (all.x != 3)
 		{
 			tcsetattr(0, TCSADRAIN, &all.term.save_cano);
-			all.tmulti.x = all.x;
-			all.thist.y = multilines(&all.thist,
-			all.tenv, &last_ret, &all.tmulti);
-			histo_file(&all.thist, path);
+			all.multi.x = all.x;
+			all.hist.y = multilines(&all.hist,
+			all.env, &last_ret, &all.multi);
+			histo_file(&all.hist, path);
 			tcsetattr(0, TCSADRAIN, &all.term.save_nncano);
 		}
 	}
