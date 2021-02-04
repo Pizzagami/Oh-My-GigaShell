@@ -6,7 +6,7 @@
 /*   By: pizzagami <pizzagami@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 11:11:48 by braimbau          #+#    #+#             */
-/*   Updated: 2021/02/02 16:43:52 by braimbau         ###   ########.fr       */
+/*   Updated: 2021/02/04 12:12:06 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ char	**link_tab(t_env *env)
 void	exec_binary_son(t_omm omm, t_token *token, char **tab, char **tabenv)
 {
 	char	*path;
+	int		ret;
 
 	path = get_path(omm.env, token->str);
 	if (!path)
@@ -60,20 +61,21 @@ void	exec_binary_son(t_omm omm, t_token *token, char **tab, char **tabenv)
 		ft_putstr_fd("bashy: ", 2);
 		ft_putstr_fd(tab[0], 2);
 		ft_putstr_fd(" : command not found\n", 2);
+		free(tab);
+		exit(127);
 	}
-	else
+	ret = is_exec(path);
+	if (ret != 1)
 	{
-		tabenv = link_tab(omm.env);
-		execve(path, tab, tabenv);
+		free(tab);
+		ft_putstr_fd("bashy: ", 2);
+		ft_putstr_fd(path, 2);
+		ft_putstr_fd((!ret) ? ": Permision denied\n" :
+				" No such file or directory\n", 2);
+		exit((ret) ? 127 : 126);
 	}
-	if (path)
-	{
-		ft_putstr_fd("bashy: permision denied: ", 2);
-		ft_putstr_fd(tab[0], 2);
-		ft_putstr_fd("\n", 2);
-	}
-	free(tab);
-	exit(127);
+	tabenv = link_tab(omm.env);
+	execve(path, tab, tabenv);
 }
 
 void	son_pipeline(int pfd[2], t_omm *omm, t_pipeline *pipeline)

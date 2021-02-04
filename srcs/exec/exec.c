@@ -6,12 +6,24 @@
 /*   By: braimbau <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/29 17:26:36 by braimbau          #+#    #+#             */
-/*   Updated: 2021/02/01 10:03:50 by braimbau         ###   ########.fr       */
+/*   Updated: 2021/02/04 12:11:33 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 #include "libft.h"
+#include <sys/stat.h>
+
+int		is_exec(char *path)
+{
+	struct stat buf;
+
+	if (stat(path, &buf) == -1)
+		return (-1);
+	if (buf.st_mode & S_IRUSR)
+		return (1);
+	return (0);
+}
 
 void	free_d_tab(char **tab)
 {

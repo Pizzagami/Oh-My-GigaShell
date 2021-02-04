@@ -6,7 +6,7 @@
 /*   By: selgrabl <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 15:04:28 by selgrabl          #+#    #+#             */
-/*   Updated: 2021/02/03 15:04:30 by selgrabl         ###   ########.fr       */
+/*   Updated: 2021/02/04 12:05:44 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@
 
 typedef void	t_flch_csp(char **str, t_arrow *ar, t_hist *hist);
 
+int				is_exec(char *str);
 void			up(char **str, t_arrow *ar, t_hist *hist);
 void			down(char **str, t_arrow *ar, t_hist *hist);
 void			right(char **str, t_arrow *ar, t_hist *hist);
