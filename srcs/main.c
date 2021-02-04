@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 10:23:00 by braimbau          #+#    #+#             */
-/*   Updated: 2021/02/03 15:02:19 by selgrabl         ###   ########.fr       */
+/*   Updated: 2021/02/04 13:20:48 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ void	init_main(t_all *all, int *last_ret, int argc, char **argv)
 	all->ar.y = 0;
 	all->hist.x = 0;
 	all->hist.y = 0;
+	all->env = NULL;
 	signal(SIGINT, langis);
 	signal(SIGQUIT, langis);
 	term_init(&all->term.save_cano, &all->term.save_nncano);
