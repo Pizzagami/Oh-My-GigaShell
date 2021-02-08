@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 10:23:00 by braimbau          #+#    #+#             */
-/*   Updated: 2021/02/04 13:20:48 by braimbau         ###   ########.fr       */
+/*   Updated: 2021/02/08 23:34:24 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,9 @@ int		main(int argc, char **argv, char **env)
 	t_all			all;
 	int				last_ret;
 	char			*path;
-	char			*path1;
+	char			*path1[1024];
 
-	path1 = ft_calloc(1, 1024);
-	path = ft_strjoin_sep(getcwd(path1, 1023), "historic.omgsh", '/');
-	free(path1);
+	path = ft_strjoin_sep(getcwd((char *)path1, 1023), "historic.omgsh", '/');
 	init_main(&all, &last_ret, argc, argv);
 	dup_env(env, &all.env);
 	all.hist.cc = is_unicorn_set(all.env);

@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 10:23:00 by selgrabl          #+#    #+#             */
-/*   Updated: 2021/01/27 17:08:49 by selgrabl         ###   ########.fr       */
+/*   Updated: 2021/02/08 23:37:42 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ void	file_histo(t_hist *hist, char *path)
 	int g;
 
 	x = 0;
-	ft_putstr(path);
 	fd = open(path, O_RDONLY);
 	if (fd < 0)
 		return ;
