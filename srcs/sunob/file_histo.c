@@ -20,6 +20,7 @@ void	file_histo(t_hist *hist, char *path)
 	int g;
 
 	x = 0;
+	ft_putstr(path);
 	fd = open(path, O_RDONLY);
 	if (fd < 0)
 		return ;

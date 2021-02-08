@@ -44,9 +44,11 @@ int		main(int argc, char **argv, char **env)
 	t_all			all;
 	int				last_ret;
 	char			*path;
+	char			*path1;
 
-	path = ft_calloc(1, 1024);
-	ft_strlcat(getcwd(path, 1023), "/historic.omgsh", ft_strlen(path) + 16);
+	path1 = ft_calloc(1, 1024);
+	path = ft_strjoin_sep(getcwd(path1, 1023), "historic.omgsh", '/');
+	free(path1);
 	init_main(&all, &last_ret, argc, argv);
 	dup_env(env, &all.env);
 	all.hist.cc = is_unicorn_set(all.env);
