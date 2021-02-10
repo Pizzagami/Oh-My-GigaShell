@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: selgrabl <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 15:04:28 by selgrabl          #+#    #+#             */
-/*   Updated: 2021/02/04 12:05:44 by braimbau         ###   ########.fr       */
+/*   Updated: 2021/02/10 13:49:45 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ void			term_init(struct termios *cano, struct termios *nncano);
 void			historic(t_hist *hist, char *str);
 char			caspe(char c, char **str, t_arrow *ar, t_hist *hist);
 char			*remalloc(char *str, char c);
-int				bashy(t_hist *hist, t_arrow *ar);
+int				bashy(t_hist *hist, t_arrow *ar, int *ec);
 int				persecutor(t_hist *hist, t_env *env, int *last_ret);
 int				multilines(t_hist *hist, t_env *env, int *lret, t_multi *mult);
 void			file_histo(t_hist *hist, char *path);

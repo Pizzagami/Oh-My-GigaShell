@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 10:23:00 by selgrabl          #+#    #+#             */
-/*   Updated: 2021/02/02 15:32:14 by selgrabl         ###   ########.fr       */
+/*   Updated: 2021/02/10 13:54:56 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,10 @@ void	builtin_cd(char *path, t_env *env)
 	}
 	else
 	{
-		ft_putstr("bash: cd: ");
-		perror(path);
+		ft_putstr_fd("bash: cd: ", 2);
+		ft_putstr_fd(path, 2);
+		ft_putstr_fd(": ", 2);
+		ft_putstr_fd(strerror(errno), 2);
+		ft_putstr_fd("\n", 2);
 	}
 }

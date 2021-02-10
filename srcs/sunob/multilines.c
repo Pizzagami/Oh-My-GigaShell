@@ -6,7 +6,7 @@
 /*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/08 10:49:12 by braimbau          #+#    #+#             */
-/*   Updated: 2021/02/03 14:59:20 by selgrabl         ###   ########.fr       */
+/*   Updated: 2021/02/10 13:40:17 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,5 +44,7 @@ int		multilines(t_hist *hist, t_env *env, int *last_ret, t_multi *multi)
 		multi->type = ret;
 		return (ret);
 	}
+	else if (ret > 1)
+		*last_ret = 258;
 	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bashy.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 09:59:09 by braimbau          #+#    #+#             */
-/*   Updated: 2021/02/03 14:36:09 by selgrabl         ###   ########.fr       */
+/*   Updated: 2021/02/10 13:51:55 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,13 +60,14 @@ char	caspe(char c, char **str, t_arrow *ar, t_hist *hist)
 	return (c);
 }
 
-int		looping(char *str, char c, t_hist *hist)
+int		looping(char *str, char c, t_hist *hist, int *ec)
 {
 	if ((int)c == 3)
 	{
 		free(str);
 		ft_putchar('\n');
 		hist->y = 0;
+		*ec = 1;
 		return (3);
 	}
 	else
@@ -89,7 +90,7 @@ int		looping(char *str, char c, t_hist *hist)
 	}
 }
 
-int		loop(char *str, t_hist *hist, t_arrow *ar)
+int		loop(char *str, t_hist *hist, t_arrow *ar, int *ec)
 {
 	char c;
 
@@ -98,7 +99,7 @@ int		loop(char *str, t_hist *hist, t_arrow *ar)
 	{
 		read(0, &c, 1);
 		if ((int)c == 3 || ((int)c == 4 && str[0] == 0))
-			return (looping(str, c, hist));
+			return (looping(str, c, hist, ec));
 		else if ((int)c == 10)
 		{
 			ft_putstr("\n");
@@ -118,7 +119,7 @@ int		loop(char *str, t_hist *hist, t_arrow *ar)
 	}
 }
 
-int		bashy(t_hist *hist, t_arrow *ar)
+int		bashy(t_hist *hist, t_arrow *ar, int *ec)
 {
 	char *str;
 
@@ -134,5 +135,5 @@ int		bashy(t_hist *hist, t_arrow *ar)
 	}
 	ar->x = 0;
 	ar->y = 0;
-	return (loop(str, hist, ar));
+	return (loop(str, hist, ar, ec));
 }

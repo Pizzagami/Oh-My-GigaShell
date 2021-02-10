@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 10:23:00 by braimbau          #+#    #+#             */
-/*   Updated: 2021/02/08 23:34:24 by braimbau         ###   ########.fr       */
+/*   Updated: 2021/02/10 13:52:18 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int		main(int argc, char **argv, char **env)
 	file_histo(&all.hist, path);
 	while (1)
 	{
-		all.x = bashy(&all.hist, &all.ar);
+		all.x = bashy(&all.hist, &all.ar, &last_ret);
 		if (all.x != 3)
 		{
 			tcsetattr(0, TCSADRAIN, &all.term.save_cano);
