@@ -6,7 +6,7 @@
 /*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 09:59:09 by braimbau          #+#    #+#             */
-/*   Updated: 2021/02/10 13:51:55 by braimbau         ###   ########.fr       */
+/*   Updated: 2021/02/11 22:59:00 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,14 +78,13 @@ int		looping(char *str, char c, t_hist *hist, int *ec)
 			str = ft_strdup("exit");
 			ft_putstr("exit\n");
 			historic(hist, str);
-			free(str);
 		}
 		else
 		{
 			ft_putstr("bash: unexpected EOF while looking for matching");
 			ft_putstr(" `'\"\nbash: syntaxt error: unexpected end of file");
-			free(str);
 		}
+		free(str);
 		return (1);
 	}
 }
