@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_builtin.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/15 15:24:37 by raimbault         #+#    #+#             */
-/*   Updated: 2021/01/26 17:20:00 by selgrabl         ###   ########.fr       */
+/*   Updated: 2021/02/10 15:37:24 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int		exec_builtin(char *exec, char **tab, t_env *env)
 	if (i == 6)
 		builtin_unset(tab, &env);
 	if (i == 7)
-		builtin_exit(env);
+		builtin_exit(env, tab);
 	if (i == 1 && *tab)
 		buitin_echo(tab);
 	return (0);
