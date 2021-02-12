@@ -6,7 +6,7 @@
 /*   By: braimbau <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 16:17:48 by braimbau          #+#    #+#             */
-/*   Updated: 2021/02/04 13:21:55 by braimbau         ###   ########.fr       */
+/*   Updated: 2021/02/12 18:16:11 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ int		dquote(int *x, int *i, char *str, char *quot)
 	remove_char(str, *i);
 	if (str[*i] && str[*i] != 34)
 	{
+		esc_bksl(x, i, str, quot);
 		quot[*x] = 'b';
 		(*x)++;
 		(*i)++;
@@ -47,6 +48,7 @@ int		squote(int *x, int *i, char *str, char *quot)
 	remove_char(str, *i);
 	if (str[*i] && str[*i] != 39)
 	{
+		esc_bksl(x, i, str, quot);
 		quot[*x] = 'a';
 		(*x)++;
 		(*i)++;
