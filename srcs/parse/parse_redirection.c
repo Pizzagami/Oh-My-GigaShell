@@ -6,7 +6,7 @@
 /*   By: raimbaultbrieuc <marvin@42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/15 16:34:28 by raimbault         #+#    #+#             */
-/*   Updated: 2021/01/07 11:26:20 by braimbau         ###   ########.fr       */
+/*   Updated: 2021/02/13 12:49:09 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ t_redirection	*parse_redirection(t_token *token, t_token *max, int *ec)
 	{
 		if (token->type >= LESS)
 		{
-			if (!token->next || token->next->type >= LESS)
+			if (!token->next || token->next->type != WORD)
 			{
 				print_error(ec, 17);
 				return (redirection_start);

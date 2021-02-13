@@ -6,7 +6,7 @@
 /*   By: braimbau <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 10:49:19 by braimbau          #+#    #+#             */
-/*   Updated: 2021/01/15 10:50:07 by braimbau         ###   ########.fr       */
+/*   Updated: 2021/02/13 13:29:27 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,12 @@ void	delete_unquoted_newlines(char *str, char *quot)
 	while (str[i])
 	{
 		if (quot[i] == '0' && str[i] == '\n')
+		{
 			remove_char(str, i);
-		i++;
+			remove_char(quot, i);
+		}
+		else
+			i++;
 	}
 }
 

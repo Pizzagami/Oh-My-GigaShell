@@ -6,7 +6,7 @@
 /*   By: raimbaultbrieuc <marvin@42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/15 16:31:43 by raimbault         #+#    #+#             */
-/*   Updated: 2021/01/11 16:03:30 by braimbau         ###   ########.fr       */
+/*   Updated: 2021/02/13 13:13:29 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,11 @@ t_andor	*parse_andor2(t_andor *andor, int *ec, t_token *token, t_token *max)
 		andor->type = token->type;
 		token = token->next;
 	}
-	andor->brother = parse_andor(token, max, ec);
-	if (andor->brother == NULL && andor->type)
+	if (*ec == 0)
+		andor->brother = parse_andor(token, max, ec);
+	if (andor->brother == NULL && andor->type && *ec == 0)
 	{
-		print_error(ec, (token && !token->next) ? 19 : 7);
+		print_error(ec, (token && token->next) ? 19 : 7);
 		return (andor);
 	}
 	return (andor);

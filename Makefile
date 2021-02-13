@@ -61,7 +61,7 @@ SRCS =	./srcs/main.c							\
 
 FLAG = -L includes/libft
 FSANITIZE = -fsanitize=address -g3
-CFLAGS = -Wall -Wextra -Werror -I includes/ -I includes/libft/
+CFLAGS = -Wall -Wextra -Werror -I includes/ -I includes/libft/ $(FSANITIZE)
 
 CC = gcc
 
