@@ -6,7 +6,7 @@
 /*   By: braimbau <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/29 17:26:36 by braimbau          #+#    #+#             */
-/*   Updated: 2021/02/04 12:11:33 by braimbau         ###   ########.fr       */
+/*   Updated: 2021/02/14 16:34:22 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,20 +96,11 @@ char	*get_implicit_path(t_env *env, char *str, int i)
 
 char	*get_path(t_env *env, char *str)
 {
-	char path[4096];
 	char *home;
 	char *tmp;
 
-	if (str[0] == '/')
+	if (str[0] == '/' || str[0] == '.')
 		return (str);
-	if (str[0] == '.')
-	{
-		getcwd(path, 4096);
-		str = ft_substr(str, 1, ft_strlen(str) - 1);
-		tmp = str;
-		str = ft_strjoin(path, str);
-		free(tmp);
-	}
 	else if (str[0] == '~')
 	{
 		home = get_env(env, "HOME");
