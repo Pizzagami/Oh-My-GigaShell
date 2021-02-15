@@ -6,7 +6,7 @@
 /*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 10:23:00 by braimbau          #+#    #+#             */
-/*   Updated: 2021/02/15 11:49:54 by braimbau         ###   ########.fr       */
+/*   Updated: 2021/02/15 16:02:51 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ int		main(int argc, char **argv, char **env)
 	dup_env(env, &all.env);
 	all.hist.cc = is_unicorn_set(all.env);
 	file_histo(&all.hist, path);
-	*(get_env2(all.env, "SHLVL")) = ft_itoa(ft_atoi(get_env(all.env, "SHLVL")) + 1);
 	while (1)
 	{
 		all.x = bashy(&all.hist, &all.ar, &last_ret);

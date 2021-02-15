@@ -6,7 +6,7 @@
 /*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/15 15:24:37 by raimbault         #+#    #+#             */
-/*   Updated: 2021/02/15 14:25:07 by braimbau         ###   ########.fr       */
+/*   Updated: 2021/02/15 15:55:04 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ int		exec_builtin(char *exec, char **tab, t_env *env)
 	int x;
 
 	x = 0;
-	i = 0;
 	i = is_builtin(exec);
 	if (i > 0)
 		tab++;

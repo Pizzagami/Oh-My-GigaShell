@@ -6,14 +6,14 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 10:23:00 by selgrabl          #+#    #+#             */
-/*   Updated: 2021/02/15 14:23:05 by braimbau         ###   ########.fr       */
+/*   Updated: 2021/02/15 15:56:50 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "parser.h"
 
-int  oldpwd_error(char *oldpwd)
+int		oldpwd_error(char *oldpwd)
 {
 	ft_putstr_fd("bash : cd: ", 2);
 	ft_putstr_fd(oldpwd, 2);
@@ -21,7 +21,7 @@ int  oldpwd_error(char *oldpwd)
 	return (1);
 }
 
-int 	norme_cd(char **oldpwd, char **pwd, char htap[PATH_MAX], char *path)
+int		norme_cd(char **oldpwd, char **pwd, char htap[PATH_MAX], char *path)
 {
 	char *pwdtmp;
 
@@ -47,7 +47,7 @@ int 	norme_cd(char **oldpwd, char **pwd, char htap[PATH_MAX], char *path)
 	return (0);
 }
 
-int	builtin_cd(char *path, t_env *env)
+int		builtin_cd(char *path, t_env *env)
 {
 	char	htap[PATH_MAX];
 	char	**oldpwd;
@@ -59,7 +59,7 @@ int	builtin_cd(char *path, t_env *env)
 	{
 		pwd = get_env2(env, "PWD");
 		oldpwd = get_env2(env, "OLDPWD");
-		return(norme_cd(oldpwd, pwd, htap, path));
+		return (norme_cd(oldpwd, pwd, htap, path));
 	}
 	else
 	{

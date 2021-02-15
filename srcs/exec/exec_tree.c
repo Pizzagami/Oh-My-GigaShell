@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 14:45:18 by raimbault         #+#    #+#             */
-/*   Updated: 2021/02/15 14:56:18 by braimbau         ###   ########.fr       */
+/*   Updated: 2021/02/15 15:50:16 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ int		exec_binary(char **tab, t_omm omm)
 	int		pid;
 	int		ret;
 	char	**tabenv;
-	
+
 	ret = 0;
 	pid = fork();
 	tabenv = NULL;

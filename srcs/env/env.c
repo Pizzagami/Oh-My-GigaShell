@@ -6,12 +6,12 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 15:59:42 by braimbau          #+#    #+#             */
-/*   Updated: 2021/01/27 15:17:39 by selgrabl         ###   ########.fr       */
+/*   Updated: 2021/02/15 16:02:28 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include "libft.h"
+#include "parser.h"
 #include <pwd.h>
 
 void	dup_env(char **envp, t_env **env)
@@ -24,6 +24,7 @@ void	dup_env(char **envp, t_env **env)
 		add_tail(ft_strdup(envp[i]), env);
 		i++;
 	}
+	*(get_env2(*env, "SHLVL")) = ft_itoa(ft_atoi(get_env(*env, "SHLVL")) + 1);
 }
 
 void	add_tail(char *var, t_env **first)

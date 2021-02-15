@@ -6,7 +6,7 @@
 /*   By: braimbau <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/29 17:26:36 by braimbau          #+#    #+#             */
-/*   Updated: 2021/02/15 15:41:11 by braimbau         ###   ########.fr       */
+/*   Updated: 2021/02/15 15:48:54 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int		is_exec(char *path)
 	return (0);
 }
 
-void	free_d_tab(char **tab)
+char	*free_d_tab(char **tab)
 {
 	int i;
 
@@ -38,6 +38,7 @@ void	free_d_tab(char **tab)
 		i++;
 	}
 	free(tab);
+	return (NULL);
 }
 
 int		is_in_directory(char *dirname, char *file)
@@ -68,17 +69,14 @@ int		is_in_directory(char *dirname, char *file)
 	return (ret);
 }
 
-char	*get_implicit_path(t_env *env, char *str, int i)
+char	*get_implicit_path(char *str, int i, char *tmp)
 {
 	char	**tab;
 	char	*path;
-	char	*tmp;
-	char	*test;
 
-	test = get_env(env, "PATH");
-	if (test == NULL)
+	if (tmp == NULL)
 		return (NULL);
-	tab = ft_split(test, ':');
+	tab = ft_split(tmp, ':');
 	while (tab[i])
 	{
 		if (is_in_directory(tab[i], str))
@@ -87,10 +85,8 @@ char	*get_implicit_path(t_env *env, char *str, int i)
 			tmp = path;
 			path = ft_strjoin(path, str);
 			if (is_dir(path, ""))
-			{
 				free(path);
-			}
-			else 
+			else
 			{
 				free(tmp);
 				free_d_tab(tab);
@@ -99,8 +95,7 @@ char	*get_implicit_path(t_env *env, char *str, int i)
 		}
 		i++;
 	}
-	free_d_tab(tab);
-	return (NULL);
+	return (free_d_tab(tab));
 }
 
 char	*get_path(t_env *env, char *str)
@@ -119,6 +114,6 @@ char	*get_path(t_env *env, char *str)
 		mfree(tmp, home);
 	}
 	else
-		str = get_implicit_path(env, str, 0);
+		str = get_implicit_path(str, 0, get_env(env, "PATH"));
 	return (str);
 }
