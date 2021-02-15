@@ -6,7 +6,7 @@
 /*   By: braimbau <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/29 17:26:36 by braimbau          #+#    #+#             */
-/*   Updated: 2021/02/15 15:03:29 by braimbau         ###   ########.fr       */
+/*   Updated: 2021/02/15 15:41:11 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ int		is_exec(char *path)
 	struct stat buf;
 
 	if (stat(path, &buf) == -1)
+		return (-1);
+	if (S_ISDIR(buf.st_mode))
 		return (-1);
 	if (buf.st_mode & S_IRUSR)
 		return (1);
