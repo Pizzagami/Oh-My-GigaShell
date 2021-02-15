@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 14:45:18 by raimbault         #+#    #+#             */
-/*   Updated: 2021/02/03 15:09:49 by selgrabl         ###   ########.fr       */
+/*   Updated: 2021/02/15 08:49:57 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ int		exec_command(t_command *command, t_omm omm)
 	return (i);
 }
 
-int		exec_binary(char **tab, t_omm omm, t_token *token)
+int		exec_binary(char **tab, t_omm omm)
 {
 	int		pid;
 	int		ret;
@@ -93,7 +93,7 @@ int		exec_binary(char **tab, t_omm omm, t_token *token)
 	pid = fork();
 	tabenv = NULL;
 	if (pid == 0)
-		exec_binary_son(omm, token, tab, tabenv);
+		exec_binary_son(omm, tab, tabenv);
 	else
 	{
 		waitpid(pid, &ret, 0);
@@ -128,7 +128,7 @@ int		exec_instruction(t_instruction *instruction, t_omm omm)
 		free(tab);
 	}
 	else
-		ret = exec_binary(tab, omm, instruction->start);
+		ret = exec_binary(tab, omm);
 	*(omm.last_ret) = ret;
 	return (ret);
 }

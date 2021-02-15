@@ -6,7 +6,7 @@
 /*   By: braimbau <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 15:26:13 by braimbau          #+#    #+#             */
-/*   Updated: 2021/02/03 10:34:22 by braimbau         ###   ########.fr       */
+/*   Updated: 2021/02/15 09:02:42 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ t_token		*starize_list(t_token *first, t_token *max, char *home)
 		{
 			a = first_link(a, home, first);
 		}
-		else if (a->next && a->next != max
+		else if (a->next && a->next != max && a->next->str
 				&& srcchar(CSTAR, a->next->str) != -1)
 		{
 			a = other_links(a, home);

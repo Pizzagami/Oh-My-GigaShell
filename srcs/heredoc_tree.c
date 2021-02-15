@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 09:33:39 by braimbau          #+#    #+#             */
-/*   Updated: 2021/01/27 16:06:28 by selgrabl         ###   ########.fr       */
+/*   Updated: 2021/02/15 10:36:18 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,17 @@
 
 void	heredoc_command(t_command *command, int *ec)
 {
+	t_redirection *redirection;
+
+	redirection = command->redirection;
 	if (command->c_list)
 		heredoc_list(command->c_list, ec);
-	if (command->redirection && command->redirection->type == DLESS)
-		set_heredoc(command->redirection, ec, 0, NULL);
+	while (redirection)
+	{
+		if (redirection->type == DLESS)
+			set_heredoc(redirection, ec, 0, NULL);
+		redirection = redirection->brother;
+	}
 }
 
 void	heredoc_pipeline(t_pipeline *pipeline, int *ec)

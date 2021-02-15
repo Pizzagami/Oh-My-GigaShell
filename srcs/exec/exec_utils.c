@@ -6,7 +6,7 @@
 /*   By: pizzagami <pizzagami@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 11:11:48 by braimbau          #+#    #+#             */
-/*   Updated: 2021/02/04 12:12:06 by braimbau         ###   ########.fr       */
+/*   Updated: 2021/02/15 08:47:48 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,12 +50,12 @@ char	**link_tab(t_env *env)
 	return (str);
 }
 
-void	exec_binary_son(t_omm omm, t_token *token, char **tab, char **tabenv)
+void	exec_binary_son(t_omm omm, char **tab, char **tabenv)
 {
 	char	*path;
 	int		ret;
 
-	path = get_path(omm.env, token->str);
+	path = get_path(omm.env, tab[0]);
 	if (!path)
 	{
 		ft_putstr_fd("bashy: ", 2);

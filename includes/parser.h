@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/15 16:13:31 by raimbault         #+#    #+#             */
-/*   Updated: 2021/02/01 10:04:39 by braimbau         ###   ########.fr       */
+/*   Updated: 2021/02/15 08:48:40 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void			set_heredoc(t_redirection *redir, int *ec, int ret, char *str);
 void			heredoc_list(t_list *list, int *ec);
 void			heredoc_input(t_input *input, int *ec);
 void			son_pipeline(int pfd[2], t_omm *omm, t_pipeline *pipeline);
-void			exec_binary_son(t_omm omm, t_token *token, char **tab,
+void			exec_binary_son(t_omm omm, char **tab,
 				char **tabenv);
 void			clean_token_list(t_token *token);
 void			free_tab(char **tabenv);
