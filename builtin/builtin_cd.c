@@ -6,14 +6,22 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 10:23:00 by selgrabl          #+#    #+#             */
-/*   Updated: 2021/02/10 13:54:56 by braimbau         ###   ########.fr       */
+/*   Updated: 2021/02/15 14:23:05 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "parser.h"
 
-void	norme_cd(char **oldpwd, char **pwd, char htap[PATH_MAX], char *path)
+int  oldpwd_error(char *oldpwd)
+{
+	ft_putstr_fd("bash : cd: ", 2);
+	ft_putstr_fd(oldpwd, 2);
+	ft_putstr_fd(": No such file or directory \n", 2);
+	return (1);
+}
+
+int 	norme_cd(char **oldpwd, char **pwd, char htap[PATH_MAX], char *path)
 {
 	char *pwdtmp;
 
@@ -21,11 +29,13 @@ void	norme_cd(char **oldpwd, char **pwd, char htap[PATH_MAX], char *path)
 	{
 		if (path[0] == '-' && path[1] == 0)
 		{
+			if (chdir(*oldpwd) == -1)
+				return (oldpwd_error(*oldpwd));
 			pwdtmp = *pwd;
 			*pwd = *oldpwd;
 			*oldpwd = pwdtmp;
 			chdir(*pwd);
-			builtin_pwd();
+			builtin_pwd(NULL);
 		}
 		else
 		{
@@ -34,9 +44,10 @@ void	norme_cd(char **oldpwd, char **pwd, char htap[PATH_MAX], char *path)
 			*pwd = ft_strdup(getcwd(htap, PATH_MAX - 1));
 		}
 	}
+	return (0);
 }
 
-void	builtin_cd(char *path, t_env *env)
+int	builtin_cd(char *path, t_env *env)
 {
 	char	htap[PATH_MAX];
 	char	**oldpwd;
@@ -48,7 +59,7 @@ void	builtin_cd(char *path, t_env *env)
 	{
 		pwd = get_env2(env, "PWD");
 		oldpwd = get_env2(env, "OLDPWD");
-		norme_cd(oldpwd, pwd, htap, path);
+		return(norme_cd(oldpwd, pwd, htap, path));
 	}
 	else
 	{
@@ -58,4 +69,5 @@ void	builtin_cd(char *path, t_env *env)
 		ft_putstr_fd(strerror(errno), 2);
 		ft_putstr_fd("\n", 2);
 	}
+	return (0);
 }

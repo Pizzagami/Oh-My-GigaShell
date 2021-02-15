@@ -6,7 +6,7 @@
 /*   By: braimbau <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/29 17:26:36 by braimbau          #+#    #+#             */
-/*   Updated: 2021/02/15 09:23:14 by braimbau         ###   ########.fr       */
+/*   Updated: 2021/02/15 15:03:29 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,9 +84,16 @@ char	*get_implicit_path(t_env *env, char *str, int i)
 			path = ft_strjoin(tab[i], "/");
 			tmp = path;
 			path = ft_strjoin(path, str);
-			free(tmp);
-			free_d_tab(tab);
-			return (path);
+			if (is_dir(path, ""))
+			{
+				free(path);
+			}
+			else 
+			{
+				free(tmp);
+				free_d_tab(tab);
+				return (path);
+			}
 		}
 		i++;
 	}
@@ -99,7 +106,7 @@ char	*get_path(t_env *env, char *str)
 	char *home;
 	char *tmp;
 
-	if (str[0] == '/' || str[0] == '.')
+	if (ft_strfind(str, '/') != -1)
 		return (str);
 	else if (str[0] == '~')
 	{

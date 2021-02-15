@@ -6,18 +6,22 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 10:23:00 by selgrabl          #+#    #+#             */
-/*   Updated: 2021/01/28 09:58:33 by selgrabl         ###   ########.fr       */
+/*   Updated: 2021/02/15 13:50:07 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "parser.h"
 #include "limits.h"
 
-void	builtin_pwd(void)
+void	builtin_pwd(t_env *env)
 {
 	char path[PATH_MAX];
-
-	ft_putstr(getcwd(path, PATH_MAX - 1));
+	
+	if (getcwd(path, PATH_MAX - 1))
+		ft_putstr(getcwd(path, PATH_MAX - 1));
+	else
+		ft_putstr(get_env(env, "PWD"));
 	ft_putstr("\n");
 	return ;
 }

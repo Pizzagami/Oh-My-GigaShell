@@ -6,12 +6,13 @@
 /*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 10:23:00 by braimbau          #+#    #+#             */
-/*   Updated: 2021/02/10 13:52:18 by braimbau         ###   ########.fr       */
+/*   Updated: 2021/02/15 11:49:54 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 #include "minishell.h"
+#include "parser.h"
 
 void	langis(int sig)
 {
@@ -51,6 +52,7 @@ int		main(int argc, char **argv, char **env)
 	dup_env(env, &all.env);
 	all.hist.cc = is_unicorn_set(all.env);
 	file_histo(&all.hist, path);
+	*(get_env2(all.env, "SHLVL")) = ft_itoa(ft_atoi(get_env(all.env, "SHLVL")) + 1);
 	while (1)
 	{
 		all.x = bashy(&all.hist, &all.ar, &last_ret);

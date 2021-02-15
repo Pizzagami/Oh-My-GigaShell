@@ -6,7 +6,7 @@
 /*   By: pizzagami <pizzagami@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 10:23:00 by selgrabl          #+#    #+#             */
-/*   Updated: 2021/02/11 23:00:41 by braimbau         ###   ########.fr       */
+/*   Updated: 2021/02/15 11:55:41 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ void	builtin_exit(t_env *env, char **str)
 		if (str[1] && str[1][0])
 			return (ft_putstr_fd("exit: too many arguments", 2));
 	}
+
 	free_env(env);
 	exit(ret);
 }

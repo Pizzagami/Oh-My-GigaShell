@@ -6,7 +6,7 @@
 /*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/15 15:24:37 by raimbault         #+#    #+#             */
-/*   Updated: 2021/02/10 15:37:24 by braimbau         ###   ########.fr       */
+/*   Updated: 2021/02/15 14:25:07 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,15 +38,17 @@ int		is_builtin(char *exec)
 int		exec_builtin(char *exec, char **tab, t_env *env)
 {
 	int i;
+	int x;
 
+	x = 0;
 	i = 0;
 	i = is_builtin(exec);
 	if (i > 0)
 		tab++;
 	if (i == 2)
-		builtin_cd(*tab, env);
+		x = builtin_cd(*tab, env);
 	if (i == 3)
-		builtin_pwd();
+		builtin_pwd(env);
 	if (i == 4)
 		builtin_env(env);
 	if (i == 5)
@@ -54,8 +56,11 @@ int		exec_builtin(char *exec, char **tab, t_env *env)
 	if (i == 6)
 		builtin_unset(tab, &env);
 	if (i == 7)
+	{
 		builtin_exit(env, tab);
+		x = 1;
+	}
 	if (i == 1 && *tab)
 		buitin_echo(tab);
-	return (0);
+	return (x);
 }

@@ -6,7 +6,7 @@
 /*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 15:04:28 by selgrabl          #+#    #+#             */
-/*   Updated: 2021/02/10 15:36:29 by braimbau         ###   ########.fr       */
+/*   Updated: 2021/02/15 14:26:02 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # define PATH_MAX 4096
 # include "struct.h"
+# include <errno.h>
 # include <termios.h>
 # include "token.h"
 # include <unistd.h>
@@ -107,11 +108,11 @@ void			add_char(char **str, int index, char c);
 char			*str_up(char *str);
 char			*str_low(char *str);
 void			buitin_echo(char **str);
-void			builtin_cd(char *path, t_env *env);
+int				builtin_cd(char *path, t_env *env);
 void			builtin_env(t_env *first);
 void			builtin_export(char **var, t_env **first);
 void			builtin_unset(char **var, t_env **env);
-void			builtin_pwd(void);
+void			builtin_pwd(t_env *env);
 void			builtin_exit(t_env *env, char **tab);
 char			*ft_strjoin_sep(char *s1, char *s2, char sep);
 void			delete_unquoted_newlines(char *str, char *quot);
