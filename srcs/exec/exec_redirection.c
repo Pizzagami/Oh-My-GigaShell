@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 11:09:48 by braimbau          #+#    #+#             */
-/*   Updated: 2021/02/15 10:37:50 by braimbau         ###   ########.fr       */
+/*   Updated: 2021/02/15 10:44:24 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ int		less_redirection(t_redirection *redirection)
 int		lesser_redirection(t_redirection *redirection)
 {
 	int fd;
+
 	fd = open(redirection->filename, O_RDONLY);
 	dup2(fd, 0);
 	close(fd);
