@@ -41,8 +41,8 @@ SRCS =	./srcs/main.c							\
 		./srcs/quote/quote_string.c				\
 		./srcs/quote/quote_utils.c				\
 		./srcs/quote/quote_char_edit.c			\
-		./srcs/heredoc.c						\
-		./srcs/heredoc_tree.c					\
+		./srcs/sunob/heredoc.c						\
+		./srcs/sunob/heredoc_tree.c					\
 		./srcs/sunob/colors.c					\
 		./srcs/sunob/term_init.c				\
 		./srcs/sunob/multilines.c				\
