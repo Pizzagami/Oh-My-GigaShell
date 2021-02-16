@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 11:09:48 by braimbau          #+#    #+#             */
-/*   Updated: 2021/02/15 10:44:24 by braimbau         ###   ########.fr       */
+/*   Updated: 2021/02/16 13:17:57 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,14 +84,17 @@ int		exec_redirection(t_redirection *redirection, t_omm omm)
 		return (1);
 	else if (redirection && redirection->type == LESS
 			&& less_redirection(redirection))
+	{
 		return (1);
+	}
 	else if (redirection && redirection->type == DLESS
 			&& lesser_redirection(redirection))
 		return (1);
 	if (redirection && redirection->brother)
 	{
 		redirection = redirection->brother;
-		exec_redirection(redirection, omm);
+		if (exec_redirection(redirection, omm) == 1)
+			return (1);
 	}
 	return (0);
 }
