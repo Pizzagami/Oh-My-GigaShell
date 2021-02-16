@@ -6,7 +6,7 @@
 /*   By: braimbau <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 16:17:48 by braimbau          #+#    #+#             */
-/*   Updated: 2021/02/15 10:44:45 by braimbau         ###   ########.fr       */
+/*   Updated: 2021/02/16 09:04:30 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ int		switch_quot(int *x, int *i, char *str, char *quot)
 		return (1);
 	if (str[*i] == 39 && squote(i, x, str, quot))
 		return (2);
-	if (backslash(i, x, str, quot))
+	if (str[*i] != 34 && str[*i] != 39 && backslash(i, x, str, quot))
 		return (3);
 	return (0);
 }

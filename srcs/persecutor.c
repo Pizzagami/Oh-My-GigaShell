@@ -6,7 +6,7 @@
 /*   By: raimbaultbrieuc <marvin@42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/15 15:24:37 by raimbault         #+#    #+#             */
-/*   Updated: 2021/02/15 10:36:41 by braimbau         ###   ########.fr       */
+/*   Updated: 2021/02/16 08:47:34 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ int		persecutor(t_hist *hist, t_env *env, int *last_ret)
 	ec = 0;
 	str = ft_strdup(hist->tab[0]);
 	quot = quote_string(&str, &ec);
+	printf("_%s_\n_%s_\n", str, quot);
 	if (ec)
 		mfree(str, quot);
 	if (ec)
