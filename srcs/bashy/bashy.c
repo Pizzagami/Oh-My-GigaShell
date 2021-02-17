@@ -12,27 +12,6 @@
 
 #include "minishell.h"
 
-void	historic(t_hist *hist, char *str)
-{
-	int x;
-
-	x = 254;
-	if (!hist->y)
-	{
-		while (x >= 0)
-		{
-			hist->tab[x + 1] = hist->tab[x];
-			x--;
-		}
-		hist->tab[0] = ft_strdup(str);
-	}
-	else
-	{
-		free(hist->tab[0]);
-		hist->tab[0] = ft_strdup(str);
-	}
-}
-
 char	caspe(char c, char **str, t_arrow *ar, t_hist *hist)
 {
 	t_flch_csp	*fleche_caspe[7];
@@ -60,6 +39,31 @@ char	caspe(char c, char **str, t_arrow *ar, t_hist *hist)
 	return (c);
 }
 
+int 	loopiding(char *str, t_hist *hist, int *ec)
+{
+	if (!hist->y)
+		{
+		free(str);
+		str = ft_strdup("exit");
+		ft_putstr("exit\n");
+		historic(hist, str);
+		hist->x++;
+		hist->y = 0;
+		return (1);
+	}
+	else
+	{
+		ft_putstr("bash: unexpected EOF while looking for matching");
+		ft_putstr(" `'\")\nbash: syntaxt error: unexpected end of file\n");
+		free(str);
+		hist->y = 0;
+		*ec = 258;
+		historic(hist, str);
+		hist->x++;
+		return (3);
+	}
+}
+
 int		looping(char *str, char c, t_hist *hist, int *ec)
 {
 	if ((int)c == 3)
@@ -74,27 +78,7 @@ int		looping(char *str, char c, t_hist *hist, int *ec)
 	}
 	else
 	{
-		if (!hist->y)
-		{
-			free(str);
-			str = ft_strdup("exit");
-			ft_putstr("exit\n");
-			historic(hist, str);
-			hist->x++;
-			hist->y = 0;
-			return (1);
-		}
-		else
-		{
-			ft_putstr("bash: unexpected EOF while looking for matching");
-			ft_putstr(" `'\")\nbash: syntaxt error: unexpected end of file\n");
-			free(str);
-			hist->y = 0;
-			*ec = 258;
-			historic(hist, str);
-			hist->x++;
-			return (3);
-		}
+		return(loopiding(str, hist, ec));
 	}
 }
 
@@ -106,7 +90,8 @@ int		loop(char *str, t_hist *hist, t_arrow *ar, int *ec)
 	while (1)
 	{
 		read(0, &c, 1);
-		if ((int)c == 3 || ((int)c == 4 && str[0] == 0))
+		if ((int)c == 3 || ((int)c == 4 && (str[0] == 0 ||
+			(hist->y && (str[ft_strlen(str) - 1]) == '\n'))))
 			return (looping(str, c, hist, ec));
 		else if ((int)c == 10)
 		{

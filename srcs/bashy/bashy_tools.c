@@ -12,6 +12,27 @@
 
 #include "minishell.h"
 
+void	historic(t_hist *hist, char *str)
+{
+	int x;
+
+	x = 254;
+	if (!hist->y)
+	{
+		while (x >= 0)
+		{
+			hist->tab[x + 1] = hist->tab[x];
+			x--;
+		}
+		hist->tab[0] = ft_strdup(str);
+	}
+	else
+	{
+		free(hist->tab[0]);
+		hist->tab[0] = ft_strdup(str);
+	}
+}
+
 char	*strdel(char *str, t_arrow *ar)
 {
 	int		x;
@@ -55,34 +76,3 @@ void	endl(char **str, t_arrow *ar, t_hist *hist)
 		wright(ar, *str);
 }
 
-void	wleft(t_arrow *ar, char *str)
-{
-	int len;
-
-	len = ft_strlen(str);
-	if (str[len + ar->x] != ' ' && len + ar->x > 0)
-		left(&str, ar, NULL);
-	while (((str[len + ar->x] == ' ' || str[len + ar->x] == '\n')
-	&& len + ar->x > 0) || ar->x == 0)
-	{
-		left(&str, ar, NULL);
-	}
-	while (str[len + ar->x] != ' ' && len + ar->x > 0)
-	{
-		left(&str, ar, NULL);
-	}
-	if (len + ar->x != 0 || (len + ar->x == 0 && str[0] == ' '))
-		right(&str, ar, NULL);
-}
-
-void	wright(t_arrow *ar, char *str)
-{
-	int len;
-
-	len = ft_strlen(str);
-	while (str[len + ar->x] != ' ' && len + ar->x < len)
-		right(&str, ar, NULL);
-	while ((str[len + ar->x] == ' ' || str[len + ar->x] == '\n')
-	&& len + ar->x < len)
-		right(&str, ar, NULL);
-}
