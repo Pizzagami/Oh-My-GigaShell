@@ -6,7 +6,7 @@
 /*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 15:04:28 by selgrabl          #+#    #+#             */
-/*   Updated: 2021/02/15 14:26:02 by braimbau         ###   ########.fr       */
+/*   Updated: 2021/02/17 16:02:11 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,5 +117,6 @@ void			builtin_exit(t_env *env, char **tab);
 char			*ft_strjoin_sep(char *s1, char *s2, char sep);
 void			delete_unquoted_newlines(char *str, char *quot);
 int				esc_bksl(int *x, int *i, char *str, char *quot);
+int				norm(t_hist *hist, char *str);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 09:59:09 by braimbau          #+#    #+#             */
-/*   Updated: 2021/02/11 22:59:00 by braimbau         ###   ########.fr       */
+/*   Updated: 2021/02/17 15:53:24 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ char	caspe(char c, char **str, t_arrow *ar, t_hist *hist)
 	else if ((int)c == 27)
 	{
 		i = which_case();
-		(i > 0) ? (*fleche_caspe[i])(str, ar, hist) : 0;
+		(i > 2 || (!hist->y && i > 0)) ? (*fleche_caspe[i])(str, ar, hist) : 0;
 	}
 	else if (c > 31 && c < 127)
 		*str = strput(*str, ar, c);
@@ -68,6 +68,8 @@ int		looping(char *str, char c, t_hist *hist, int *ec)
 		ft_putchar('\n');
 		hist->y = 0;
 		*ec = 1;
+		historic(hist, str);
+		hist->x++;
 		return (3);
 	}
 	else
@@ -78,14 +80,21 @@ int		looping(char *str, char c, t_hist *hist, int *ec)
 			str = ft_strdup("exit");
 			ft_putstr("exit\n");
 			historic(hist, str);
+			hist->x++;
+			hist->y = 0;
+			return (1);
 		}
 		else
 		{
 			ft_putstr("bash: unexpected EOF while looking for matching");
-			ft_putstr(" `'\"\nbash: syntaxt error: unexpected end of file");
+			ft_putstr(" `'\")\nbash: syntaxt error: unexpected end of file\n");
+			free(str);
+			hist->y = 0;
+			*ec = 258;
+			historic(hist, str);
+			hist->x++;
+			return (3);
 		}
-		free(str);
-		return (1);
 	}
 }
 
@@ -122,8 +131,13 @@ int		bashy(t_hist *hist, t_arrow *ar, int *ec)
 {
 	char *str;
 
-	str = malloc(sizeof(char) * 1);
-	str[0] = '\0';
+	if (hist->y)
+		str = ft_strjoin_sep(hist->tab[0], "", '\n');
+	else
+	{
+		str = malloc(sizeof(char) * 1);
+		str[0] = '\0';
+	}
 	setcolor(&(hist->cc));
 	if (hist->y)
 		ft_putstr(">\033[0m");

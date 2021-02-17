@@ -6,7 +6,7 @@
 /*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 10:23:00 by braimbau          #+#    #+#             */
-/*   Updated: 2021/02/15 16:02:51 by braimbau         ###   ########.fr       */
+/*   Updated: 2021/02/17 14:55:13 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int		main(int argc, char **argv, char **env)
 	while (1)
 	{
 		all.x = bashy(&all.hist, &all.ar, &last_ret);
-		if (all.x != 3)
+		if (all.x != 3 && all.x != 0)
 		{
 			tcsetattr(0, TCSADRAIN, &all.term.save_cano);
 			all.multi.x = all.x;

@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 11:49:38 by braimbau          #+#    #+#             */
-/*   Updated: 2021/02/16 11:21:33 by braimbau         ###   ########.fr       */
+/*   Updated: 2021/02/17 15:55:33 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,12 @@ char	*rdmstr(int n)
 
 void	nif(int ret, char *str, char fd)
 {
-	(ret != 3) ? ft_putstr_fd(str, fd) : 0;
-	ft_putchar_fd('\n', fd);
-	free(str);
+	if (str)
+	{
+		(ret != 3) ? ft_putstr_fd(str, fd) : 0;
+		ft_putchar_fd('\n', fd);
+		free(str);
+	}
 }
 
 void	set_heredoc(t_redirection *redir, int *ec, int ret, char *str)
@@ -64,7 +67,6 @@ void	set_heredoc(t_redirection *redir, int *ec, int ret, char *str)
 	free(buf);
 	redir->filename = rdmstr(12);
 	fd = open(redir->filename, O_WRONLY | O_CREAT, S_IRWXU);
-	if (str)
-		nif(ret, str, fd);
+	nif(ret, str, fd);
 	close(fd);
 }
