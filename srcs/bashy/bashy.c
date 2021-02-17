@@ -47,6 +47,7 @@ int 	loopiding(char *str, t_hist *hist, int *ec)
 		str = ft_strdup("exit");
 		ft_putstr("exit\n");
 		historic(hist, str);
+		free(str);
 		hist->x++;
 		hist->y = 0;
 		return (1);
@@ -77,20 +78,17 @@ int		looping(char *str, char c, t_hist *hist, int *ec)
 		return (3);
 	}
 	else
-	{
 		return(loopiding(str, hist, ec));
-	}
 }
 
 int		loop(char *str, t_hist *hist, t_arrow *ar, int *ec)
 {
 	char c;
 
-	c = 0;
 	while (1)
 	{
 		read(0, &c, 1);
-		if ((int)c == 3 || ((int)c == 4 && (str[0] == 0 ||
+		if ((int)c == 3 || (((int)c == 4) && (str[0] == 0 ||
 			(hist->y && (str[ft_strlen(str) - 1]) == '\n'))))
 			return (looping(str, c, hist, ec));
 		else if ((int)c == 10)
