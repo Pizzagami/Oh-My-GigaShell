@@ -6,7 +6,7 @@
 /*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 09:59:09 by braimbau          #+#    #+#             */
-/*   Updated: 2021/02/17 15:53:24 by braimbau         ###   ########.fr       */
+/*   Updated: 2021/02/18 08:32:58 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,10 @@ char	caspe(char c, char **str, t_arrow *ar, t_hist *hist)
 	return (c);
 }
 
-int 	loopiding(char *str, t_hist *hist, int *ec)
+int		loopiding(char *str, t_hist *hist, int *ec)
 {
 	if (!hist->y)
-		{
+	{
 		free(str);
 		str = ft_strdup("exit");
 		ft_putstr("exit\n");
@@ -78,7 +78,7 @@ int		looping(char *str, char c, t_hist *hist, int *ec)
 		return (3);
 	}
 	else
-		return(loopiding(str, hist, ec));
+		return (loopiding(str, hist, ec));
 }
 
 int		loop(char *str, t_hist *hist, t_arrow *ar, int *ec)

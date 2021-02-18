@@ -6,7 +6,7 @@
 /*   By: selgrabl <selgrabl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 09:59:09 by braimbau          #+#    #+#             */
-/*   Updated: 2021/02/17 16:04:22 by braimbau         ###   ########.fr       */
+/*   Updated: 2021/02/18 08:33:53 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,4 +75,3 @@ void	endl(char **str, t_arrow *ar, t_hist *hist)
 	while (ft_strlen(*str) + ar->x < ft_strlen(*str))
 		wright(ar, *str);
 }
-
