@@ -6,7 +6,7 @@
 /*   By: braimbau <braimbau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/15 15:24:37 by raimbault         #+#    #+#             */
-/*   Updated: 2021/02/15 15:55:04 by braimbau         ###   ########.fr       */
+/*   Updated: 2021/02/18 09:43:34 by braimbau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int		exec_builtin(char *exec, char **tab, t_env *env)
 		builtin_exit(env, tab);
 		x = 1;
 	}
-	if (i == 1 && *tab)
+	if (i == 1)
 		buitin_echo(tab);
 	return (x);
 }
