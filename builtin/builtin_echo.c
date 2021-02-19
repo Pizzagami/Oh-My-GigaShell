@@ -37,5 +37,5 @@ void	buitin_echo(char **str)
 		x++;
 	}
 	if (n == 0)
-		write(1, "\n", 2);
+		write(1, "\n", 1);
 }
