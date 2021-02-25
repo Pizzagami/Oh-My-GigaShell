@@ -25,7 +25,6 @@ t_andor	*parse_andor2(t_andor *andor, int *ec, t_token *token, t_token *max)
 		andor->brother = parse_andor(token, max, ec);
 	if (andor->brother == NULL && andor->type && *ec == 0)
 	{
-		printf("YO\n");
 		print_error(ec, (token) ? 19 : 7);
 		return (andor);
 	}
